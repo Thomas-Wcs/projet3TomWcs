@@ -8,14 +8,14 @@ class UserManager extends AbstractManager {
   insert(item) {
     return this.database.query(
       `insert into ${this.table} (name, mdp, email) values (?, ?, ?)`,
-      [item.title]
+      [item.name, item.mdp, item.email]
     );
   }
 
   update(item) {
     return this.database.query(
-      `update ${this.table} set name = ? where id = ?`,
-      [item.title, item.id]
+      `update ${this.table} set name = ?, mdp = ?, email = ?, where id = ?`,
+      [item.name, item.mdp, item.email, item.id]
     );
   }
 }
