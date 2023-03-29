@@ -1,4 +1,4 @@
-import Counter from "../components/Counter";
+import UserDisplay from "../components/adminPannel/UserDisplay";
 import logo from "../assets/logo.svg";
 
 export default function Home() {
@@ -7,7 +7,7 @@ export default function Home() {
       <img src={logo} className="App-logo" alt="logo" />
       <p>Hello Vite + React !</p>
 
-      <Counter />
+      <UserDisplay />
 
       <p>
         Edit <code>App.jsx</code> and save to test HMR updates.
