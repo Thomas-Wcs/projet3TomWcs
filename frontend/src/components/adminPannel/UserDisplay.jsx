@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Link } from "react";
 import UserPannel from "./UserPannel";
 
 export default function UserDisplay() {
@@ -32,6 +32,11 @@ export default function UserDisplay() {
           </li>
         ))}
       </ul>
+      <div>
+        <Link to={`/users/${user.id}`}>
+          <UserPannel cupcake={user} />
+        </Link>
+      </div>
     </>
   );
 }

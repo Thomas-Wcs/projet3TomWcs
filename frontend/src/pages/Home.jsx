@@ -1,9 +1,9 @@
-import UserDisplay from "../components/adminPannel/UserDisplay";
+import AdminPanel from "../components/adminPannel/AdminPanel";
 
 export default function Home() {
   return (
     <header className="App-header">
-      <UserDisplay />
+      <AdminPanel />
     </header>
   );
 }

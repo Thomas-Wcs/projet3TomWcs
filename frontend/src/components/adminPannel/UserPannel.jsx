@@ -21,7 +21,7 @@ UserPannel.propTypes = {
 UserPannel.defaultProps = {
   users: {
     name: "Toto",
-    mdr: "mdp",
-    email: "email",
+    mdp: "toto",
+    email: "toto",
   },
 };
