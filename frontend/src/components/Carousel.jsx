@@ -1,6 +1,6 @@
 import React from "react";
 import "./Carousel.css";
-import { Navigation, A11y } from "swiper";
+import { Navigation, Pagination, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ReactPlayer from "react-player";
 
@@ -21,12 +21,15 @@ function Carousel() {
   return (
     <div>
       <Swiper
-        modules={[Navigation, A11y]}
+        modules={[Navigation, Pagination, A11y]}
         spaceBetween={10}
         slidesPerView={1}
         navigation={{
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
+        }}
+        pagination={{
+          clickable: true,
         }}
 
         // onSwiper={(swiper) => console.log(swiper)}
