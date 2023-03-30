@@ -4,7 +4,8 @@ body {
 
 .player-wrapper {
   position: relative;
-  padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+  /* padding-top: 56.25%; Player ratio: 100 / (1280 / 720) */
+  padding-top: 30.25%; /* Player ratio: 100 / (1280 / 720) */
 }
 
 .react-player {
@@ -49,26 +50,46 @@ Breakpoints responsive
   button {
     left: 25%;
   }
+}
 
+@media (min-width: 1440px) and (max-width: 3000px) {
   .slide-captions {
-    top: 44%;
+    top: 40%;
     left: 25%;
-    transform: translateY(-44%);
+    transform: translateY(-28%);
+    margin: 0px;
   }
 }
-@media screen and (max-width: 1440px) {
+
+@media (min-width: 1024px) and (max-width: 1440px) {
   .slide-captions {
-    top: 37%;
+    top: 25%;
+
+    left: 10%;
+    transform: translateY(-25%);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .slide-captions {
+    top: 15%;
+    left: 10%;
+    transform: translateY(-30%);
+  }
+}
+
+@media (min-width: 425px) and (max-width: 1023px) {
+  .slide-captions {
+    top: 17%;
     left: 10%;
     transform: translateY(-37%);
   }
 }
 
-@media screen and (max-width: 768px) {
-  .slide-captions {
-    top: 30%;
-    left: 10%;
-    transform: translateY(-30%);
+@media (min-width: 320px) and (max-width: 1040px) {
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 20px !important; /*Pour que le changement de taille de la flèche du slider soit pris en compte à la place du style définit dans le root sans le mot !important la règle définie dans le root prend le dessus*/
   }
 }
 
