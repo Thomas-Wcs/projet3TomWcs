@@ -1,11 +1,9 @@
-import VideosManagement from "../components/adminPannel/VideosManagement";
-import UserManagement from "../components/adminPannel/UserManagement";
+import AdminPanel from "../components/adminPannel/AdminPanel";
 
 export default function Home() {
   return (
     <header className="App-header">
-      <UserManagement />
-      <VideosManagement />
+      <AdminPanel />
     </header>
   );
 }

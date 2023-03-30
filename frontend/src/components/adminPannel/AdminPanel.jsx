@@ -1,9 +1,13 @@
 import React from "react";
-// // import PageDisplay
-// // import VideosDisplay
-// // import SectionDisplay
-// // import PubDisplay
+import UserManagement from "./UserManagement";
+import VideosManagement from "./VideosManagement";
 
 export default function AdminPanel() {
-  return <div>Hi Admin</div>;
+  return (
+    <div>
+      Hi Admin
+      <UserManagement />
+      <VideosManagement />
+    </div>
+  );
 }

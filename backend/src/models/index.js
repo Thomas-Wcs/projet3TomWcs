@@ -35,8 +35,11 @@ models.item = new ItemManager();
 models.item.setDatabase(pool);
 
 const UserManager = require("./UserManager");
+const VideosManager = require("./VideosManager");
 
 models.user = new UserManager();
+models.videos = new VideosManager();
+models.videos.setDatabase(pool);
 models.user.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,

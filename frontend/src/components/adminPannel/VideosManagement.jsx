@@ -38,11 +38,11 @@ function VideosManagement() {
 
   return (
     <div className="user-management">
-      <h1>Gestion des utilisateurs</h1>
+      <h1>videos</h1>
       {videos.map((video) => (
         <Video
           key={video.id}
-          video={video}
+          videos={video}
           // onManageUser={handleManageUser}
           // onDeleteUser={handleDeleteUser}
         />
