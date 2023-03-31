@@ -30,9 +30,12 @@ pool.getConnection().catch(() => {
 const models = {};
 
 const ItemManager = require("./ItemManager");
+const VideoManager = require("./VideoManager");
 
 models.item = new ItemManager();
+models.video = new VideoManager();
 models.item.setDatabase(pool);
+models.video.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
@@ -55,3 +58,5 @@ const handler = {
 };
 
 module.exports = new Proxy(models, handler);
+
+module.exports = pool;

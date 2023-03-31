@@ -29,5 +29,10 @@
     "concurrently": "^7.6.0",
     "cross-env": "^7.0.3",
     "husky": "^8.0.3"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.22",
+    "react-burger-menu": "^3.0.9",
+    "react-router-dom": "^6.9.0"
   }
 }

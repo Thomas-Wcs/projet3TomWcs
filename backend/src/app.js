@@ -12,6 +12,7 @@ const app = express();
 // use some application-level middlewares
 
 app.use(express.json());
+app.use("/assets/videos", express.static("../public/assets/videos"));
 
 const cors = require("cors");
 
@@ -24,7 +25,7 @@ app.use(
 
 // import and mount the API routes
 
-const router = require("./router");
+const router = require("./routes/index.route");
 
 app.use(router);
 
