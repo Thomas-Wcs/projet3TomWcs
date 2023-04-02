@@ -18,23 +18,23 @@ function VideosManagement() {
   //   // console.log(`Gestion de l'utilisateur ${userId}`);
   // };
 
-  // const handleDeleteUser = (user) => {
-  //   // eslint-disable-next-line no-alert
-  //   const confirmDelete = window.confirm(
-  //     `Êtes-vous sûr de vouloir supprimer l'utilisateur ${user} ?`
-  //   );
+  const handleDeleteVideo = (video) => {
+    // eslint-disable-next-line no-alert
+    const confirmDelete = window.confirm(
+      `Êtes-vous sûr de vouloir supprimer la video${video} ?`
+    );
 
-  //   if (confirmDelete) {
-  //     fetch(`http://localhost:5000/users/${user}`, {
-  //       method: "DELETE",
-  //     })
-  //       .then(() => {
-  //         // eslint-disable-next-line no-alert
-  //         window.alert(`L'utilisateur ${user} a été supprimé avec succès`);
-  //       })
-  //       .catch((error) => console.error(error));
-  //   }
-  // };
+    if (confirmDelete) {
+      fetch(`http://localhost:5000/videos/${video}`, {
+        method: "DELETE",
+      })
+        .then(() => {
+          // eslint-disable-next-line no-alert
+          window.alert(`La video ${video} a été supprimé avec succès`);
+        })
+        .catch((error) => console.error(error));
+    }
+  };
 
   return (
     <div className="user-management">
@@ -44,7 +44,7 @@ function VideosManagement() {
           key={video.id}
           videos={video}
           // onManageUser={handleManageUser}
-          // onDeleteUser={handleDeleteUser}
+          onDeleteVideo={handleDeleteVideo}
         />
       ))}
     </div>

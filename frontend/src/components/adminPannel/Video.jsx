@@ -1,35 +1,37 @@
 import React from "react";
 import PropTypes from "prop-types";
+import ReactPlayer from "react-player";
 
 function Videos(props) {
-  const { videos } = props;
+  const { videos, onDeleteVideo } = props;
 
   // const handleManageUser = () => {
   //   // Appeler une fonction pour gérer les droits de l'utilisateur
   //   onManageUser(user.id);
   // };
 
-  // const handleDeleteUser = () => {
-  //   onDeleteUser(user.id);
-  // };
+  const handleDeleteVideo = () => {
+    onDeleteVideo(videos.id);
+  };
 
   return (
     <div className="user">
       <h2>{videos.titre}</h2>
-      <p>Adresse mail : {videos.lien}</p>
+      <ReactPlayer url={videos.lien} width="100%" height="auto" controls />
       <p>Role : {videos.description_text}</p>
       {/* <button type="button" onClick={handleManageUser}>
         Gérer
-      </button>
-      <button type="button" onClick={handleDeleteUser}>
-        Supprimer
       </button> */}
+      <button type="button" onClick={handleDeleteVideo}>
+        Supprimer
+      </button>
     </div>
   );
 }
 
 Videos.propTypes = {
   videos: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     titre: PropTypes.string.isRequired,
     lien: PropTypes.string.isRequired,
     categorie_id: PropTypes.number.isRequired,
@@ -37,7 +39,7 @@ Videos.propTypes = {
     date_publication: PropTypes.string.isRequired,
   }),
   // onManageUser: PropTypes.func.isRequired,
-  // onDeleteUser: PropTypes.func.isRequired,
+  onDeleteVideo: PropTypes.func.isRequired,
 };
 
 Videos.defaultProps = {
