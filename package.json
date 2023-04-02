@@ -31,6 +31,7 @@
     "husky": "^8.0.3"
   },
   "dependencies": {
+    "@mui/x-data-grid": "^6.0.4",
     "express": "^4.18.2",
     "nodemon": "^2.0.21",
     "react-table": "^7.8.0",

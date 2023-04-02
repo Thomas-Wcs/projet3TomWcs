@@ -34,6 +34,7 @@ export default function DataTable() {
     { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
     { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
   ];
+
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
