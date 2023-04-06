@@ -1,0 +1,22 @@
+.container {
+  width: 200px;
+  height: 500px;
+  background-color: red;
+}
+
+button.react-multiple-carousel__arrow.react-multiple-carousel__arrow--right{
+  left:unset;
+}
+
+.react-multi-carousel-track {
+    list-style: none;
+    margin: 0;
+   padding: revert;
+    display: flex;
+    /* gap:10px; */
+    flex-direction: row;
+    position: relative;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+   
+}

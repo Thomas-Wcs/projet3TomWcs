@@ -1,6 +1,19 @@
+.section-container {
+  margin-top: 75px;
+}
 
-h2{
-  color: white;
-text-align: left;
-/* margin-left: 23%; */
+.section-title {
+  text-align: left;
+  margin-left: 5%;
+  padding: 25px;
+}
+
+.background{
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5),
+    rgba(217, 217, 217, 0.5)
+  ), url("../assets/images/background-slider.png");
+  height: 500px;
+  margin-top: 75px;
 }

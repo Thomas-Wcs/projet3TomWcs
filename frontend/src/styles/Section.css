@@ -1,0 +1,12 @@
+body {
+  /* color: white; */
+}
+
+.movie-title,
+.movie-description {
+  text-align: left;
+}
+
+.movie-text-container{
+  padding: 20px;
+}
