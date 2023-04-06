@@ -12,6 +12,23 @@ export default function DataTable() {
     });
   };
 
+  const deleteUser = async (id) => {
+    // eslint-disable-next-line no-alert
+    const confirmDelete = window.confirm(
+      ` Êtes-vous sûr de vouloir supprimer l'utilisateur ${id} `
+    );
+
+    if (confirmDelete) {
+      await axios.delete(`http://localhost:5000/users/${id}`);
+      getUserData();
+    }
+  };
+
+  const editUser = async (id, updatedValues) => {
+    await axios.patch(`http://localhost:5000/users/${id}`, updatedValues);
+    getUserData(); // Mettre à jour la liste des utilisateurs après configuration
+  };
+
   useEffect(() => {
     getUserData();
   }, []);
@@ -31,12 +48,40 @@ export default function DataTable() {
     },
     {
       field: "fullName",
-      headerName: "Full name",
+      headerName: "Name + Email",
       description: "This column has a value getter and is not sortable.",
       sortable: false,
       width: 160,
       valueGetter: (params) =>
         `${params.row.name || ""} ${params.row.email || ""}`,
+    },
+    {
+      field: "edit",
+      headerName: "Edit",
+      width: 100,
+      renderCell: (params) => (
+        <button
+          type="button"
+          onClick={() =>
+            editUser(params.row.id, {
+              name: "azazzp",
+              email: "nouveau@email.com",
+            })
+          }
+        >
+          Edit
+        </button>
+      ),
+    },
+    {
+      field: "delete",
+      headerName: "Delete",
+      width: 100,
+      renderCell: (params) => (
+        <button type="button" onClick={() => deleteUser(params.row.id)}>
+          Delete
+        </button>
+      ),
     },
   ];
 
@@ -47,7 +92,7 @@ export default function DataTable() {
   }));
 
   return (
-    <div style={{ height: 400, width: "100%", margin: 150 }}>
+    <div style={{ height: 400, width: "80%", margin: 50 }}>
       <DataGrid
         rows={rows}
         columns={columns}

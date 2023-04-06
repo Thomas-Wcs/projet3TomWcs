@@ -1,13 +1,12 @@
 import React from "react";
 import "../../styles/AdminPannel.css";
-import UserManagement from "./UserManagement";
 import DataTable from "./DataTable";
+// import VideosManagement from "./VideosManagement";
 
 export default function AdminPanel() {
   return (
     <div className="admin-pannel">
-      Hi Admin
-      <UserManagement />
+      {/* <VideosManagement /> */}
       <DataTable />
     </div>
   );
