@@ -5,21 +5,22 @@ class VideoManager extends AbstractManager {
     super({ table: "videos" });
   }
 
+  findAll() {
+    return this.database.query(`select * from  ${this.table}`);
+  }
+
   insert(videos) {
-    return this.database.query(`insert into ${this.table} (name) values (?)`, [
-      videos.name,
-    ]);
+    return this.database.query(
+      `insert into ${this.table} (titre, lien, description_text, ) values (?, ?, ?)`,
+      [videos.name]
+    );
   }
 
   update(videos) {
     return this.database.query(
-      `update ${this.table} set name = ? where id = ?`,
+      `update ${this.table} set titre = ? where id = ?`,
       [videos.name, videos.id]
     );
-  }
-
-  findAll() {
-    return this.database.query(`select * from  ${this.table}`);
   }
 }
 

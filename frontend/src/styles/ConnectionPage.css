@@ -17,6 +17,7 @@ h2 {
   height: 100vh;
   font-family: "PT Sans", sans-serif;
   padding-bottom: 60px;
+  z-index: 0;
 }
 
 .connection-bg {
@@ -26,7 +27,7 @@ h2 {
   top: 0;
   width: 100%;
   height: auto;
-  z-index: 0;
+  z-index: -300;
 }
 
 .user-input {
