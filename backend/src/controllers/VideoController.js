@@ -1,4 +1,3 @@
-// const Joi = require("joi");
 const models = require("../models");
 
 const browse = (req, res) => {
@@ -31,14 +30,6 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const videos = req.body;
-
-  // const videoSchema = Joi.object({
-  //   titre: Joi.string().max(100).require(),
-  //   description_text: Joi.string().max(100).require(),
-  //   lien: Joi.pattern(
-  //     /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
-  //   ),
-  // });
 
   videos.id = parseInt(req.params.id, 10);
 

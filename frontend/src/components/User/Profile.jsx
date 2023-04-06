@@ -8,7 +8,6 @@ import "react-multi-carousel/lib/styles.css";
 
 export default function Profile() {
   const [data, setData] = useState([]);
-  // console.log(data);
 
   useEffect(() => {
     axios
@@ -18,7 +17,6 @@ export default function Profile() {
 
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 4,
     },

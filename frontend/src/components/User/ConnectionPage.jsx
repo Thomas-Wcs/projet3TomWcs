@@ -5,7 +5,6 @@ export default function ConnectionPage() {
   const [mail, setMail] = useState("");
   const [mdp, setMdp] = useState("");
   const [newUser, setNewUser] = useState("");
-  // const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
   return (
     <div id="connection">
@@ -32,13 +31,6 @@ export default function ConnectionPage() {
         value={mdp}
         onChange={(e) => setMdp(e.target.value)}
       />
-      {/* <button
-        id="show-password"
-        type="button"
-        onClick={() => setPasswordIsVisible(!passwordIsVisible)}
-      >
-        <img src="../../assets/eye_open.png" alt="eye_open" />
-      </button> */}
       <button type="button" className="user-button">
         Connexion
       </button>
