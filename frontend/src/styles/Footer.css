@@ -1,0 +1,30 @@
+.footer {
+  color: grey;
+  padding: 2rem 1rem;
+  font-size: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: grey;
+}
+
+.footer_socials {
+  margin-left: -0.2rem;
+  padding: 1rem 0;
+}
+
+.footer-social {
+  margin-right: 1.1rem;
+}
+
+.footer_links {
+  display: flex;
+  flex-wrap: wrap; /* Ajout d'un point-virgule manquant */
+  list-style: none;
+}
+
+.footer_link {
+  flex: 1 0 25%;
+  margin-bottom: 1.1rem; /* Correction de l'orthographe de margin-bottom */
+}
