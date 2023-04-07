@@ -1,6 +1,7 @@
 import "../../styles/Header.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState } from "react";
+import AdminPanel from "../adminPannel/AdminPanel";
 import Profile from "../User/Profile";
 import Home from "../../pages/Home";
 import ConnectionPage from "../User/ConnectionPage";
@@ -39,16 +40,16 @@ export default function Header2() {
               </form>
               <div className="menu-items">
                 <li>
-                  {" "}
                   <Link to="/">Home</Link>
                 </li>
                 <li>
-                  {" "}
-                  <Link to="/connexion">Connexion</Link>{" "}
+                  <Link to="/connexion">Connexion</Link>
                 </li>
                 <li>
-                  {" "}
-                  <Link to="/profile">Profile</Link>{" "}
+                  <Link to="/profile">Profile</Link>
+                </li>
+                <li>
+                  <Link to="/adminPanel">Admin Pannel</Link>
                 </li>
               </div>
             </div>
@@ -60,6 +61,7 @@ export default function Header2() {
         <Route path="/" element={<Home />} />
         <Route path="/connexion" element={<ConnectionPage />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/adminPanel" element={<AdminPanel />} />
       </Routes>
     </Router>
   );

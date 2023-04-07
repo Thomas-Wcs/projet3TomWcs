@@ -92,7 +92,7 @@ export default function DataTable() {
   }));
 
   return (
-    <div style={{ height: 400, width: "80%", margin: 50 }}>
+    <div style={{ height: 700, width: "80%", margin: 50 }}>
       <DataGrid
         rows={rows}
         columns={columns}
