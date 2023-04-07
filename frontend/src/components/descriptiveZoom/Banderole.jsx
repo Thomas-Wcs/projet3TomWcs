@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../styles/Banderole.css";
+import "../../styles/Banderole.css";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import InfoIcon from "@mui/icons-material/Info";
 import Zoom from "./Zoom";

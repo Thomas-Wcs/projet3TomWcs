@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/Zoom.css";
+import "../../styles/Zoom.css";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 function Zoom() {
