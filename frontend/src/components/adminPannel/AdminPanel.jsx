@@ -3,11 +3,19 @@ import "../../styles/AdminPannel.css";
 import { Link, Route, Routes } from "react-router-dom";
 import DataTable from "./DataTable";
 import VideosManagement from "./VideosManagement";
+import monImage from "../../assets/imagedemo.png";
 
 export default function AdminPanel() {
   return (
     <div className="admin-pannel">
       <div className="display-nav-admin">
+        <div className="user-connected">
+          <img src={monImage} alt="Profil de l'utilisateur" />
+          <p>INFORMATIONS</p>
+          <p>Admin-Thomas@admin.com</p>
+          <button type="button">DECONNEXION</button>
+        </div>
+        <h1>Panneau d'administration</h1>
         <nav>
           <ul>
             <li>

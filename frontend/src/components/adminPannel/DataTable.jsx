@@ -99,6 +99,7 @@ export default function DataTable() {
         pageSize={1}
         rowsPerPageOptions={1}
         checkboxSelection
+        style={{ backgroundColor: "grey", margin: "4em 15em" }}
       />
     </div>
   );
