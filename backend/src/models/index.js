@@ -32,7 +32,6 @@ const models = {};
 const VideoManager = require("./VideoManager");
 
 models.video = new VideoManager();
-models.item.setDatabase(pool);
 models.video.setDatabase(pool);
 
 const UserManager = require("./UserManager");
