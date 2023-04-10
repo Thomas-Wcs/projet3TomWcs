@@ -49,7 +49,7 @@ export default function Header() {
                   <Link to="/profile">Profile</Link>
                 </li>
                 <li>
-                  <Link to="/adminPanel">Admin Pannel</Link>
+                  <Link to="/adminPanel">Admin Panel</Link>
                 </li>
               </div>
             </div>
@@ -61,7 +61,7 @@ export default function Header() {
         <Route path="/" element={<Home />} />
         <Route path="/connexion" element={<ConnectionPage />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/adminPanel" element={<AdminPanel />} />
+        <Route path="/adminPanel/*" element={<AdminPanel />} />
       </Routes>
     </Router>
   );
