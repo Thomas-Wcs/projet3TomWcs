@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ReactPlayer from "react-player";
 
 function Videos(props) {
   const { videos, onDeleteVideo } = props;
@@ -17,7 +16,6 @@ function Videos(props) {
   return (
     <div className="user">
       <h2>{videos.titre}</h2>
-      <ReactPlayer url={videos.lien} width="100%" height="auto" controls />
       <p>Role : {videos.description_text}</p>
       {/* <button type="button" onClick={handleManageUser}>
         Gérer

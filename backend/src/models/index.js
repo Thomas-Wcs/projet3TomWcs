@@ -29,10 +29,8 @@ pool.getConnection().catch(() => {
 
 const models = {};
 
-const ItemManager = require("./ItemManager");
 const VideoManager = require("./VideoManager");
 
-models.item = new ItemManager();
 models.video = new VideoManager();
 models.item.setDatabase(pool);
 models.video.setDatabase(pool);
