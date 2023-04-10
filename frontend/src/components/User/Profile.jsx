@@ -53,6 +53,7 @@ export default function Profile() {
       >
         {data.map((item) => (
           <ReactPlayer
+            key={item.id}
             url={item.lien}
             width="100%"
             controls

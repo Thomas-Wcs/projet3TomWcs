@@ -6,7 +6,7 @@ import Profile from "../User/Profile";
 import Home from "../../pages/Home";
 import ConnectionPage from "../User/ConnectionPage";
 
-export default function Header2() {
+export default function Header() {
   const [isSearchClosed, setIsSearchClosed] = useState(false);
 
   function expand() {
@@ -15,7 +15,7 @@ export default function Header2() {
 
   return (
     <Router>
-      <body>
+      <div>
         <nav>
           <div className="navbar">
             <div className="container nav-container">
@@ -55,7 +55,7 @@ export default function Header2() {
             </div>
           </div>
         </nav>
-      </body>
+      </div>
 
       <Routes>
         <Route path="/" element={<Home />} />

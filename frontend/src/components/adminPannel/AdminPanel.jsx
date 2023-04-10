@@ -1,7 +1,6 @@
 import React from "react";
 import "../../styles/AdminPannel.css";
-import { Link, Route, Switch } from "react-router-dom";
-// import { Switch } from "react-router";
+import { Link, Route, Routes } from "react-router-dom";
 import DataTable from "./DataTable";
 import VideosManagement from "./VideosManagement";
 
@@ -21,10 +20,10 @@ export default function AdminPanel() {
         </nav>
       </div>
 
-      <Switch>
-        <Route path="/admin/usersTable" component={DataTable} />
-        <Route path="/admin/videosTable" component={VideosManagement} />
-      </Switch>
+      <Routes>
+        <Route path="/admin/usersTable" component={<DataTable />} />
+        <Route path="/admin/videosTable" component={<VideosManagement />} />
+      </Routes>
 
       {/* <div className="user-pannel">
         <VideosManagement />
