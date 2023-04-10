@@ -11,19 +11,21 @@ export default function AdminPanel() {
         <nav>
           <ul>
             <li>
-              <Link to="/admin/usersTable">Users</Link>
+              <Link to="/adminPannel/usersTable">Users</Link>
             </li>
             <li>
-              <Link to="/admin/videosTable">Videos</Link>
+              <Link to="/adminPannel/videosTable">Videos</Link>
             </li>
           </ul>
         </nav>
       </div>
 
-      <Routes>
-        <Route path="/admin/usersTable" component={<DataTable />} />
-        <Route path="/admin/videosTable" component={<VideosManagement />} />
-      </Routes>
+      <div>
+        <Routes path="adminPannel/*">
+          <Route path="usersTable" element={<DataTable />} />
+          <Route path="videosTable" element={<VideosManagement />} />
+        </Routes>
+      </div>
 
       {/* <div className="user-pannel">
         <VideosManagement />
