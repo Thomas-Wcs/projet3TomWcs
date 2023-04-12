@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap%22");
-
-=======
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
->>>>>>> 0d80d998df1abe355cdbc927309a3dce0ada7c75
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -213,8 +210,100 @@
   transition-delay: 0.4s, 0s, 0.4s;
   transform: translate(-100%, -50%) translateY(13%);
 }
+
+h2 {
+  color: white;
+  letter-spacing: 2px;
+  opacity: 1;
+  z-index: 10;
+}
+
+#connection {
+  background: rgba(0, 0, 0, 0.8);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: "PT Sans", sans-serif;
+  padding-bottom: 60px;
+  z-index: 0;
+  width: 100%;
+}
+#connection .connection-bg {
+  opacity: 0.2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  z-index: -300;
+}
+#connection .user-input {
+  height: 50px;
+  width: 33%;
+  opacity: 1;
+  color: rgb(255, 255, 255);
+  margin-bottom: 10px;
+  z-index: 10;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  background: rgba(255, 255, 255, 0.197);
+  font-family: "PT sans", sans-serif;
+  padding-left: 20px;
+}
+#connection .user-input::-moz-placeholder {
+  color: rgb(255, 255, 255);
+  opacity: 10;
+  z-index: 30;
+}
+#connection .user-input::placeholder {
+  color: rgb(255, 255, 255);
+  opacity: 10;
+  z-index: 30;
+}
 @media screen and (max-width: 760px) {
-  #nav-body .navbar #content .square {
-    width: 100px;
+  #connection .user-input {
+    width: 600px;
+    font-size: 1.7rem;
+    margin-bottom: 20px;
+    height: 65px;
   }
-}/*# sourceMappingURL=Header.css.map */
+}
+#connection .user-button {
+  background: none;
+  border: 1px solid #10bcdd;
+  color: #10bcdd;
+  width: 15%;
+  height: 50px;
+  z-index: 10;
+  font-family: "PT Sans", sans-serif;
+}
+#connection .user-button:hover {
+  cursor: pointer;
+  z-index: 10;
+  background: #10bcdd;
+  color: black;
+}
+
+#profile {
+  font-family: "PT Sans";
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 40px;
+  padding-top: 3%;
+  height: 100vh;
+  background: rgb(0, 0, 0);
+}
+#profile .react-multi-carousel-list {
+  width: 100%;
+}
+#profile .react-multi-carousel-list .video-div {
+  height: 100%;
+  width: 300px;
+}
+#profile .section-title {
+  height: 40px;
+}/*# sourceMappingURL=index.css.map */

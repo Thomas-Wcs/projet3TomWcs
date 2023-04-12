@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+
 #profile {
   font-family: "PT Sans";
   display: flex;
@@ -7,14 +8,15 @@
   padding-top: 3%;
   height: 100vh;
   background: rgb(0, 0, 0);
+  .react-multi-carousel-list {
+    width: 100%;
+    .video-div {
+      height: 100%;
+      width: 300px;
+    }
+  }
+
+  .section-title {
+    height: 40px;
+  }
 }
-#profile .react-multi-carousel-list {
-  width: 100%;
-}
-#profile .react-multi-carousel-list .video-div {
-  height: 100%;
-  width: 300px;
-}
-#profile .section-title {
-  height: 40px;
-}/*# sourceMappingURL=Profile.css.map */

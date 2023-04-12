@@ -1,4 +1,4 @@
-import "../../styles/Profile.css";
+import "../../styles/index.css";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -54,7 +54,7 @@ export default function Profile() {
         {data.map((item) => (
           <ReactPlayer
             key={item.id}
-            url={`http://localhost:5000/${item.lien}`}
+            url={item.lien}
             width="100%"
             controls
             className="video-div"
@@ -80,7 +80,7 @@ export default function Profile() {
         {data.map((item) => (
           <ReactPlayer
             key={item.id}
-            url={item.lien}
+            // url={item.lien}
             width="100%"
             controls
             className="video-div"
