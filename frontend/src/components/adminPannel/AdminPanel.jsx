@@ -36,7 +36,6 @@ export default function AdminPanel() {
           </ul>
         </nav>
       </div>
-
       <div className="display-admin-pannel">
         <Routes path="*">
           <Route path="usersTable" element={<DataTable />} />

@@ -93,13 +93,20 @@ export default function DataTable() {
 
   return (
     <div style={{ height: 700, width: "80%", margin: 50 }}>
+      <h1>Users</h1>
       <DataGrid
         rows={rows}
         columns={columns}
         pageSize={1}
         rowsPerPageOptions={1}
         checkboxSelection
-        style={{ backgroundColor: "grey", margin: "4em 15em" }}
+        style={{
+          backgroundColor: "grey",
+          margin: "1em",
+          fontSize: "18px",
+          with: "100%",
+          buttonColor: "red",
+        }}
       />
     </div>
   );

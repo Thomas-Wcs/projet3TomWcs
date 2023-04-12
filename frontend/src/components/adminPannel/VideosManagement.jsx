@@ -38,7 +38,7 @@ function VideosManagement() {
 
   return (
     <div className="user-management">
-      <h1>videos</h1>
+      <h1>Videos</h1>
       {videos.map((video) => (
         <Video
           key={video.id}

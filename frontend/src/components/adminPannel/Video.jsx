@@ -4,22 +4,15 @@ import PropTypes from "prop-types";
 function Videos(props) {
   const { videos, onDeleteVideo } = props;
 
-  // const handleManageUser = () => {
-  //   // Appeler une fonction pour gérer les droits de l'utilisateur
-  //   onManageUser(user.id);
-  // };
-
   const handleDeleteVideo = () => {
     onDeleteVideo(videos.id);
   };
 
   return (
-    <div className="user">
+    <div className="admin-videos" style={{ backgroundColor: "grey" }}>
       <h2>{videos.titre}</h2>
-      <p>Role : {videos.description_text}</p>
-      {/* <button type="button" onClick={handleManageUser}>
-        Gérer
-      </button> */}
+      <div>{videos.lien} </div>
+      <p>Date d'ajout: {videos.date_publication}</p>
       <button type="button" onClick={handleDeleteVideo}>
         Supprimer
       </button>

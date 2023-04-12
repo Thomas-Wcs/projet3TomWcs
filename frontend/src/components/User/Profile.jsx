@@ -54,7 +54,7 @@ export default function Profile() {
         {data.map((item) => (
           <ReactPlayer
             key={item.id}
-            url={item.lien}
+            url={`http://localhost:5000/${item.lien}`}
             width="100%"
             controls
             className="video-div"
