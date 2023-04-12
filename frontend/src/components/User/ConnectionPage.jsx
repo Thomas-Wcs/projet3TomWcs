@@ -1,4 +1,4 @@
-import "../../styles/ConnectionPage.css";
+import "../../styles/index.css";
 import { useState } from "react";
 
 export default function ConnectionPage() {
