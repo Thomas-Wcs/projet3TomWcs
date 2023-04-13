@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+
 #profile {
   font-family: "PT Sans";
   display: flex;
@@ -17,4 +18,4 @@
 }
 #profile .section-title {
   height: 40px;
-}/*# sourceMappingURL=Profile.css.map */
+} /*# sourceMappingURL=Profile.css.map */
