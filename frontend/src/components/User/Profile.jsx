@@ -53,10 +53,11 @@ export default function Profile() {
       >
         {data.map((item) => (
           <ReactPlayer
+            key={item.id}
+            url={`${import.meta.env.VITE_BACKEND_URL}${item.lien}`}
             width="100%"
             controls
             className="video-div"
-            key={item.id}
           />
         ))}
       </Carousel>
@@ -79,7 +80,7 @@ export default function Profile() {
         {data.map((item) => (
           <ReactPlayer
             key={item.id}
-            // url={item.lien}
+            url={`${import.meta.env.VITE_BACKEND_URL}${item.lien}`}
             width="100%"
             controls
             className="video-div"
