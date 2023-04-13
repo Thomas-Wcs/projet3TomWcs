@@ -47,22 +47,24 @@ export default function Header() {
             </form>
             <div className="menu-items">
               <li>
-                {" "}
                 <Link to="/" onClick={() => handleLinkClick()}>
                   Home
                 </Link>
               </li>
               <li>
-                {" "}
                 <Link to="/connexion" onClick={() => handleLinkClick()}>
                   Connexion
-                </Link>{" "}
+                </Link>
               </li>
               <li>
-                {" "}
                 <Link to="/profile" onClick={() => handleLinkClick()}>
                   Profile
-                </Link>{" "}
+                </Link>
+              </li>
+              <li>
+                <Link to="/adminPanel/*" onClick={() => handleLinkClick()}>
+                  Admin
+                </Link>
               </li>
             </div>
           </div>
