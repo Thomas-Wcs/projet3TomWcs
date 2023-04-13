@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 
 #connection {
-  background: rgba(0, 0, 0, 0.8);
+  background: #000000;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -13,9 +13,10 @@
   padding-bottom: 60px;
   z-index: 0;
   width: 100%;
+  gap: 25px;
 }
 #connection h2 {
-  color: white;
+  color: #ffffff;
   letter-spacing: 2px;
   opacity: 1;
   z-index: 10;
@@ -28,12 +29,21 @@
   width: 100%;
   height: auto;
   z-index: -300;
+  -o-object-fit: center;
+  object-fit: center;
+}
+@media screen and (max-width: 760px) {
+  #connection .connection-bg {
+    -o-object-fit: fill;
+    object-fit: fill;
+    height: 100%;
+  }
 }
 #connection .user-input {
   height: 50px;
   width: 33%;
   opacity: 1;
-  color: rgb(255, 255, 255);
+  color: #ffffff;
   margin-bottom: 10px;
   z-index: 10;
   font-size: 1.2rem;
@@ -43,28 +53,28 @@
   padding-left: 20px;
 }
 #connection .user-input::-moz-placeholder {
-  color: rgb(255, 255, 255);
+  color: #ffffff;
   opacity: 10;
   z-index: 30;
 }
 #connection .user-input::placeholder {
-  color: rgb(255, 255, 255);
+  color: #ffffff;
   opacity: 10;
   z-index: 30;
 }
 @media screen and (max-width: 760px) {
   #connection .user-input {
     width: 70%;
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin-bottom: 20px;
-    height: 50px;
+    height: 65px;
   }
 }
 #connection .user-button {
   background: none;
   border: 1px solid #10bcdd;
   color: #10bcdd;
-  width: 20%;
+  width: 15%;
   height: 50px;
   z-index: 10;
   font-family: "PT Sans", sans-serif;
@@ -73,5 +83,12 @@
   cursor: pointer;
   z-index: 10;
   background: #10bcdd;
-  color: black;
+  color: #000000;
+}
+@media screen and (max-width: 760px) {
+  #connection .user-button {
+    width: 70%;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
 } /*# sourceMappingURL=ConnectionPage.css.map */
