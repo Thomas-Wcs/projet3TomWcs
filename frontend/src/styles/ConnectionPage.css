@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
-
 #connection {
   background: #000000;
   position: relative;
@@ -29,12 +28,10 @@
   width: 100%;
   height: auto;
   z-index: -300;
-  -o-object-fit: center;
   object-fit: center;
 }
 @media screen and (max-width: 760px) {
   #connection .connection-bg {
-    -o-object-fit: fill;
     object-fit: fill;
     height: 100%;
   }
@@ -51,11 +48,6 @@
   background: rgba(255, 255, 255, 0.197);
   font-family: "PT sans", sans-serif;
   padding-left: 20px;
-}
-#connection .user-input::-moz-placeholder {
-  color: #ffffff;
-  opacity: 10;
-  z-index: 30;
 }
 #connection .user-input::placeholder {
   color: #ffffff;
@@ -91,4 +83,4 @@
     font-size: 1.2rem;
     margin-bottom: 20px;
   }
-} /*# sourceMappingURL=ConnectionPage.css.map */
+}/*# sourceMappingURL=ConnectionPage.css.map */

@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+.admin-pannel {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(0, 0, 0);
+}
+.admin-pannel h1 {
+  display: flex;
+  color: #10bcdd;
+  justify-content: center;
+  padding: 2%;
+}
+
+.display-nav-admin ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: auto;
+  height: auto;
+  margin: 30px;
+  padding: 20px;
+  color: azure;
+  list-style-type: none;
+  font-size: 18px;
+  font-family: "PT Sans";
+}
+.display-nav-admin ul li {
+  transition: 0.3s ease-in-out;
+}
+.display-nav-admin ul li:hover {
+  transform: scale(1.1);
+}
+.display-nav-admin ul li a {
+  text-decoration: none;
+  color: #10bcdd;
+  transition: 0.3s ease-in-out;
+  border: solid 2px;
+  border-radius: 5%;
+  padding: 10px 30px;
+  margin: 10px;
+}
+.display-nav-admin ul li a:hover {
+  background-color: rgb(85, 85, 85);
+  opacity: 1.4;
+  transform: scale(1.1);
+}
+
+.user-connected {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: left;
+  color: #10bcdd;
+  justify-content: center;
+  padding: 2%;
+}
+.user-connected p:first-of-type {
+  margin: 0.5em 0 0.5em 0;
+  color: rgb(146, 145, 145);
+}
+.user-connected button {
+  width: 150px;
+  margin: 1em 0 1em 0;
+  padding: 0.5em;
+  color: #10bcdd;
+  background-color: black;
+  border-color: #10bcdd;
+  align-items: end;
+  overflow: hidden;
+}
+.user-connected img {
+  width: 4em;
+  margin: 1em;
+}
+
+.display-admin-pannel {
+  width: 100%;
+}
+
+@media screen and (max-width: 369px) {
+  .admin-pannel {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(0, 0, 0);
+  }
+  .display-nav-admin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+  }
+}/*# sourceMappingURL=AdminPanel2.css.map */
