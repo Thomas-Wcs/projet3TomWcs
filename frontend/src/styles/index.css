@@ -9,13 +9,13 @@
 
 #nav-body {
   font-family: "PT Sans", sans-serif;
-  background: black;
+  background: #000000;
   z-index: 6;
 }
 #nav-body .navbar {
   width: 100%;
   box-shadow: 0 1px 4px rgb(0, 0, 0);
-  color: white;
+  color: #ffffff;
   background-color: black;
   position: relative;
 }
@@ -25,9 +25,9 @@
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
   height: 100vh;
-  width: 99vw;
+  width: 100vw;
   transform: translateX(-150%) translateY(50%);
-  z-index: 40000;
+  z-index: 500;
   display: flex;
   flex-direction: column;
   margin-top: 3%;
@@ -44,7 +44,7 @@
   text-align: center;
 }
 #nav-body .navbar .menu-items li a {
-  color: white;
+  color: #ffffff;
   text-decoration: none;
   transition: transform 0.4s ease-in-out;
 }
@@ -127,7 +127,7 @@
   border: 4px solid #ffffff;
   border-radius: 50%;
   background: none;
-  color: #fff;
+  color: #ffffff;
   font-size: 16px;
   font-weight: 400;
   font-family: Roboto;
@@ -157,7 +157,7 @@
   position: absolute;
   width: 20px;
   height: 4px;
-  background-color: #fff;
+  background-color: #ffffff;
   transform: rotate(45deg);
   margin-top: 14px;
   margin-left: 11px;
@@ -175,7 +175,7 @@
   height: 4px;
   margin-top: -1px;
   margin-left: -13px;
-  background-color: #fff;
+  background-color: #ffffff;
   transform: rotate(45deg);
   transition: 0.2s ease-in-out;
 }
@@ -184,7 +184,7 @@
   position: absolute;
   width: 27px;
   height: 4px;
-  background-color: #fff;
+  background-color: #ffffff;
   margin-top: -1px;
   margin-left: -13px;
   cursor: pointer;
@@ -198,7 +198,7 @@
   border: 4px solid #ffffff;
   border-radius: 15px;
   background: none;
-  color: #fff;
+  color: #ffffff;
   font-family: "PT Sans";
   font-size: 16px;
   font-weight: 600;
@@ -210,16 +210,14 @@
   transition-delay: 0.4s, 0s, 0.4s;
   transform: translate(-100%, -50%) translateY(13%);
 }
-
-h2 {
-  color: white;
-  letter-spacing: 2px;
-  opacity: 1;
-  z-index: 10;
+@media screen and (max-width: 760px) {
+  #nav-body .navbar #content .square {
+    width: 200px;
+  }
 }
 
 #connection {
-  background: rgba(0, 0, 0, 0.8);
+  background: #000000;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -231,6 +229,13 @@ h2 {
   padding-bottom: 60px;
   z-index: 0;
   width: 100%;
+  gap: 25px;
+}
+#connection h2 {
+  color: #ffffff;
+  letter-spacing: 2px;
+  opacity: 1;
+  z-index: 10;
 }
 #connection .connection-bg {
   opacity: 0.2;
@@ -240,12 +245,21 @@ h2 {
   width: 100%;
   height: auto;
   z-index: -300;
+  -o-object-fit: center;
+     object-fit: center;
+}
+@media screen and (max-width: 760px) {
+  #connection .connection-bg {
+    -o-object-fit: fill;
+       object-fit: fill;
+    height: 100%;
+  }
 }
 #connection .user-input {
   height: 50px;
   width: 33%;
   opacity: 1;
-  color: rgb(255, 255, 255);
+  color: #ffffff;
   margin-bottom: 10px;
   z-index: 10;
   font-size: 1.2rem;
@@ -255,19 +269,19 @@ h2 {
   padding-left: 20px;
 }
 #connection .user-input::-moz-placeholder {
-  color: rgb(255, 255, 255);
+  color: #ffffff;
   opacity: 10;
   z-index: 30;
 }
 #connection .user-input::placeholder {
-  color: rgb(255, 255, 255);
+  color: #ffffff;
   opacity: 10;
   z-index: 30;
 }
 @media screen and (max-width: 760px) {
   #connection .user-input {
-    width: 600px;
-    font-size: 1.7rem;
+    width: 70%;
+    font-size: 1.2rem;
     margin-bottom: 20px;
     height: 65px;
   }
@@ -285,7 +299,14 @@ h2 {
   cursor: pointer;
   z-index: 10;
   background: #10bcdd;
-  color: black;
+  color: #000000;
+}
+@media screen and (max-width: 760px) {
+  #connection .user-button {
+    width: 70%;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
 }
 
 #profile {
@@ -295,7 +316,7 @@ h2 {
   padding-left: 40px;
   padding-top: 3%;
   height: 100vh;
-  background: rgb(0, 0, 0);
+  background: #000000;
 }
 #profile .react-multi-carousel-list {
   width: 100%;

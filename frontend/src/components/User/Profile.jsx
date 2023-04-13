@@ -53,7 +53,6 @@ export default function Profile() {
       >
         {data.map((item) => (
           <ReactPlayer
-            // url={item.lien}
             width="100%"
             controls
             className="video-div"
