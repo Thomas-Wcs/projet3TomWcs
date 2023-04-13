@@ -33,9 +33,6 @@ export default function DataTable() {
     getUserData();
   }, []);
 
-  // eslint-disable-next-line no-restricted-syntax
-  // console.log(data);
-
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
     { field: "name", headerName: "First name", width: 130 },

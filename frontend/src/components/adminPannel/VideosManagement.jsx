@@ -8,15 +8,10 @@ function VideosManagement() {
     fetch("http://localhost:5000/videos")
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
         setVideos(data);
       })
       .catch((error) => console.error(error));
   }, []);
-
-  // const handleManageUser = () => {
-  //   // console.log(`Gestion de l'utilisateur ${userId}`);
-  // };
 
   const handleDeleteVideo = (video) => {
     // eslint-disable-next-line no-alert
@@ -43,7 +38,6 @@ function VideosManagement() {
         <Video
           key={video.id}
           videos={video}
-          // onManageUser={handleManageUser}
           onDeleteVideo={handleDeleteVideo}
         />
       ))}
