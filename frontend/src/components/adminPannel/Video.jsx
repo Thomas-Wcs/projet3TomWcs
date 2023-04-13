@@ -29,7 +29,6 @@ Videos.propTypes = {
     description_text: PropTypes.string.isRequired,
     date_publication: PropTypes.string.isRequired,
   }),
-  // onManageUser: PropTypes.func.isRequired,
   onDeleteVideo: PropTypes.func.isRequired,
 };
 
