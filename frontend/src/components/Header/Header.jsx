@@ -1,66 +1,75 @@
-import "../../styles/Header.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { useState } from "react";
-import Profile from "../User/Profile";
-import Home from "../../pages/Home";
-import ConnectionPage from "../User/ConnectionPage";
+import "../../styles/index.css";
+import { Link } from "react-router-dom";
+import { useState, useRef } from "react";
 
-export default function Header2() {
+export default function Header() {
   const [isSearchClosed, setIsSearchClosed] = useState(false);
+
+  const checkboxRef = useRef();
 
   function expand() {
     setIsSearchClosed(!isSearchClosed);
   }
 
+  function handleLinkClick() {
+    checkboxRef.current.checked = false;
+  }
+
   return (
-    <Router>
-      <body>
-        <nav>
-          <div className="navbar">
-            <div className="container nav-container">
-              <input className="checkbox" type="checkbox" name="" id="" />
-              <div className="hamburger-lines">
-                <span className="line line1" />
-                <span className="line line2" />
-                <span className="line line3" />
-              </div>
-              <form id="content">
-                <input
-                  type="text"
-                  name="input"
-                  className={`input ${isSearchClosed ? "square" : ""}`}
-                />
-                <button
-                  type="button"
-                  className={`search ${isSearchClosed ? "close" : ""}`}
-                  onClick={expand}
-                  aria-label="search"
-                />
-              </form>
-              <div className="menu-items">
-                <li>
-                  {" "}
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  {" "}
-                  <Link to="/connexion">Connexion</Link>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <Link to="/profile">Profile</Link>{" "}
-                </li>
-              </div>
+    <div id="nav-body">
+      <nav>
+        <div className="navbar">
+          <div className="container nav-container">
+            <input
+              className="checkbox"
+              type="checkbox"
+              name=""
+              id=""
+              ref={checkboxRef}
+            />
+            <div className="hamburger-lines">
+              <span className="line line1" />
+              <span className="line line2" />
+              <span className="line line3" />
+            </div>
+            <form id="content">
+              <input
+                type="text"
+                name="input"
+                className={`input ${isSearchClosed ? "square" : ""}`}
+              />
+              <button
+                type="button"
+                className={`search ${isSearchClosed ? "close" : ""}`}
+                onClick={expand}
+                aria-label="search"
+              />
+            </form>
+            <div className="menu-items">
+              <li>
+                <Link to="/" onClick={() => handleLinkClick()}>
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/connexion" onClick={() => handleLinkClick()}>
+                  Connexion
+                </Link>
+              </li>
+              <li>
+                <Link to="/profile" onClick={() => handleLinkClick()}>
+                  Profile
+                </Link>
+              </li>
+              <li>
+                <Link to="/adminPanel/*" onClick={() => handleLinkClick()}>
+                  Admin
+                </Link>
+              </li>
             </div>
           </div>
-        </nav>
-      </body>
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/connexion" element={<ConnectionPage />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </Router>
+        </div>
+      </nav>
+    </div>
   );
 }

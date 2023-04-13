@@ -1,29 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+
 #profile {
+  font-family: "PT Sans";
   display: flex;
   flex-wrap: wrap;
   padding-left: 40px;
   padding-top: 3%;
   height: 100vh;
-  background: rgb(0, 0, 0);
+  background: #000000;
 }
-
-.test {
-  border: 1px solid white;
-  width: 90%;
-  height: 90%;
-  /* background: url("https://cdn.pixabay.com/photo/2021/07/28/00/57/pyramids-6498038_960_720.jpg") */
-  /* center/cover; */
+#profile .react-multi-carousel-list {
+  width: 100%;
 }
-
-.video-div {
+#profile .react-multi-carousel-list .video-div {
   height: 100%;
   width: 300px;
 }
-
-.section-title {
+#profile .section-title {
   height: 40px;
-}
-
-.react-multi-carousel-list {
-  width: 100%;
-}
+} /*# sourceMappingURL=Profile.css.map */

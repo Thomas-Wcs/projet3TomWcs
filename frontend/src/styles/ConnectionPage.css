@@ -1,13 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 
-h2 {
-  color: white;
-  letter-spacing: 2px;
-  opacity: 1;
-  z-index: 10;
-}
-
 #connection {
+  background: #000000;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -18,9 +12,16 @@ h2 {
   font-family: "PT Sans", sans-serif;
   padding-bottom: 60px;
   z-index: 0;
+  width: 100%;
+  gap: 25px;
 }
-
-.connection-bg {
+#connection h2 {
+  color: #ffffff;
+  letter-spacing: 2px;
+  opacity: 1;
+  z-index: 10;
+}
+#connection .connection-bg {
   opacity: 0.2;
   position: absolute;
   left: 0;
@@ -28,13 +29,21 @@ h2 {
   width: 100%;
   height: auto;
   z-index: -300;
+  -o-object-fit: center;
+  object-fit: center;
 }
-
-.user-input {
+@media screen and (max-width: 760px) {
+  #connection .connection-bg {
+    -o-object-fit: fill;
+    object-fit: fill;
+    height: 100%;
+  }
+}
+#connection .user-input {
   height: 50px;
-  width: 300px;
+  width: 33%;
   opacity: 1;
-  color: rgb(255, 255, 255);
+  color: #ffffff;
   margin-bottom: 10px;
   z-index: 10;
   font-size: 1.2rem;
@@ -43,39 +52,43 @@ h2 {
   font-family: "PT sans", sans-serif;
   padding-left: 20px;
 }
-
-.user-input::placeholder {
-  color: rgb(255, 255, 255);
+#connection .user-input::-moz-placeholder {
+  color: #ffffff;
   opacity: 10;
   z-index: 30;
 }
-
-.user-button {
-  background: none;
-  border: 1px solid #10bcdd;
-  color: #10bcdd;
-  width: 200px;
-  height: 50px;
-  z-index: 10;
-  font-family: "PT Sans", sans-serif;
+#connection .user-input::placeholder {
+  color: #ffffff;
+  opacity: 10;
+  z-index: 30;
 }
-
-.user-button:hover {
-  cursor: pointer;
-  z-index: 10;
-  background: #10bcdd;
-  color: black;
-}
-
-#show-password {
-  z-index: 20;
-}
-
-@media screen and (min-width: 760px) {
-  .user-input {
-    width: 700px;
-    font-size: 1.7rem;
+@media screen and (max-width: 760px) {
+  #connection .user-input {
+    width: 70%;
+    font-size: 1.2rem;
     margin-bottom: 20px;
     height: 65px;
   }
 }
+#connection .user-button {
+  background: none;
+  border: 1px solid #10bcdd;
+  color: #10bcdd;
+  width: 15%;
+  height: 50px;
+  z-index: 10;
+  font-family: "PT Sans", sans-serif;
+}
+#connection .user-button:hover {
+  cursor: pointer;
+  z-index: 10;
+  background: #10bcdd;
+  color: #000000;
+}
+@media screen and (max-width: 760px) {
+  #connection .user-button {
+    width: 70%;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+} /*# sourceMappingURL=ConnectionPage.css.map */

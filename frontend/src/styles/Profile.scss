@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import "./variables";
+
+#profile {
+  font-family: "PT Sans";
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 40px;
+  padding-top: 3%;
+  height: 100vh;
+  background: $main-black;
+
+  .react-multi-carousel-list {
+    width: 100%;
+
+    .video-div {
+      height: 100%;
+      width: 300px;
+    }
+  }
+
+  .section-title {
+    height: 40px;
+  }
+}
