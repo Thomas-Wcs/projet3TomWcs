@@ -1,19 +1,19 @@
-import React from "react";
-import Footer from "../footer/Footer";
-import Banderole from "./Banderole";
-import Zoom from "./Zoom";
-import Player from "./Player";
-import RequestsAPI from "./RequestsAPI";
+// import React from "react";
+// import Footer from "../footer/Footer";
+// import Banderole from "./Banderole";
+// import Zoom from "./Zoom";
+// import Player from "./Player";
+// import RequestsAPI from "./RequestsAPI";
 
-function DisplayZoom() {
-  return (
-    <div className="App">
-      <Banderole />
+// function DisplayZoom() {
+//   return (
+//     <div className="App">
+//       <Banderole />
       
 
-      <Footer />
-    </div>
-  );
-}
+//       <Footer />
+//     </div>
+//   );
+// }
 
-export default DisplayZoom;
+// export default DisplayZoom;
