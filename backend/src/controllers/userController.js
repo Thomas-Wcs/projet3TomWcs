@@ -57,18 +57,19 @@ const add = async (req, res) => {
   if (!hashed) {
     return res.sendStatus(500);
   }
-  const result = await models.user.insert({
-    name,
-    email,
-    mdp: hashed,
-  });
-  switch (result[0]) {
-    case 0:
-      return res.sendStatus(500);
-    case 1062:
+  try {
+    const result = await models.user.insert({
+      name,
+      email,
+      mdp: hashed,
+    });
+    return res.json(result);
+  } catch (error) {
+    if (error.message === "User already exists") {
       return res.status(409).send("User already exists");
-    default:
-      return res.json(result[1]);
+    }
+    console.error(error);
+    return res.sendStatus(500);
   }
 };
 

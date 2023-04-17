@@ -9,8 +9,8 @@ class UserManager extends AbstractManager {
     return this.database
       .query("Select * from user where name = ?", [name])
       .then(([rows]) => {
-        if (rows.length !== 0) {
-          return rows;
+        if (rows.length > 0) {
+          return Promise.reject(new Error("User already exists"));
         }
         return this.database
           .query(
