@@ -1,12 +1,14 @@
 import "../../styles/index.css";
 import { useState } from "react";
+import Registration from "./Registration";
 
 export default function ConnectionPage() {
   const [mail, setMail] = useState("");
   const [mdp, setMdp] = useState("");
   const [newUser, setNewUser] = useState("");
+  const [account, setAccount] = useState(true);
 
-  return (
+  return account ? (
     <div id="connection">
       <img
         src="https://cdn.pixabay.com/photo/2021/07/28/00/57/pyramids-6498038_960_720.jpg"
@@ -43,9 +45,17 @@ export default function ConnectionPage() {
         value={newUser}
         onChange={(e) => setNewUser(e.target.value)}
       />
-      <button type="button" className="user-button">
+      <button
+        type="button"
+        className="user-button"
+        onClick={() => {
+          setAccount(false);
+        }}
+      >
         Inscription
       </button>
     </div>
+  ) : (
+    <Registration />
   );
 }

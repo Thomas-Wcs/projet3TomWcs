@@ -1,4 +1,5 @@
 const models = require("../models");
+const { hashPassword } = require("../utils/Auth");
 
 const browse = (req, res) => {
   models.user
@@ -50,20 +51,25 @@ const edit = (req, res) => {
     });
 };
 
-const add = (req, res) => {
-  const user = req.body;
-
-  // TODO validations (length, format...)
-
-  models.user
-    .insert(user)
-    .then(([result]) => {
-      res.location(`/users/${result.insertId}`).sendStatus(201);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+const add = async (req, res) => {
+  const { name, email, mdp } = req.body;
+  const hashed = await hashPassword(mdp);
+  if (!hashed) {
+    return res.sendStatus(500);
+  }
+  const result = await models.user.insert({
+    name,
+    email,
+    mdp: hashed,
+  });
+  switch (result[0]) {
+    case 0:
+      return res.sendStatus(500);
+    case 1062:
+      return res.status(409).send("User already exists");
+    default:
+      return res.json(result[1]);
+  }
 };
 
 const destroy = (req, res) => {
