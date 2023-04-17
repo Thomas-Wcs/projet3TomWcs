@@ -5,7 +5,7 @@ import Registration from "./Registration";
 export default function ConnectionPage() {
   const [mail, setMail] = useState("");
   const [mdp, setMdp] = useState("");
-  const [newUser, setNewUser] = useState("");
+  const [registrationMail, setRegistrationMail] = useState("");
   const [account, setAccount] = useState(true);
 
   return account ? (
@@ -42,8 +42,8 @@ export default function ConnectionPage() {
         name="Email"
         className="user-input"
         placeholder="Email"
-        value={newUser}
-        onChange={(e) => setNewUser(e.target.value)}
+        value={registrationMail}
+        onChange={(e) => setRegistrationMail(e.target.value)}
       />
       <button
         type="button"
@@ -56,6 +56,13 @@ export default function ConnectionPage() {
       </button>
     </div>
   ) : (
-    <Registration />
+    <Registration
+      registrationMail={registrationMail}
+      setRegistrationMail={setRegistrationMail}
+      mail={mail}
+      setMail={setMail}
+      mdp={mdp}
+      setMdp={setMdp}
+    />
   );
 }

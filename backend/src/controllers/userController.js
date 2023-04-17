@@ -1,5 +1,17 @@
+const joi = require("joi");
 const models = require("../models");
 const { hashPassword } = require("../utils/Auth");
+
+const validate = (data, forCreation = true) => {
+  const presence = forCreation ? "required" : "optional";
+  return joi
+    .object({
+      name: joi.string().max(45).presence(presence),
+      email: joi.string().email().presence(presence),
+      mdp: joi.string().max(255).presence(presence),
+    })
+    .validate(data, { abortEarly: false }).error;
+};
 
 const browse = (req, res) => {
   models.user
@@ -52,6 +64,10 @@ const edit = (req, res) => {
 };
 
 const add = async (req, res) => {
+  const error = validate(req.body);
+  if (error) {
+    return res.sendStatus(422);
+  }
   const { name, email, mdp } = req.body;
   const hashed = await hashPassword(mdp);
   if (!hashed) {
@@ -63,12 +79,13 @@ const add = async (req, res) => {
       email,
       mdp: hashed,
     });
+
     return res.json(result);
-  } catch (error) {
-    if (error.message === "User already exists") {
+  } catch (err) {
+    if (err.message === "User already exists") {
       return res.status(409).send("User already exists");
     }
-    console.error(error);
+    console.error(err);
     return res.sendStatus(500);
   }
 };

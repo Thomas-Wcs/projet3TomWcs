@@ -286,6 +286,10 @@
     height: 65px;
   }
 }
+#connection .error-message {
+  color: red;
+  font-style: italic;
+}
 #connection .user-button {
   background: none;
   border: 1px solid #10bcdd;
