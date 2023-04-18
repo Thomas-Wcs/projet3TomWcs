@@ -3,14 +3,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid/node";
 import { Box } from "@mui/material";
-import UserActions from "./UserActions";
+// import UserActions from "./UserActions";
 
 export default function DataTable() {
   const [data, setData] = useState([]);
-  const [pageSize, setPageSize] = useState(5);
-  const [rowId, setRowId] = useState(null);
-  // eslint-disable-next-line no-restricted-syntax
-  console.log(rowId);
 
   const getUserData = async () => {
     await axios.get("http://localhost:5000/users").then((res) => {
@@ -33,6 +29,33 @@ export default function DataTable() {
   useEffect(() => {
     getUserData();
   }, []);
+
+  const updateUser = async (id, field, value) => {
+    const updatedData = data.map((row) => {
+      if (row.id === id) {
+        return { ...row, [field]: value };
+      }
+      return row;
+    });
+    setData(updatedData);
+    // eslint-disable-next-line no-restricted-syntax
+    console.log(`Nouvelles données de l'utilisateur ${id}:`, {
+      [field]: value,
+    });
+
+    await axios.put(`http://localhost:5000/users/${id}`, { [field]: value });
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  const handleCellEditCommit = React.useCallback(
+    ({ id, field, value }) => {
+      updateUser(id, field, value);
+    },
+    [updateUser]
+  );
 
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
@@ -66,6 +89,31 @@ export default function DataTable() {
         `${params.row.name || ""} ${params.row.email || ""}`,
     },
     {
+      field: "edit",
+      headerName: "Edit",
+      width: 100,
+      renderCell: (params) => (
+        <button
+          type="button"
+          style={{
+            backgroundColor: "green",
+            margin: "1em",
+            padding: "1em",
+            borderRadius: "20%",
+          }}
+          onClick={() =>
+            handleCellEditCommit({
+              id: params.id,
+              field: "name",
+              value: params.row.name,
+            })
+          }
+        >
+          Edit
+        </button>
+      ),
+    },
+    {
       field: "delete",
       headerName: "Delete",
       width: 100,
@@ -84,13 +132,6 @@ export default function DataTable() {
         </button>
       ),
     },
-    {
-      field: "actions",
-      headerName: "Actions",
-      type: "actions",
-      renderCell: (params) => <UserActions {...{ params, rowId, setRowId }} />,
-    },
-    [rowId],
   ];
 
   const personnels = data.map((personne) => ({
@@ -105,14 +146,7 @@ export default function DataTable() {
       <DataGrid
         rows={personnels}
         columns={columns}
-        getRowId={(row) => row.id}
-        rowsPerPageOptions={(5, 10, 20)}
-        pageSize={pageSize}
-        onPageSizeChange={(newPageSize) => {
-          setPageSize(newPageSize);
-        }}
-        onCellEditCommit={(params) => setRowId(params.id)}
-        checkboxSelection
+        rowsPerPageOptions={[5, 10, 20]}
         style={{
           height: "100%",
           backgroundColor: "grey",
