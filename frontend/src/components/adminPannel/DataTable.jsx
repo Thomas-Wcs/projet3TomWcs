@@ -2,9 +2,15 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid/node";
+import { Box } from "@mui/material";
+import UserActions from "./UserActions";
 
 export default function DataTable() {
   const [data, setData] = useState([]);
+  const [pageSize, setPageSize] = useState(5);
+  const [rowId, setRowId] = useState(null);
+  // eslint-disable-next-line no-restricted-syntax
+  console.log(rowId);
 
   const getUserData = async () => {
     await axios.get("http://localhost:5000/users").then((res) => {
@@ -24,19 +30,26 @@ export default function DataTable() {
     }
   };
 
-  const editUser = async (id, updatedValues) => {
-    await axios.patch(`http://localhost:5000/users/${id}`, updatedValues);
-    getUserData(); // Mettre à jour la liste des utilisateurs après configuration
-  };
-
   useEffect(() => {
     getUserData();
   }, []);
 
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
-    { field: "name", headerName: "First name", width: 130 },
-    { field: "email", headerName: "email", width: 130 },
+    {
+      field: "name",
+      headerName: "First name",
+      width: 130,
+      type: "string",
+      editable: true,
+    },
+    {
+      field: "email",
+      headerName: "email",
+      width: 130,
+      type: "string",
+      editable: true,
+    },
     {
       field: "age",
       headerName: "Age",
@@ -53,58 +66,61 @@ export default function DataTable() {
         `${params.row.name || ""} ${params.row.email || ""}`,
     },
     {
-      field: "edit",
-      headerName: "Edit",
-      width: 100,
-      renderCell: (params) => (
-        <button
-          type="button"
-          onClick={() =>
-            editUser(params.row.id, {
-              name: "azazzp",
-              email: "nouveau@email.com",
-            })
-          }
-        >
-          Edit
-        </button>
-      ),
-    },
-    {
       field: "delete",
       headerName: "Delete",
       width: 100,
       renderCell: (params) => (
-        <button type="button" onClick={() => deleteUser(params.row.id)}>
+        <button
+          type="button"
+          style={{
+            backgroundColor: "red",
+            margin: "1em",
+            padding: "1em",
+            borderRadius: "20%",
+          }}
+          onClick={() => deleteUser(params.row.id)}
+        >
           Delete
         </button>
       ),
     },
+    {
+      field: "actions",
+      headerName: "Actions",
+      type: "actions",
+      renderCell: (params) => <UserActions {...{ params, rowId, setRowId }} />,
+    },
+    [rowId],
   ];
 
-  const rows = data.map((row) => ({
-    id: row.id,
-    name: row.name,
-    email: row.email,
+  const personnels = data.map((personne) => ({
+    id: personne.id,
+    name: personne.name,
+    email: personne.email,
   }));
 
   return (
-    <div style={{ height: 700, width: "80%", margin: 50 }}>
+    <Box sx={{ height: 800, width: "100%" }}>
       <h1>Users</h1>
       <DataGrid
-        rows={rows}
+        rows={personnels}
         columns={columns}
-        pageSize={1}
-        rowsPerPageOptions={1}
+        getRowId={(row) => row.id}
+        rowsPerPageOptions={(5, 10, 20)}
+        pageSize={pageSize}
+        onPageSizeChange={(newPageSize) => {
+          setPageSize(newPageSize);
+        }}
+        onCellEditCommit={(params) => setRowId(params.id)}
         checkboxSelection
         style={{
+          height: "100%",
           backgroundColor: "grey",
           margin: "1em",
           fontSize: "18px",
           with: "100%",
-          buttonColor: "red",
         }}
       />
-    </div>
+    </Box>
   );
 }

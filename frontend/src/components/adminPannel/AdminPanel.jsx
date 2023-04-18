@@ -1,8 +1,6 @@
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "../../styles/index.css";
-import DataTable from "./DataTable";
-import VideosManagement from "./VideosManagement";
 import monImage from "../../assets/imagedemo.png";
 
 export default function AdminPanel() {
@@ -37,10 +35,7 @@ export default function AdminPanel() {
         </nav>
       </div>
       <div className="display-admin-pannel">
-        <Routes path="*">
-          <Route path="usersTable" element={<DataTable />} />
-          <Route path="videosTable" element={<VideosManagement />} />
-        </Routes>
+        <Outlet />
       </div>
     </div>
   );

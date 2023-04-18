@@ -3,6 +3,8 @@ import AdminPanel from "./components/adminPannel/AdminPanel";
 import Header from "./components/Header/Header";
 import ConnectionPage from "./components/User/ConnectionPage";
 import Profile from "./components/User/Profile";
+import DataTable from "./components/adminPannel/DataTable";
+import VideosManagement from "./components/adminPannel/VideosManagement";
 import Home from "./pages/Home";
 
 function App() {
@@ -14,7 +16,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/connexion" element={<ConnectionPage />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/adminPanel/*" element={<AdminPanel />} />
+          <Route path="adminPanel" element={<AdminPanel />}>
+            <Route path="usersTable" element={<DataTable />} />
+            <Route path="videosTable" element={<VideosManagement />} />
+          </Route>
         </Routes>
       </Router>
     </div>

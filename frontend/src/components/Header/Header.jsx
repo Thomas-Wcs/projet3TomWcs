@@ -62,7 +62,7 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <Link to="/adminPanel/*" onClick={() => handleLinkClick()}>
+                <Link to="/adminPanel/" onClick={() => handleLinkClick()}>
                   Admin
                 </Link>
               </li>
