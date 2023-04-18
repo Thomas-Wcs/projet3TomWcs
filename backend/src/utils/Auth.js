@@ -1,4 +1,5 @@
 const argon2 = require("argon2");
+const jwt = require("jsonwebtoken");
 
 const hashingOption = {
   type: argon2.argon2d,
@@ -20,4 +21,23 @@ const hashPassword = async (mdp) => {
   return hashed;
 };
 
-module.exports = { hashPassword };
+const verifyPassword = async (req, res) => {
+  argon2
+    .verify(req.user.mdp, req.body.mdp)
+    .then((isVerified) => {
+      if (isVerified) {
+        const payload = { sub: req.user.id };
+        const token = jwt.sign(payload, process.env.JWT_SECRET);
+        delete req.user.hashedPassword;
+        res.send({ token, user: req.user });
+      } else {
+        res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+module.exports = { hashPassword, verifyPassword };

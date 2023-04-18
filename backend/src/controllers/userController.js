@@ -1,4 +1,5 @@
 const joi = require("joi");
+const users = require("rawger/src/users");
 const models = require("../models");
 const { hashPassword } = require("../utils/Auth");
 
@@ -26,8 +27,9 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
+  const id = parseInt(req.params.id, 10);
   models.user
-    .find(req.params.id)
+    .find(id)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
@@ -80,7 +82,7 @@ const add = async (req, res) => {
       mdp: hashed,
     });
 
-    return res.json(result);
+    return res.status(201).json(result);
   } catch (err) {
     if (err.message === "User already exists") {
       return res.status(409).send("User already exists");
@@ -106,10 +108,23 @@ const destroy = (req, res) => {
     });
 };
 
+const login = async (req, res, next) => {
+  const { email } = req.body;
+  if (!email) res.sendStatus(422);
+  const result = await models.user.login(email);
+  if (result) {
+    if (result[0] != null) {
+      req.user = result[0];
+      next();
+    } else return res.sendStatus(401);
+  } else return res.sendStatus(500);
+};
+
 module.exports = {
   browse,
   read,
   edit,
   add,
   destroy,
+  login,
 };

@@ -41,6 +41,16 @@ class UserManager extends AbstractManager {
   delete(id) {
     return this.database.query(`delete from ${this.table} where id = ?`, [id]);
   }
+
+  login(email) {
+    return this.database
+      .query(`select * from ${this.table} where email = ?`, [email])
+      .then(([user]) => user)
+      .catch((err) => {
+        console.error(err);
+        return null;
+      });
+  }
 }
 
 module.exports = UserManager;
