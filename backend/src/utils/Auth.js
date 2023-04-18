@@ -40,4 +40,23 @@ const verifyPassword = async (req, res) => {
     });
 };
 
-module.exports = { hashPassword, verifyPassword };
+const verifyToken = (req, res, next) => {
+  try {
+    const authorizationHeader = req.get("Authorization");
+    if (authorizationHeader === null || !authorizationHeader) {
+      throw new Error("Authorization header is missing");
+    }
+    const [type, token] = authorizationHeader.split(" ");
+    if (type !== "Bearer") {
+      throw new Error("Authization header had not the bearer type");
+    }
+    req.payload = jwt.verify(token, process.env.JWT_SECRET);
+    next();
+  } catch (err) {
+    console.error(err);
+    return res.status(500);
+  }
+  return true;
+};
+
+module.exports = { hashPassword, verifyPassword, verifyToken };

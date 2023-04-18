@@ -1,12 +1,36 @@
 import "../../styles/index.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import axios from "axios";
+import useAPI from "../../api/useAPI";
 import Registration from "./Registration";
 
 export default function ConnectionPage() {
+  const API = useAPI();
   const [mail, setMail] = useState("");
   const [mdp, setMdp] = useState("");
   const [registrationMail, setRegistrationMail] = useState("");
   const [account, setAccount] = useState(true);
+
+  const refPass = useRef();
+  const refMail = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const user = {
+      mdp: refPass.current.value,
+      email: refMail.current.value,
+    };
+
+    axios
+      .post("http://localhost:5000/users/login/", user)
+      .then((res) => {
+        const { token } = res.data;
+        API.defaults.headers.authorization = `Bearer ${token}`;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   return account ? (
     <div id="connection">
@@ -24,6 +48,7 @@ export default function ConnectionPage() {
         placeholder="Email"
         value={mail}
         onChange={(e) => setMail(e.target.value)}
+        ref={refMail}
       />
       <input
         type="password"
@@ -32,8 +57,9 @@ export default function ConnectionPage() {
         placeholder="Mot de Passe"
         value={mdp}
         onChange={(e) => setMdp(e.target.value)}
+        ref={refPass}
       />
-      <button type="button" className="user-button">
+      <button type="button" className="user-button" onClick={handleSubmit}>
         Connexion
       </button>
       <h2>S'INSCRIRE</h2>
