@@ -9,7 +9,7 @@ import {
 } from "@mui/icons-material";
 import Video from "./Video";
 
-function Section2({ sectionName }) {
+function SectionVideosHautes({ sectionName }) {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
@@ -71,8 +71,8 @@ function Section2({ sectionName }) {
   );
 }
 
-Section2.propTypes = {
+SectionVideosHautes.propTypes = {
   sectionName: PropTypes.string.isRequired,
 };
 
-export default Section2;
+export default SectionVideosHautes;
