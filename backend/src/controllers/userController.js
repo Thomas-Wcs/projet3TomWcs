@@ -1,4 +1,17 @@
+const joi = require("joi");
 const models = require("../models");
+const { hashPassword } = require("../utils/Auth");
+
+const validate = (data, forCreation = true) => {
+  const presence = forCreation ? "required" : "optional";
+  return joi
+    .object({
+      name: joi.string().max(45).presence(presence),
+      email: joi.string().email().presence(presence),
+      mdp: joi.string().max(255).presence(presence),
+    })
+    .validate(data, { abortEarly: false }).error;
+};
 
 const browse = (req, res) => {
   models.user
@@ -13,8 +26,9 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
+  const id = parseInt(req.params.id, 10);
   models.user
-    .find(req.params.id)
+    .find(id)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
@@ -50,20 +64,31 @@ const edit = (req, res) => {
     });
 };
 
-const add = (req, res) => {
-  const user = req.body;
-
-  // TODO validations (length, format...)
-
-  models.user
-    .insert(user)
-    .then(([result]) => {
-      res.location(`/users/${result.insertId}`).sendStatus(201);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
+const add = async (req, res) => {
+  const error = validate(req.body);
+  if (error) {
+    return res.sendStatus(422);
+  }
+  const { name, email, mdp } = req.body;
+  const hashed = await hashPassword(mdp);
+  if (!hashed) {
+    return res.sendStatus(500);
+  }
+  try {
+    const result = await models.user.insert({
+      name,
+      email,
+      mdp: hashed,
     });
+
+    return res.status(201).json(result);
+  } catch (err) {
+    if (err.message === "User already exists") {
+      return res.status(409).send("User already exists");
+    }
+    console.error(err);
+    return res.sendStatus(500);
+  }
 };
 
 const destroy = (req, res) => {
@@ -82,10 +107,25 @@ const destroy = (req, res) => {
     });
 };
 
+const login = async (req, res, next) => {
+  const { email } = req.body;
+  if (!email) res.sendStatus(422);
+  const result = await models.user.login(email);
+  if (result) {
+    const [firstResult] = result;
+    if (firstResult != null) {
+      req.user = firstResult;
+      next();
+    } else return res.sendStatus(401);
+  } else return res.sendstatus(500);
+  return true;
+};
+
 module.exports = {
   browse,
   read,
   edit,
   add,
   destroy,
+  login,
 };
