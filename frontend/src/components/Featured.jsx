@@ -4,7 +4,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
-import VideoFeatured from "./VideoFeatured";
+import Video from "./Video";
 
 function Featured() {
   const listRef = useRef();
@@ -42,25 +42,25 @@ function Featured() {
           disabled={position === 0}
         />
         <div className="container" ref={listRef}>
-          <VideoFeatured
+          <Video
             title="titre1"
             width="100vw"
             height="100vh"
             displayPlayButton
           />
-          <VideoFeatured
+          <Video
             title="titre2"
             width="100vw"
             height="100vh"
             displayPlayButton
           />
-          <VideoFeatured
+          <Video
             title="titre3"
             width="100vw"
             height="100vh"
             displayPlayButton
           />
-          <VideoFeatured
+          <Video
             title="titre4"
             width="100vw"
             height="100vh"

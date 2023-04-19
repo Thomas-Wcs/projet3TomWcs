@@ -6,7 +6,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
-import VideoFeatured from "./VideoFeatured";
+import Video from "./Video";
 
 function Section() {
   const listRef = useRef();
@@ -35,16 +35,16 @@ function Section() {
           disabled={position === 0}
         />
         <div className="container container-section" ref={listRef}>
-          <VideoFeatured width="650px" height="450px" isEnabled />
-          <VideoFeatured width="650px" height="450px" isEnabled />
-          <VideoFeatured width="650px" height="450px" isEnabled />
-          <VideoFeatured width="650px" height="450px" isEnabled />
-          <VideoFeatured width="650px" height="450px" isEnabled />
-          <VideoFeatured width="650px" height="450px" isEnabled />
-          <VideoFeatured width="650px" height="450px" isEnabled />
-          <VideoFeatured width="650px" height="450px" isEnabled />
-          <VideoFeatured width="650px" height="450px" isEnabled />
-          <VideoFeatured width="650px" height="450px" isEnabled />
+          <Video width="650px" height="450px" isEnabled />
+          <Video width="650px" height="450px" isEnabled />
+          <Video width="650px" height="450px" isEnabled />
+          <Video width="650px" height="450px" isEnabled />
+          <Video width="650px" height="450px" isEnabled />
+          <Video width="650px" height="450px" isEnabled />
+          <Video width="650px" height="450px" isEnabled />
+          <Video width="650px" height="450px" isEnabled />
+          <Video width="650px" height="450px" isEnabled />
+          <Video width="650px" height="450px" isEnabled />
         </div>
         <ArrowForwardIosOutlined
           className="sliderArrow right"

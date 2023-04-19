@@ -2,11 +2,11 @@ import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "../styles/VideoFeatured.scss";
 
-import video1 from "../assets/videos/video1.mp4";
+import video1 from "../assets/videos/video2.mp4";
 import thumbnail from "../assets/images/background-slider.png";
 import PlayButton from "./PlayButton";
 
-function VideoFeatured({
+function Video({
   title,
   width,
   height,
@@ -42,7 +42,7 @@ function VideoFeatured({
         preload="metadata"
         style={{ width, height }}
         onMouseOver={isEnabled ? handleToggleVideo : undefined}
-        onFocus
+        onFocus={isEnabled ? handleToggleVideo : undefined}
       />
       <h3 className="video-title">{title}</h3>
       {displayPlayButton && (
@@ -57,7 +57,7 @@ function VideoFeatured({
     </div>
   );
 }
-VideoFeatured.propTypes = {
+Video.propTypes = {
   title: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
@@ -68,11 +68,11 @@ VideoFeatured.propTypes = {
   isEnabled: PropTypes.bool,
 };
 
-VideoFeatured.defaultProps = {
+Video.defaultProps = {
   displayPlayButton: false,
   displayDescription: false,
   displayDescriptionText: "",
   displayDescriptionTitle: "",
   isEnabled: false,
 };
-export default VideoFeatured;
+export default Video;

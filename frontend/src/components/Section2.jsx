@@ -7,7 +7,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
-import VideoFeatured from "./VideoFeatured";
+import Video from "./Video";
 
 function Section2({ sectionName }) {
   const listRef = useRef();
@@ -51,16 +51,16 @@ function Section2({ sectionName }) {
           disabled={position === 0}
         />
         <div className="container container-section" ref={listRef}>
-          <VideoFeatured width="650px" height="750px" displayDescription />
-          <VideoFeatured width="650px" height="750px" displayDescription />
-          <VideoFeatured width="650px" height="750px" displayDescription />
-          <VideoFeatured width="650px" height="750px" displayDescription />
-          <VideoFeatured width="650px" height="750px" displayDescription />
-          <VideoFeatured width="650px" height="750px" displayDescription />
-          <VideoFeatured width="650px" height="750px" displayDescription />
-          <VideoFeatured width="650px" height="750px" displayDescription />
-          <VideoFeatured width="650px" height="750px" displayDescription />
-          <VideoFeatured width="650px" height="750px" displayDescription />
+          <Video width="650px" height="750px" displayDescription />
+          <Video width="650px" height="750px" displayDescription />
+          <Video width="650px" height="750px" displayDescription />
+          <Video width="650px" height="750px" displayDescription />
+          <Video width="650px" height="750px" displayDescription />
+          <Video width="650px" height="750px" displayDescription />
+          <Video width="650px" height="750px" displayDescription />
+          <Video width="650px" height="750px" displayDescription />
+          <Video width="650px" height="750px" displayDescription />
+          <Video width="650px" height="750px" displayDescription />
         </div>
         <ArrowForwardIosOutlined
           className="sliderArrow right"

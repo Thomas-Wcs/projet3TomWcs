@@ -7,7 +7,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
-import VideoFeatured from "./VideoFeatured";
+import Video from "./Video";
 import data from "./Data";
 
 function SectionCategory({ sectionName }) {
@@ -82,7 +82,7 @@ function SectionCategory({ sectionName }) {
             ? data
                 .filter((item) => item.category === selectedCategory)
                 .map((item) => (
-                  <VideoFeatured
+                  <Video
                     key={item.id}
                     width="650px"
                     height="450px"
@@ -93,7 +93,7 @@ function SectionCategory({ sectionName }) {
                   />
                 ))
             : data.map((item) => (
-                <VideoFeatured
+                <Video
                   key={item.id}
                   width="650px"
                   height="450px"
