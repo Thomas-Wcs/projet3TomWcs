@@ -1,7 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
 import "../../styles/index.css";
 import PropTypes from "prop-types";
+import useAPI from "../../api/useAPI";
 
 export default function Registration({
   registrationMail,
@@ -15,6 +15,7 @@ export default function Registration({
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const api = useAPI();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,8 +24,8 @@ export default function Registration({
       email: registrationMail,
       mdp: password,
     };
-    axios
-      .post("http://localhost:5000/users/", newUser)
+    api
+      .post("users/", newUser)
       .then((result) => {
         setSuccess(!success);
         return result;
@@ -105,5 +106,5 @@ Registration.propTypes = {
   mail: PropTypes.string.isRequired,
   setMail: PropTypes.func.isRequired,
   mdp: PropTypes.string.isRequired,
-  setMdp: PropTypes.string.isRequired,
+  setMdp: PropTypes.func.isRequired,
 };

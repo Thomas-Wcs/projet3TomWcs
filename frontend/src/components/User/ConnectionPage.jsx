@@ -1,11 +1,10 @@
 import "../../styles/index.css";
 import { useState, useRef } from "react";
-import axios from "axios";
 import useAPI from "../../api/useAPI";
 import Registration from "./Registration";
 
 export default function ConnectionPage() {
-  const API = useAPI();
+  const api = useAPI();
   const [mail, setMail] = useState("");
   const [mdp, setMdp] = useState("");
   const [registrationMail, setRegistrationMail] = useState("");
@@ -23,12 +22,12 @@ export default function ConnectionPage() {
       email: refMail.current.value,
     };
 
-    axios
-      .post("http://localhost:5000/users/login/", user)
+    api
+      .post("users/login/", user)
       .then((res) => {
         const { token } = res.data;
         setUserConnected(res.data.user);
-        API.defaults.headers.authorization = `Bearer ${token}`;
+        api.defaults.headers.authorization = `Bearer ${token}`;
         setSuccess(false);
       })
       .catch((err) => {

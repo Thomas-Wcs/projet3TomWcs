@@ -4,7 +4,7 @@ let apiSingleton = null;
 export default function useAPI() {
   if (!apiSingleton) {
     apiSingleton = axios.create({
-      baseURL: import.meta.env.REACT_APP_API_URL,
+      baseURL: import.meta.env.VITE_APP_API_URL,
     });
   }
   return apiSingleton;
