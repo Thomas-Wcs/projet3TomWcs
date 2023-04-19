@@ -4,6 +4,7 @@ const sectionData = [
     lien: "https://youtu.be/rZYycIiJwZc",
     titre: "Blue Circles",
     categorie_id: "",
+
     description_text:
       " Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Biba",
     date_publication: "",
