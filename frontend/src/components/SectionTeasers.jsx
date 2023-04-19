@@ -8,7 +8,7 @@ import {
 } from "@mui/icons-material";
 import Video from "./Video";
 
-function Section() {
+function SectionTeasers() {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
@@ -55,4 +55,4 @@ function Section() {
   );
 }
 
-export default Section;
+export default SectionTeasers;
