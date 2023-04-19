@@ -112,11 +112,13 @@ const login = async (req, res, next) => {
   if (!email) res.sendStatus(422);
   const result = await models.user.login(email);
   if (result) {
-    if (result[0] != null) {
-      req.user = result[0];
+    const [firstResult] = result;
+    if (firstResult != null) {
+      req.user = firstResult;
       next();
     } else return res.sendStatus(401);
-  } else return res.sendStatus(500);
+  } else return res.sendstatus(500);
+  return true;
 };
 
 module.exports = {
