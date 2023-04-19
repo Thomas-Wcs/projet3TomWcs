@@ -1,5 +1,4 @@
 const joi = require("joi");
-const users = require("rawger/src/users");
 const models = require("../models");
 const { hashPassword } = require("../utils/Auth");
 
