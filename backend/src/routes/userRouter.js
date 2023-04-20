@@ -6,6 +6,8 @@ const auth = require("../utils/Auth");
 const userController = require("../controllers/userController");
 
 userRouter.get("/", userController.browse);
+userRouter.get("/name", userController.findOne);
+
 userRouter.get("/:id", userController.read);
 userRouter.put("/:id", userController.edit);
 userRouter.post("/", userController.add);

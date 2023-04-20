@@ -1,11 +1,13 @@
 import "../../styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import AuthContext from "../../context/AuthContext";
 import { logout } from "../../services/account.services";
 
 export default function Header() {
   const navigate = useNavigate();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
+  const { success } = useContext(AuthContext);
 
   const checkboxRef = useRef();
 
@@ -59,28 +61,36 @@ export default function Header() {
                   Home
                 </Link>
               </li>
-              <li>
-                <Link to="/connexion" onClick={() => handleLinkClick()}>
-                  Connexion
-                </Link>
-              </li>
-              <li>
-                <Link to="/profile" onClick={() => handleLinkClick()}>
-                  Profile
-                </Link>
-              </li>
+              {success && (
+                <li>
+                  <Link to="/connexion" onClick={() => handleLinkClick()}>
+                    Connexion
+                  </Link>
+                </li>
+              )}
+
+              {!success && (
+                <li>
+                  <Link to="/profile" onClick={() => handleLinkClick()}>
+                    Profile
+                  </Link>
+                </li>
+              )}
+
               <li>
                 <Link to="/adminPanel/*" onClick={() => handleLinkClick()}>
                   Admin
                 </Link>
               </li>
-              <button
-                className="user-button"
-                type="button"
-                onClick={clickToLogout}
-              >
-                Logout
-              </button>
+              {!success && (
+                <button
+                  className="user-button"
+                  type="button"
+                  onClick={clickToLogout}
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </div>
         </div>
