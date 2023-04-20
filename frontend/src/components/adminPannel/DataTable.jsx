@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid/node";
 import { Box } from "@mui/material";
-// import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 
 export default function DataTable() {
   const [data, setData] = useState([]);
@@ -108,9 +109,11 @@ export default function DataTable() {
           style={{
             fontFamily: "PT Sans",
             backgroundColor: "green",
+            height: "90%",
             margin: "1em",
             padding: "0.9em",
             borderRadius: "20%",
+            border: "none",
           }}
           onClick={() =>
             handleCellEditCommit({
@@ -126,7 +129,7 @@ export default function DataTable() {
             })
           }
         >
-          Edit
+          <DoneOutlineIcon style={{ width: "100%" }} />
         </button>
       ),
     },
@@ -140,13 +143,15 @@ export default function DataTable() {
           style={{
             fontFamily: "PT Sans",
             backgroundColor: "red",
+            height: "90%",
             margin: "1em",
             padding: "0.9em",
             borderRadius: "20%",
+            border: "none",
           }}
           onClick={() => deleteUser(params.row.id)}
         >
-          Delete
+          <DeleteIcon style={{ width: "100%" }} />
         </button>
       ),
     },
@@ -164,7 +169,6 @@ export default function DataTable() {
   return (
     <Box sx={{ height: 800, width: "100%", backgroundColor: "black" }}>
       <h1>Users</h1>
-
       <DataGrid
         rows={personnels}
         columns={columns}
@@ -180,6 +184,8 @@ export default function DataTable() {
           with: "100%",
           border: "3px solid rgb(16, 188, 221)",
           color: "black",
+          backgroundImage:
+            "linear-gradient(to right top, #696363, #887a75, #a49384, #b8b094, #c4cfab);",
         }}
       />
       <div style={{ backgroundColor: "black", height: "500px" }} />
