@@ -1,8 +1,10 @@
 import "../../styles/index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
+import { logout } from "../../services/account.services";
 
 export default function Header() {
+  const navigate = useNavigate();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
 
   const checkboxRef = useRef();
@@ -13,6 +15,12 @@ export default function Header() {
 
   function handleLinkClick() {
     checkboxRef.current.checked = false;
+  }
+
+  function clickToLogout() {
+    logout();
+    checkboxRef.current.checked = false;
+    navigate("/connexion");
   }
 
   return (
@@ -66,6 +74,13 @@ export default function Header() {
                   Admin
                 </Link>
               </li>
+              <button
+                className="user-button"
+                type="button"
+                onClick={clickToLogout}
+              >
+                Logout
+              </button>
             </div>
           </div>
         </div>

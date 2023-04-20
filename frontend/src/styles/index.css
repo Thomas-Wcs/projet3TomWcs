@@ -35,6 +35,28 @@
   text-align: start;
   position: absolute;
 }
+#nav-body .navbar .menu-items .user-button {
+  background: none;
+  border: 1px solid #10bcdd;
+  color: #10bcdd;
+  width: 15%;
+  height: 50px;
+  z-index: 10;
+  font-family: "PT Sans", sans-serif;
+}
+#nav-body .navbar .menu-items .user-button:hover {
+  cursor: pointer;
+  z-index: 10;
+  background: #10bcdd;
+  color: #000000;
+}
+@media screen and (max-width: 760px) {
+  #nav-body .navbar .menu-items .user-button {
+    width: 70%;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+}
 #nav-body .navbar .menu-items li {
   margin-bottom: 1.2rem;
   font-size: 1.5rem;
@@ -50,6 +72,28 @@
 }
 #nav-body .navbar .menu-items li a:hover {
   font-weight: 600;
+}
+#nav-body .navbar .menu-items li a .user-button {
+  background: none;
+  border: 1px solid #10bcdd;
+  color: #10bcdd;
+  width: 15%;
+  height: 50px;
+  z-index: 10;
+  font-family: "PT Sans", sans-serif;
+}
+#nav-body .navbar .menu-items li a .user-button:hover {
+  cursor: pointer;
+  z-index: 10;
+  background: #10bcdd;
+  color: #000000;
+}
+@media screen and (max-width: 760px) {
+  #nav-body .navbar .menu-items li a .user-button {
+    width: 70%;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
 }
 #nav-body .navbar .nav-container {
   display: flex;

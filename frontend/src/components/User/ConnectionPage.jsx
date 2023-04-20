@@ -1,9 +1,12 @@
 import "../../styles/index.css";
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { saveToken } from "../../services/account.services";
 import useAPI from "../../api/useAPI";
 import Registration from "./Registration";
 
 export default function ConnectionPage() {
+  const navigate = useNavigate();
   const api = useAPI();
   const [mail, setMail] = useState("");
   const [mdp, setMdp] = useState("");
@@ -26,9 +29,11 @@ export default function ConnectionPage() {
       .post("users/login/", user)
       .then((res) => {
         const { token } = res.data;
+        saveToken(res.data.token);
         setUserConnected(res.data.user);
         api.defaults.headers.authorization = `Bearer ${token}`;
         setSuccess(false);
+        navigate("/profile");
       })
       .catch((err) => {
         console.error(err);
@@ -103,6 +108,9 @@ export default function ConnectionPage() {
       setMail={setMail}
       mdp={mdp}
       setMdp={setMdp}
+      handleSubmit={handleSubmit}
+      refPass={refPass}
+      refMail={refMail}
     />
   );
 }

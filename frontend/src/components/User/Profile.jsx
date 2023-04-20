@@ -1,18 +1,17 @@
 import "../../styles/index.css";
 
-import axios from "axios";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import useAPI from "../../api/useAPI";
 
 export default function Profile() {
+  const api = useAPI();
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/videos")
-      .then((result) => setData(result.data));
+    api.get("videos").then((result) => setData(result.data));
   }, []);
 
   const responsive = {
