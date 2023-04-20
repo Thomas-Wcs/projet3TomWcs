@@ -1,5 +1,6 @@
 import React from "react";
-import "../styles/Homepage2.scss";
+
+import "../scss/index.css";
 
 import Featured from "../components/Sections/Featured";
 import SectionTeasers from "../components/Sections/SectionTeasers";

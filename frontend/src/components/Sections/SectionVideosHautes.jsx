@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
-import "../../styles/Featured.scss";
-import "../../styles/Section.scss";
+
+import "../../scss/index.css";
 
 import {
   ArrowBackIosOutlined,

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import "../../styles/Featured.scss";
-import "../../styles/Section.scss";
+
+import "../../scss/index.css";
 
 import {
   ArrowBackIosOutlined,
