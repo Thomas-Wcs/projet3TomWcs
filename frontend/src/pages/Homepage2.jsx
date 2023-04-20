@@ -1,11 +1,11 @@
 import React from "react";
 import "../styles/Homepage2.scss";
 
-import Featured from "../components/Featured";
-import SectionTeasers from "../components/SectionTeasers";
-import Section1 from "../components/Section1";
-import SectionVideosHautes from "../components/SectionVideosHautes";
-import SectionCategory from "../components/SectionCategory";
+import Featured from "../components/Sections/Featured";
+import SectionTeasers from "../components/Sections/SectionTeasers";
+import Section1 from "../components/Sections/Section1";
+import SectionVideosHautes from "../components/Sections/SectionVideosHautes";
+import SectionCategory from "../components/Sections/SectionCategory";
 
 function Homepage2() {
   return (
