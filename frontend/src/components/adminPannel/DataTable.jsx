@@ -4,10 +4,13 @@ import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid/node";
 import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export default function DataTable() {
   const [data, setData] = useState([]);
+  const [isEditUser, setIsEditUser] = useState(false);
+  const setIsResetEdit = useState(false);
 
   const getUserData = async () => {
     await axios.get("http://localhost:5000/users").then((res) => {
@@ -115,7 +118,7 @@ export default function DataTable() {
             borderRadius: "20%",
             border: "none",
           }}
-          onClick={() =>
+          onClick={() => {
             handleCellEditCommit({
               id: params.id,
               field: ["name", "email", "firstname", "role", "isPremium"],
@@ -126,10 +129,20 @@ export default function DataTable() {
                 params.row.role,
                 params.row.isPremium,
               ],
-            })
-          }
+            });
+            setIsEditUser(true);
+
+            setTimeout(() => {
+              setIsEditUser(false);
+              setIsResetEdit(true);
+            }, 2000);
+          }}
         >
-          <DoneOutlineIcon style={{ width: "100%" }} />
+          {isEditUser ? (
+            <CheckCircleIcon style={{ width: "100%" }} />
+          ) : (
+            <CheckCircleOutlineIcon style={{ width: "100%" }} />
+          )}
         </button>
       ),
     },
