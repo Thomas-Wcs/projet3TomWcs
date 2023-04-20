@@ -197,8 +197,6 @@ export default function DataTable() {
           with: "100%",
           border: "3px solid rgb(16, 188, 221)",
           color: "black",
-          backgroundImage:
-            "linear-gradient(to right top, #696363, #887a75, #a49384, #b8b094, #c4cfab);",
         }}
       />
       <div style={{ backgroundColor: "black", height: "500px" }} />
