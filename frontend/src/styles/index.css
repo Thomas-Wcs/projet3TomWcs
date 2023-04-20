@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -23,6 +21,7 @@
 #nav-body .navbar .menu-items {
   padding-top: 10%;
   background: rgba(0, 0, 0, 0.737);
+  -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
   height: 100vh;
   width: 100vw;
@@ -132,9 +131,8 @@
   font-weight: 400;
   font-family: Roboto;
   outline: 0;
-  -webkit-transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out, padding 0.2s;
-  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out, padding 0.2s;
-  -webkit-transition-delay: 0.4s;
+  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
+    padding 0.2s;
   transition-delay: 0.4s;
   -webkit-transform: translate(-100%, -50%);
   -ms-transform: translate(-100%, -50%);
@@ -223,9 +221,8 @@
   max-width: 300px;
   position: fixed;
   left: 0;
-  -webkit-transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out, padding 0.2s;
-  transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out, padding 0.2s;
-  -webkit-transition-delay: 0.4s, 0s, 0.4s;
+  transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out,
+    padding 0.2s;
   transition-delay: 0.4s, 0s, 0.4s;
   -webkit-transform: translate(-100%, -50%);
   -ms-transform: translate(-100%, -50%);
@@ -300,6 +297,10 @@
     height: 65px;
   }
 }
+#connection .error-message {
+  color: red;
+  font-style: italic;
+}
 #connection .user-button {
   background: none;
   border: 1px solid #10bcdd;
@@ -329,7 +330,7 @@
   flex-wrap: wrap;
   padding-left: 40px;
   padding-top: 3%;
-  height: 100vh;
+  height: 100%;
   background: #000000;
 }
 #profile .react-multi-carousel-list {
@@ -341,97 +342,4 @@
 }
 #profile .section-title {
   height: 40px;
-}
-
-.admin-pannel {
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(0, 0, 0);
-}
-.admin-pannel h1 {
-  display: flex;
-  color: #10bcdd;
-  justify-content: center;
-  padding: 2%;
-}
-
-.display-nav-admin ul {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: auto;
-  height: auto;
-  margin: 30px;
-  padding: 20px;
-  color: azure;
-  list-style-type: none;
-  font-size: 18px;
-  font-family: "PT Sans";
-}
-.display-nav-admin ul li {
-  transition: 0.3s ease-in-out;
-}
-.display-nav-admin ul li:hover {
-  transform: scale(1.1);
-}
-.display-nav-admin ul li a {
-  text-decoration: none;
-  color: #10bcdd;
-  transition: 0.3s ease-in-out;
-  border: solid 2px;
-  border-radius: 5%;
-  padding: 10px 30px;
-  margin: 10px;
-}
-.display-nav-admin ul li a:hover {
-  background-color: rgb(85, 85, 85);
-  opacity: 1.4;
-  transform: scale(1.1);
-}
-
-.user-connected {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: left;
-  color: #10bcdd;
-  justify-content: center;
-  padding: 2%;
-}
-.user-connected p:first-of-type {
-  margin: 0.5em 0 0.5em 0;
-  color: rgb(146, 145, 145);
-}
-.user-connected button {
-  width: 150px;
-  margin: 1em 0 1em 0;
-  padding: 0.5em;
-  color: #10bcdd;
-  background-color: black;
-  border-color: #10bcdd;
-  align-items: end;
-  overflow: hidden;
-}
-.user-connected img {
-  width: 4em;
-  margin: 1em;
-}
-
-.display-admin-pannel {
-  width: 100%;
-}
-
-@media screen and (max-width: 369px) {
-  .admin-pannel {
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(0, 0, 0);
-  }
-  .display-nav-admin {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: auto;
-  }
-}/*# sourceMappingURL=index.css.map */
+} /*# sourceMappingURL=index.css.map */
