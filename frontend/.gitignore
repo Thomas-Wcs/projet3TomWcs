@@ -25,3 +25,4 @@ dist-ssr
 *.sw?
 
 src/assets/videos/*.mp4
+assets

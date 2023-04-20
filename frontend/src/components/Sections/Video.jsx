@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "../../styles/VideoFeatured.scss";
 
-import video1 from "../../assets/videos/video2.mp4";
 import thumbnail from "../../assets/images/background-slider.png";
 import PlayButton from "./PlayButton";
 
@@ -24,7 +23,12 @@ function Video({
     const video = videoRef.current;
 
     if (video.paused) {
-      video.play();
+      const videoPromise = video.play();
+      if (videoPromise !== undefined) {
+        videoPromise.catch((error) => {
+          console.error(error);
+        });
+      }
       setIsPlaying(!isPlaying);
     } else {
       video.pause();
@@ -35,7 +39,7 @@ function Video({
   return (
     <div className="wrapper-video">
       <video
-        src={video1}
+        src="assets/videos/video2.mp4"
         poster={thumbnail}
         muted
         ref={videoRef}
