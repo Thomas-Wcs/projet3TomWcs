@@ -5,6 +5,7 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import Video from "./Video";
+import data from "./Data";
 
 function Featured() {
   const listRef = useRef();
@@ -42,30 +43,16 @@ function Featured() {
           disabled={position === 0}
         />
         <div className="container" ref={listRef}>
-          <Video
-            title="titre1"
-            width="100vw"
-            height="100vh"
-            displayPlayButton
-          />
-          <Video
-            title="titre2"
-            width="100vw"
-            height="100vh"
-            displayPlayButton
-          />
-          <Video
-            title="titre3"
-            width="100vw"
-            height="100vh"
-            displayPlayButton
-          />
-          <Video
-            title="titre4"
-            width="100vw"
-            height="100vh"
-            displayPlayButton
-          />
+          {data.map((video) => (
+            <Video
+              key={video.id}
+              title={video.titre}
+              width="100vw"
+              height="100vh"
+              displayPlayButton
+              src={video.lien}
+            />
+          ))}
         </div>
         <ArrowForwardIosOutlined
           className="sliderArrow right"

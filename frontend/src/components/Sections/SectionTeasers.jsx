@@ -7,6 +7,7 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import Video from "./Video";
+import data from "./Data";
 
 function SectionTeasers() {
   const listRef = useRef();
@@ -35,16 +36,15 @@ function SectionTeasers() {
           disabled={position === 0}
         />
         <div className="container container-section" ref={listRef}>
-          <Video width="650px" height="450px" isEnabled />
-          <Video width="650px" height="450px" isEnabled />
-          <Video width="650px" height="450px" isEnabled />
-          <Video width="650px" height="450px" isEnabled />
-          <Video width="650px" height="450px" isEnabled />
-          <Video width="650px" height="450px" isEnabled />
-          <Video width="650px" height="450px" isEnabled />
-          <Video width="650px" height="450px" isEnabled />
-          <Video width="650px" height="450px" isEnabled />
-          <Video width="650px" height="450px" isEnabled />
+          {data.map((video) => (
+            <Video
+              key={video.id}
+              width="650px"
+              height="450px"
+              isEnabled
+              src={video.lien}
+            />
+          ))}
         </div>
         <ArrowForwardIosOutlined
           className="sliderArrow right"

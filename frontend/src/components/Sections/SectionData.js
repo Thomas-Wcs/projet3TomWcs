@@ -1,7 +1,7 @@
 const sectionData = [
   {
     id: "1",
-    lien: "https://youtu.be/rZYycIiJwZc",
+    lien: "assets/videos/video1.mp4",
     titre: "Blue Circles",
     categorie_id: "",
 
@@ -12,7 +12,7 @@ const sectionData = [
   },
   {
     id: "2",
-    lien: "https://youtu.be/WyKhoLLdf5w",
+    lien: "assets/videos/video2.mp4",
     titre: "Blue plasma",
     categorie_id: "",
     description_text:
@@ -22,7 +22,7 @@ const sectionData = [
   },
   {
     id: "3",
-    lien: "https://youtu.be/SDubbiZE6VI",
+    lien: "assets/videos/video3.mp4",
     titre: "Blue Sci-Fi",
     categorie_id: "",
     description_text:
@@ -32,7 +32,7 @@ const sectionData = [
   },
   {
     id: "4",
-    lien: "https://youtu.be/xgIxdEFI7u0",
+    lien: "assets/videos/video4.mp4",
     titre: "Seamless Blue Circles",
     categorie_id: "",
     description_text:
@@ -42,7 +42,7 @@ const sectionData = [
   },
   {
     id: "5",
-    lien: "https://youtu.be/rZYycIiJwZc",
+    lien: "assets/videos/video1.mp4",
     titre: "Blue Circles",
     categorie_id: "",
     description_text:
@@ -52,7 +52,7 @@ const sectionData = [
   },
   {
     id: "6",
-    lien: "https://youtu.be/WyKhoLLdf5w",
+    lien: "assets/videos/video2.mp4",
     titre: "Blue plasma",
     categorie_id: "",
     description_text:
@@ -62,7 +62,7 @@ const sectionData = [
   },
   {
     id: "7",
-    lien: "https://youtu.be/SDubbiZE6VI",
+    lien: "assets/videos/video3.mp4",
     titre: "Blue Sci-Fi",
     categorie_id: "",
     description_text:
@@ -71,7 +71,7 @@ const sectionData = [
   },
   {
     id: "8",
-    lien: "https://youtu.be/xgIxdEFI7u0",
+    lien: "assets/videos/video4.mp4",
     titre: "Seamless Blue Circles",
     categorie_id: "",
     description_text:

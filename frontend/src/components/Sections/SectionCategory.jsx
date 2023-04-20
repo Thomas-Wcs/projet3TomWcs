@@ -69,6 +69,7 @@ function SectionCategory({ sectionName }) {
         <div className="category-container">
           {uniqueCategories.map((item) => (
             <button
+              key={item.id}
               className="category-btn"
               type="submit"
               onClick={() => handleCategory(item.category)}

@@ -14,6 +14,7 @@ function Video({
   displayDescriptionText,
   displayDescriptionTitle,
   isEnabled,
+  src,
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -39,7 +40,7 @@ function Video({
   return (
     <div className="wrapper-video">
       <video
-        src="assets/videos/video2.mp4"
+        src={src}
         poster={thumbnail}
         muted
         ref={videoRef}
@@ -62,9 +63,10 @@ function Video({
   );
 }
 Video.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   width: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
   displayPlayButton: PropTypes.bool,
   displayDescription: PropTypes.bool,
   displayDescriptionText: PropTypes.string,
@@ -73,6 +75,7 @@ Video.propTypes = {
 };
 
 Video.defaultProps = {
+  title: "",
   displayPlayButton: false,
   displayDescription: false,
   displayDescriptionText: "",

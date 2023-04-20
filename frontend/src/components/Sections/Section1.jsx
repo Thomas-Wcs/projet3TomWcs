@@ -8,6 +8,7 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import Video from "./Video";
+import data from "./Data";
 
 function Section1({ sectionName }) {
   const listRef = useRef();
@@ -51,16 +52,17 @@ function Section1({ sectionName }) {
           disabled={position === 0}
         />
         <div className="container container-section" ref={listRef}>
-          <Video width="650px" height="450px" displayDescription />
-          <Video width="650px" height="450px" displayDescription />
-          <Video width="650px" height="450px" displayDescription />
-          <Video width="650px" height="450px" displayDescription />
-          <Video width="650px" height="450px" displayDescription />
-          <Video width="650px" height="450px" displayDescription />
-          <Video width="650px" height="450px" displayDescription />
-          <Video width="650px" height="450px" displayDescription />
-          <Video width="650px" height="450px" displayDescription />
-          <Video width="650px" height="450px" displayDescription />
+          {data.map((video) => (
+            <Video
+              key={video.id}
+              width="650px"
+              height="450px"
+              displayDescription
+              displayDescriptionTitle={video.titre}
+              displayDescriptionText={video.description_text}
+              src={video.lien}
+            />
+          ))}
         </div>
         <ArrowForwardIosOutlined
           className="sliderArrow right"
