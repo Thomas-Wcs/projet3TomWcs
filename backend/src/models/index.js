@@ -5,7 +5,7 @@ const mysql = require("mysql2/promise");
 // create a connection pool to the database
 
 const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
-
+console.log("toto", DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME);
 const pool = mysql.createPool({
   host: DB_HOST,
   port: DB_PORT,
@@ -16,8 +16,9 @@ const pool = mysql.createPool({
 
 // try a connection
 
-pool.getConnection().catch(() => {
+pool.getConnection().catch((err) => {
   console.warn(
+    err,
     "Warning:",
     "Failed to get a DB connection.",
     "Did you create a .env file with valid credentials?",
