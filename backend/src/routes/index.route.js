@@ -2,8 +2,10 @@ const express = require("express");
 
 const router = express.Router();
 
-const video = require("./video.route");
+const user = require("./userRouter");
+const videos = require("./video.route");
 
-router.use("/videos", video);
+router.use("/users", user);
+router.use("/videos", videos);
 
 module.exports = router;
