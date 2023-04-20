@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid/node";
 import { Box } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+// import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function DataTable() {
   const [data, setData] = useState([]);
@@ -164,7 +164,7 @@ export default function DataTable() {
   return (
     <Box sx={{ height: 800, width: "100%", backgroundColor: "black" }}>
       <h1>Users</h1>
-      <DeleteIcon />
+
       <DataGrid
         rows={personnels}
         columns={columns}
