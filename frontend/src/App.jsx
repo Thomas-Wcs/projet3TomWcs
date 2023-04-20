@@ -18,6 +18,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/adminPanel/*" element={<AdminPanel />} />
           <Route path="/banderole" element={<Banderole />} />
+          <Route path="/advert" element={<Advert />} />
         </Routes>
         <Footer />
       </Router>
