@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import "../../scss/index.css";
+import "../../styles/index.css";
 
 import {
   ArrowBackIosOutlined,
@@ -13,25 +13,26 @@ function Featured() {
   const listRef = useRef();
   const [position, setPosition] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
+  const videoDisplayed = data.length;
 
   function handleClick(direction) {
     const distance = listRef.current.getBoundingClientRect();
     const containerWidth = distance.width;
+    const videoWidth = containerWidth / videoDisplayed; // Number of videos displayed at a time
 
     if (direction === "left" && videoNumber > 0) {
       setVideoNumber(videoNumber - 1);
-      setPosition(position + containerWidth);
-
+      setPosition(position + videoWidth);
       listRef.current.style.transform = `translateX(${
-        position + containerWidth
+        position + videoWidth
       }px)`;
     }
 
-    if (direction === "right" && videoNumber < 3) {
+    if (direction === "right" && videoNumber < videoDisplayed - 1) {
       setVideoNumber(videoNumber + 1);
-      setPosition(position - containerWidth);
+      setPosition(position - videoWidth);
       listRef.current.style.transform = `translateX(${
-        position - containerWidth
+        position - videoWidth
       }px)`;
     }
   }
