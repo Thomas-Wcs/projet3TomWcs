@@ -4,7 +4,9 @@ import AdminPanel from "./components/adminPannel/AdminPanel";
 import Header from "./components/Header/Header";
 import ConnectionPage from "./components/User/ConnectionPage";
 import Profile from "./components/User/Profile";
-import Home from "./pages/Home";
+
+import Homepage2 from "./pages/Homepage2";
+
 import AuthContext from "./context/AuthContext";
 
 function App() {
@@ -16,7 +18,7 @@ function App() {
         <Router>
           <Header />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Homepage2 />} />
             <Route path="/connexion" element={<ConnectionPage />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/adminPanel/*" element={<AdminPanel />} />
