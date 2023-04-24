@@ -1,18 +1,27 @@
-import React, { useRef, useState } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
 import "../../styles/index.css";
-
 import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+import useAPI from "../../api/useAPI";
 import Video from "./Video";
-import data from "./Data";
 
 function SectionTeasers() {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
+  const [data, setData] = useState([]);
+  const api = useAPI();
+
+  const getVideoData = async () => {
+    await api.get("videos").then((res) => {
+      setData(res.data);
+    });
+  };
+  useEffect(() => {
+    getVideoData();
+  }, []);
 
   function handleClick(direction) {
     const distance = listRef.current.getBoundingClientRect().x;
