@@ -1,13 +1,19 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid/node";
+import { Box } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import useAPI from "../../api/useAPI";
 
 export default function DataTable() {
   const [data, setData] = useState([]);
+  const [isEditUser, setIsEditUser] = useState(false);
+  const api = useAPI();
 
   const getUserData = async () => {
-    await axios.get("http://localhost:5000/users").then((res) => {
+    await api.get("users").then((res) => {
       setData(res.data);
     });
   };
@@ -19,92 +25,176 @@ export default function DataTable() {
     );
 
     if (confirmDelete) {
-      await axios.delete(`http://localhost:5000/users/${id}`);
+      await api.delete(`users/${id}`);
       getUserData();
     }
-  };
-
-  const editUser = async (id, updatedValues) => {
-    await axios.patch(`http://localhost:5000/users/${id}`, updatedValues);
-    getUserData(); // Mettre à jour la liste des utilisateurs après configuration
   };
 
   useEffect(() => {
     getUserData();
   }, []);
 
+  const updateUser = async (id, field, value) => {
+    const updatedData = data.map((row) => {
+      if (row.id === id) {
+        return { ...row, [field]: value };
+      }
+      return row;
+    });
+    setData(updatedData);
+
+    const [name, email, firstname, role, isPremium] = value;
+    const newUser = { name, email, firstname, role, isPremium };
+
+    await api.put(`users/${id}`, newUser);
+    getUserData();
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  const handleCellEditCommit = React.useCallback(
+    ({ id, field, value }) => {
+      updateUser(id, field, value);
+    },
+    [updateUser]
+  );
+
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
-    { field: "name", headerName: "First name", width: 130 },
-    { field: "email", headerName: "email", width: 130 },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      width: 90,
+      field: "name",
+      headerName: "Name",
+      width: 200,
+      type: "string",
+      editable: true,
     },
     {
-      field: "fullName",
-      headerName: "Name + Email",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 160,
-      valueGetter: (params) =>
-        `${params.row.name || ""} ${params.row.email || ""}`,
+      field: "firstname",
+      headerName: "FirstName",
+      width: 200,
+      type: "string",
+      editable: true,
+    },
+    {
+      field: "email",
+      headerName: "E-mail",
+      width: 250,
+      type: "string",
+      editable: true,
+    },
+    {
+      field: "role",
+      headerName: "Role",
+      type: "string",
+      width: 130,
+      editable: true,
+    },
+    {
+      field: "isPremium",
+      headerName: "Premium",
+      type: "boolean",
+      width: 130,
+      editable: true,
     },
     {
       field: "edit",
       headerName: "Edit",
-      width: 100,
+      width: 130,
       renderCell: (params) => (
         <button
           type="button"
-          onClick={() =>
-            editUser(params.row.id, {
-              name: "azazzp",
-              email: "nouveau@email.com",
-            })
-          }
+          style={{
+            fontFamily: "PT Sans",
+            backgroundColor: "green",
+            height: "90%",
+            margin: "1em",
+            padding: "0.9em",
+            borderRadius: "20%",
+            border: "none",
+          }}
+          onClick={() => {
+            handleCellEditCommit({
+              id: params.id,
+              field: ["name", "email", "firstname", "role", "isPremium"],
+              value: [
+                params.row.name,
+                params.row.email,
+                params.row.firstname,
+                params.row.role,
+                params.row.isPremium,
+              ],
+            });
+            setIsEditUser(true);
+
+            setTimeout(() => {
+              setIsEditUser(false);
+            }, 2000);
+          }}
         >
-          Edit
+          {isEditUser ? (
+            <CheckCircleIcon style={{ width: "100%" }} />
+          ) : (
+            <CheckCircleOutlineIcon style={{ width: "100%" }} />
+          )}
         </button>
       ),
     },
     {
       field: "delete",
       headerName: "Delete",
-      width: 100,
+      width: 130,
       renderCell: (params) => (
-        <button type="button" onClick={() => deleteUser(params.row.id)}>
-          Delete
+        <button
+          type="button"
+          style={{
+            fontFamily: "PT Sans",
+            backgroundColor: "red",
+            height: "90%",
+            margin: "1em",
+            padding: "0.9em",
+            borderRadius: "20%",
+            border: "none",
+          }}
+          onClick={() => deleteUser(params.row.id)}
+        >
+          <DeleteIcon style={{ width: "100%" }} />
         </button>
       ),
     },
   ];
 
-  const rows = data.map((row) => ({
-    id: row.id,
-    name: row.name,
-    email: row.email,
+  const personnels = data.map((personne) => ({
+    id: personne.id,
+    name: personne.name,
+    firstname: personne.firstname,
+    email: personne.email,
+    role: personne.role,
+    isPremium: personne.isPremium,
   }));
 
   return (
-    <div style={{ height: 700, width: "80%", margin: 50 }}>
+    <Box sx={{ height: 800, width: "100%", backgroundColor: "black" }}>
       <h1>Users</h1>
       <DataGrid
-        rows={rows}
+        rows={personnels}
         columns={columns}
-        pageSize={1}
-        rowsPerPageOptions={1}
-        checkboxSelection
+        rowsPerPageOptions={[5, 10, 20]}
         style={{
-          backgroundColor: "grey",
-          margin: "1em",
-          fontSize: "18px",
+          height: "80%",
+          backgroundColor: "gray",
+          borderRadius: "1%",
+          margin: "0px 5em 0px 5em",
+          padding: "1em",
+          fontSize: "20px",
+          fontFamily: "PT Sans",
           with: "100%",
-          buttonColor: "red",
+          border: "3px solid rgb(16, 188, 221)",
+          color: "black",
         }}
       />
-    </div>
+      <div style={{ backgroundColor: "black", height: "500px" }} />
+    </Box>
   );
 }
