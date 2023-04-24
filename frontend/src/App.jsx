@@ -6,7 +6,7 @@ import ConnectionPage from "./components/User/ConnectionPage";
 import Profile from "./components/User/Profile";
 import DataTable from "./components/adminPannel/DataTable";
 import VideosManagement from "./components/adminPannel/VideosManagement";
-import Home from "./pages/Home";
+import Homepage2 from "./pages/Homepage2";
 import userContext from "./context/userContext";
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
         <Router>
           <Header />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Homepage2 />} />
             <Route path="/connexion" element={<ConnectionPage />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="adminPanel" element={<AdminPanel />}>
