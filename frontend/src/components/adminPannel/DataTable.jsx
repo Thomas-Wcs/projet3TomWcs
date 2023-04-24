@@ -42,10 +42,6 @@ export default function DataTable() {
       return row;
     });
     setData(updatedData);
-    // eslint-disable-next-line no-restricted-syntax
-    console.log(`Nouvelles données de l'utilisateur ${id}:`, {
-      [field]: value,
-    });
 
     const [name, email, firstname, role, isPremium] = value;
     const newUser = { name, email, firstname, role, isPremium };
