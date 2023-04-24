@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-
 import "../../styles/index.css";
-
 import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
@@ -20,6 +18,8 @@ function Section1({ sectionName }) {
   const getVideoData = async () => {
     await api.get("videos").then((res) => {
       setData(res.data);
+      // eslint-disable-next-line no-restricted-syntax
+      console.log(res.data);
     });
   };
   useEffect(() => {
