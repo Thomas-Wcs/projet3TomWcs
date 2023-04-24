@@ -1,19 +1,19 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { DataGrid } from "@mui/x-data-grid/node";
 import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import useAPI from "../../api/useAPI";
 
 export default function DataTable() {
   const [data, setData] = useState([]);
   const [isEditUser, setIsEditUser] = useState(false);
-  const setIsResetEdit = useState(false);
+  const api = useAPI();
 
   const getUserData = async () => {
-    await axios.get("http://localhost:5000/users").then((res) => {
+    await api.get("users").then((res) => {
       setData(res.data);
     });
   };
@@ -25,7 +25,7 @@ export default function DataTable() {
     );
 
     if (confirmDelete) {
-      await axios.delete(`http://localhost:5000/users/${id}`);
+      await api.delete(`users/${id}`);
       getUserData();
     }
   };
@@ -46,7 +46,7 @@ export default function DataTable() {
     const [name, email, firstname, role, isPremium] = value;
     const newUser = { name, email, firstname, role, isPremium };
 
-    await axios.put(`http://localhost:5000/users/${id}`, newUser);
+    await api.put(`users/${id}`, newUser);
     getUserData();
   };
 
@@ -130,7 +130,6 @@ export default function DataTable() {
 
             setTimeout(() => {
               setIsEditUser(false);
-              setIsResetEdit(true);
             }, 2000);
           }}
         >
