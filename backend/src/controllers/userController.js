@@ -45,9 +45,6 @@ const read = (req, res) => {
 const edit = (req, res) => {
   const user = req.body;
 
-  // eslint-disable-next-line no-restricted-syntax
-  console.log(req.body);
-
   user.id = parseInt(req.params.id, 10);
 
   models.user
