@@ -62,7 +62,7 @@ function Featured() {
               width="100vw"
               height="100vh"
               displayPlayButton
-              src={video.lien}
+              src={`${import.meta.env.VITE_APP_API_URL}/${video.lien}`}
             />
           ))}
         </div>

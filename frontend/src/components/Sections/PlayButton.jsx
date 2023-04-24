@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 function PlayButton({ handleToggleVideo }) {
   return (
     <button type="submit" onClick={handleToggleVideo}>
-      visionner
+      Visionner
     </button>
   );
 }
