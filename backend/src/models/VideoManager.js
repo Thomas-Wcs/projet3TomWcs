@@ -9,21 +9,22 @@ class VideoManager extends AbstractManager {
     return this.database.query(`select * from  ${this.table}`);
   }
 
-  // eslint-disable-next-line camelcase
-  insert(titre, lien, categorie_id, description_text) {
-    return this.database
-      .query(
-        `insert into ${this.table} (titre, lien, categorie_id, description_text) values ( ?, ?, ?, ?)`,
-        // eslint-disable-next-line camelcase
-        [titre, lien, categorie_id, description_text]
-      )
-      .then(([result]) => result.insertId)
-      .catch((err) => console.error(err));
+  insert(videos) {
+    return this.database.query(
+      `insert into ${this.table} (title, link, category_id, description_text, date_publication) values (?, ?, ?, ?, ?)`,
+      [
+        videos.title,
+        videos.link,
+        videos.category_id,
+        videos.description_text,
+        videos.date_publication,
+      ]
+    );
   }
 
   update(videos) {
     return this.database.query(
-      `update ${this.table} set titre = ? where id = ?`,
+      `update ${this.table} set title = ? where id = ?`,
       [videos.name, videos.id]
     );
   }
