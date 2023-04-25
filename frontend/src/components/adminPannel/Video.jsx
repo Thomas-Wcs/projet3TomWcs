@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Videos(props) {
-  const { videos, onDeleteVideo } = props;
-
+function Videos({ videos, onDeleteVideo }) {
   const handleDeleteVideo = () => {
     onDeleteVideo(videos.id);
   };

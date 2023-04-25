@@ -1,3 +1,5 @@
+const path = require("path");
+const fs = require("fs");
 const models = require("../models");
 
 const browse = (req, res) => {
@@ -55,6 +57,21 @@ const add = async (req, res) => {
   if (!file) {
     return res.sendStatus(500);
   }
+
+  const baseFolder = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "assets",
+    "videos"
+  );
+  const originalName = path.join(baseFolder, file.originalname);
+  const filename = path.join(baseFolder, file.filename);
+
+  fs.rename(filename, originalName, (err) => {
+    if (err) throw err;
+  });
   const lien = `videos/${file.originalname}`;
 
   // TODO validations (length, format...)
@@ -77,8 +94,8 @@ const add = async (req, res) => {
   return res.status(201).json(newVideo);
 };
 
-const destroy = (req, res) => {
-  models.videos
+const destroy = async (req, res) => {
+  await models.video
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {

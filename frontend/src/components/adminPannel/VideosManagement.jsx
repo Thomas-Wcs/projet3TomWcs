@@ -42,9 +42,8 @@ function VideosManagement() {
     );
 
     if (confirmDelete) {
-      fetch(`http://localhost:5000/videos/${video}`, {
-        method: "DELETE",
-      })
+      api
+        .delete(`/videos/${video}`)
         .then(() => {
           // eslint-disable-next-line no-alert
           window.alert(`La video ${video} a été supprimé avec succès`);
