@@ -58,11 +58,11 @@ function Featured() {
           {data.map((video) => (
             <Video
               key={video.id}
-              title={video.titre}
+              title={video.title}
               width="100vw"
               height="100vh"
               displayPlayButton
-              src={`${import.meta.env.VITE_APP_API_URL}/${video.lien}`}
+              src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
             />
           ))}
         </div>
