@@ -9,7 +9,7 @@ function Videos({ videos, onDeleteVideo }) {
   return (
     <div className="admin-videos" style={{ backgroundColor: "grey" }}>
       <h2>{videos.titre}</h2>
-      <div>{videos.lien} </div>
+      <div>{videos.description_text} </div>
       <p>Date d'ajout: {videos.date_publication}</p>
       <button type="button" onClick={handleDeleteVideo}>
         Supprimer

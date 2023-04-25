@@ -45,8 +45,6 @@ const read = (req, res) => {
 const edit = (req, res) => {
   const user = req.body;
 
-  // TODO validations (length, format...)
-
   user.id = parseInt(req.params.id, 10);
 
   models.user
@@ -124,7 +122,6 @@ const login = async (req, res, next) => {
       next();
     } else return res.sendStatus(401);
   } else return res.sendstatus(500);
-  console.log(result);
   return true;
 };
 

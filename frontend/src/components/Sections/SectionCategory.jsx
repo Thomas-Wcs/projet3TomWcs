@@ -1,14 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-
 import "../../styles/index.css";
-
 import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import Video from "./Video";
-import data from "./Data";
+import useAPI from "../../api/useAPI";
 
 function SectionCategory({ sectionName }) {
   const listRef = useRef();
@@ -16,6 +14,17 @@ function SectionCategory({ sectionName }) {
   const [videoNumber, setVideoNumber] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categoryClicked, setCategoryCliked] = useState(false);
+  const [data, setData] = useState([]);
+  const api = useAPI();
+
+  const getVideoData = async () => {
+    await api.get("videos").then((res) => {
+      setData(res.data);
+    });
+  };
+  useEffect(() => {
+    getVideoData();
+  }, []);
 
   const uniqueCategories = data.filter((item, index) => {
     return (
@@ -85,7 +94,7 @@ function SectionCategory({ sectionName }) {
                 .map((item) => (
                   <Video
                     key={item.id}
-                    src={item.lien}
+                    src={`${import.meta.env.VITE_APP_API_URL}/${item.lien}`}
                     width="650px"
                     height="450px"
                     displayDescription
@@ -97,7 +106,7 @@ function SectionCategory({ sectionName }) {
             : data.map((item) => (
                 <Video
                   key={item.id}
-                  src={item.lien}
+                  src={`${import.meta.env.VITE_APP_API_URL}/${item.lien}`}
                   width="650px"
                   height="450px"
                   displayDescription
