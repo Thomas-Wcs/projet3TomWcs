@@ -1,8 +1,6 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
-
 import "../../styles/index.css";
-
 import thumbnail from "../../assets/images/background-slider.png";
 import PlayButton from "./PlayButton";
 

@@ -1,19 +1,28 @@
-import React, { useRef, useState } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
 import "../../styles/index.css";
-
 import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import Video from "./Video";
-import data from "./Data";
+import useAPI from "../../api/useAPI";
 
 function Featured() {
   const listRef = useRef();
   const [position, setPosition] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
+  const [data, setData] = useState([]);
+  const api = useAPI();
   const videoDisplayed = data.length;
+
+  const getVideoData = async () => {
+    await api.get("videos").then((res) => {
+      setData(res.data);
+    });
+  };
+  useEffect(() => {
+    getVideoData();
+  }, []);
 
   function handleClick(direction) {
     const distance = listRef.current.getBoundingClientRect();
@@ -49,11 +58,11 @@ function Featured() {
           {data.map((video) => (
             <Video
               key={video.id}
-              title={video.titre}
+              title={video.title}
               width="100vw"
               height="100vh"
               displayPlayButton
-              src={video.lien}
+              src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
             />
           ))}
         </div>

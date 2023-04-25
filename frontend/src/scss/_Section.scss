@@ -1,85 +1,69 @@
+.list {
+  .section-name {
+    color: white;
+    text-transform: uppercase;
+    padding: 60px;
+  }
 
-.list{
-
-  .section-name{
-  color:white;
-  text-transform: uppercase;
-  padding: 60px;
-}
-
-.wrapper-sectionName-buttons{
-  display: flex;
-
-  .button-wrapper{
-  display: flex;
-  justify-content: space-between;
-
-    width:80%;
-    align-items: center;
-
-.next-btn{
-   color: #10bcdd;
-    border: none;
-  background-color: rgba(255, 255, 255, 0);
-  border: 2px solid #10bcdd;
-}
-
-.follow-btn{
-  color:#858383;
-   border: none;
-  background-color: rgba(255, 255, 255, 0);
-    border: 2px solid #858383;
-}
-
-}
-
-
-
-
-button{
-  padding: 10px 20px;
-   width: 120px;
-    height: 40px;
+  .wrapper-sectionName-buttons {
     display: flex;
-    align-items: center;
+
+    .button-wrapper {
+      display: flex;
+      justify-content: space-between;
+
+      width: 80%;
+      align-items: center;
+
+      .next-btn {
+        color: #10bcdd;
+        border: none;
+        background-color: rgba(255, 255, 255, 0);
+        border: 2px solid #10bcdd;
+      }
+
+      .follow-btn {
+        color: #858383;
+        border: none;
+        background-color: rgba(255, 255, 255, 0);
+        border: 2px solid #858383;
+      }
+    }
+
+    button {
+      padding: 10px 20px;
+      width: 120px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .category-container {
+    margin-left: 60px;
+    margin-bottom: 60px;
+
+    .category-btn {
+      color: red;
+      padding: 10px 20px;
+      width: 140px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0);
+      border: none;
+      color: white;
+      text-transform: uppercase;
+      border-right: 2px solid white;
+
+      &:hover {
+        color: #10bcdd;
+      }
+    }
+  }
+
+  .container-section {
+    gap: 30px;
+    margin-left: 60px;
+    margin-bottom: 120px;
+    display: flex;
+  }
 }
-
-}
-
-.category-container{
- margin-left: 60px;
-     margin-bottom: 60px;
-
-     .category-btn{
-  color:red;
-  padding: 10px 20px;
-   width: 140px;
-    height: 40px;
-     background-color: rgba(255, 255, 255, 0);
-     border: none;
-     color: white;
-     text-transform: uppercase;
-     border-right: 2px solid white;
-
-     &:hover{
- color: #10bcdd;
-     }
-    
-}
-}
-
-
-.container-section{
-  gap: 30px;
-  margin-left: 60px;
-  margin-bottom: 120px;
-  display: flex;
-
-
-
-}
-}
-
-
-
-
