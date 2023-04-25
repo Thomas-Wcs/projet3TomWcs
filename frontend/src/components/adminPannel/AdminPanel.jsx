@@ -1,6 +1,5 @@
 import React from "react";
-// import "../../styles/AdminPannel.css";
-import "../../styles/index.css";
+import "../../scss/index.css";
 import { Link, Route, Routes } from "react-router-dom";
 import DataTable from "./DataTable";
 import VideosManagement from "./VideosManagement";

@@ -48,20 +48,34 @@ const edit = (req, res) => {
     });
 };
 
-const add = (req, res) => {
-  const videos = req.body;
+const add = async (req, res) => {
+  // eslint-disable-next-line camelcase
+  const { titre, description_text, categorie_id } = req.body;
+  const { file } = req;
+  if (!file) {
+    console.log("Pas de fichier");
+    return res.sendStatus(500);
+  }
+  const lien = `videos/${file.originalname}`;
 
   // TODO validations (length, format...)
 
-  models.video
-    .insert(videos)
-    .then(([result]) => {
-      if (result.status === 201) res.send("Video updated");
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+  const result = await models.video.insert(
+    titre,
+    description_text,
+    categorie_id,
+    lien
+  );
+  const newVideo = {
+    titre,
+    // eslint-disable-next-line camelcase
+    description_text,
+    // eslint-disable-next-line camelcase
+    categorie_id,
+    lien,
+    id: result,
+  };
+  return res.status(201).json(newVideo);
 };
 
 const destroy = (req, res) => {
@@ -80,10 +94,23 @@ const destroy = (req, res) => {
     });
 };
 
+const findFavorites = async (req, res) => {
+  await models.video
+    .findFavorites(req.query.name)
+    .then(([result]) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
   edit,
   add,
   destroy,
+  findFavorites,
 };
