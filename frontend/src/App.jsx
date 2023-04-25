@@ -30,6 +30,8 @@ function App() {
             <Route path="/advert" element={<Advert />} />
           </Routes>
         </Router>
+        <Advert />
+        <Footer />
       </div>
     </userContext.Provider>
   );
