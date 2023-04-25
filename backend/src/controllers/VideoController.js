@@ -78,9 +78,9 @@ const add = async (req, res) => {
 
   const result = await models.video.insert(
     titre,
-    description_text,
+    lien,
     categorie_id,
-    lien
+    description_text
   );
   const newVideo = {
     titre,

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
+import "../../styles/index.css";
 
 function VideosManagement() {
   const api = useAPI();
   const [videos, setVideos] = useState([]);
   const [title, setTitle] = useState("");
-  const [categorie, setCategorie] = useState();
+  const [categorie, setCategorie] = useState(1);
   const [description, setDescription] = useState("");
   const [fileUpload, setFileUpload] = useState(null);
 
@@ -55,8 +56,8 @@ function VideosManagement() {
   return (
     <div className="user-management">
       <div id="title">
-        <h1>Videos</h1>
-        <form onSubmit={handleAddVideos}>
+        <h1>Ajouter une video</h1>
+        <form onSubmit={handleAddVideos} id="video-form">
           <label htmlFor="title">
             <input
               type="text"
@@ -66,15 +67,12 @@ function VideosManagement() {
               onChange={(e) => setTitle(e.target.value)}
             />
           </label>
-          <label htmlFor="categorie">
-            <input
-              type="text"
-              placeholder="Categorie"
-              name="categorie"
-              value={categorie}
-              onChange={(e) => setCategorie(e.target.value)}
-            />
-          </label>
+          <select onChange={(e) => setCategorie(e.target.value)}>
+            <option value="1">Animaux</option>
+            <option value="2">Sports</option>
+            <option value="3">Cuisine</option>
+            <option value="4">Voyage</option>
+          </select>
           <label htmlFor="descritpion">
             <input
               type="text"

@@ -124,6 +124,7 @@ const login = async (req, res, next) => {
       next();
     } else return res.sendStatus(401);
   } else return res.sendstatus(500);
+  console.log(result);
   return true;
 };
 
