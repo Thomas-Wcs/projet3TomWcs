@@ -6,6 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import useAPI from "../../api/useAPI";
+import dataTableStyle from "./DataTableStyle";
 
 export default function DataTable() {
   const [data, setData] = useState([]);
@@ -181,18 +182,7 @@ export default function DataTable() {
         rows={personnels}
         columns={columns}
         rowsPerPageOptions={[5, 10, 20]}
-        style={{
-          height: "80%",
-          backgroundColor: "gray",
-          borderRadius: "1%",
-          margin: "0px 5em 0px 5em",
-          padding: "1em",
-          fontSize: "20px",
-          fontFamily: "PT Sans",
-          with: "100%",
-          border: "3px solid rgb(16, 188, 221)",
-          color: "black",
-        }}
+        style={dataTableStyle}
       />
       <div style={{ backgroundColor: "black", height: "500px" }} />
     </Box>
