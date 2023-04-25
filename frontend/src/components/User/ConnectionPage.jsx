@@ -1,7 +1,6 @@
 import "../../styles/index.css";
 import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { saveToken } from "../../services/account.services";
 import useAPI from "../../api/useAPI";
 import Registration from "./Registration";
 import AuthContext from "../../context/AuthContext";
@@ -13,7 +12,6 @@ export default function ConnectionPage() {
   const [mdp, setMdp] = useState("");
   const [registrationMail, setRegistrationMail] = useState("");
   const [account, setAccount] = useState(true);
-  // const [success, setSuccess] = useState(true);
   const [userConnected, setUserConnected] = useState("");
   const { success, setSuccess } = useContext(AuthContext);
 
@@ -31,7 +29,6 @@ export default function ConnectionPage() {
       .post("users/login/", user)
       .then((res) => {
         const { token } = res.data;
-        saveToken(res.data.token);
         setUserConnected(res.data.user);
         api.defaults.headers.authorization = `Bearer ${token}`;
         setSuccess(false);
