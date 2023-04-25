@@ -4,8 +4,8 @@ import Header from "./components/Header/Header";
 import ConnectionPage from "./components/User/ConnectionPage";
 import Profile from "./components/User/Profile";
 import Home from "./pages/Home";
+import Advert from "./components/advertising/Advert";
 import Footer from "./components/footer/Footer";
-import Banderole from "./components/descriptiveZoom/Banderole";
 
 function App() {
   return (
@@ -17,7 +17,6 @@ function App() {
           <Route path="/connexion" element={<ConnectionPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/adminPanel/*" element={<AdminPanel />} />
-          <Route path="/banderole" element={<Banderole />} />
           <Route path="/advert" element={<Advert />} />
         </Routes>
         <Footer />

@@ -1,13 +1,9 @@
-.advert {
-  display: grid;
-}
-
-.container {
+.footer_container {
   display: flex;
   flex-direction: row;
   background-color: grey;
   padding: 2rem;
-  position: absolute;
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;

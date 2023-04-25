@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Advert from "../advertising/Advert";
 
 export default function Profile() {
   const [data, setData] = useState([]);
@@ -87,6 +88,7 @@ export default function Profile() {
           />
         ))}
       </Carousel>
+      <Advert />
     </div>
   );
 }

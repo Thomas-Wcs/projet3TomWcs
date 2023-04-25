@@ -9,7 +9,7 @@ import logo from "../../assets/imagedemo.png";
 function Footer() {
   return (
     <footer className="footer">
-      <div className="container">
+      <div className="footer_container">
         <div className="footer_brand_logo">
           <img src={logo} alt="logo" className="footer_logo" />
         </div>
