@@ -33,7 +33,7 @@ function VideosManagement() {
         setVideos(data.data);
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [videos]);
 
   const handleDeleteVideo = (video) => {
     // eslint-disable-next-line no-alert
