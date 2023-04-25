@@ -9,10 +9,12 @@ class VideoManager extends AbstractManager {
     return this.database.query(`select * from  ${this.table}`);
   }
 
+  // eslint-disable-next-line camelcase
   insert(titre, lien, categorie_id, description_text) {
     return this.database
       .query(
         `insert into ${this.table} (titre, lien, categorie_id, description_text) values ( ?, ?, ?, ?)`,
+        // eslint-disable-next-line camelcase
         [titre, lien, categorie_id, description_text]
       )
       .then(([result]) => result.insertId)
