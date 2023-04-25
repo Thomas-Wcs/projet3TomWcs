@@ -53,7 +53,6 @@ const add = async (req, res) => {
   const { titre, description_text, categorie_id } = req.body;
   const { file } = req;
   if (!file) {
-    console.log("Pas de fichier");
     return res.sendStatus(500);
   }
   const lien = `videos/${file.originalname}`;

@@ -9,16 +9,11 @@ class VideoManager extends AbstractManager {
     return this.database.query(`select * from  ${this.table}`);
   }
 
-  insert(videos) {
+  insert(titre, lien, categorie_id, description_text) {
     return this.database
       .query(
         `insert into ${this.table} (titre, lien, categorie_id, description_text) values ( ?, ?, ?, ?)`,
-        [
-          videos.titre,
-          videos.lien,
-          videos.categorie_id,
-          videos.description_text,
-        ]
+        [titre, lien, categorie_id, description_text]
       )
       .then(([result]) => result.insertId)
       .catch((err) => console.error(err));

@@ -16,7 +16,7 @@ function VideosManagement() {
     formData.append("titre", title);
     formData.append("description_text", description);
     formData.append("categorie_id", categorie);
-    formData.append("link", fileUpload);
+    formData.append("videos", fileUpload);
 
     api
       .post("/videos", formData)
