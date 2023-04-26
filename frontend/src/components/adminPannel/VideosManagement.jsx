@@ -14,10 +14,11 @@ function VideosManagement() {
   const handleAddVideos = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("titre", title);
+    formData.append("title", title);
     formData.append("description_text", description);
-    formData.append("categorie_id", categorie);
-    formData.append("videos", fileUpload);
+    formData.append("category_id", categorie);
+    formData.append("link", fileUpload);
+    formData.append("date_publication", Date());
 
     api
       .post("/videos", formData)
