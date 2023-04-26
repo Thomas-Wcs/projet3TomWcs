@@ -18,11 +18,11 @@ function Videos({ videos, onDeleteVideo }) {
     const newVideo = {
       title: newTitle,
       description_text: newDescription,
-      category_id: setNewCategorie,
+      category_id: newCategorie,
     };
 
     api.put(`/videos/${videos.id}`, newVideo).then((resp) => {
-      console.log(resp);
+      return resp;
     });
   };
 
@@ -34,7 +34,7 @@ function Videos({ videos, onDeleteVideo }) {
     <div className="admin-videos" style={{ backgroundColor: "grey" }}>
       <div className="video-info">
         <h2>{videos.title}</h2>
-        <div>{videos.description_text} </div>
+        <h2>{videos.description_text} </h2>
         <p>Date d'ajout: {videos.date_publication}</p>
         <button type="button" onClick={handleDeleteVideo}>
           Supprimer
@@ -53,6 +53,7 @@ function Videos({ videos, onDeleteVideo }) {
               onChange={(e) => setNewTitle(e.target.value)}
             />
           </label>
+
           <label htmlFor="description">
             Nouvelle description:
             <input
