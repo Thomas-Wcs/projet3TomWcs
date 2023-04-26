@@ -13,7 +13,7 @@ function SectionCategory({ sectionName }) {
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [categoryClicked, setCategoryCliked] = useState(false);
+  const [categoryClicked, setCategoryClicked] = useState(false);
   const [data, setData] = useState([]);
   const api = useAPI();
 
@@ -34,13 +34,13 @@ function SectionCategory({ sectionName }) {
   const uniqueCategories = data.filter((item, index) => {
     return (
       data.findIndex((object) => {
-        return object.category === item.category;
+        return object.name === item.name;
       }) === index
     );
   });
 
   function handleCategory(category) {
-    setCategoryCliked(!categoryClicked);
+    setCategoryClicked(!categoryClicked);
     setSelectedCategory(category);
   }
 
@@ -86,16 +86,16 @@ function SectionCategory({ sectionName }) {
               key={item.id}
               className="category-btn"
               type="submit"
-              onClick={() => handleCategory(item.category)}
+              onClick={() => handleCategory(item.name)}
             >
-              {item.category}
+              {item.name}
             </button>
           ))}
         </div>
         <div className="container container-section" ref={listRef}>
           {categoryClicked
             ? data
-                .filter((item) => item.category === selectedCategory)
+                .filter((item) => item.name === selectedCategory)
                 .map((item) => (
                   <Video
                     key={item.id}

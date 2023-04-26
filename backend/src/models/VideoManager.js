@@ -5,8 +5,13 @@ class VideoManager extends AbstractManager {
     super({ table: "videos" });
   }
 
+  // findAll() {
+  //   return this.database.query(`select * from  ${this.table}`);
+  // }
   findAll() {
-    return this.database.query(`select * from  ${this.table}`);
+    return this.database.query(
+      `select ${this.table}.*, categorie.name from videos  inner join categorie on ${this.table}.category_id = categorie.id ;`
+    );
   }
 
   insert(videos) {
