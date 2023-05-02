@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { DataGrid } from "@mui/x-data-grid/node";
 import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -10,20 +10,12 @@ import dataTableStyle from "./DataTableStyle";
 
 export default function DataTable() {
   const [data, setData] = useState([]);
-  const api = useAPI();
-
   const [rowStates, setRowStates] = useState({});
-  // eslint-disable-next-line no-restricted-syntax
-  console.log(rowStates);
+  const api = useAPI();
 
   const getUserData = async () => {
     await api.get("users").then((res) => {
       setData(res.data);
-      const states = res.data.reduce((acc, curr) => {
-        acc[curr.id] = false;
-        return acc;
-      }, {});
-      setRowStates(states);
     });
   };
 
@@ -63,17 +55,19 @@ export default function DataTable() {
     getUserData();
   }, []);
 
+  const ChangeIcon = useCallback((id) => {
+    setTimeout(() => {
+      const resetStates = { [id]: false };
+      setRowStates(resetStates);
+    }, 2000);
+  }, []);
+
   const handleCellEditCommit = React.useCallback(
     ({ id, field, value }) => {
       updateUser(id, field, value);
-      const updatedStates = { ...rowStates, [id]: true };
+      const updatedStates = { [id]: true };
       setRowStates(updatedStates);
-      getUserData().then(() => {
-        setTimeout(() => {
-          const resetStates = { ...updatedStates, [id]: false };
-          setRowStates(resetStates);
-        }, 2000);
-      });
+      ChangeIcon([id]);
     },
     [rowStates, updateUser]
   );
@@ -143,15 +137,10 @@ export default function DataTable() {
                 params.row.isPremium,
               ],
             });
-            // setRowStates({ ...rowStates, [id]: true });
-
-            // setTimeout(() => {
-            //   setRowStates({ ...rowStates, [id]: false });
-            // }, 2000);
           }}
         >
           {rowStates[params.id] ? (
-            <CheckCircleIcon style={{ width: "100%" }} />
+            <CheckCircleIcon style={{ width: "100%", scale: "1.3" }} />
           ) : (
             <CheckCircleOutlineIcon style={{ width: "100%" }} />
           )}
