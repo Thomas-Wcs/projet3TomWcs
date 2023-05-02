@@ -10,12 +10,20 @@ import dataTableStyle from "./DataTableStyle";
 
 export default function DataTable() {
   const [data, setData] = useState([]);
-  const [isEditUser, setIsEditUser] = useState(false);
   const api = useAPI();
+
+  const [rowStates, setRowStates] = useState({});
+  // eslint-disable-next-line no-restricted-syntax
+  console.log(rowStates);
 
   const getUserData = async () => {
     await api.get("users").then((res) => {
       setData(res.data);
+      const states = res.data.reduce((acc, curr) => {
+        acc[curr.id] = false;
+        return acc;
+      }, {});
+      setRowStates(states);
     });
   };
 
@@ -58,8 +66,16 @@ export default function DataTable() {
   const handleCellEditCommit = React.useCallback(
     ({ id, field, value }) => {
       updateUser(id, field, value);
+      const updatedStates = { ...rowStates, [id]: true };
+      setRowStates(updatedStates);
+      getUserData().then(() => {
+        setTimeout(() => {
+          const resetStates = { ...updatedStates, [id]: false };
+          setRowStates(resetStates);
+        }, 2000);
+      });
     },
-    [updateUser]
+    [rowStates, updateUser]
   );
 
   const columns = [
@@ -127,14 +143,14 @@ export default function DataTable() {
                 params.row.isPremium,
               ],
             });
-            setIsEditUser(true);
+            // setRowStates({ ...rowStates, [id]: true });
 
-            setTimeout(() => {
-              setIsEditUser(false);
-            }, 2000);
+            // setTimeout(() => {
+            //   setRowStates({ ...rowStates, [id]: false });
+            // }, 2000);
           }}
         >
-          {isEditUser ? (
+          {rowStates[params.id] ? (
             <CheckCircleIcon style={{ width: "100%" }} />
           ) : (
             <CheckCircleOutlineIcon style={{ width: "100%" }} />
