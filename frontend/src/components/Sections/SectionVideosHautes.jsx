@@ -30,7 +30,7 @@ function SectionVideosHautes({ sectionName }) {
       setVideoNumber(videoNumber - 1);
       listRef.current.style.transform = `translateX(${650 + distance}px)`;
     }
-    if (direction === "right" && videoNumber < 15) {
+    if (direction === "right" && videoNumber < 25) {
       setVideoNumber(videoNumber + 1);
       listRef.current.style.transform = `translateX(${-650 + distance}px)`;
     }
