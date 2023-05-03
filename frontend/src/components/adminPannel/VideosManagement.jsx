@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid/node";
 import useAPI from "../../api/useAPI";
 import "../../styles/index.css";
 import dataTableStyle from "./DataTableStyle";
+import moment from "moment";
 
 function VideosManagement() {
   const api = useAPI();
@@ -25,7 +26,7 @@ function VideosManagement() {
     formData.append("date_publication", Date());
 
     api
-      .post("/videos", formData)
+      .post("videos", formData)
       .then((result) => {
         return result;
       })
@@ -35,7 +36,7 @@ function VideosManagement() {
 
   useEffect(() => {
     api
-      .get("/videos")
+      .get("videos")
       .then((data) => {
         setVideos(data.data);
       })
@@ -50,7 +51,7 @@ function VideosManagement() {
 
     if (confirmDelete) {
       api
-        .delete(`/videos/${video}`)
+        .delete(`videos/${video}`)
         .then(() => {
           // eslint-disable-next-line no-alert
           window.alert(`La video ${video} a été supprimé avec succès`);
@@ -76,6 +77,8 @@ function VideosManagement() {
       headerName: "Date de publication",
       width: 150,
       editable: true,
+      renderCell: (params) =>
+        moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
     },
     {
       field: "delete",
