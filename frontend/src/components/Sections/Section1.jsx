@@ -18,8 +18,6 @@ function Section1({ sectionName }) {
   const getVideoData = async () => {
     await api.get("videos").then((res) => {
       setData(res.data);
-      // eslint-disable-next-line no-restricted-syntax
-      console.log(res.data);
     });
   };
   useEffect(() => {
@@ -32,7 +30,7 @@ function Section1({ sectionName }) {
       setVideoNumber(videoNumber - 1);
       listRef.current.style.transform = `translateX(${650 + distance}px)`;
     }
-    if (direction === "right" && videoNumber < 25) {
+    if (direction === "right" && videoNumber < 15) {
       setVideoNumber(videoNumber + 1);
       listRef.current.style.transform = `translateX(${-650 + distance}px)`;
     }
