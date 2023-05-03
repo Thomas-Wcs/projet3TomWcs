@@ -1,4 +1,5 @@
 import React from "react";
+import "../../scss/index.css";
 import { Link, Outlet } from "react-router-dom";
 import "../../styles/index.css";
 import monImage from "../../assets/imagedemo.png";
