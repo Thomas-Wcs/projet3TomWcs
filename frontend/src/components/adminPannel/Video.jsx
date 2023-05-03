@@ -10,7 +10,6 @@ function Videos({ videos, onDeleteVideo }) {
   const [newCategorie, setNewCategorie] = useState();
   const [modifyTitle, setModifyTitle] = useState(false);
   const [modifyDesc, setModifyDesc] = useState(false);
-  // const [modifyCategory, setModifyCategory] = useState(false);
 
   const handleDeleteVideo = () => {
     onDeleteVideo(videos.id);
@@ -35,10 +34,6 @@ function Videos({ videos, onDeleteVideo }) {
   const handleModifyDesc = () => {
     setModifyDesc(!modifyDesc);
   };
-
-  // const handleModifyCategory = () => {
-  //   setModifyCategory(!modifyCategory);
-  // };
 
   return (
     <div className="admin-videos" style={{ backgroundColor: "grey" }}>
@@ -105,7 +100,6 @@ function Videos({ videos, onDeleteVideo }) {
           </>
         )}
 
-        {/* {modifyCategory && ( */}
         <select onChange={(e) => setNewCategorie(e.target.value)}>
           <option value="1">Animaux</option>
           <option value="2">Sports</option>

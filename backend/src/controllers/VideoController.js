@@ -117,16 +117,6 @@ const findFavorites = async (req, res) => {
     });
 };
 
-// const updateOne = async (req, res) => {
-//   const result = await models.video.update(
-//     parseInt(req.params.id, 10),
-//     req.body
-//   );
-//   if (result) {
-//     res.sendStatus(204);
-//   } else res.sendStatus(404);
-// };
-
 module.exports = {
   browse,
   read,
@@ -134,5 +124,4 @@ module.exports = {
   add,
   destroy,
   findFavorites,
-  // updateOne,
 };
