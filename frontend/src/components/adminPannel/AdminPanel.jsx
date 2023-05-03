@@ -14,7 +14,9 @@ export default function AdminPanel() {
           <button type="button">DECONNEXION</button>
         </div>
         <h1>Panneau d'administration</h1>
-        <nav>
+      </div>
+      <div className="display-nav-admin2">
+        <div>
           <ul>
             <li>
               <Link to="/adminPanel/usersTable">Users</Link>
@@ -32,9 +34,9 @@ export default function AdminPanel() {
               <Link to="/adminPanel/videosTable">Pub</Link>
             </li>
           </ul>
-        </nav>
+        </div>
       </div>
-      <div className="display-admin-pannel">
+      <div>
         <Outlet />
       </div>
     </div>
