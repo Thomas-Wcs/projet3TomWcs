@@ -1,20 +1,31 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
 
 const AuthContext = createContext(null);
 
-export function AuthProvider({ children }) {
+function AuthProvider({ children }) {
   const [success, setSuccess] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const context = useMemo(
+    () => ({
+      success,
+      setSuccess,
+      isAdmin,
+      setIsAdmin,
+    }),
+    [success, setSuccess, isAdmin, setIsAdmin]
+  );
+
   return (
-    <AuthContext.Provider value={{ success, setSuccess, setIsAdmin, isAdmin }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
   );
 }
 
-export const useAuth = () => useContext(AuthContext);
+const useAuth = () => useContext(AuthContext);
 
-AuthContext.propTypes = {
-  children: PropTypes.elementType.isRequired,
+export { useAuth, AuthProvider };
+
+AuthProvider.propTypes = {
+  children: PropTypes.element.isRequired,
 };

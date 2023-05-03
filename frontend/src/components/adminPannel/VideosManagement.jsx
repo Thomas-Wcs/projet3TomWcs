@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import moment from "moment";
 import { DataGrid } from "@mui/x-data-grid/node";
 import useAPI from "../../api/useAPI";
 import "../../styles/index.css";
 import dataTableStyle from "./DataTableStyle";
-import moment from "moment";
 
 function VideosManagement() {
   const api = useAPI();
