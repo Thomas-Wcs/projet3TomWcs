@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { DataGrid } from "@mui/x-data-grid/node";
-import Video from "./Video";
 import useAPI from "../../api/useAPI";
 import "../../styles/index.css";
 import dataTableStyle from "./DataTableStyle";
@@ -14,6 +13,7 @@ function VideosManagement() {
   const [categorie, setCategorie] = useState(1);
   const [description, setDescription] = useState("");
   const [fileUpload, setFileUpload] = useState(null);
+  const [videosChanging, setVideosChanging] = useState(true);
 
   const handleAddVideos = (e) => {
     e.preventDefault();
@@ -30,6 +30,7 @@ function VideosManagement() {
         return result;
       })
       .catch((err) => console.error(err));
+    setVideosChanging(!videosChanging);
   };
 
   useEffect(() => {
@@ -39,7 +40,7 @@ function VideosManagement() {
         setVideos(data.data);
       })
       .catch((error) => console.error(error));
-  }, [videos]);
+  }, [videosChanging]);
 
   const handleDeleteVideo = (video) => {
     // eslint-disable-next-line no-alert
@@ -55,6 +56,7 @@ function VideosManagement() {
           window.alert(`La video ${video} a été supprimé avec succès`);
         })
         .catch((error) => console.error(error));
+      setVideosChanging(!videosChanging);
     }
   };
 
@@ -120,12 +122,15 @@ function VideosManagement() {
       />
       <h1>Ajouter une video</h1>
       <div id="title">
-        <select onChange={(e) => setCategorie(e.target.value)}>
-          <option value="1">Animaux</option>
-          <option value="2">Sports</option>
-          <option value="3">Cuisine</option>
-          <option value="4">Voyage</option>
-        </select>
+        <label htmlFor="Title">
+          <input
+            type="text"
+            placeholder="Title"
+            name="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </label>
         <label htmlFor="descritpion">
           <input
             type="text"
@@ -135,6 +140,7 @@ function VideosManagement() {
             onChange={(e) => setDescription(e.target.value)}
           />
         </label>
+
         <label htmlFor="lien">
           <input
             type="file"
@@ -142,7 +148,20 @@ function VideosManagement() {
             onChange={(e) => setFileUpload(e.target.files[0])}
           />
         </label>
-        <button type="submit">Ajouter</button>
+        <select onChange={(e) => setCategorie(e.target.value)}>
+          <option value="1">Animaux</option>
+          <option value="2">Sports</option>
+          <option value="3">Cuisine</option>
+          <option value="4">Voyage</option>
+        </select>
+        <button
+          type="submit"
+          onClick={(e) => {
+            handleAddVideos(e);
+          }}
+        >
+          Ajouter
+        </button>
       </div>
     </div>
   );
