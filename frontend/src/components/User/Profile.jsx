@@ -34,59 +34,62 @@ export default function Profile() {
     },
   };
   return (
-    <div id="profile">
-      <h2 className="section-title">MES FAVORIS</h2>
-      <Carousel
-        swipeable={false}
-        draggable={false}
-        showDots
-        responsive={responsive}
-        infinite
-        autoPlaySpeed={1000}
-        keyBoardControl
-        customTransition="all .5"
-        transitionDuration={500}
-        containerClass="carousel-container"
-        removeArrowOnDeviceType={["tablet", "mobile"]}
-        dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-40-px"
-      >
-        {data.map((item) => (
-          <ReactPlayer
-            key={item.id}
-            url={`${import.meta.env.VITE_BACKEND_URL}${item.link}`}
-            width="100%"
-            controls
-            className="video-div"
-          />
-        ))}
-      </Carousel>
-      <h2 className="section-title">A LA UNE</h2>
-      <Carousel
-        swipeable={false}
-        draggable={false}
-        showDots
-        responsive={responsive}
-        infinite
-        autoPlaySpeed={1000}
-        keyBoardControl
-        customTransition="all .5"
-        transitionDuration={500}
-        containerClass="carousel-container"
-        removeArrowOnDeviceType={["tablet", "mobile"]}
-        dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-40-px"
-      >
-        {data.map((item) => (
-          <ReactPlayer
-            key={item.id}
-            url={`${import.meta.env.VITE_BACKEND_URL}${item.link}`}
-            width="100%"
-            controls
-            className="video-div"
-          />
-        ))}
-      </Carousel>
+    <div>
+      <div>Profil d'utilisateur</div>
+      <div id="profile">
+        <h2 className="section-title">MES FAVORIS</h2>
+        <Carousel
+          swipeable={false}
+          draggable={false}
+          showDots
+          responsive={responsive}
+          infinite
+          autoPlaySpeed={1000}
+          keyBoardControl
+          customTransition="all .5"
+          transitionDuration={500}
+          containerClass="carousel-container"
+          removeArrowOnDeviceType={["tablet", "mobile"]}
+          dotListClass="custom-dot-list-style"
+          itemClass="carousel-item-padding-40-px"
+        >
+          {data.map((item) => (
+            <ReactPlayer
+              key={item.id}
+              url={`${import.meta.env.VITE_BACKEND_URL}${item.link}`}
+              width="100%"
+              controls
+              className="video-div"
+            />
+          ))}
+        </Carousel>
+        <h2 className="section-title">A LA UNE</h2>
+        <Carousel
+          swipeable={false}
+          draggable={false}
+          showDots
+          responsive={responsive}
+          infinite
+          autoPlaySpeed={1000}
+          keyBoardControl
+          customTransition="all .5"
+          transitionDuration={500}
+          containerClass="carousel-container"
+          removeArrowOnDeviceType={["tablet", "mobile"]}
+          dotListClass="custom-dot-list-style"
+          itemClass="carousel-item-padding-40-px"
+        >
+          {data.map((item) => (
+            <ReactPlayer
+              key={item.id}
+              url={`${import.meta.env.VITE_BACKEND_URL}${item.link}`}
+              width="100%"
+              controls
+              className="video-div"
+            />
+          ))}
+        </Carousel>
+      </div>
     </div>
   );
 }
