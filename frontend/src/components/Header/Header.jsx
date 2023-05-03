@@ -7,7 +7,7 @@ import { logout } from "../../services/account.services";
 export default function Header() {
   const navigate = useNavigate();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
-  const { success } = useAuth();
+  const { success, isAdmin } = useAuth();
 
   const checkboxRef = useRef();
 
@@ -61,15 +61,13 @@ export default function Header() {
                   Home
                 </Link>
               </li>
-              {success && (
+              {success ? (
                 <li>
                   <Link to="/connexion" onClick={() => handleLinkClick()}>
                     Connexion
                   </Link>
                 </li>
-              )}
-
-              {!success && (
+              ) : (
                 <li>
                   <Link to="/profile" onClick={() => handleLinkClick()}>
                     Profile
@@ -77,11 +75,13 @@ export default function Header() {
                 </li>
               )}
 
-              <li>
-                <Link to="/adminPanel/" onClick={() => handleLinkClick()}>
-                  Admin
-                </Link>
-              </li>
+              {isAdmin && (
+                <li>
+                  <Link to="/adminPanel/" onClick={() => handleLinkClick()}>
+                    Admin
+                  </Link>
+                </li>
+              )}
               {!success && (
                 <button
                   className="user-button"

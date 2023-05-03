@@ -12,8 +12,8 @@ export default function ConnectionPage() {
   const [mdp, setMdp] = useState("");
   const [registrationMail, setRegistrationMail] = useState("");
   const [account, setAccount] = useState(true);
-  const [userConnected, setUserConnected] = useState("");
-  const { success, setSuccess } = useAuth();
+  const [errorMessage, setErrorMessage] = useState(false);
+  const { success, setSuccess, setIsAdmin } = useAuth();
 
   const refPass = useRef();
   const refMail = useRef();
@@ -29,13 +29,14 @@ export default function ConnectionPage() {
       .post("users/login/", user)
       .then((res) => {
         const { token } = res.data;
-        setUserConnected(res.data.user);
         api.defaults.headers.authorization = `Bearer ${token}`;
         setSuccess(false);
         navigate("/");
+        if (res.data.user.role === "admin") setIsAdmin(true);
       })
       .catch((err) => {
         console.error(err);
+        setErrorMessage(true);
       });
   };
 
@@ -46,7 +47,7 @@ export default function ConnectionPage() {
         alt=""
         className="connection-bg"
       />
-      {success ? (
+      {success && (
         <div id="connection">
           <img
             src="https://cdn.pixabay.com/photo/2021/07/28/00/57/pyramids-6498038_960_720.jpg"
@@ -73,6 +74,7 @@ export default function ConnectionPage() {
             onChange={(e) => setMdp(e.target.value)}
             ref={refPass}
           />
+          {errorMessage && <p id="password-error">Sorry, Wrong Password</p>}
           <button type="button" className="user-button" onClick={handleSubmit}>
             Connexion
           </button>
@@ -95,8 +97,6 @@ export default function ConnectionPage() {
             Inscription
           </button>
         </div>
-      ) : (
-        <h2>Bienvenu {userConnected.name}</h2>
       )}
     </div>
   ) : (

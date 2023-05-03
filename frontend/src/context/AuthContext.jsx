@@ -5,8 +5,9 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [success, setSuccess] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   return (
-    <AuthContext.Provider value={(success, setSuccess)}>
+    <AuthContext.Provider value={{ success, setSuccess, setIsAdmin, isAdmin }}>
       {children}
     </AuthContext.Provider>
   );
