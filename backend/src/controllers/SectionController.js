@@ -12,6 +12,78 @@ const browse = (req, res) => {
     });
 };
 
+const read = (req, res) => {
+  models.section
+    .find(req.params.id)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows[0]);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const add = (req, res) => {
+  const sections = req.body;
+
+  // TODO validations (length, format...)
+
+  models.section
+    .insert(sections)
+    .then(([result]) => {
+      if (result.status === 201) res.send(" section added");
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const edit = (req, res) => {
+  const sections = req.body;
+
+  sections.id = parseInt(req.params.id, 10);
+
+  models.section
+    .update(sections)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const destroy = (req, res) => {
+  models.section
+    .delete(req.params.id)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
+  read,
+  add,
+  edit,
+  destroy,
 };
