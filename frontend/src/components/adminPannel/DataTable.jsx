@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { DataGrid } from "@mui/x-data-grid/node";
 import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -10,7 +10,7 @@ import dataTableStyle from "./DataTableStyle";
 
 export default function DataTable() {
   const [data, setData] = useState([]);
-  const [isEditUser, setIsEditUser] = useState(false);
+  const [rowStates, setRowStates] = useState({});
   const api = useAPI();
 
   const getUserData = async () => {
@@ -55,11 +55,21 @@ export default function DataTable() {
     getUserData();
   }, []);
 
+  const ChangeIcon = useCallback((id) => {
+    setTimeout(() => {
+      const resetStates = { [id]: false };
+      setRowStates(resetStates);
+    }, 2000);
+  }, []);
+
   const handleCellEditCommit = React.useCallback(
     ({ id, field, value }) => {
       updateUser(id, field, value);
+      const updatedStates = { [id]: true };
+      setRowStates(updatedStates);
+      ChangeIcon([id]);
     },
-    [updateUser]
+    [rowStates, updateUser]
   );
 
   const columns = [
@@ -67,14 +77,14 @@ export default function DataTable() {
     {
       field: "name",
       headerName: "Name",
-      width: 200,
+      width: 220,
       type: "string",
       editable: true,
     },
     {
       field: "firstname",
       headerName: "FirstName",
-      width: 200,
+      width: 220,
       type: "string",
       editable: true,
     },
@@ -89,20 +99,20 @@ export default function DataTable() {
       field: "role",
       headerName: "Role",
       type: "string",
-      width: 130,
+      width: 150,
       editable: true,
     },
     {
       field: "isPremium",
       headerName: "Premium",
       type: "boolean",
-      width: 130,
+      width: 150,
       editable: true,
     },
     {
       field: "edit",
       headerName: "Edit",
-      width: 130,
+      width: 150,
       renderCell: (params) => (
         <button
           type="button"
@@ -127,15 +137,10 @@ export default function DataTable() {
                 params.row.isPremium,
               ],
             });
-            setIsEditUser(true);
-
-            setTimeout(() => {
-              setIsEditUser(false);
-            }, 2000);
           }}
         >
-          {isEditUser ? (
-            <CheckCircleIcon style={{ width: "100%" }} />
+          {rowStates[params.id] ? (
+            <CheckCircleIcon style={{ width: "100%", scale: "1.3" }} />
           ) : (
             <CheckCircleOutlineIcon style={{ width: "100%" }} />
           )}
@@ -145,7 +150,7 @@ export default function DataTable() {
     {
       field: "delete",
       headerName: "Delete",
-      width: 130,
+      width: 150,
       renderCell: (params) => (
         <button
           type="button"

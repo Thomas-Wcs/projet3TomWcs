@@ -29,7 +29,7 @@ function SectionTeasers() {
       setVideoNumber(videoNumber - 1);
       listRef.current.style.transform = `translateX(${650 + distance}px)`;
     }
-    if (direction === "right" && videoNumber < 5) {
+    if (direction === "right" && videoNumber < 155) {
       setVideoNumber(videoNumber + 1);
       listRef.current.style.transform = `translateX(${-650 + distance}px)`;
     }
