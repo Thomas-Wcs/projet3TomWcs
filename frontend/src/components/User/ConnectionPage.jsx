@@ -13,7 +13,7 @@ export default function ConnectionPage() {
   const [registrationMail, setRegistrationMail] = useState("");
   const [account, setAccount] = useState(true);
   const [errorMessage, setErrorMessage] = useState(false);
-  const { success, setSuccess, setIsAdmin } = useAuth();
+  const { success, setSuccess, setIsAdmin, setUserInfo } = useAuth();
 
   const refPass = useRef();
   const refMail = useRef();
@@ -31,7 +31,8 @@ export default function ConnectionPage() {
         const { token } = res.data;
         api.defaults.headers.authorization = `Bearer ${token}`;
         setSuccess(false);
-        navigate("/");
+        navigate("/profile");
+        setUserInfo(res.data.user);
         if (res.data.user.role === "admin") setIsAdmin(true);
       })
       .catch((err) => {

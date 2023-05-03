@@ -6,15 +6,17 @@ const AuthContext = createContext(null);
 function AuthProvider({ children }) {
   const [success, setSuccess] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
-
+  const [userInfo, setUserInfo] = useState({});
   const context = useMemo(
     () => ({
       success,
       setSuccess,
       isAdmin,
       setIsAdmin,
+      userInfo,
+      setUserInfo,
     }),
-    [success, setSuccess, isAdmin, setIsAdmin]
+    [success, setSuccess, isAdmin, setIsAdmin, userInfo, setUserInfo]
   );
 
   return (

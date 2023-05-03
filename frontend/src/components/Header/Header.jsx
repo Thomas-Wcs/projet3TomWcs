@@ -2,7 +2,6 @@ import "../../styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { logout } from "../../services/account.services";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -20,7 +19,6 @@ export default function Header() {
   }
 
   function clickToLogout() {
-    logout();
     checkboxRef.current.checked = false;
     navigate("/connexion");
   }

@@ -26,7 +26,7 @@ function VideosManagement() {
     formData.append("date_publication", Date());
 
     api
-      .post("videos", formData)
+      .post("/videos", formData)
       .then((result) => {
         return result;
       })
@@ -36,7 +36,7 @@ function VideosManagement() {
 
   useEffect(() => {
     api
-      .get("videos")
+      .get("/videos")
       .then((data) => {
         setVideos(data.data);
       })

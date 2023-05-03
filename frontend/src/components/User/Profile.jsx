@@ -5,10 +5,12 @@ import ReactPlayer from "react-player";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import useAPI from "../../api/useAPI";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Profile() {
   const api = useAPI();
   const [data, setData] = useState([]);
+  const { userInfo } = useAuth();
 
   useEffect(() => {
     api.get("videos").then((result) => setData(result.data));
@@ -32,8 +34,10 @@ export default function Profile() {
       items: 1,
     },
   };
+
   return (
     <div id="profile">
+      <h2 className="section-title">{userInfo.email}</h2>
       <h2 className="section-title">MES FAVORIS</h2>
       <Carousel
         swipeable={false}
