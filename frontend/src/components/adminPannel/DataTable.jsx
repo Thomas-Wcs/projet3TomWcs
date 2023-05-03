@@ -77,14 +77,14 @@ export default function DataTable() {
     {
       field: "name",
       headerName: "Name",
-      width: 200,
+      width: 220,
       type: "string",
       editable: true,
     },
     {
       field: "firstname",
       headerName: "FirstName",
-      width: 200,
+      width: 220,
       type: "string",
       editable: true,
     },
@@ -99,20 +99,20 @@ export default function DataTable() {
       field: "role",
       headerName: "Role",
       type: "string",
-      width: 130,
+      width: 150,
       editable: true,
     },
     {
       field: "isPremium",
       headerName: "Premium",
       type: "boolean",
-      width: 130,
+      width: 150,
       editable: true,
     },
     {
       field: "edit",
       headerName: "Edit",
-      width: 130,
+      width: 150,
       renderCell: (params) => (
         <button
           type="button"
@@ -150,7 +150,7 @@ export default function DataTable() {
     {
       field: "delete",
       headerName: "Delete",
-      width: 130,
+      width: 150,
       renderCell: (params) => (
         <button
           type="button"
