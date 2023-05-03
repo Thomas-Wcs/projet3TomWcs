@@ -1,13 +1,13 @@
 import "../../styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useRef, useContext } from "react";
-import AuthContext from "../../context/AuthContext";
+import { useState, useRef } from "react";
+import { useAuth } from "../../context/AuthContext";
 import { logout } from "../../services/account.services";
 
 export default function Header() {
   const navigate = useNavigate();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
-  const { success } = useContext(AuthContext);
+  const { success } = useAuth();
 
   const checkboxRef = useRef();
 

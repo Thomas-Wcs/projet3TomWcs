@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../../styles/index.css";
 import PropTypes from "prop-types";
 import useAPI from "../../api/useAPI";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Registration({
   registrationMail,
@@ -16,7 +17,7 @@ export default function Registration({
 }) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [success, setSuccess] = useState(true);
+  const { success, setSuccess } = useAuth();
   const [errorMessage, setErrorMessage] = useState("");
   const api = useAPI();
 

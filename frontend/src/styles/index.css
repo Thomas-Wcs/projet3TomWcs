@@ -624,4 +624,13 @@ body h1 {
   background-color: rgb(85, 85, 85);
   opacity: 1.4;
   transform: scale(1.1);
+}
+.admin-videos .video-text {
+  font-size: 2rem;
+  height: 40px;
+}
+.admin-videos .video-text input {
+  height: 40px;
+  background: rgba(128, 128, 128, 0);
+  font-size: 2rem;
 }/*# sourceMappingURL=index.css.map */

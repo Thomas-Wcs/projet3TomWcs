@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import AdminPanel from "./components/adminPannel/AdminPanel";
 import Header from "./components/Header/Header";
 import ConnectionPage from "./components/User/ConnectionPage";
@@ -8,14 +7,12 @@ import DataTable from "./components/adminPannel/DataTable";
 import VideosManagement from "./components/adminPannel/VideosManagement";
 import Homepage2 from "./pages/Homepage2";
 
-import AuthContext from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
-  const [success, setSuccess] = useState(true);
-
   return (
     <div className="App">
-      <AuthContext.Provider value={{ success, setSuccess }}>
+      <AuthProvider>
         <Router>
           <Header />
           <Routes>
@@ -28,7 +25,7 @@ function App() {
             </Route>
           </Routes>
         </Router>
-      </AuthContext.Provider>
+      </AuthProvider>
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import "../../styles/index.css";
-import { useState, useRef, useContext } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import Registration from "./Registration";
-import AuthContext from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 export default function ConnectionPage() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export default function ConnectionPage() {
   const [registrationMail, setRegistrationMail] = useState("");
   const [account, setAccount] = useState(true);
   const [userConnected, setUserConnected] = useState("");
-  const { success, setSuccess } = useContext(AuthContext);
+  const { success, setSuccess } = useAuth();
 
   const refPass = useRef();
   const refMail = useRef();
