@@ -3,8 +3,8 @@ import { useEffect, useState, useCallback } from "react";
 import { DataGrid } from "@mui/x-data-grid/node";
 import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import SaveIcon from "@mui/icons-material/Save";
+import BeenhereIcon from "@mui/icons-material/Beenhere";
 import useAPI from "../../api/useAPI";
 import dataTableStyle from "./DataTableStyle";
 
@@ -98,7 +98,8 @@ export default function DataTable() {
     {
       field: "role",
       headerName: "Role",
-      type: "string",
+      type: "singleSelect",
+      valueOptions: ["Admin", "User"],
       width: 150,
       editable: true,
     },
@@ -111,7 +112,7 @@ export default function DataTable() {
     },
     {
       field: "edit",
-      headerName: "Edit",
+      headerName: "Save Edit",
       width: 150,
       renderCell: (params) => (
         <button
@@ -140,9 +141,9 @@ export default function DataTable() {
           }}
         >
           {rowStates[params.id] ? (
-            <CheckCircleIcon style={{ width: "100%", scale: "1.3" }} />
+            <BeenhereIcon style={{ width: "100%" }} />
           ) : (
-            <CheckCircleOutlineIcon style={{ width: "100%" }} />
+            <SaveIcon style={{ width: "100%" }} />
           )}
         </button>
       ),
@@ -156,7 +157,7 @@ export default function DataTable() {
           type="button"
           style={{
             fontFamily: "PT Sans",
-            backgroundColor: "red",
+            backgroundColor: "none",
             height: "90%",
             margin: "1em",
             padding: "0.9em",

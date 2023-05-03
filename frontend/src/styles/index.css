@@ -537,6 +537,7 @@ body h1 {
   border-color: #10bcdd;
   align-items: end;
   overflow: hidden;
+  border-radius: 5%;
 }
 .user-connected img {
   width: 10vh;
