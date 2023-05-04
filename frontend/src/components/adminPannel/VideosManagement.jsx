@@ -27,11 +27,10 @@ function VideosManagement() {
 
     api
       .post("/videos", formData)
-      .then((result) => {
-        return result;
+      .then(() => {
+        setVideosChanging(!videosChanging);
       })
       .catch((err) => console.error(err));
-    setVideosChanging(!videosChanging);
   };
 
   useEffect(() => {
