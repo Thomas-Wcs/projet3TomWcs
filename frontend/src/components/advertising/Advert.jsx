@@ -1,34 +1,41 @@
 import React, { useState, useEffect } from "react";
-import hill from "../../../src/assets/ads/hill.jpg";
-import mount from "../../../src/assets/ads/mount.jpg";
+import "../../styles/Advert.css";
+import useAPI from "../../api/useAPI";
 
 const Advert = () => {
-  const [adverts, setAdverts] = useState([
-    {
-      img: hill,
-      description: "Hills Panorama",
-      link: "http://www.example.com/ad1",
-    },
-    {
-      img: mount,
-      description: "Mountain Panorama",
-      link: "http://www.example.com/ad2",
-    },
-  ]);
-
+  const [adverts, setAdverts] = useState([]);
+  const api = useAPI();
   const [currentAdvertIndex, setCurrentAdvertIndex] = useState(0);
 
   useEffect(() => {
-    setCurrentAdvertIndex(Math.floor(Math.random() * adverts.length));
-  }, [adverts]);
+    api
+      .get("http://localhost:5000/adverts")
+      .then((res) => {
+        setAdverts(res.data);
+        console.log(res.data);
+        setCurrentAdvertIndex(Math.floor(Math.random() * res.data.length));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   const currentAdvert = adverts[currentAdvertIndex];
+  console.log(currentAdvert);
 
   return (
-    <div className="advert">
-      <a href={currentAdvert.link}>
-        <img src={currentAdvert.img} alt={currentAdvert.description} />
-      </a>
+    <div className="advert_image">
+      {currentAdvert && (
+        <a href={currentAdvert.picture_link}>
+          <img
+            src={`${import.meta.env.VITE_APP_API_URL}/${
+              currentAdvert.picture_link
+            }`}
+            alt={currentAdvert.pictures}
+            className="advert_position"
+          />
+        </a>
+      )}
     </div>
   );
 };

@@ -27,7 +27,6 @@ function App() {
               <Route path="usersTable" element={<DataTable />} />
               <Route path="videosTable" element={<VideosManagement />} />
             </Route>
-            <Route path="/advert" element={<Advert />} />
           </Routes>
         </Router>
         <Advert />
