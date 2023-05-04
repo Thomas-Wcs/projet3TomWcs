@@ -94,11 +94,11 @@ function SectionCategory({ sectionName }) {
                 .map((item) => (
                   <Video
                     key={item.id}
-                    src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
+                    src={`${import.meta.env.VITE_APP_API_URL}/${item.lien}`}
                     width="650px"
                     height="450px"
                     displayDescription
-                    displayDescriptionTitle={item.title}
+                    displayDescriptionTitle={item.titre}
                     displayDescriptionText={item.description_text}
                     isEnabled
                   />
@@ -106,11 +106,11 @@ function SectionCategory({ sectionName }) {
             : data.map((item) => (
                 <Video
                   key={item.id}
-                  src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
+                  src={`${import.meta.env.VITE_APP_API_URL}/${item.lien}`}
                   width="650px"
                   height="450px"
                   displayDescription
-                  displayDescriptionTitle={item.title}
+                  displayDescriptionTitle={item.titre}
                   displayDescriptionText={item.description_text}
                   isEnabled
                 />

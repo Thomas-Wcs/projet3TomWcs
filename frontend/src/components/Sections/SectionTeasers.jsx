@@ -51,7 +51,7 @@ function SectionTeasers() {
               width="650px"
               height="450px"
               isEnabled
-              src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
+              src={`${import.meta.env.VITE_APP_API_URL}/${video.lien}`}
             />
           ))}
         </div>
