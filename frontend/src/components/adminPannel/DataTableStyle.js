@@ -1,6 +1,6 @@
 const dataTableStyle = {
   height: "80%",
-  backgroundColor: "gray",
+  backgroundColor: "grey",
   borderRadius: "1%",
   margin: "0px 5em 0px 5em",
   padding: "1em",
