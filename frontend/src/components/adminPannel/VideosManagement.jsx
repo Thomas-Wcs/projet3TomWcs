@@ -122,6 +122,7 @@ function VideosManagement() {
         columns={columns}
         rowsPerPageOptions={[5, 10, 20]}
         style={dataTableStyle}
+        autoHeight
       />
       <h1>Ajouter une video</h1>
       <div id="title">
@@ -149,6 +150,7 @@ function VideosManagement() {
             type="file"
             name="lien"
             onChange={(e) => setFileUpload(e.target.files[0])}
+            id="file-selection-button"
           />
         </label>
         <select onChange={(e) => setCategorie(e.target.value)}>
@@ -162,6 +164,7 @@ function VideosManagement() {
           onClick={(e) => {
             handleAddVideos(e);
           }}
+          id="add-button"
         >
           Ajouter
         </button>

@@ -83,7 +83,6 @@ export default function Profile() {
         {data.map((item) => (
           <ReactPlayer
             key={item.id}
-            // url={`${import.meta.env.VITE_BACKEND_URL}${item.lien}`}
             width="100%"
             controls
             className="video-div"
