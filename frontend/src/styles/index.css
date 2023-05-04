@@ -564,17 +564,17 @@ body h1 {
   color: white;
 }
 
-.display-admin-pannel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .css-i16b5t {
   max-width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+.addButton {
+  cursor: pointer;
+  margin: auto 150px;
+  text-align: right;
+  float: right;
+  margin-bottom: 20px;
 }
 
 .sectionEditBtn {

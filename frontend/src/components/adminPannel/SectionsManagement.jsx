@@ -5,6 +5,7 @@ import { Box } from "@mui/material";
 import "../../styles/index.css";
 
 import { DeleteOutline } from "@mui/icons-material";
+import PostAddRoundedIcon from "@mui/icons-material/PostAddRounded";
 
 import { Link } from "react-router-dom";
 import dataTableStyle from "./DataTableStyle";
@@ -74,7 +75,11 @@ function SectionsManagement() {
   return (
     <div style={{ maxWidth: "100%" }}>
       <h1>Sections</h1>
-      <button type="submit">Ajouter</button>
+
+      <PostAddRoundedIcon
+        style={{ fontSize: 48, color: "#10bcdd" }}
+        className="addButton"
+      />
       <Box
         sx={{
           height: 800,
