@@ -15,8 +15,8 @@ export default function ConnectionPage() {
   const [errorMessage, setErrorMessage] = useState(false);
   const { success, setSuccess, setIsAdmin, setUserInfo } = useAuth();
 
-  const refPass = useRef();
-  const refMail = useRef();
+  const refPass = useRef(null);
+  const refMail = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
