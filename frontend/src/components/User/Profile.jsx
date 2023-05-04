@@ -10,6 +10,8 @@ import { useAuth } from "../../context/AuthContext";
 export default function Profile() {
   const api = useAPI();
   const [data, setData] = useState([]);
+  // eslint-disable-next-line no-restricted-syntax
+  console.log(data);
   const { userInfo } = useAuth();
 
   useEffect(() => {
@@ -57,7 +59,7 @@ export default function Profile() {
         {data.map((item) => (
           <ReactPlayer
             key={item.id}
-            url={`${import.meta.env.VITE_BACKEND_URL}${item.lien}`}
+            url={`${import.meta.env.VITE_BACKEND_URL}${item.link}`}
             width="100%"
             controls
             className="video-div"
@@ -83,7 +85,7 @@ export default function Profile() {
         {data.map((item) => (
           <ReactPlayer
             key={item.id}
-            // url={`${import.meta.env.VITE_BACKEND_URL}${item.lien}`}
+            url={`${import.meta.env.VITE_BACKEND_URL}${item.link}`}
             width="100%"
             controls
             className="video-div"
