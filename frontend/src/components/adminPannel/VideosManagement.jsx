@@ -10,7 +10,7 @@ import dataTableStyle from "./DataTableStyle";
 function VideosManagement() {
   const api = useAPI();
   const [videos, setVideos] = useState([]);
-  const [title, setTitle] = useState("");
+  const [videoTitle, setTitle] = useState("");
   const [categorie, setCategorie] = useState(1);
   const [description, setDescription] = useState("");
   const [fileUpload, setFileUpload] = useState(null);
@@ -19,7 +19,7 @@ function VideosManagement() {
   const handleAddVideos = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("title", title);
+    formData.append("title", videoTitle);
     formData.append("description_text", description);
     formData.append("category_id", categorie);
     formData.append("link", fileUpload);
@@ -60,20 +60,41 @@ function VideosManagement() {
     }
   };
 
+  // const updateVideo = async (id, field, value) => {
+  //   const updatedVideo = videos.map((row) => {
+  //     if (row.id === id) {
+  //       return { ...row, [field]: value };
+  //     }
+  //     return row;
+  //   });
+  //   setVideos(updatedVideo);
+
+  //   const [title, description_text, category_id, link] = value;
+  //   const newVideo = { title, description_text, category_id, link };
+
+  //   await api.put(`videos/${id}`, newVideo).then((res) => console.log(res));
+  //   setVideosChanging(!videosChanging);
+  // };
+
   const columns = [
     { field: "id", headerName: "Id", width: 150 },
     { field: "title", headerName: "Title", width: 150, editable: true },
     {
-      field: "description",
+      field: "description_text",
       headerName: "Description",
       width: 150,
       editable: true,
     },
-    { field: "categorie", headerName: "Categorie", width: 150, editable: true },
-    { field: "lien", headerName: "Lien", width: 150, editable: true },
     {
-      field: "date",
-      headerName: "Date de publication",
+      field: "category_id",
+      headerName: "Category",
+      width: 150,
+      editable: true,
+    },
+    { field: "link", headerName: "Link", width: 150, editable: true },
+    {
+      field: "date_publication",
+      headerName: "Date",
       width: 150,
       editable: true,
       renderCell: (params) =>
@@ -106,10 +127,10 @@ function VideosManagement() {
   const rows = videos.map((video) => ({
     id: video.id,
     title: video.title,
-    description: video.description_text,
-    categorie: video.category_id,
-    lien: video.link,
-    date: video.date_publication,
+    description_text: video.description_text,
+    category_id: video.category_id,
+    link: video.link,
+    date_publication: video.date_publication,
   }));
 
   return (
@@ -119,7 +140,12 @@ function VideosManagement() {
       <DataGrid
         rows={rows}
         columns={columns}
-        rowsPerPageOptions={[5, 10, 20]}
+        initialState={{
+          pagination: {
+            paginationModel: { pageSize: 5, page: 0 },
+          },
+        }}
+        pageSizeOptions={[5, 10, 25]}
         style={dataTableStyle}
         autoHeight
       />
@@ -130,7 +156,7 @@ function VideosManagement() {
             type="text"
             placeholder="Title"
             name="Title"
-            value={title}
+            value={videoTitle}
             onChange={(e) => setTitle(e.target.value)}
           />
         </label>

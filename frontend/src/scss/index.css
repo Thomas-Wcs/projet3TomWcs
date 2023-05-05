@@ -656,4 +656,10 @@ body h1 {
   height: 40px;
   background: rgba(128, 128, 128, 0);
   font-size: 2rem;
+}
+
+#img-admin-wall {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }/*# sourceMappingURL=index.css.map */
