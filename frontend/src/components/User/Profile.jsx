@@ -6,10 +6,11 @@ import { useAuth } from "../../context/AuthContext";
 
 export default function Profile() {
   const api = useAPI();
-  const [data, setData] = useState([]);
-  // eslint-disable-next-line no-restricted-syntax
+  const [data, setData] = useState([]); // eslint-disable-next-line no-restricted-syntax
   console.log(data);
   const { userInfo } = useAuth();
+  // eslint-disable-next-line no-restricted-syntax
+  console.log(userInfo);
 
   useEffect(() => {
     api.get("videos").then((result) => setData(result.data));

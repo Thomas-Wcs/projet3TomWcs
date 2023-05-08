@@ -6,7 +6,10 @@ class VideoManager extends AbstractManager {
   }
 
   findAll() {
-    return this.database.query(`select * from  ${this.table}`);
+    return this.database
+      .query(`SELECT v.id, v.title, v.link, v.description_text, v.date_publication, c.name as category_name
+    FROM videos v
+    INNER JOIN categorie c ON v.category_id = c.id;`);
   }
 
   insert(videos) {

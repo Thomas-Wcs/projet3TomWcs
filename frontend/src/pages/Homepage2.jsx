@@ -13,10 +13,10 @@ function Homepage2() {
     <div>
       <Featured />
       <SectionTeasers />
-      <Section1 sectionName="Section 1" />
-      <Section1 sectionName="Section 2" />
-      <SectionCategory sectionName="Section 3" />
-      <SectionVideosHautes sectionName="Section 4" />
+      <Section1 sectionName="Sport" />
+      <Section1 sectionName="Voyages" />
+      <SectionCategory sectionName="Genres" />
+      <SectionVideosHautes sectionName="Discover" />
     </div>
   );
 }

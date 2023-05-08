@@ -99,7 +99,7 @@ export default function DataTable() {
       field: "role",
       headerName: "Role",
       type: "singleSelect",
-      valueOptions: ["Admin", "User"],
+      valueOptions: ["admin", "user"],
       width: 150,
       editable: true,
     },

@@ -63,7 +63,7 @@ const add = async (req, res) => {
   fs.rename(filename, originalName, (err) => {
     if (err) res.status(500);
   });
-  const link = `videos/${file.originalname}`;
+  const link = `/assets/videos/${file.originalname}`;
 
   // TODO validations (length, format...)
   try {
@@ -76,7 +76,6 @@ const add = async (req, res) => {
     });
     const newVideo = {
       title,
-
       description_text,
       category_id,
       link,

@@ -122,6 +122,7 @@ function VideosManagement() {
         columns={columns}
         rowsPerPageOptions={[5, 10, 20]}
         style={dataTableStyle}
+        autoHeight
       />
       <h1>Ajouter une video</h1>
       <div id="title">

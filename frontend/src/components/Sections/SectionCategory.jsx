@@ -20,6 +20,8 @@ function SectionCategory({ sectionName }) {
   const getVideoData = async () => {
     await api.get("videos").then((res) => {
       setData(res.data);
+      // eslint-disable-next-line no-restricted-syntax
+      console.log(data);
     });
   };
   useEffect(() => {
@@ -29,7 +31,7 @@ function SectionCategory({ sectionName }) {
   const uniqueCategories = data.filter((item, index) => {
     return (
       data.findIndex((object) => {
-        return object.category === item.category;
+        return object.category_name === item.category_name;
       }) === index
     );
   });
@@ -81,24 +83,24 @@ function SectionCategory({ sectionName }) {
               key={item.id}
               className="category-btn"
               type="submit"
-              onClick={() => handleCategory(item.category)}
+              onClick={() => handleCategory(item.category_name)}
             >
-              {item.category}
+              {item.category_name}
             </button>
           ))}
         </div>
         <div className="container container-section" ref={listRef}>
           {categoryClicked
             ? data
-                .filter((item) => item.category === selectedCategory)
+                .filter((item) => item.category_name === selectedCategory)
                 .map((item) => (
                   <Video
                     key={item.id}
-                    src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
+                    src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
                     width="650px"
                     height="450px"
                     displayDescription
-                    displayDescriptionTitle={item.titre}
+                    displayDescriptionTitle={item.title}
                     displayDescriptionText={item.description_text}
                     isEnabled
                   />
@@ -106,11 +108,11 @@ function SectionCategory({ sectionName }) {
             : data.map((item) => (
                 <Video
                   key={item.id}
-                  src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
+                  src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
                   width="650px"
                   height="450px"
                   displayDescription
-                  displayDescriptionTitle={item.titre}
+                  displayDescriptionTitle={item.title}
                   displayDescriptionText={item.description_text}
                   isEnabled
                 />
