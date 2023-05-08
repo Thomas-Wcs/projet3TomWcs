@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import "./variables";
+
+#user-main-profile {
+  height: auto;
+  width: auto;
+  margin: 15%;
+  padding: 25%;
+  color: $main-blue;
+  .h1 {
+    color: $main-blue;
+  }
+}

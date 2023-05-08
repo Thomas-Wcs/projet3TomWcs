@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import UserProfile from "./components/dashbord/UserProfile";
 import AdminPanel from "./components/adminPannel/AdminPanel";
 import Header from "./components/Header/Header";
 import ConnectionPage from "./components/User/ConnectionPage";
@@ -18,7 +19,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage2 />} />
             <Route path="/connexion" element={<ConnectionPage />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile />}>
+              <Route path="/profile/userid" element={<UserProfile />} />
+            </Route>
             <Route path="adminPanel" element={<AdminPanel />}>
               <Route path="usersTable" element={<DataTable />} />
               <Route path="videosTable" element={<VideosManagement />} />

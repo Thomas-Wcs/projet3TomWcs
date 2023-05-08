@@ -1,16 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 @import "./variables";
 
-#profile {
+#profil-display {
   font-family: "PT Sans";
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   padding-left: 40px;
   padding-top: 3%;
   height: 100%;
   background: $main-black;
   .section-title {
-    color: white;
+    color: $main-blue;
   }
 
   .react-multi-carousel-list {

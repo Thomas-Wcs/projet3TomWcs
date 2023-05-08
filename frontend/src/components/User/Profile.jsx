@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "react-multi-carousel/lib/styles.css";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
+import AccountMenu from "../dashbord/AccountMenu";
 
 export default function Profile() {
   const api = useAPI();
@@ -13,13 +14,17 @@ export default function Profile() {
   console.log(userInfo);
 
   useEffect(() => {
-    api.get("videos").then((result) => setData(result.data));
+    api.get("users").then((result) => setData(result.data));
   }, []);
 
   return (
-    <div id="profile">
-      <h1 className="section-title">{userInfo.email}</h1>
-      <h2 className="section-title">MES FAVORIS</h2>
+    <div id="profil-display">
+      <div>
+        <h1 className="section-title">Profile</h1>
+      </div>
+      <div className="account-menu-display">
+        <AccountMenu />
+      </div>
     </div>
   );
 }

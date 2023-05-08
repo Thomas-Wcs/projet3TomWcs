@@ -13,7 +13,7 @@ export default function ConnectionPage() {
   const [registrationMail, setRegistrationMail] = useState("");
   const [account, setAccount] = useState(true);
   const [errorMessage, setErrorMessage] = useState(false);
-  const { success, setSuccess, setIsAdmin, setUserInfo } = useAuth();
+  const { success, setSuccess, setIsAdmin, setUserInfo, setIsUser } = useAuth();
 
   const refPass = useRef(null);
   const refMail = useRef(null);
@@ -34,6 +34,7 @@ export default function ConnectionPage() {
         navigate("/profile");
         setUserInfo(res.data.user);
         if (res.data.user.role === "admin") setIsAdmin(true);
+        if (res.data.user.role === "udmin") setIsUser(true);
       })
       .catch((err) => {
         console.error(err);
