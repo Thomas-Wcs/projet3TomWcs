@@ -69,7 +69,7 @@ function SectionVideosHautes({ sectionName }) {
               displayDescription
               displayDescriptionTitle={video.titre}
               displayDescriptionText={video.description_text}
-              src={`${import.meta.env.VITE_APP_API_URL}/${video.lien}`}
+              src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
               isEnabled
             />
           ))}

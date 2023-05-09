@@ -8,6 +8,7 @@ import VideosManagement from "./components/adminPannel/VideosManagement";
 import Homepage2 from "./pages/Homepage2";
 
 import { AuthProvider } from "./context/AuthContext";
+import AdminWall from "./utils/AdminWall";
 
 function App() {
   return (
@@ -19,7 +20,15 @@ function App() {
             <Route path="/" element={<Homepage2 />} />
             <Route path="/connexion" element={<ConnectionPage />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="adminPanel" element={<AdminPanel />}>
+
+            <Route
+              path="adminPanel"
+              element={
+                <AdminWall>
+                  <AdminPanel />
+                </AdminWall>
+              }
+            >
               <Route path="usersTable" element={<DataTable />} />
               <Route path="videosTable" element={<VideosManagement />} />
             </Route>

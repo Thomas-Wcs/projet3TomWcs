@@ -18,8 +18,6 @@ function Section1({ sectionName }) {
   const getVideoData = async () => {
     await api.get("videos").then((res) => {
       setData(res.data);
-      // eslint-disable-next-line no-restricted-syntax
-      console.log(res.data);
     });
   };
   useEffect(() => {
@@ -71,7 +69,7 @@ function Section1({ sectionName }) {
               displayDescription
               displayDescriptionTitle={video.titre}
               displayDescriptionText={video.description_text}
-              src={`${import.meta.env.VITE_APP_API_URL}/${video.lien}`}
+              src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
               isEnabled
             />
           ))}

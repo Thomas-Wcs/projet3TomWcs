@@ -9,8 +9,20 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+  min-height: 100%;
   input {
     height: 30px;
     border-radius: 3px;
+  }
+  #add-button {
+    width: 150px;
+    margin: 1em 0 1em 0;
+    padding: 0.5em;
+    color: $main-blue;
+    background-color: black;
+    border-color: $main-blue;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

@@ -4,6 +4,8 @@
 #profile {
   font-family: "PT Sans";
   display: flex;
+  flex-direction: column;
+  gap: 30px;
   flex-wrap: wrap;
   padding-left: 40px;
   padding-top: 3%;

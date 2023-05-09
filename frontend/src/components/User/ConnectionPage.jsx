@@ -1,9 +1,10 @@
 import "../../styles/index.css";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import Registration from "./Registration";
 import { useAuth } from "../../context/AuthContext";
+import userRole from "../../utils/users";
 
 export default function ConnectionPage() {
   const navigate = useNavigate();
@@ -15,14 +16,11 @@ export default function ConnectionPage() {
   const [errorMessage, setErrorMessage] = useState(false);
   const { success, setSuccess, setIsAdmin, setUserInfo } = useAuth();
 
-  const refPass = useRef();
-  const refMail = useRef();
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = {
-      mdp: refPass.current.value,
-      email: refMail.current.value,
+      mdp,
+      email: mail,
     };
 
     api
@@ -33,7 +31,7 @@ export default function ConnectionPage() {
         setSuccess(false);
         navigate("/profile");
         setUserInfo(res.data.user);
-        if (res.data.user.role === "admin") setIsAdmin(true);
+        if (res.data.user.role === userRole.ADMIN) setIsAdmin(true);
       })
       .catch((err) => {
         console.error(err);
@@ -64,7 +62,6 @@ export default function ConnectionPage() {
             placeholder="Email"
             value={mail}
             onChange={(e) => setMail(e.target.value)}
-            ref={refMail}
           />
           <input
             type="password"
@@ -73,7 +70,6 @@ export default function ConnectionPage() {
             placeholder="Mot de Passe"
             value={mdp}
             onChange={(e) => setMdp(e.target.value)}
-            ref={refPass}
           />
           {errorMessage && <p id="password-error">Sorry, Wrong Password</p>}
           <button type="button" className="user-button" onClick={handleSubmit}>
@@ -109,8 +105,6 @@ export default function ConnectionPage() {
       mdp={mdp}
       setMdp={setMdp}
       handleSubmit={handleSubmit}
-      refPass={refPass}
-      refMail={refMail}
     />
   );
 }
