@@ -29,18 +29,9 @@ function SectionCategory({ sectionName }) {
   const uniqueCategories = data.filter((item, index) => {
     return (
       data.findIndex((object) => {
-        return object.category_name === item.category_name;
+        return object.name === item.name;
       }) === index
     );
-  });
-
-  const filteredData = data.filter(
-    (item) => item.category_name === selectedCategory
-  );
-
-  const uniqueData = filteredData.filter((item, index) => {
-    const firstIndex = filteredData.findIndex((obj) => obj.id === item.id);
-    return firstIndex === index;
   });
 
   function handleCategory(category) {
@@ -59,9 +50,6 @@ function SectionCategory({ sectionName }) {
       listRef.current.style.transform = `translateX(${-650 + distance}px)`;
     }
   }
-
-  // eslint-disable-next-line no-restricted-syntax
-  console.log(uniqueData);
 
   return (
     <div className="list">
@@ -93,16 +81,16 @@ function SectionCategory({ sectionName }) {
               key={item.id}
               className="category-btn"
               type="submit"
-              onClick={() => handleCategory(item.category_name)}
+              onClick={() => handleCategory(item.name)}
             >
-              {item.category_name}
+              {item.name}
             </button>
           ))}
         </div>
         <div className="container container-section" ref={listRef}>
           {categoryClicked
             ? data
-                .filter((item) => item.category_name === selectedCategory)
+                .filter((item) => item.name === selectedCategory)
                 .map((item) => (
                   <Video
                     key={item.id}
