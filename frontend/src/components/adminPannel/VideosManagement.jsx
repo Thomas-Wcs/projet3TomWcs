@@ -60,22 +60,6 @@ function VideosManagement() {
     }
   };
 
-  // const updateVideo = async (id, field, value) => {
-  //   const updatedVideo = videos.map((row) => {
-  //     if (row.id === id) {
-  //       return { ...row, [field]: value };
-  //     }
-  //     return row;
-  //   });
-  //   setVideos(updatedVideo);
-
-  //   const [title, description_text, category_id, link] = value;
-  //   const newVideo = { title, description_text, category_id, link };
-
-  //   await api.put(`videos/${id}`, newVideo).then((res) => console.log(res));
-  //   setVideosChanging(!videosChanging);
-  // };
-
   const columns = [
     { field: "id", headerName: "Id", width: 150 },
     { field: "title", headerName: "Title", width: 150, editable: true },
@@ -88,6 +72,12 @@ function VideosManagement() {
     {
       field: "category_id",
       headerName: "Category",
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "section_id",
+      headerName: "Section",
       width: 150,
       editable: true,
     },
