@@ -13,8 +13,9 @@ function SectionCategory({ sectionName }) {
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [categoryClicked, setCategoryCliked] = useState(false);
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+
   const api = useAPI();
 
   const getVideoData = async () => {
@@ -35,9 +36,12 @@ function SectionCategory({ sectionName }) {
   });
 
   function handleCategory(category) {
-    setCategoryCliked(!categoryClicked);
     setSelectedCategory(category);
+    setFilteredData(data.filter((item) => item.name === category));
   }
+  useEffect(() => {
+    setFilteredData(data.filter((item) => item.name === selectedCategory));
+  }, [selectedCategory]);
 
   function handleClick(direction) {
     const distance = listRef.current.getBoundingClientRect().x;
@@ -88,21 +92,19 @@ function SectionCategory({ sectionName }) {
           ))}
         </div>
         <div className="container container-section" ref={listRef}>
-          {categoryClicked
-            ? data
-                .filter((item) => item.name === selectedCategory)
-                .map((item) => (
-                  <Video
-                    key={item.id}
-                    src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
-                    width="650px"
-                    height="450px"
-                    displayDescription
-                    displayDescriptionTitle={item.title}
-                    displayDescriptionText={item.description_text}
-                    isEnabled
-                  />
-                ))
+          {filteredData.length
+            ? filteredData.map((item) => (
+                <Video
+                  key={item.id}
+                  src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
+                  width="650px"
+                  height="450px"
+                  displayDescription
+                  displayDescriptionTitle={item.title}
+                  displayDescriptionText={item.description_text}
+                  isEnabled
+                />
+              ))
             : data.map((item) => (
                 <Video
                   key={item.id}
