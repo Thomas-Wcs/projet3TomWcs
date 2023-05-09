@@ -10,7 +10,6 @@ import VideosManagement from "./components/adminPannel/VideosManagement";
 import Homepage2 from "./pages/Homepage2";
 
 import { AuthProvider } from "./context/AuthContext";
-import AdvertManagement from "./components/advertising/AdvertManagement";
 
 function App() {
   return (
