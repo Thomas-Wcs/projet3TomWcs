@@ -13,7 +13,7 @@ function Advert() {
       .get("/adverts")
       .then((res) => {
         setAdvert(res.data);
-        console.log(res.data);
+        console.error(res.data);
         setCurrentAdvertIndex(Math.floor(Math.random() * res.data.length));
       })
       .catch((err) => {
@@ -22,7 +22,7 @@ function Advert() {
   }, []);
 
   const currentAdvert = advert[currentAdvertIndex];
-  console.log(currentAdvert);
+  console.error(currentAdvert);
 
   return (
     <div className="advert_image">
