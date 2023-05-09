@@ -16,9 +16,14 @@ function SectionVideosHautes({ sectionName }) {
   const api = useAPI();
 
   const getVideoData = async () => {
-    await api.get("videos").then((res) => {
-      setData(res.data);
-    });
+    await api
+      .get("videos")
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   useEffect(() => {
     getVideoData();

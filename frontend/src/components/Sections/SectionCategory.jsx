@@ -13,29 +13,33 @@ function SectionCategory({ sectionName }) {
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [categoryClicked, setCategoryCliked] = useState(false);
   const [data, setData] = useState([]);
   const api = useAPI();
 
   const getVideoData = async () => {
-    await api.get("videos").then((res) => {
-      setData(res.data);
-    });
+    await api
+      .get("videos")
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   useEffect(() => {
     getVideoData();
   }, []);
 
+  // Pour éliminer les noms de catégories qui sont dupliqués
   const uniqueCategories = data.filter((item, index) => {
     return (
       data.findIndex((object) => {
-        return object.category === item.category;
+        return object.name === item.name;
       }) === index
     );
   });
 
   function handleCategory(category) {
-    setCategoryCliked(!categoryClicked);
     setSelectedCategory(category);
   }
 
@@ -81,16 +85,28 @@ function SectionCategory({ sectionName }) {
               key={item.id}
               className="category-btn"
               type="submit"
-              onClick={() => handleCategory(item.category)}
+              onClick={() => handleCategory(item.name)}
             >
-              {item.category}
+              {item.name}
             </button>
           ))}
         </div>
         <div className="container container-section" ref={listRef}>
-          {categoryClicked
-            ? data
-                .filter((item) => item.category === selectedCategory)
+          {!selectedCategory
+            ? data.map((item) => (
+                <Video
+                  key={item.id}
+                  src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
+                  width="650px"
+                  height="450px"
+                  displayDescription
+                  displayDescriptionTitle={item.title}
+                  displayDescriptionText={item.description_text}
+                  isEnabled
+                />
+              ))
+            : data
+                .filter((item) => item.name === selectedCategory)
                 .map((item) => (
                   <Video
                     key={item.id}
@@ -102,19 +118,7 @@ function SectionCategory({ sectionName }) {
                     displayDescriptionText={item.description_text}
                     isEnabled
                   />
-                ))
-            : data.map((item) => (
-                <Video
-                  key={item.id}
-                  src={`${import.meta.env.VITE_APP_API_URL}/${item.lien}`}
-                  width="650px"
-                  height="450px"
-                  displayDescription
-                  displayDescriptionTitle={item.titre}
-                  displayDescriptionText={item.description_text}
-                  isEnabled
-                />
-              ))}
+                ))}
         </div>
         <ArrowForwardIosOutlined
           className="sliderArrow right"
