@@ -19,9 +19,7 @@ export default function Profile() {
 
   return (
     <div id="profil-display">
-      <div>
-        <h1 className="section-title">Profile</h1>
-      </div>
+      <h1 className="section-title">Profile</h1>
       <div className="account-menu-display">
         <AccountMenu />
       </div>

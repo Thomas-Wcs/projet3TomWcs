@@ -91,7 +91,7 @@ export default function AccountMenu() {
             },
           },
         }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        transformOrigin={{ horizontal: "left", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem

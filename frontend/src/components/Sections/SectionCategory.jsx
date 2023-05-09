@@ -20,8 +20,6 @@ function SectionCategory({ sectionName }) {
   const getVideoData = async () => {
     await api.get("videos").then((res) => {
       setData(res.data);
-      // eslint-disable-next-line no-restricted-syntax
-      console.log(data);
     });
   };
   useEffect(() => {
@@ -34,6 +32,15 @@ function SectionCategory({ sectionName }) {
         return object.category_name === item.category_name;
       }) === index
     );
+  });
+
+  const filteredData = data.filter(
+    (item) => item.category_name === selectedCategory
+  );
+
+  const uniqueData = filteredData.filter((item, index) => {
+    const firstIndex = filteredData.findIndex((obj) => obj.id === item.id);
+    return firstIndex === index;
   });
 
   function handleCategory(category) {
@@ -52,6 +59,9 @@ function SectionCategory({ sectionName }) {
       listRef.current.style.transform = `translateX(${-650 + distance}px)`;
     }
   }
+
+  // eslint-disable-next-line no-restricted-syntax
+  console.log(uniqueData);
 
   return (
     <div className="list">

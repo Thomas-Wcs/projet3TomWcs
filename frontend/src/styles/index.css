@@ -503,24 +503,15 @@ body h1 {
   font-family: "PT Sans";
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  padding-left: 40px;
-  padding-top: 3%;
-  height: 100%;
+  height: auto;
+  width: auto;
+  margin: 5%;
   background: #000000;
 }
 #profil-display .section-title {
   color: #10bcdd;
-}
-#profil-display .react-multi-carousel-list {
-  width: 100%;
-}
-#profil-display .react-multi-carousel-list .video-div {
-  height: 100%;
-  width: 300px;
-}
-#profil-display .section-title {
-  height: 40px;
+  margin: 3%;
+  text-align: center;
 }
 
 #title {
@@ -660,15 +651,41 @@ body h1 {
 
 .account-menu-display {
   margin: 1%;
-}
-
-#user-main-profile {
   height: auto;
   width: auto;
-  margin: 15%;
-  padding: 25%;
+}
+
+.user-main-profile {
+  display: flex;
+  height: auto;
+  width: auto;
+  margin: 2%;
   color: #10bcdd;
 }
-#user-main-profile .h1 {
+.user-main-profile h3 {
   color: #10bcdd;
+  font-family: "PT Sans";
+  margin: auto;
+  margin-bottom: 10%;
+}
+.user-main-profile h4 {
+  color: #10bcdd;
+  font-family: "PT Sans";
+  margin: auto;
+}
+.user-main-profile p {
+  margin: 3%;
+  font-family: "PT Sans";
+  color: aliceblue;
+}
+.user-main-profile .user-adresse-information {
+  display: block;
+  flex-wrap: wrap;
+  width: 25%;
+  margin: 5%;
+}
+@media screen and (max-width: 768px) {
+  .user-main-profile {
+    display: block;
+  }
 }/*# sourceMappingURL=index.css.map */
