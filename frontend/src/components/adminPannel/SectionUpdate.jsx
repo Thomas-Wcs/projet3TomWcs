@@ -32,8 +32,7 @@ function SectionUpdate() {
   function updateSectionData() {
     api
       .put(`sections/${sectionData.id}`, { name: sectionData.name })
-      .then((response) => {
-        console.info(response);
+      .then(() => {
         navigate("/adminPanel/sectionsTable");
       })
       .catch((error) => {
