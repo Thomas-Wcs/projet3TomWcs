@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "../../styles/Advert.css";
 import useAPI from "../../api/useAPI";
 
-const Advert = () => {
+function Advert() {
   const [advert, setAdvert] = useState([]);
-  console.log(advert);
+  console.error(advert);
   const api = useAPI();
   const [currentAdvertIndex, setCurrentAdvertIndex] = useState(0);
 
@@ -39,6 +39,6 @@ const Advert = () => {
       )}
     </div>
   );
-};
+}
 
 export default Advert;
