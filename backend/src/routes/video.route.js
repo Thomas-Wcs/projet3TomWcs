@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
+const auth = require("../utils/Auth");
 
 const uploadFolder = path.join(__dirname, "../../public/assets/videos");
 
@@ -9,6 +10,7 @@ const videoRoute = express.Router();
 
 const VideoController = require("../controllers/VideoController");
 
+videoRoute.use(auth.verifyToken);
 videoRoute.get("/", VideoController.browse);
 videoRoute.get("/:id", VideoController.read);
 videoRoute.put("/:id", VideoController.edit);

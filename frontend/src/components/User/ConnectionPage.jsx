@@ -29,9 +29,9 @@ export default function ConnectionPage() {
         const { token } = res.data;
         api.defaults.headers.authorization = `Bearer ${token}`;
         setSuccess(false);
-        navigate("/profile");
         setUserInfo(res.data.user);
         if (res.data.user.role === userRole.ADMIN) setIsAdmin(true);
+        navigate("/profile");
       })
       .catch((err) => {
         console.error(err);

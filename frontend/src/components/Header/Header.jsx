@@ -2,11 +2,13 @@ import "../../styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
+import useAPI from "../../api/useAPI";
 
 export default function Header() {
+  const api = useAPI();
   const navigate = useNavigate();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
-  const { success, isAdmin } = useAuth();
+  const { setSuccess, success, isAdmin } = useAuth();
 
   const checkboxRef = useRef();
 
@@ -18,10 +20,12 @@ export default function Header() {
     checkboxRef.current.checked = false;
   }
 
-  function clickToLogout() {
-    checkboxRef.current.checked = false;
+  const handleLogOut = () => {
+    delete api.defaults.headers.authorization;
+    setSuccess(!success);
+    handleLinkClick();
     navigate("/connexion");
-  }
+  };
 
   return (
     <div id="nav-body">
@@ -84,7 +88,7 @@ export default function Header() {
                 <button
                   className="user-button"
                   type="button"
-                  onClick={clickToLogout}
+                  onClick={handleLogOut}
                 >
                   Logout
                 </button>

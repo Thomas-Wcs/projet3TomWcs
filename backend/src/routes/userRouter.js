@@ -14,7 +14,6 @@ userRouter.post("/", userController.add);
 
 userRouter.post("/login", userController.login, auth.verifyPassword);
 
-userRouter.use(auth.verifyToken);
 userRouter.delete("/:id", userController.destroy);
 
 module.exports = userRouter;
