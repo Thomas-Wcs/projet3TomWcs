@@ -105,6 +105,12 @@ const destroy = (req, res) => {
     });
 };
 
+const findOne = async (req, res) => {
+  models.user.find(req.query.name).then(([result]) => {
+    res.json(result);
+  });
+};
+
 const login = async (req, res, next) => {
   const { email } = req.body;
   if (!email) res.sendStatus(422);
@@ -126,4 +132,5 @@ module.exports = {
   add,
   destroy,
   login,
+  findOne,
 };

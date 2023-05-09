@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../../styles/index.css";
 import PropTypes from "prop-types";
 import useAPI from "../../api/useAPI";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Registration({
   registrationMail,
@@ -10,14 +11,17 @@ export default function Registration({
   setMail,
   mdp,
   setMdp,
+  handleSubmit,
+  refPass,
+  refMail,
 }) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [success, setSuccess] = useState(true);
+  const { success, setSuccess } = useAuth();
   const [errorMessage, setErrorMessage] = useState("");
   const api = useAPI();
 
-  const handleSubmit = (e) => {
+  const handleSubmitRegister = (e) => {
     e.preventDefault();
     const newUser = {
       name: userName,
@@ -71,7 +75,11 @@ export default function Registration({
         placeholder="Mot de passe :"
       />
 
-      <input type="submit" onClick={handleSubmit} className="user-button" />
+      <input
+        type="submit"
+        onClick={handleSubmitRegister}
+        className="user-button"
+      />
     </div>
   ) : (
     <div id="connection">
@@ -84,6 +92,7 @@ export default function Registration({
         placeholder="Email"
         value={mail}
         onChange={(e) => setMail(e.target.value)}
+        ref={refMail}
       />
       <input
         type="password"
@@ -92,8 +101,9 @@ export default function Registration({
         placeholder="Mot de Passe"
         value={mdp}
         onChange={(e) => setMdp(e.target.value)}
+        ref={refPass}
       />
-      <button type="button" className="user-button">
+      <button type="submit" className="user-button" onClick={handleSubmit}>
         Connexion
       </button>
     </div>
@@ -107,4 +117,7 @@ Registration.propTypes = {
   setMail: PropTypes.func.isRequired,
   mdp: PropTypes.string.isRequired,
   setMdp: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  refPass: PropTypes.string.isRequired,
+  refMail: PropTypes.string.isRequired,
 };

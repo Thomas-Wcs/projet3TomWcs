@@ -1,3 +1,6 @@
+/* eslint-disable camelcase */
+const path = require("path");
+const fs = require("fs");
 const models = require("../models");
 
 const browse = (req, res) => {
@@ -28,44 +31,66 @@ const read = (req, res) => {
     });
 };
 
-const edit = (req, res) => {
-  const videos = req.body;
-
-  videos.id = parseInt(req.params.id, 10);
-
-  models.video
-    .update(videos)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+const edit = async (req, res) => {
+  const result = await models.video.update(
+    parseInt(req.params.id, 10),
+    req.body
+  );
+  if (result) {
+    res.sendStatus(204);
+  } else res.sendStatus(404);
 };
 
-const add = (req, res) => {
-  const videos = req.body;
+const add = async (req, res) => {
+  // eslint-disable-next-line camelcase
+  const { title, description_text, category_id, date_publication } = req.body;
+  const { file } = req;
+  if (!file) {
+    return res.sendStatus(500);
+  }
+
+  const baseFolder = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "assets",
+    "videos"
+  );
+  const originalName = path.join(baseFolder, file.originalname);
+  const filename = path.join(baseFolder, file.filename);
+
+  fs.rename(filename, originalName, (err) => {
+    if (err) res.status(500);
+  });
+  const link = `assets/videos/${file.originalname}`;
 
   // TODO validations (length, format...)
-
-  models.video
-    .insert(videos)
-    .then(([result]) => {
-      if (result.status === 201) res.send("Video updated");
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
+  try {
+    const result = await models.video.insert({
+      title,
+      link,
+      category_id,
+      description_text,
+      date_publication,
     });
+    const newVideo = {
+      title,
+
+      description_text,
+      category_id,
+      link,
+      date_publication,
+      id: result,
+    };
+    return res.status(201).json(newVideo);
+  } catch (e) {
+    return res.status(500).send(e.message);
+  }
 };
 
-const destroy = (req, res) => {
-  models.videos
+const destroy = async (req, res) => {
+  await models.video
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
@@ -80,10 +105,23 @@ const destroy = (req, res) => {
     });
 };
 
+const findFavorites = async (req, res) => {
+  await models.video
+    .findFavorites(req.query.name)
+    .then(([result]) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
   edit,
   add,
   destroy,
+  findFavorites,
 };

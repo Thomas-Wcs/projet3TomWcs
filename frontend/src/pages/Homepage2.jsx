@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import useApi from "../api/useAPI";
-import "../scss/index.css";
+import "../styles/index.css";
 
 import Featured from "../components/Sections/Featured";
 import SectionTeasers from "../components/Sections/SectionTeasers";

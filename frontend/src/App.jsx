@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import AdminPanel from "./components/adminPannel/AdminPanel";
 import Header from "./components/Header/Header";
 import ConnectionPage from "./components/User/ConnectionPage";
@@ -10,20 +9,29 @@ import SectionsManagement from "./components/adminPannel/SectionsManagement";
 import Homepage2 from "./pages/Homepage2";
 import SectionUpdate from "./components/adminPannel/SectionUpdate";
 import SectionAdd from "./components/adminPannel/SectionAdd";
-import userContext from "./context/userContext";
+
+import { AuthProvider } from "./context/AuthContext";
+import AdminWall from "./utils/AdminWall";
 
 function App() {
-  const [userAuth, setUserAuth] = useState("");
   return (
-    <userContext.Provider value={(userAuth, setUserAuth)}>
-      <div className="App">
+    <div className="App">
+      <AuthProvider>
         <Router>
           <Header />
           <Routes>
             <Route path="/" element={<Homepage2 />} />
             <Route path="/connexion" element={<ConnectionPage />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="adminPanel" element={<AdminPanel />}>
+
+            <Route
+              path="adminPanel"
+              element={
+                <AdminWall>
+                  <AdminPanel />
+                </AdminWall>
+              }
+            >
               <Route path="usersTable" element={<DataTable />} />
               <Route path="videosTable" element={<VideosManagement />} />
               <Route path="sectionsTable" element={<SectionsManagement />} />
@@ -32,8 +40,8 @@ function App() {
             <Route path="/newSection" element={<SectionAdd />} />
           </Routes>
         </Router>
-      </div>
-    </userContext.Provider>
+      </AuthProvider>
+    </div>
   );
 }
 

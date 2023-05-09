@@ -49,7 +49,7 @@ function SectionCategory({ sectionName }) {
       setVideoNumber(videoNumber - 1);
       listRef.current.style.transform = `translateX(${650 + distance}px)`;
     }
-    if (direction === "right" && videoNumber < 5) {
+    if (direction === "right" && videoNumber < 155) {
       setVideoNumber(videoNumber + 1);
       listRef.current.style.transform = `translateX(${-650 + distance}px)`;
     }
@@ -114,7 +114,7 @@ function SectionCategory({ sectionName }) {
                     width="650px"
                     height="450px"
                     displayDescription
-                    displayDescriptionTitle={item.title}
+                    displayDescriptionTitle={item.titre}
                     displayDescriptionText={item.description_text}
                     isEnabled
                   />

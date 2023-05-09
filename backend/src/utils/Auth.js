@@ -40,6 +40,27 @@ const verifyPassword = async (req, res) => {
     });
 };
 
+const verifyAdmin = async (req, res) => {
+  argon2
+    .verify(req.user.mdp, req.body.mdp)
+    .then((isVerified) => {
+      if (isVerified) {
+        const payload = { sub: { id: req.user.id, role: req.user.role } };
+        const token = jwt.sign(payload, process.env.JWT_SECRET);
+        delete req.user.hashedPassword;
+        res.send({ token, user: req.user });
+      } else if (req.user.role !== "13579AETUO") {
+        res.sendStatus(403);
+      } else {
+        res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const verifyToken = (req, res, next) => {
   try {
     const authorizationHeader = req.get("Authorization");
@@ -59,4 +80,4 @@ const verifyToken = (req, res, next) => {
   return true;
 };
 
-module.exports = { hashPassword, verifyPassword, verifyToken };
+module.exports = { hashPassword, verifyPassword, verifyToken, verifyAdmin };

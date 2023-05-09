@@ -1,37 +1,41 @@
 import "../../styles/index.css";
-import { useState, useRef } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import Registration from "./Registration";
+import { useAuth } from "../../context/AuthContext";
+import userRole from "../../utils/users";
 
 export default function ConnectionPage() {
+  const navigate = useNavigate();
   const api = useAPI();
   const [mail, setMail] = useState("");
   const [mdp, setMdp] = useState("");
   const [registrationMail, setRegistrationMail] = useState("");
   const [account, setAccount] = useState(true);
-  const [success, setSuccess] = useState(true);
-  const [userConnected, setUserConnected] = useState("");
-
-  const refPass = useRef();
-  const refMail = useRef();
+  const [errorMessage, setErrorMessage] = useState(false);
+  const { success, setSuccess, setIsAdmin, setUserInfo } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = {
-      mdp: refPass.current.value,
-      email: refMail.current.value,
+      mdp,
+      email: mail,
     };
 
     api
       .post("users/login/", user)
       .then((res) => {
         const { token } = res.data;
-        setUserConnected(res.data.user);
         api.defaults.headers.authorization = `Bearer ${token}`;
         setSuccess(false);
+        navigate("/profile");
+        setUserInfo(res.data.user);
+        if (res.data.user.role === userRole.ADMIN) setIsAdmin(true);
       })
       .catch((err) => {
         console.error(err);
+        setErrorMessage(true);
       });
   };
 
@@ -42,7 +46,7 @@ export default function ConnectionPage() {
         alt=""
         className="connection-bg"
       />
-      {success ? (
+      {success && (
         <div id="connection">
           <img
             src="https://cdn.pixabay.com/photo/2021/07/28/00/57/pyramids-6498038_960_720.jpg"
@@ -58,7 +62,6 @@ export default function ConnectionPage() {
             placeholder="Email"
             value={mail}
             onChange={(e) => setMail(e.target.value)}
-            ref={refMail}
           />
           <input
             type="password"
@@ -67,8 +70,8 @@ export default function ConnectionPage() {
             placeholder="Mot de Passe"
             value={mdp}
             onChange={(e) => setMdp(e.target.value)}
-            ref={refPass}
           />
+          {errorMessage && <p id="password-error">Sorry, Wrong Password</p>}
           <button type="button" className="user-button" onClick={handleSubmit}>
             Connexion
           </button>
@@ -91,8 +94,6 @@ export default function ConnectionPage() {
             Inscription
           </button>
         </div>
-      ) : (
-        <h2>Bienvenu {userConnected.name}</h2>
       )}
     </div>
   ) : (
@@ -103,6 +104,7 @@ export default function ConnectionPage() {
       setMail={setMail}
       mdp={mdp}
       setMdp={setMdp}
+      handleSubmit={handleSubmit}
     />
   );
 }

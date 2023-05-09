@@ -12,23 +12,34 @@ class VideoManager extends AbstractManager {
   }
 
   insert(videos) {
-    return this.database.query(
-      `insert into ${this.table} (title, link, category_id, description_text, date_publication) values (?, ?, ?, ?, ?)`,
-      [
-        videos.title,
-        videos.link,
-        videos.category_id,
-        videos.description_text,
-        videos.date_publication,
-      ]
-    );
+    return this.database
+      .query(
+        `insert into ${this.table} (title, link, category_id, description_text, date_publication) values (?, ?, ?, ?, ?)`,
+        [
+          videos.title,
+          videos.link,
+          videos.category_id,
+          videos.description_text,
+          videos.date_publication,
+        ]
+      )
+      .then(([result]) => result.insertId)
+      .catch((err) => {
+        throw err;
+      });
   }
 
-  update(videos) {
-    return this.database.query(
-      `update ${this.table} set title = ? where id = ?`,
-      [videos.name, videos.id]
-    );
+  update(id, videos) {
+    return this.database
+      .query(`update ${this.table} set  ? where id = ?`, [videos, id])
+      .then(([result]) => result.affectedRows === 1)
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  delete(id) {
+    return this.database.query(`delete from ${this.table} where id = ?`, [id]);
   }
 }
 

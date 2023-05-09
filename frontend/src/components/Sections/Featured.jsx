@@ -63,7 +63,7 @@ function Featured() {
           {data.map((video) => (
             <Video
               key={video.id}
-              title={video.title}
+              title={video.titre}
               width="100vw"
               height="100vh"
               displayPlayButton
