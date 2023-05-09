@@ -5,7 +5,10 @@ import ConnectionPage from "./components/User/ConnectionPage";
 import Profile from "./components/User/Profile";
 import DataTable from "./components/adminPannel/DataTable";
 import VideosManagement from "./components/adminPannel/VideosManagement";
+import SectionsManagement from "./components/adminPannel/SectionsManagement";
 import Homepage2 from "./pages/Homepage2";
+import SectionUpdate from "./components/adminPannel/SectionUpdate";
+import SectionAdd from "./components/adminPannel/SectionAdd";
 
 import { AuthProvider } from "./context/AuthContext";
 import AdminWall from "./utils/AdminWall";
@@ -31,7 +34,10 @@ function App() {
             >
               <Route path="usersTable" element={<DataTable />} />
               <Route path="videosTable" element={<VideosManagement />} />
+              <Route path="sectionsTable" element={<SectionsManagement />} />
             </Route>
+            <Route path="/sections/:id" element={<SectionUpdate />} />
+            <Route path="/newSection" element={<SectionAdd />} />
           </Routes>
         </Router>
       </AuthProvider>
