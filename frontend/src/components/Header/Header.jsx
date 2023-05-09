@@ -1,11 +1,12 @@
-import { useState, useRef } from "react";
-
-import { Link } from "react-router-dom";
-
 import "../../styles/index.css";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useRef } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Header() {
+  const navigate = useNavigate();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
+  const { success, isAdmin } = useAuth();
 
   const checkboxRef = useRef();
 
@@ -15,6 +16,11 @@ export default function Header() {
 
   function handleLinkClick() {
     checkboxRef.current.checked = false;
+  }
+
+  function clickToLogout() {
+    checkboxRef.current.checked = false;
+    navigate("/connexion");
   }
 
   return (
@@ -53,21 +59,36 @@ export default function Header() {
                   Home
                 </Link>
               </li>
-              <li>
-                <Link to="/connexion" onClick={() => handleLinkClick()}>
-                  Connexion
-                </Link>
-              </li>
-              <li>
-                <Link to="/profile" onClick={() => handleLinkClick()}>
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link to="/adminPanel/" onClick={() => handleLinkClick()}>
-                  Admin
-                </Link>
-              </li>
+              {success ? (
+                <li>
+                  <Link to="/connexion" onClick={() => handleLinkClick()}>
+                    Connexion
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <Link to="/profile" onClick={() => handleLinkClick()}>
+                    Profile
+                  </Link>
+                </li>
+              )}
+
+              {isAdmin && (
+                <li>
+                  <Link to="/adminPanel/" onClick={() => handleLinkClick()}>
+                    Admin
+                  </Link>
+                </li>
+              )}
+              {!success && (
+                <button
+                  className="user-button"
+                  type="button"
+                  onClick={clickToLogout}
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </div>
         </div>

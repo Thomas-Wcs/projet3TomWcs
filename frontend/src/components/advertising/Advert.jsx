@@ -3,15 +3,16 @@ import "../../styles/Advert.css";
 import useAPI from "../../api/useAPI";
 
 const Advert = () => {
-  const [adverts, setAdverts] = useState([]);
+  const [advert, setAdvert] = useState([]);
+  console.log(advert);
   const api = useAPI();
   const [currentAdvertIndex, setCurrentAdvertIndex] = useState(0);
 
   useEffect(() => {
     api
-      .get("http://localhost:5000/adverts")
+      .get("/adverts")
       .then((res) => {
-        setAdverts(res.data);
+        setAdvert(res.data);
         console.log(res.data);
         setCurrentAdvertIndex(Math.floor(Math.random() * res.data.length));
       })
@@ -20,7 +21,7 @@ const Advert = () => {
       });
   }, []);
 
-  const currentAdvert = adverts[currentAdvertIndex];
+  const currentAdvert = advert[currentAdvertIndex];
   console.log(currentAdvert);
 
   return (

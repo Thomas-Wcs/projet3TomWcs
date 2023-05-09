@@ -2,12 +2,12 @@ const dataTableStyle = {
   height: "80%",
   backgroundColor: "gray",
   borderRadius: "1%",
-  margin: "0px 5em 0px 5em",
-  padding: "1em",
+  margin: "0px 50px 0px 50px",
+  padding: "2%",
   fontSize: "20px",
   fontFamily: "PT Sans",
   border: "3px solid rgb(16, 188, 221)",
   color: "black",
-  width: "100em",
+  width: "auto",
 };
 export default dataTableStyle;

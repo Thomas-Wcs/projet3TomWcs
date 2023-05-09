@@ -1,22 +1,21 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import AdminPanel from "./components/adminPannel/AdminPanel";
 import Header from "./components/Header/Header";
 import ConnectionPage from "./components/User/ConnectionPage";
 import Profile from "./components/User/Profile";
-import Home from "./pages/Home";
 import Advert from "./components/advertising/Advert";
 import Footer from "./components/footer/Footer";
 import DataTable from "./components/adminPannel/DataTable";
 import VideosManagement from "./components/adminPannel/VideosManagement";
 import Homepage2 from "./pages/Homepage2";
-import userContext from "./context/userContext";
+
+import { AuthProvider } from "./context/AuthContext";
+import AdvertManagement from "./components/advertising/AdvertManagement";
 
 function App() {
-  const [userAuth, setUserAuth] = useState("");
   return (
-    <userContext.Provider value={(userAuth, setUserAuth)}>
-      <div className="App">
+    <div className="App">
+      <AuthProvider>
         <Router>
           <Header />
           <Routes>
@@ -31,8 +30,8 @@ function App() {
         </Router>
         <Advert />
         <Footer />
-      </div>
-    </userContext.Provider>
+      </AuthProvider>
+    </div>
   );
 }
 

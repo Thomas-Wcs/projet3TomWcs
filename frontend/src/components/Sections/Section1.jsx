@@ -30,7 +30,7 @@ function Section1({ sectionName }) {
       setVideoNumber(videoNumber - 1);
       listRef.current.style.transform = `translateX(${650 + distance}px)`;
     }
-    if (direction === "right" && videoNumber < 5) {
+    if (direction === "right" && videoNumber < 25) {
       setVideoNumber(videoNumber + 1);
       listRef.current.style.transform = `translateX(${-650 + distance}px)`;
     }
@@ -67,7 +67,7 @@ function Section1({ sectionName }) {
               width="650px"
               height="450px"
               displayDescription
-              displayDescriptionTitle={video.title}
+              displayDescriptionTitle={video.titre}
               displayDescriptionText={video.description_text}
               src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
               isEnabled

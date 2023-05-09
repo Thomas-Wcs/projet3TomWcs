@@ -23,6 +23,11 @@
     z-index: 10;
   }
 
+  #password-error {
+    color: red;
+    font-size: 1.2rem;
+  }
+
   .connection-bg {
     opacity: 0.2;
     position: absolute;
