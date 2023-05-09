@@ -490,6 +490,8 @@ body h1 {
 #profile {
   font-family: "PT Sans";
   display: flex;
+  flex-direction: column;
+  gap: 30px;
   flex-wrap: wrap;
   padding-left: 40px;
   padding-top: 3%;
@@ -521,10 +523,22 @@ body h1 {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  min-height: 100%;
 }
 #title input {
   height: 30px;
   border-radius: 3px;
+}
+#title #add-button {
+  width: 150px;
+  margin: 1em 0 1em 0;
+  padding: 0.5em;
+  color: #10bcdd;
+  background-color: black;
+  border-color: #10bcdd;
+}
+#title #add-button:hover {
+  cursor: pointer;
 }
 
 .admin-pannel {
@@ -642,4 +656,10 @@ body h1 {
   height: 40px;
   background: rgba(128, 128, 128, 0);
   font-size: 2rem;
+}
+
+#img-admin-wall {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }/*# sourceMappingURL=index.css.map */

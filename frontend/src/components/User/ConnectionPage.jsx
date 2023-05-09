@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import Registration from "./Registration";
 import { useAuth } from "../../context/AuthContext";
+import userRole from "../../utils/users";
 
 export default function ConnectionPage() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function ConnectionPage() {
     e.preventDefault();
     const user = {
       mdp,
-      mail,
+      email: mail,
     };
 
     api
@@ -30,7 +31,7 @@ export default function ConnectionPage() {
         setSuccess(false);
         navigate("/profile");
         setUserInfo(res.data.user);
-        if (res.data.user.role === "admin") setIsAdmin(true);
+        if (res.data.user.role === userRole.ADMIN) setIsAdmin(true);
       })
       .catch((err) => {
         console.error(err);

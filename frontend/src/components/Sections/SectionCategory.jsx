@@ -94,7 +94,7 @@ function SectionCategory({ sectionName }) {
                 .map((item) => (
                   <Video
                     key={item.id}
-                    src={`${import.meta.env.VITE_APP_API_URL}/${item.lien}`}
+                    src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
                     width="650px"
                     height="450px"
                     displayDescription
