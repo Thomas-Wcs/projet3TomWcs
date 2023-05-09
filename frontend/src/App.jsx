@@ -9,6 +9,7 @@ import VideosManagement from "./components/adminPannel/VideosManagement";
 import SectionsManagement from "./components/adminPannel/SectionsManagement";
 import Homepage2 from "./pages/Homepage2";
 import SectionUpdate from "./components/adminPannel/SectionUpdate";
+import SectionAdd from "./components/adminPannel/SectionAdd";
 import userContext from "./context/userContext";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
               <Route path="sectionsTable" element={<SectionsManagement />} />
             </Route>
             <Route path="/sections/:id" element={<SectionUpdate />} />
+            <Route path="/newSection" element={<SectionAdd />} />
           </Routes>
         </Router>
       </div>

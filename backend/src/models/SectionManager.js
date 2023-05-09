@@ -16,10 +16,9 @@ class SectionManager extends AbstractManager {
   }
 
   insert(section) {
-    return this.database.query(
-      `insert into ${this.table} (id,name) values (?,?)`,
-      [section.id, section.name]
-    );
+    return this.database.query(`insert into ${this.table} (name) values (?)`, [
+      section.name,
+    ]);
   }
 
   update(section) {

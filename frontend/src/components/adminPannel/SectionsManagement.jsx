@@ -75,11 +75,12 @@ function SectionsManagement() {
   return (
     <div style={{ maxWidth: "100%" }}>
       <h1>Sections</h1>
-
-      <PostAddRoundedIcon
-        style={{ fontSize: 48, color: "#10bcdd" }}
-        className="addButton"
-      />
+      <Link to="/newSection">
+        <PostAddRoundedIcon
+          style={{ fontSize: 48, color: "#10bcdd" }}
+          className="addButton"
+        />
+      </Link>
       <Box
         sx={{
           height: 800,

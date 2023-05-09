@@ -35,8 +35,8 @@ const add = (req, res) => {
 
   models.section
     .insert(sections)
-    .then(([result]) => {
-      if (result.status === 201) res.send(" section added");
+    .then(() => {
+      res.sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
