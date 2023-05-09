@@ -10,9 +10,9 @@ const videoRoute = express.Router();
 
 const VideoController = require("../controllers/VideoController");
 
-videoRoute.use(auth.verifyToken);
 videoRoute.get("/", VideoController.browse);
 videoRoute.get("/:id", VideoController.read);
+videoRoute.use(auth.verifyToken, auth.verifyAdmin);
 videoRoute.put("/:id", VideoController.edit);
 videoRoute.post("/", upload.single("link"), VideoController.add);
 videoRoute.delete("/:id", VideoController.destroy);

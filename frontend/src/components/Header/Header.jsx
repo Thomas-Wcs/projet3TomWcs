@@ -8,7 +8,7 @@ export default function Header() {
   const api = useAPI();
   const navigate = useNavigate();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
-  const { setSuccess, success, isAdmin } = useAuth();
+  const { setSuccess, success, setIsAdmin, isAdmin } = useAuth();
 
   const checkboxRef = useRef();
 
@@ -24,6 +24,7 @@ export default function Header() {
     delete api.defaults.headers.authorization;
     setSuccess(!success);
     handleLinkClick();
+    setIsAdmin(false);
     navigate("/connexion");
   };
 

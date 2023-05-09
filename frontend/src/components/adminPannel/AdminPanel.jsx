@@ -1,12 +1,24 @@
 import React from "react";
 import "../../scss/index.css";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import "../../styles/index.css";
 import monImage from "../../assets/imagedemo.png";
 import { useAuth } from "../../context/AuthContext";
+import useAPI from "../../api/useAPI";
 
 export default function AdminPanel() {
-  const { userInfo } = useAuth();
+  const { userInfo, setSuccess, success, setIsAdmin } = useAuth();
+  const api = useAPI();
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    delete api.defaults.headers.authorization;
+    setSuccess(!success);
+
+    setIsAdmin(false);
+    navigate("/connexion");
+  };
+
   return (
     <div className="admin-pannel">
       <div className="display-nav-admin">
@@ -14,7 +26,9 @@ export default function AdminPanel() {
           <img src={monImage} alt="Profil de l'utilisateur" />
           <p>{userInfo.name}</p>
           <p>{userInfo.email}</p>
-          <button type="button">DECONNEXION</button>
+          <button type="button" onClick={handleLogOut}>
+            DECONNEXION
+          </button>
         </div>
         <h1>Panneau d'administration</h1>
       </div>
