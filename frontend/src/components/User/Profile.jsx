@@ -37,7 +37,7 @@ export default function Profile() {
 
   return (
     <div id="profile">
-      <h2 className="section-title">{userInfo.email}</h2>
+      <h2 className="section-title">{userInfo.name}</h2>
       <h2 className="section-title">MES FAVORIS</h2>
       <Carousel
         swipeable={false}
@@ -57,7 +57,7 @@ export default function Profile() {
         {data.map((item) => (
           <ReactPlayer
             key={item.id}
-            url={`${import.meta.env.VITE_BACKEND_URL}${item.link}`}
+            url={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
             width="100%"
             controls
             className="video-div"
@@ -83,7 +83,7 @@ export default function Profile() {
         {data.map((item) => (
           <ReactPlayer
             key={item.id}
-            url={`${import.meta.env.VITE_BACKEND_URL}${item.link}`}
+            url={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
             width="100%"
             controls
             className="video-div"

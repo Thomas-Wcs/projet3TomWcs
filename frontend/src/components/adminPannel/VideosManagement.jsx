@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Link } from "react-router-dom";
+import { DeleteOutline } from "@mui/icons-material";
 
 import moment from "moment";
 import { DataGrid } from "@mui/x-data-grid/node";
@@ -91,26 +92,24 @@ function VideosManagement() {
         moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
     },
     {
-      field: "delete",
-      headerName: "Delete",
-      width: 130,
-      renderCell: (params) => (
-        <button
-          type="button"
-          style={{
-            fontFamily: "PT Sans",
-            backgroundColor: "red",
-            height: "90%",
-            margin: "1em",
-            padding: "0.9em",
-            borderRadius: "20%",
-            border: "none",
-          }}
-          onClick={() => handleDeleteVideo(params.row.id)}
-        >
-          <DeleteIcon style={{ width: "100%" }} />
-        </button>
-      ),
+      field: "action",
+      headerName: "Action",
+      width: 250,
+      renderCell: (params) => {
+        return (
+          <>
+            <Link to={`/videos/${params.row.id}`}>
+              <button className="sectionEditBtn" type="submit">
+                Edit
+              </button>
+            </Link>
+            <DeleteOutline
+              className="sectionDeleteBtn"
+              onClick={() => handleDeleteVideo(params.row.id)}
+            />
+          </>
+        );
+      },
     },
   ];
 

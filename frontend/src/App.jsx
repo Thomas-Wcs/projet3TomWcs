@@ -8,6 +8,7 @@ import VideosManagement from "./components/adminPannel/VideosManagement";
 import SectionsManagement from "./components/adminPannel/SectionsManagement";
 import Homepage2 from "./pages/Homepage2";
 import SectionUpdate from "./components/adminPannel/SectionUpdate";
+import VideoUpdate from "./components/adminPannel/VideoUpdate";
 import SectionAdd from "./components/adminPannel/SectionAdd";
 
 import { AuthProvider } from "./context/AuthContext";
@@ -37,6 +38,8 @@ function App() {
               <Route path="sectionsTable" element={<SectionsManagement />} />
             </Route>
             <Route path="/sections/:id" element={<SectionUpdate />} />
+            <Route path="/videos/:id" element={<VideoUpdate />} />
+
             <Route path="/newSection" element={<SectionAdd />} />
           </Routes>
         </Router>
