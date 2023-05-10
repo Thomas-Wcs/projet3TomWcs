@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/index.css";
 
@@ -12,7 +12,15 @@ function VideoAdd() {
   const [description, setDescription] = useState("");
   const [fileUpload, setFileUpload] = useState(null);
   const [videosChanging, setVideosChanging] = useState(true);
+  const [newCategorie, setNewCategorie] = useState({ name: "" });
+  const [allCategories, setAllCategories] = useState([]);
   const api = useAPI();
+
+  useEffect(() => {
+    api.get("category").then((res) => {
+      setAllCategories(res.data);
+    });
+  }, [videosChanging]);
 
   const handleAddVideos = (e) => {
     e.preventDefault();
@@ -32,8 +40,28 @@ function VideoAdd() {
     navigate("/adminPanel/videosTable");
   };
 
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setNewCategorie((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }
+
+  function addCategorie() {
+    api
+      .post("category", newCategorie)
+      .then(() => {
+        setVideosChanging(!videosChanging);
+      })
+      .catch((error) => {
+        console.error("Error adding categorie:", error);
+      });
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
+    addCategorie();
   }
 
   return (
@@ -64,15 +92,33 @@ function VideoAdd() {
           />
         </div>
         <div className="sectionUpdateName">
+          <label htmlFor="category_id">Selectionnez une categorie :</label>
+
           <select
             name="category_id"
             onChange={(e) => setCategorie(e.target.value)}
           >
-            <option value="1">Animaux</option>
-            <option value="2">Sports</option>
-            <option value="3">Cuisine</option>
-            <option value="4">Voyage</option>
+            {allCategories.map((cat) => (
+              <option value={cat.id} key={cat.id}>
+                {cat.name}
+              </option>
+            ))}
           </select>
+          <form className="" onSubmit={handleSubmit}>
+            <div className="sectionUpdateName">
+              <label htmlFor="name"> Ou insérer une nouvelle categorie :</label>
+              <input
+                type="text"
+                value={newCategorie.name}
+                name="name"
+                onChange={handleChange}
+              />
+            </div>
+            <button type="button" onClick={addCategorie}>
+              {" "}
+              Ajouter
+            </button>
+          </form>
         </div>
         <label htmlFor="link">
           <input

@@ -13,28 +13,7 @@ import dataTableStyle from "./DataTableStyle";
 function VideosManagement() {
   const api = useAPI();
   const [videos, setVideos] = useState([]);
-  const [videoTitle, setTitle] = useState("");
-  const [categorie, setCategorie] = useState(1);
-  const [description, setDescription] = useState("");
-  const [fileUpload, setFileUpload] = useState(null);
   const [videosChanging, setVideosChanging] = useState(true);
-
-  const handleAddVideos = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", videoTitle);
-    formData.append("description_text", description);
-    formData.append("category_id", categorie);
-    formData.append("link", fileUpload);
-    formData.append("date_publication", Date());
-
-    api
-      .post("/videos", formData)
-      .then(() => {
-        setVideosChanging(!videosChanging);
-      })
-      .catch((err) => console.error(err));
-  };
 
   useEffect(() => {
     api
@@ -154,51 +133,6 @@ function VideosManagement() {
           autoHeight
         />
       </Box>
-      <h1>Ajouter une video</h1>
-      <div id="title">
-        <label htmlFor="Title">
-          <input
-            type="text"
-            placeholder="Title"
-            name="Title"
-            value={videoTitle}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </label>
-        <label htmlFor="descritpion">
-          <input
-            type="text"
-            placeholder="Description"
-            name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </label>
-
-        <label htmlFor="lien">
-          <input
-            type="file"
-            name="lien"
-            onChange={(e) => setFileUpload(e.target.files[0])}
-            id="file-selection-button"
-          />
-        </label>
-        <select onChange={(e) => setCategorie(e.target.value)}>
-          <option value="1">Animaux</option>
-          <option value="2">Sports</option>
-          <option value="3">Cuisine</option>
-          <option value="4">Voyage</option>
-        </select>
-        <button
-          type="submit"
-          onClick={(e) => {
-            handleAddVideos(e);
-          }}
-          id="add-button"
-        >
-          Ajouter
-        </button>
-      </div>
     </div>
   );
 }

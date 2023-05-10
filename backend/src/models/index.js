@@ -40,9 +40,13 @@ models.user = new UserManager();
 models.user.setDatabase(pool);
 
 const SectionManager = require("./SectionManager");
+const CategorieManager = require("./CategorieManager");
 
 models.section = new SectionManager();
 models.section.setDatabase(pool);
+
+models.categorie = new CategorieManager();
+models.categorie.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
