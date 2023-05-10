@@ -56,7 +56,7 @@ function VideoUpdate() {
 
   return (
     <div className="sectionUpdate">
-      <h2 className="sectionUpdateTitle">Page de section</h2>
+      <h2 className="sectionUpdateTitle">Edition de la video</h2>
       <form className="sectionUpdateForm" onSubmit={handleSubmit}>
         <div className="sectionUpdateId">
           <label htmlFor="id">Identifiant de la video :</label>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { DeleteOutline } from "@mui/icons-material";
+import PostAddRoundedIcon from "@mui/icons-material/PostAddRounded";
+import { Box } from "@mui/material";
 
 import moment from "moment";
 import { DataGrid } from "@mui/x-data-grid/node";
@@ -103,6 +105,7 @@ function VideosManagement() {
                 Edit
               </button>
             </Link>
+
             <DeleteOutline
               className="sectionDeleteBtn"
               onClick={() => handleDeleteVideo(params.row.id)}
@@ -125,19 +128,32 @@ function VideosManagement() {
   return (
     <div className="user-management">
       <h1>Videos</h1>
-
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { pageSize: 5, page: 0 },
-          },
+      <Link to="/newVideo">
+        <PostAddRoundedIcon
+          style={{ fontSize: 48, color: "#10bcdd" }}
+          className="addButton"
+        />
+      </Link>
+      <Box
+        sx={{
+          height: 800,
+          width: "100%",
+          backgroundColor: "black",
         }}
-        pageSizeOptions={[5, 10, 25]}
-        style={dataTableStyle}
-        autoHeight
-      />
+      >
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { pageSize: 5, page: 0 },
+            },
+          }}
+          pageSizeOptions={[5, 10, 25]}
+          style={dataTableStyle}
+          autoHeight
+        />
+      </Box>
       <h1>Ajouter une video</h1>
       <div id="title">
         <label htmlFor="Title">

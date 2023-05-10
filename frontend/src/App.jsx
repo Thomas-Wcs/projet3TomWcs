@@ -10,7 +10,7 @@ import Homepage2 from "./pages/Homepage2";
 import SectionUpdate from "./components/adminPannel/SectionUpdate";
 import VideoUpdate from "./components/adminPannel/VideoUpdate";
 import SectionAdd from "./components/adminPannel/SectionAdd";
-
+import VideoAdd from "./components/adminPannel/VideoAdd";
 import { AuthProvider } from "./context/AuthContext";
 import AdminWall from "./utils/AdminWall";
 
@@ -41,6 +41,7 @@ function App() {
             <Route path="/videos/:id" element={<VideoUpdate />} />
 
             <Route path="/newSection" element={<SectionAdd />} />
+            <Route path="/newVideo" element={<VideoAdd />} />
           </Routes>
         </Router>
       </AuthProvider>
