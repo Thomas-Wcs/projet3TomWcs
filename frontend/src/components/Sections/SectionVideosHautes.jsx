@@ -14,6 +14,7 @@ function SectionVideosHautes({ sectionName }) {
   const [videoNumber, setVideoNumber] = useState(0);
   const [data, setData] = useState([]);
   const api = useAPI();
+  const nbVideos = data.length;
 
   const getVideoData = async () => {
     await api
@@ -30,14 +31,36 @@ function SectionVideosHautes({ sectionName }) {
   }, []);
 
   function handleClick(direction) {
-    const distance = listRef.current.getBoundingClientRect().x;
-    if (direction === "left" && videoNumber > 0) {
-      setVideoNumber(videoNumber - 1);
-      listRef.current.style.transform = `translateX(${650 + distance}px)`;
+    const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
+    const windowWidth = window.innerWidth; // largeur de l'écran
+    const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
+
+    let videoWidth = 670; // Largeur d'une video
+    const totalWidthVideos = videoWidth * nbVideos;
+    const totalEmptySpace = widthContainer - totalWidthVideos; // indique le nombre total d'espace vide sur le container
+    const whatToAddToVideoWidth = Math.ceil(totalEmptySpace / nbVideos);
+    videoWidth += whatToAddToVideoWidth;
+
+    const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
+
+    if (
+      direction === "right" &&
+      restVideo > 0 &&
+      restVideo <= nbVideos &&
+      nbVideos >= nbVideosDisplayedPerClick
+    ) {
+      const newVideoNumber = videoNumber + 1;
+      const translateX = -(newVideoNumber * videoWidth);
+      setVideoNumber(newVideoNumber);
+
+      listRef.current.style.transform = `translateX(${translateX}px)`;
     }
-    if (direction === "right" && videoNumber < 155) {
-      setVideoNumber(videoNumber + 1);
-      listRef.current.style.transform = `translateX(${-650 + distance}px)`;
+
+    if (direction === "left" && videoNumber > 0) {
+      const newVideoNumber = videoNumber - 1;
+      const translateX = -(newVideoNumber * videoWidth);
+      setVideoNumber(newVideoNumber);
+      listRef.current.style.transform = `translateX(${translateX}px)`;
     }
   }
 
