@@ -172,14 +172,22 @@ export default function DataTable() {
     },
   ];
 
-  const personnels = data.map((personne) => ({
-    id: personne.id,
-    name: personne.name,
-    firstname: personne.firstname,
-    email: personne.email,
-    role: personne.role,
-    isPremium: personne.isPremium,
-  }));
+  const personnels = data.map((personne) => {
+    let { role } = personne;
+    if (personne.role === "24680ZRYIP") {
+      role = "user";
+    } else if (personne.role === "13579AETUO") {
+      role = "admin";
+    }
+    return {
+      id: personne.id,
+      name: personne.name,
+      firstname: personne.firstname,
+      email: personne.email,
+      role,
+      isPremium: personne.isPremium,
+    };
+  });
 
   return (
     <div>

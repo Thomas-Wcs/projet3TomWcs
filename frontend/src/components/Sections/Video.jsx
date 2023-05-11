@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "../../styles/index.css";
 // import thumbnail from "../../assets/images/background-slider.png";
 import PlayButton from "./PlayButton";
+import videoLock from "../../assets/imagedemo.png";
 
 function Video({
   title,
@@ -14,6 +15,7 @@ function Video({
   displayDescriptionTitle,
   isEnabled,
   src,
+  usePoster,
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -36,11 +38,15 @@ function Video({
     }
   };
 
+  const posterUrl = usePoster ? videoLock : false;
+  // eslint-disable-next-line no-restricted-syntax
+  console.log(posterUrl);
+
   return (
     <div className="wrapper-video">
       <video
         src={src}
-        // poster={thumbnail}
+        poster={posterUrl}
         muted
         ref={videoRef}
         preload="metadata"
@@ -71,6 +77,7 @@ Video.propTypes = {
   displayDescriptionText: PropTypes.string,
   displayDescriptionTitle: PropTypes.string,
   isEnabled: PropTypes.bool,
+  usePoster: PropTypes.bool,
 };
 
 Video.defaultProps = {
@@ -80,5 +87,6 @@ Video.defaultProps = {
   displayDescriptionText: "",
   displayDescriptionTitle: "",
   isEnabled: false,
+  usePoster: false,
 };
 export default Video;
