@@ -300,10 +300,8 @@ body h1 {
   font-weight: 400;
   font-family: Roboto;
   outline: 0;
-  -webkit-transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
-    padding 0.2s;
-  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
-    padding 0.2s;
+  -webkit-transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out, padding 0.2s;
+  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out, padding 0.2s;
   -webkit-transition-delay: 0.4s;
   transition-delay: 0.4s;
   -webkit-transform: translate(-100%, -50%);
@@ -393,10 +391,8 @@ body h1 {
   max-width: 300px;
   position: fixed;
   left: 0;
-  -webkit-transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out,
-    padding 0.2s;
-  transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out,
-    padding 0.2s;
+  -webkit-transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out, padding 0.2s;
+  transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out, padding 0.2s;
   -webkit-transition-delay: 0.4s, 0s, 0.4s;
   transition-delay: 0.4s, 0s, 0.4s;
   -webkit-transform: translate(-100%, -50%);
@@ -529,10 +525,22 @@ body h1 {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  min-height: 100%;
 }
 #title input {
   height: 30px;
   border-radius: 3px;
+}
+#title #add-button {
+  width: 150px;
+  margin: 1em 0 1em 0;
+  padding: 0.5em;
+  color: #10bcdd;
+  background-color: black;
+  border-color: #10bcdd;
+}
+#title #add-button:hover {
+  cursor: pointer;
 }
 
 .admin-pannel {
@@ -698,6 +706,7 @@ body h1 {
   background-color: green;
   cursor: pointer;
 }
+
 .admin-videos {
   border: 1px solid black;
   height: 300px;
@@ -727,6 +736,7 @@ body h1 {
   background: rgba(128, 128, 128, 0);
   font-size: 2rem;
 }
+
 .account-menu-display {
   margin: 1%;
   height: auto;
@@ -766,4 +776,10 @@ body h1 {
   .user-main-profile {
     display: block;
   }
-} /*# sourceMappingURL=index.css.map */
+}
+
+#img-admin-wall {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}/*# sourceMappingURL=index.css.map */

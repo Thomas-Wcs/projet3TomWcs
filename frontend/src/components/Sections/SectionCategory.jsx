@@ -97,7 +97,7 @@ function SectionCategory({ sectionName }) {
             ? data.map((item) => (
                 <Video
                   key={item.id}
-                  src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
+                  src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
                   width="650px"
                   height="450px"
                   displayDescription
@@ -111,11 +111,11 @@ function SectionCategory({ sectionName }) {
                 .map((item) => (
                   <Video
                     key={item.id}
-                    src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
+                    src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
                     width="650px"
                     height="450px"
                     displayDescription
-                    displayDescriptionTitle={item.titre}
+                    displayDescriptionTitle={item.title}
                     displayDescriptionText={item.description_text}
                     isEnabled
                   />

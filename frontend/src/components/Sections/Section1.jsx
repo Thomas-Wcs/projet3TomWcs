@@ -74,7 +74,7 @@ function Section1({ sectionName }) {
               displayDescription
               displayDescriptionTitle={video.title}
               displayDescriptionText={video.description_text}
-              src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
+              src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
               isEnabled
             />
           ))}
