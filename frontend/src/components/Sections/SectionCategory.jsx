@@ -18,14 +18,20 @@ function SectionCategory({ sectionName }) {
   const api = useAPI();
 
   const getVideoData = async () => {
-    await api.get("videos").then((res) => {
-      setData(res.data);
-    });
+    await api
+      .get("videos")
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   useEffect(() => {
     getVideoData();
   }, []);
 
+  // Pour éliminer les noms de catégories qui sont dupliqués
   const uniqueCategories = data.filter((item, index) => {
     return (
       data.findIndex((object) => {
@@ -91,7 +97,7 @@ function SectionCategory({ sectionName }) {
             ? data.map((item) => (
                 <Video
                   key={item.id}
-                  src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
+                  src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
                   width="650px"
                   height="450px"
                   displayDescription
@@ -105,11 +111,11 @@ function SectionCategory({ sectionName }) {
                 .map((item) => (
                   <Video
                     key={item.id}
-                    src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
+                    src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
                     width="650px"
                     height="450px"
                     displayDescription
-                    displayDescriptionTitle={item.title}
+                    displayDescriptionTitle={item.titre}
                     displayDescriptionText={item.description_text}
                     isEnabled
                   />

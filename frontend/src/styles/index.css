@@ -300,8 +300,10 @@ body h1 {
   font-weight: 400;
   font-family: Roboto;
   outline: 0;
-  -webkit-transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out, padding 0.2s;
-  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out, padding 0.2s;
+  -webkit-transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
+    padding 0.2s;
+  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
+    padding 0.2s;
   -webkit-transition-delay: 0.4s;
   transition-delay: 0.4s;
   -webkit-transform: translate(-100%, -50%);
@@ -391,8 +393,10 @@ body h1 {
   max-width: 300px;
   position: fixed;
   left: 0;
-  -webkit-transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out, padding 0.2s;
-  transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out, padding 0.2s;
+  -webkit-transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out,
+    padding 0.2s;
+  transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out,
+    padding 0.2s;
   -webkit-transition-delay: 0.4s, 0s, 0.4s;
   transition-delay: 0.4s, 0s, 0.4s;
   -webkit-transform: translate(-100%, -50%);
@@ -619,6 +623,81 @@ body h1 {
     flex-direction: column;
   }
 }
+.css-204u17-MuiDataGrid-main {
+  color: white;
+}
+
+.css-i16b5t {
+  max-width: 100%;
+  display: flex;
+}
+
+.addButton {
+  cursor: pointer;
+  margin: auto 150px;
+  text-align: right;
+  float: right;
+  margin-bottom: 20px;
+}
+
+.sectionEditBtn {
+  background-color: green;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-right: 20px;
+}
+
+.sectionDeleteBtn {
+  color: red;
+  cursor: pointer;
+}
+
+.sectionUpdate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.sectionUpdate .sectionUpdateTitle {
+  text-align: center;
+  color: #10bcdd;
+  margin-top: 100px;
+  font-size: 32px;
+}
+.sectionUpdate .sectionUpdateForm {
+  margin-top: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: grey;
+  width: 300px;
+  height: 300px;
+  border-radius: 16px;
+}
+.sectionUpdate label {
+  display: block;
+  margin-bottom: 8px;
+}
+.sectionUpdate input {
+  height: 30px;
+  width: 250px;
+}
+.sectionUpdate .sectionUpdateName {
+  margin-top: 15px;
+}
+.sectionUpdate .sectionUpdateButton {
+  width: 100px;
+  height: 30px;
+  border: none;
+  margin-top: 10px;
+  background-color: green;
+  cursor: pointer;
+}
 .admin-videos {
   border: 1px solid black;
   height: 300px;
@@ -648,7 +727,6 @@ body h1 {
   background: rgba(128, 128, 128, 0);
   font-size: 2rem;
 }
-
 .account-menu-display {
   margin: 1%;
   height: auto;
@@ -688,4 +766,4 @@ body h1 {
   .user-main-profile {
     display: block;
   }
-}/*# sourceMappingURL=index.css.map */
+} /*# sourceMappingURL=index.css.map */

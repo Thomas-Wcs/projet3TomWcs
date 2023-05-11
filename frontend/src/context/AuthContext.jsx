@@ -29,7 +29,7 @@ function AuthProvider({ children }) {
 
 const useAuth = () => useContext(AuthContext);
 
-export { useAuth, AuthProvider };
+export { AuthProvider, useAuth, AuthContext };
 
 AuthProvider.propTypes = {
   children: PropTypes.element.isRequired,

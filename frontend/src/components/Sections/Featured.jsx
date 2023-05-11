@@ -16,9 +16,14 @@ function Featured() {
   const videoDisplayed = data.length;
 
   const getVideoData = async () => {
-    await api.get("videos").then((res) => {
-      setData(res.data);
-    });
+    await api
+      .get("videos")
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   useEffect(() => {
     getVideoData();
@@ -62,7 +67,7 @@ function Featured() {
               width="100vw"
               height="100vh"
               displayPlayButton
-              src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+              src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
             />
           ))}
         </div>

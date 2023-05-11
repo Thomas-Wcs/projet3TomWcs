@@ -16,9 +16,14 @@ function SectionVideosHautes({ sectionName }) {
   const api = useAPI();
 
   const getVideoData = async () => {
-    await api.get("videos").then((res) => {
-      setData(res.data);
-    });
+    await api
+      .get("videos")
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   useEffect(() => {
     getVideoData();
@@ -69,7 +74,7 @@ function SectionVideosHautes({ sectionName }) {
               displayDescription
               displayDescriptionTitle={video.titre}
               displayDescriptionText={video.description_text}
-              src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+              src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
               isEnabled
             />
           ))}

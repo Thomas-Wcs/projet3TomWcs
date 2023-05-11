@@ -182,15 +182,17 @@ export default function DataTable() {
   }));
 
   return (
-    <Box sx={{ height: 800, width: "100%", backgroundColor: "black" }}>
+    <div>
       <h1>Users</h1>
-      <DataGrid
-        rows={personnels}
-        columns={columns}
-        rowsPerPageOptions={[5, 10, 20]}
-        style={dataTableStyle}
-      />
-      <div style={{ backgroundColor: "black", height: "500px" }} />
-    </Box>
+      <Box sx={{ height: 800, width: "100%", backgroundColor: "black" }}>
+        <DataGrid
+          rows={personnels}
+          columns={columns}
+          rowsPerPageOptions={[5, 10, 20]}
+          style={dataTableStyle}
+        />
+        <div style={{ backgroundColor: "black", height: "500px" }} />
+      </Box>
+    </div>
   );
 }
