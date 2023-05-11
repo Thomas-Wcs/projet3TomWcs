@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -13,10 +14,11 @@ import Logout from "@mui/icons-material/Logout";
 import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import EditIcon from "@mui/icons-material/Edit";
 import VideoSettingsIcon from "@mui/icons-material/VideoSettings";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import monImage from "../../assets/imagedemo.png";
 import dashbordStyles from "./dashbord";
 
-export default function AccountMenu() {
+export default function AccountMenu({ userInfo }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -55,7 +57,7 @@ export default function AccountMenu() {
           className="user-profil-name"
           style={{ color: "#10bcdd", margin: "1%" }}
         >
-          User Name
+          {userInfo.name}
         </h2>
       </Box>
       <Menu
@@ -97,6 +99,7 @@ export default function AccountMenu() {
         <MenuItem
           sx={dashbordStyles}
           component={Link}
+          state={{ userInfo }}
           to="/profile/userid"
           onClick={handleClose}
         >
@@ -119,6 +122,12 @@ export default function AccountMenu() {
         </MenuItem>
         <MenuItem sx={dashbordStyles} onClick={handleClose}>
           <ListItemIcon>
+            <AdminPanelSettingsIcon fontSize="small" />
+          </ListItemIcon>
+          Abonnement
+        </MenuItem>
+        <MenuItem sx={dashbordStyles} onClick={handleClose}>
+          <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
@@ -136,9 +145,24 @@ export default function AccountMenu() {
           Logout
         </MenuItem>
       </Menu>
-      <div>
+      <div className="div-savoir-tu-esqui">
         <Outlet />
       </div>
     </>
   );
 }
+
+AccountMenu.propTypes = {
+  userInfo: PropTypes.shape({
+    name: PropTypes.string,
+    firstname: PropTypes.string,
+    email: PropTypes.string,
+  }),
+};
+AccountMenu.defaultProps = {
+  userInfo: {
+    name: "",
+    firstname: "",
+    email: "",
+  },
+};

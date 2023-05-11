@@ -1,18 +1,25 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default function UserProfile() {
+  const { state } = useLocation();
+
+  // eslint-disable-next-line no-restricted-syntax
+  console.log(state);
+
   return (
     <div className="user-main-profile">
       <div className="user-adresse-information">
-        <h3>Utilisateur</h3>
+        <h3>User Info</h3>
         <h4>FistName</h4>
-        <p>Thomas</p>
+        <p>{state.userInfo.firstname}</p>
         <h4>LastName</h4>
-        <p>Wcs</p>
+        <p>{state.userInfo.name}</p>
         <h4>Role </h4>
         <p> Admin</p>
         <h4>Email </h4>
-        <p> thomas.admin2@gmail.com</p>
+        <p>{state.userInfo.email}</p>
         <h4>Premium </h4>
         <p>Yes</p>
       </div>
@@ -32,7 +39,7 @@ export default function UserProfile() {
       <div className="user-adresse-information">
         <h3>Coordnonnées Bancaires</h3>
         <h4>IBAN</h4>
-        <p>FR145 1254 5877 4587 8569</p>
+        <p>FR145 1254 5877 XXXX XXXX</p>
         <h4>BIC</h4>
         <p>FR45875</p>
         <h4>Etablissement </h4>
@@ -52,3 +59,18 @@ export default function UserProfile() {
     </div>
   );
 }
+
+UserProfile.propTypes = {
+  userInfo: PropTypes.shape({
+    name: PropTypes.string,
+    firstname: PropTypes.string,
+    email: PropTypes.string,
+  }),
+};
+UserProfile.defaultProps = {
+  userInfo: {
+    name: "",
+    firstname: "",
+    email: "",
+  },
+};
