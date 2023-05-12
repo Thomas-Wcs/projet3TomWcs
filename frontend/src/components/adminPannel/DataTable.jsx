@@ -45,7 +45,15 @@ export default function DataTable() {
     setData(updatedData);
 
     const [name, email, firstname, role, isPremium] = value;
-    const newUser = { name, email, firstname, role, isPremium };
+    let newRole = role;
+
+    if (role === "admin") {
+      newRole = "13579AETUO";
+    } else if (role === "user") {
+      newRole = "24680ZRYIP";
+    }
+
+    const newUser = { name, email, firstname, role: newRole, isPremium };
 
     await api.put(`users/${id}`, newUser);
     getUserData();

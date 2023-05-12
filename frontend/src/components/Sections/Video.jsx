@@ -4,7 +4,7 @@ import "../../styles/index.css";
 import { useAuth } from "../../context/AuthContext";
 // import thumbnail from "../../assets/images/background-slider.png";
 import PlayButton from "./PlayButton";
-import videoLock from "../../assets/imagedemo.png";
+import videoLock from "../../assets/imgPremium.png";
 
 function Video({
   title,
@@ -41,7 +41,6 @@ function Video({
       setIsPlaying(isPlaying);
     }
   };
-  // console.log(` ${src} ${isVideoPremium} ${userInfo.isPremium} `);
 
   return (
     <div className="wrapper-video">
@@ -90,7 +89,7 @@ Video.propTypes = {
   displayDescriptionText: PropTypes.string,
   displayDescriptionTitle: PropTypes.string,
   isEnabled: PropTypes.bool,
-  isVideoPremium: PropTypes.number.isRequired,
+  isVideoPremium: PropTypes.number,
 };
 
 Video.defaultProps = {
@@ -100,5 +99,6 @@ Video.defaultProps = {
   displayDescriptionText: "",
   displayDescriptionTitle: "",
   isEnabled: false,
+  isVideoPremium: undefined,
 };
 export default Video;
