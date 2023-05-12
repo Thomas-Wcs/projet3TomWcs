@@ -104,6 +104,7 @@ function SectionCategory({ sectionName }) {
                   displayDescriptionTitle={item.title}
                   displayDescriptionText={item.description_text}
                   isEnabled
+                  isVideoPremium={item.isVideoPremium}
                 />
               ))
             : data
@@ -118,6 +119,7 @@ function SectionCategory({ sectionName }) {
                     displayDescriptionTitle={item.title}
                     displayDescriptionText={item.description_text}
                     isEnabled
+                    isVideoPremium={item.isVideoPremium}
                   />
                 ))}
         </div>

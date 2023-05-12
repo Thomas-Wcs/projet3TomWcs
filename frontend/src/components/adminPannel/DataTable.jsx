@@ -196,7 +196,12 @@ export default function DataTable() {
         <DataGrid
           rows={personnels}
           columns={columns}
-          rowsPerPageOptions={[5, 10, 20]}
+          initialState={{
+            pagination: {
+              paginationModel: { pageSize: 10, page: 0 },
+            },
+          }}
+          pageSizeOptions={[10, 15, 25]}
           style={dataTableStyle}
         />
         <div style={{ backgroundColor: "black", height: "500px" }} />
