@@ -18,7 +18,15 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import monImage from "../../assets/imagedemo.png";
 import dashbordStyles from "./dashbord";
 
-export default function AccountMenu({ userInfo }) {
+export default function AccountMenu({ userInfo, reset }) {
+  const logout = () => {
+    reset();
+  };
+
+  const handleLogout = () => {
+    logout();
+  };
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const open = Boolean(anchorEl);
@@ -144,7 +152,7 @@ export default function AccountMenu({ userInfo }) {
           </ListItemIcon>
           Contact
         </MenuItem>
-        <MenuItem sx={dashbordStyles} onClick={handleClose}>
+        <MenuItem sx={dashbordStyles} onClick={(handleClose, handleLogout)}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
@@ -168,6 +176,7 @@ AccountMenu.propTypes = {
     firstname: PropTypes.string,
     email: PropTypes.string,
   }),
+  reset: PropTypes.func,
 };
 AccountMenu.defaultProps = {
   userInfo: {
@@ -175,4 +184,5 @@ AccountMenu.defaultProps = {
     firstname: "",
     email: "",
   },
+  reset: () => {},
 };

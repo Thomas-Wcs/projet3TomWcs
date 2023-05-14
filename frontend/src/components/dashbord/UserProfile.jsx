@@ -5,9 +5,6 @@ import PropTypes from "prop-types";
 export default function UserProfile() {
   const { state } = useLocation();
 
-  // eslint-disable-next-line no-restricted-syntax
-  console.log(state);
-
   return (
     <div className="user-main-profile">
       <div className="user-adresse-information">

@@ -8,6 +8,14 @@ function AuthProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isUser, setIsUser] = useState(false);
   const [userInfo, setUserInfo] = useState({});
+
+  const reset = () => {
+    setSuccess(true);
+    setIsAdmin(false);
+    setIsUser(false);
+    setUserInfo({});
+  };
+
   const context = useMemo(
     () => ({
       success,
@@ -18,8 +26,9 @@ function AuthProvider({ children }) {
       isUser,
       setUserInfo,
       setIsUser,
+      reset,
     }),
-    [success, setSuccess, isAdmin, setIsAdmin, userInfo, setUserInfo]
+    [success, setSuccess, isAdmin, setIsAdmin, userInfo, setUserInfo, reset]
   );
 
   return (
