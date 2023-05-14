@@ -44,7 +44,7 @@ export default function DataTable() {
     });
     setData(updatedData);
 
-    const [name, email, firstname, role, isPremium] = value;
+    const [name, email, firstname, role, isPremium, isVideoPlus] = value;
     let newRole = role;
 
     if (role === "admin") {
@@ -53,9 +53,17 @@ export default function DataTable() {
       newRole = "24680ZRYIP";
     }
 
-    const newUser = { name, email, firstname, role: newRole, isPremium };
+    const newUser = {
+      name,
+      email,
+      firstname,
+      role: newRole,
+      isPremium,
+      isVideoPlus,
+    };
 
     await api.put(`users/${id}`, newUser);
+
     getUserData();
   };
 
@@ -119,6 +127,13 @@ export default function DataTable() {
       editable: true,
     },
     {
+      field: "isVideoPlus",
+      headerName: "Video Plus",
+      type: "boolean",
+      width: 150,
+      editable: true,
+    },
+    {
       field: "edit",
       headerName: "Save Edit",
       width: 150,
@@ -137,13 +152,21 @@ export default function DataTable() {
           onClick={() => {
             handleCellEditCommit({
               id: params.id,
-              field: ["name", "email", "firstname", "role", "isPremium"],
+              field: [
+                "name",
+                "email",
+                "firstname",
+                "role",
+                "isPremium",
+                "isVideoPlus",
+              ],
               value: [
                 params.row.name,
                 params.row.email,
                 params.row.firstname,
                 params.row.role,
                 params.row.isPremium,
+                params.row.isVideoPlus,
               ],
             });
           }}
@@ -194,6 +217,7 @@ export default function DataTable() {
       email: personne.email,
       role,
       isPremium: personne.isPremium,
+      isVideoPlus: personne.isVideoPlus,
     };
   });
 
@@ -211,7 +235,7 @@ export default function DataTable() {
           }}
           pageSizeOptions={[10, 15, 25]}
           style={dataTableStyle}
-          checkboxSelection
+          // checkboxSelection
         />
         <div style={{ backgroundColor: "black", height: "500px" }} />
       </Box>
