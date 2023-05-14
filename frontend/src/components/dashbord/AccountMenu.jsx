@@ -20,13 +20,17 @@ import dashbordStyles from "./dashbord";
 
 export default function AccountMenu({ userInfo }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const userConnected = Boolean(userInfo?.email);
 
   return userConnected ? (

@@ -11,7 +11,7 @@ export default function UserProfile() {
   return (
     <div className="user-main-profile">
       <div className="user-adresse-information">
-        <h3>User Info</h3>
+        <h3>Info Utilisateur</h3>
         <h4>FistName</h4>
         <p>{state.userInfo.firstname}</p>
         <h4>LastName</h4>
