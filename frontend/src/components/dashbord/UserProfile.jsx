@@ -16,12 +16,14 @@ export default function UserProfile() {
         <p>{state.userInfo.firstname}</p>
         <h4>LastName</h4>
         <p>{state.userInfo.name}</p>
-        <h4>Role </h4>
-        <p> Admin</p>
         <h4>Email </h4>
         <p>{state.userInfo.email}</p>
         <h4>Premium </h4>
-        <p>Yes</p>
+        <p>
+          {state.userInfo.isPremium === 1
+            ? "Utilisateur Premium"
+            : "Utilisateur Standart"}
+        </p>
       </div>
       <div className="user-adresse-information">
         <h3>Adresse</h3>

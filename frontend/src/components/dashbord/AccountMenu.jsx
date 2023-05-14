@@ -27,7 +27,9 @@ export default function AccountMenu({ userInfo }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  return (
+  const userConnected = Boolean(userInfo?.email);
+
+  return userConnected ? (
     <>
       <Box
         sx={{
@@ -149,6 +151,10 @@ export default function AccountMenu({ userInfo }) {
         <Outlet />
       </div>
     </>
+  ) : (
+    <div>
+      <p style={{ color: "white" }}>Connectez vous </p>
+    </div>
   );
 }
 
