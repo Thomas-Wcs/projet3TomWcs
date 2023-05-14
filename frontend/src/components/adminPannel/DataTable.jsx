@@ -211,6 +211,7 @@ export default function DataTable() {
           }}
           pageSizeOptions={[10, 15, 25]}
           style={dataTableStyle}
+          checkboxSelection
         />
         <div style={{ backgroundColor: "black", height: "500px" }} />
       </Box>
