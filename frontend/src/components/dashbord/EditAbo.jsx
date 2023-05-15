@@ -37,6 +37,9 @@ export default function EditAbo() {
         });
         setEditPremium(false);
         setAboMessage(true);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       } catch (error) {
         console.error(error);
         setErrorAbo(true);
@@ -60,14 +63,14 @@ export default function EditAbo() {
         api.defaults.headers.authorization = `Bearer ${token}`;
         setUserInfo(res.data.user);
         setDoneMessage(true);
-        setTimeout(() => {
-          setDoneMessage(false);
-        }, 3000);
         if (res.data.user.role === userRole.ADMIN) setIsAdmin(true);
       })
       .catch((err) => {
         console.error(err);
         setErrorMessage(true);
+        setTimeout(() => {
+          setErrorMessage(false);
+        }, 3000);
       });
     setTimeout(() => {
       setErrorMessage(false);
@@ -95,7 +98,11 @@ export default function EditAbo() {
             <input
               type="text"
               style={{ backgroundColor: "white", color: "black" }}
-              value={editableContent.userInfo.firstname}
+              value={
+                editableContent.userInfo.firstname
+                  ? editableContent.userInfo.firstname
+                  : ""
+              }
               onChange={(e) =>
                 setEditableContent({
                   ...editableContent,
@@ -147,7 +154,7 @@ export default function EditAbo() {
           {aboMessage && (
             <p>
               Félicitations vous pouvez maintenant profiter de votre Abonnement
-              !
+              ! Veuillez vous reconnecter s'il vous plait.
             </p>
           )}
           {errorAbo && <p>Une erreur a eu lieu, contactez votre banque </p>}

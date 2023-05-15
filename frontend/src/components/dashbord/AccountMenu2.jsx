@@ -180,6 +180,9 @@ export default function AccountMenu({ userInfo, reset }) {
   ) : (
     <div className="veuillez-vous-log">
       <p>Veuillez vous connecter</p>
+      <Link to="/connexion" style={{ color: "white" }}>
+        Connexion
+      </Link>
     </div>
   );
 }

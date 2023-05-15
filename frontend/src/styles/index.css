@@ -750,7 +750,9 @@ body h1 {
 
 .veuillez-vous-log {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: auto;
   height: auto;
   color: #10bcdd;
