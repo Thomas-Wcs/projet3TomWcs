@@ -122,13 +122,20 @@ export default function AccountMenu({ userInfo, reset }) {
         <MenuItem
           sx={dashbordStyles}
           component={Link}
-          to="/profile/userid"
+          state={{ userInfo }}
+          to="/profile/useredit"
           onClick={handleClose}
         >
           <VideoSettingsIcon sx={{ margin: "5%" }} /> My Videos
         </MenuItem>
         <Divider />
-        <MenuItem sx={dashbordStyles} onClick={handleClose}>
+        <MenuItem
+          sx={dashbordStyles}
+          component={Link}
+          state={{ userInfo }}
+          onClick={handleClose}
+          to="/profile/useredit"
+        >
           <ListItemIcon>
             <EditIcon fontSize="small" />
           </ListItemIcon>

@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import EditProfile from "./components/dashbord/EditProfile";
 import UserProfile from "./components/dashbord/UserProfile";
 import AdminPanel from "./components/adminPannel/AdminPanel";
 import Header from "./components/Header/Header";
@@ -10,7 +11,6 @@ import SectionsManagement from "./components/adminPannel/SectionsManagement";
 import Homepage2 from "./pages/Homepage2";
 import SectionUpdate from "./components/adminPannel/SectionUpdate";
 import SectionAdd from "./components/adminPannel/SectionAdd";
-
 import { AuthProvider } from "./context/AuthContext";
 import AdminWall from "./utils/AdminWall";
 
@@ -25,6 +25,7 @@ function App() {
             <Route path="/connexion" element={<ConnectionPage />} />
             <Route path="/profile" element={<Profile />}>
               <Route path="/profile/userid" element={<UserProfile />} />
+              <Route path="/profile/useredit" element={<EditProfile />} />
             </Route>
             <Route
               path="adminPanel"
