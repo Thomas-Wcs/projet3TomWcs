@@ -15,6 +15,7 @@ import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import EditIcon from "@mui/icons-material/Edit";
 import VideoSettingsIcon from "@mui/icons-material/VideoSettings";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import HomeIcon from "@mui/icons-material/Home";
 import monImage from "../../assets/imagedemo.png";
 import dashbordStyles from "./dashbord";
 
@@ -117,7 +118,16 @@ export default function AccountMenu({ userInfo, reset }) {
           to="/profile/userid"
           onClick={handleClose}
         >
-          <Avatar alt="Image de l'utilisateur" src={monImage} /> Profile
+          <Avatar alt="Image de l'utilisateur" src={monImage} /> Informations
+        </MenuItem>
+        <MenuItem
+          sx={dashbordStyles}
+          component={Link}
+          state={{ userInfo }}
+          to="/"
+          onClick={handleClose}
+        >
+          <HomeIcon sx={{ margin: "5%" }} /> Home
         </MenuItem>
         <MenuItem
           sx={dashbordStyles}
@@ -168,8 +178,8 @@ export default function AccountMenu({ userInfo, reset }) {
       </Menu>
     </>
   ) : (
-    <div>
-      <p style={{ color: "white" }}>Connectez vous </p>
+    <div className="veuillez-vous-log">
+      <p>Veuillez vous connecter</p>
     </div>
   );
 }

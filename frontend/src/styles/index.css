@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 .list .wrapper {
   position: relative;
 }
@@ -745,6 +746,19 @@ body h1 {
   margin: 1%;
   height: auto;
   width: auto;
+}
+
+.veuillez-vous-log {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  color: #10bcdd;
+}
+.veuillez-vous-log p {
+  color: aliceblue;
+  font-size: 36px;
+  text-align: center;
 }
 
 .user-main-profile {
