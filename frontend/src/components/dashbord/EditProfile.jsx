@@ -14,6 +14,7 @@ export default function EditProfile() {
   const [editableContent, setEditableContent] = useState(state);
   const [mdp, setMdp] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
+  const [doneMessage, setDoneMessage] = useState(false);
 
   const relogUser = () => {
     const user = {
@@ -27,12 +28,19 @@ export default function EditProfile() {
         const { token } = res.data;
         api.defaults.headers.authorization = `Bearer ${token}`;
         setUserInfo(res.data.user);
+        setDoneMessage(true);
+        setTimeout(() => {
+          setDoneMessage(false);
+        }, 3000);
         if (res.data.user.role === userRole.ADMIN) setIsAdmin(true);
       })
       .catch((err) => {
         console.error(err);
         setErrorMessage(true);
       });
+    setTimeout(() => {
+      setErrorMessage(false);
+    }, 3000);
   };
 
   const editUser = async () => {
@@ -109,6 +117,7 @@ export default function EditProfile() {
         </p>
       </div>
       {errorMessage && <p id="password-error">Sorry, Wrong Password</p>}
+      {doneMessage && <p id="password-error">Mise à jour des infos</p>}
       <button type="button" style={{ color: "white" }} onClick={editUser}>
         VALIDER{" "}
       </button>
