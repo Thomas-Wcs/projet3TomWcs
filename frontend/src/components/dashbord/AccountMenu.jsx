@@ -151,7 +151,13 @@ export default function AccountMenu({ userInfo, reset }) {
           </ListItemIcon>
           Edit Profil
         </MenuItem>
-        <MenuItem sx={dashbordStyles} onClick={handleClose}>
+        <MenuItem
+          sx={dashbordStyles}
+          component={Link}
+          state={{ userInfo }}
+          to="/profile/aboedit"
+          onClick={handleClose}
+        >
           <ListItemIcon>
             <AdminPanelSettingsIcon fontSize="small" />
           </ListItemIcon>

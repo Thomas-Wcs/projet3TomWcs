@@ -125,7 +125,6 @@ export default function EditProfile() {
           <h4>Complement :</h4>
           <p>Vide</p>
         </div>
-
         <div>
           <h4>Tapez votre mot de passe pour valider les modifications :</h4>
           <p>

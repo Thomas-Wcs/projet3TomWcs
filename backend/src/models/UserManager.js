@@ -5,7 +5,13 @@ class UserManager extends AbstractManager {
     super({ table: "user" });
   }
 
-  find(name) {
+  find(id) {
+    return this.database.query(`select * from  ${this.table} where id = ?`, [
+      id,
+    ]);
+  }
+
+  findOne(name) {
     return this.database.query(`select * from  ${this.table} where name = ?`, [
       name,
     ]);

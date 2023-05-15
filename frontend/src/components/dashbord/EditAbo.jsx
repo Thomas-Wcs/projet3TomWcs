@@ -7,6 +7,7 @@ import userRole from "../../utils/users";
 
 export default function EditAbo() {
   const { state } = useLocation();
+
   const { setIsAdmin, setUserInfo } = useAuth();
 
   const api = useAPI();
@@ -15,11 +16,41 @@ export default function EditAbo() {
   const [mdp, setMdp] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
   const [doneMessage, setDoneMessage] = useState(false);
+  const [editPremium, setEditPremium] = useState(false);
+  const [aboMessage, setAboMessage] = useState(false);
+  const [errorAbo, setErrorAbo] = useState(false);
+  // const [aboActif, setAboActif] = useState(false);
+
+  if (editPremium === true) {
+    (async () => {
+      try {
+        const response = await api.get(`users/${state.userInfo.id}`);
+        const { data } = response;
+
+        await api.put(`users/${state.userInfo.id}`, {
+          name: data.name,
+          email: data.email,
+          firstname: data.firstname,
+          role: data.role,
+          isPremium: data.isPremium,
+          isVideoPlus: 1,
+        });
+        setEditPremium(false);
+        setAboMessage(true);
+      } catch (error) {
+        console.error(error);
+        setErrorAbo(true);
+      }
+    })();
+    setTimeout(() => {
+      setErrorAbo(false);
+    }, 3000);
+  }
 
   const relogUser = () => {
     const user = {
       mdp,
-      email: editableContent.userInfo.email,
+      email: state.userInfo.email,
     };
 
     api
@@ -57,7 +88,7 @@ export default function EditAbo() {
     <div className="user-main-profile">
       <div className="user-adresse-information">
         <div>
-          <h3>Info Utilisateur</h3>
+          <h3>Abonnement</h3>
           <h4>FistName</h4>
           <div />
           <p>
@@ -93,38 +124,41 @@ export default function EditAbo() {
               }
             />
           </p>
-          <h4>Email </h4>
-          <p>
-            <input
-              type="text"
-              style={{ backgroundColor: "white", color: "black" }}
-              value={editableContent.userInfo.email}
-              onChange={(e) =>
-                setEditableContent({
-                  ...editableContent,
-                  userInfo: {
-                    ...editableContent.userInfo,
-                    email: e.target.value,
-                  },
-                })
-              }
-            />
-          </p>
         </div>
-
-        <div className="user-edit-adresse-information">
-          <h3>Adresse</h3>
-          <h4>Ville</h4>
-          <p>Lyon</p>
-          <h4>Rue</h4>
-          <p>Rue Victor Hugo 42</p>
-          <h4>Code Postal </h4>
-          <p>69003</p>
-          <h4>Tél :</h4>
-          <p> 0606060606</p>
-          <h4>Complement :</h4>
-          <p>Vide</p>
+        <div className="user-adresse-information">
+          <h3>Coordnonnées Bancaires</h3>
+          <h4>IBAN</h4>
+          <p>FR145 1254 5877 XXXX XXXX</p>
+          <h4>BIC</h4>
+          <p>FR45875</p>
+          <h4>Etablissement </h4>
+          <p>Crédit Agricole</p>
         </div>
+        <div className="user-adresse-information">
+          <h3>Abonnement</h3>
+          <h4>Premium</h4>
+          <p>Premium Plus</p>
+          <h4>Renouvellement</h4>
+          <p>12/12/2023</p>
+          <h4>Facturation </h4>
+          <p>Prelevement</p>
+        </div>
+        <div className="user-abo-message">
+          {aboMessage && (
+            <p>
+              Félicitations vous pouvez maintenant profiter de votre Abonnement
+              !
+            </p>
+          )}
+          {errorAbo && <p>Une erreur a eu lieu, contactez votre banque </p>}
+        </div>
+        <button
+          className="valide-mdp-button"
+          type="button"
+          onClick={() => setEditPremium(true)}
+        >
+          Ajouter{" "}
+        </button>
 
         <div>
           <h4>Tapez votre mot de passe pour valider les modifications :</h4>
@@ -140,6 +174,7 @@ export default function EditAbo() {
         <div>
           {errorMessage && <p id="password-error">Mot de passe incorrect</p>}
           {doneMessage && <p id="password-error">Mise à jour des infos</p>}
+          {}
           <button
             className="valide-mdp-button"
             type="button"

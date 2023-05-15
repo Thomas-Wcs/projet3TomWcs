@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import EditAbo from "./components/dashbord/EditAbo";
 import EditProfile from "./components/dashbord/EditProfile";
 import UserProfile from "./components/dashbord/UserProfile";
 import AdminPanel from "./components/adminPannel/AdminPanel";
@@ -26,6 +27,7 @@ function App() {
             <Route path="/profile" element={<Profile />}>
               <Route path="/profile/userid" element={<UserProfile />} />
               <Route path="/profile/useredit" element={<EditProfile />} />
+              <Route path="/profile/aboedit" element={<EditAbo />} />
             </Route>
             <Route
               path="adminPanel"
