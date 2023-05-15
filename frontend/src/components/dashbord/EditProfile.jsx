@@ -13,6 +13,7 @@ export default function EditProfile() {
 
   const [editableContent, setEditableContent] = useState(state);
   const [mdp, setMdp] = useState("");
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const relogUser = () => {
     const user = {
@@ -30,6 +31,7 @@ export default function EditProfile() {
       })
       .catch((err) => {
         console.error(err);
+        setErrorMessage(true);
       });
   };
 
@@ -106,7 +108,7 @@ export default function EditProfile() {
           />
         </p>
       </div>
-
+      {errorMessage && <p id="password-error">Sorry, Wrong Password</p>}
       <button type="button" style={{ color: "white" }} onClick={editUser}>
         VALIDER{" "}
       </button>
