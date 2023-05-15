@@ -2,52 +2,46 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import useAPI from "../../api/useAPI";
+import { useAuth } from "../../context/AuthContext";
+import userRole from "../../utils/users";
 
 export default function EditProfile() {
   const { state } = useLocation();
+  const { setIsAdmin, setUserInfo } = useAuth();
 
   const api = useAPI();
-  // const handleEditableChange = (e, key) => {
-  //   setEditableContent({ ...editableContent, [key]: e.target.textContent });
-  // };
 
   const [editableContent, setEditableContent] = useState(state);
-  // console.log(editableContent);
+  const [mdp, setMdp] = useState("");
 
-  const [modifiedKeys, setModifiedKeys] = useState([]);
-  // console.log(modifiedKeys);
+  const relogUser = () => {
+    const user = {
+      mdp,
+      email: editableContent.userInfo.email,
+    };
 
-  const handleEditableChange = (e, key) => {
-    setEditableContent({ ...editableContent, [key]: e.target.textContent });
-    if (!modifiedKeys.includes(key)) {
-      setModifiedKeys([...modifiedKeys, key]);
-    }
+    api
+      .post("users/login/", user)
+      .then((res) => {
+        const { token } = res.data;
+        api.defaults.headers.authorization = `Bearer ${token}`;
+        setUserInfo(res.data.user);
+        if (res.data.user.role === userRole.ADMIN) setIsAdmin(true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const editUser = async () => {
     try {
-      const modifiedValues = {};
-      modifiedKeys.forEach((key) => {
-        modifiedValues[key] = editableContent[key];
-      });
-      // console.log(modifiedValues);
-      await api.put(`users/${state.userInfo.id}`, modifiedValues);
+      await api.put(`users/${state.userInfo.id}`, editableContent.userInfo);
     } catch (error) {
       console.error(error);
     }
+    relogUser();
+    setMdp("");
   };
-
-  // const editUser = async () => {
-  //   try {
-  //     const value = [
-  //       editableContent.userInfo.name,
-  //       editableContent.userInfo.firstname,
-  //     ];
-  //     await api.put(`users/${state.userInfo.id}`, value);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   return (
     <div className="user-main-profile">
@@ -55,7 +49,7 @@ export default function EditProfile() {
         <h3>Info Utilisateur</h3>
         <h4>FistName</h4>
         <div />
-        {/* <p>
+        <p>
           <input
             type="text"
             style={{ backgroundColor: "white", color: "black" }}
@@ -70,7 +64,7 @@ export default function EditProfile() {
               })
             }
           />
-        </p> */}
+        </p>
         <h4>Name</h4>
         <p>
           <input
@@ -85,19 +79,31 @@ export default function EditProfile() {
             }
           />
         </p>
-
         <h4>Email </h4>
-        <p
-          contentEditable
-          onInput={(e) => handleEditableChange(e, "userInfo.email")}
-        >
-          {state.userInfo.email}
-        </p>
-        <h4>Premium </h4>
         <p>
-          {state.userInfo.isPremium === 1
-            ? "Utilisateur Premium"
-            : "Utilisateur Standart"}
+          <input
+            type="text"
+            style={{ backgroundColor: "white", color: "black" }}
+            value={editableContent.userInfo.email}
+            onChange={(e) =>
+              setEditableContent({
+                ...editableContent,
+                userInfo: {
+                  ...editableContent.userInfo,
+                  email: e.target.value,
+                },
+              })
+            }
+          />
+        </p>
+        <h4>Tapez votre mot de passe</h4>
+        <p>
+          <input
+            type="password"
+            style={{ backgroundColor: "white", color: "black" }}
+            value={mdp}
+            onChange={(e) => setMdp(e.target.value)}
+          />
         </p>
       </div>
 
