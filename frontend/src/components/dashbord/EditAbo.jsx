@@ -8,18 +8,16 @@ import PopUp from "./PopUp";
 
 export default function EditAbo() {
   const { state } = useLocation();
-
   const { setIsAdmin, setUserInfo } = useAuth();
-
   const api = useAPI();
 
   const [editableContent, setEditableContent] = useState(state);
   const [mdp, setMdp] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
   const [doneMessage, setDoneMessage] = useState(false);
-  // const [editPremium, setEditPremium] = useState(false);
   const [aboMessage, setAboMessage] = useState(false);
   const [errorAbo, setErrorAbo] = useState(false);
+  // const [editPremium, setEditPremium] = useState(false);
   // const [aboActif, setAboActif] = useState(false);
 
   const clickEditPremium = () => {
@@ -40,9 +38,9 @@ export default function EditAbo() {
         });
         // setEditPremium(false);
         setAboMessage(true);
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 2000);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       } catch (error) {
         console.error(error);
         setErrorAbo(true);
@@ -165,18 +163,7 @@ export default function EditAbo() {
 
         {state.userInfo.isVideoPlus === 1 ? (
           <div>
-            <button
-              className="valide-mdp-button"
-              type="button"
-              style={{
-                backgroundColor: "red",
-                color: "black",
-                borderRadius: "30px",
-              }}
-              onClick={() => clickEditPremium()}
-            >
-              Annuler Abonnement
-            </button>
+            <PopUp state={state} />
           </div>
         ) : (
           <div>
@@ -200,7 +187,6 @@ export default function EditAbo() {
             />
           </p>
         </div>
-        <PopUp />
         <div>
           {errorMessage && <p id="password-error">Mot de passe incorrect</p>}
           {doneMessage && <p id="password-error">Mise à jour des infos</p>}
