@@ -16,16 +16,29 @@ export default function EditAbo() {
   const [mdp, setMdp] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
   const [doneMessage, setDoneMessage] = useState(false);
-  const [editPremium, setEditPremium] = useState(false);
+  // const [editPremium, setEditPremium] = useState(false);
   const [aboMessage, setAboMessage] = useState(false);
   const [errorAbo, setErrorAbo] = useState(false);
   // const [aboActif, setAboActif] = useState(false);
 
-  if (editPremium === true) {
+  // const addAbo = () => {
+  //   const confirm = () => {
+  //     console.log("Confirm");
+  //   };
+
+  //   const annulation = () => {
+  //     console.log("annulation");
+  //   };
+  //   return <div style={{ color: "white" }}>BONJOUR JE SUIS UNE DIV</div>;
+  // };
+
+  const clickEditPremium = () => {
     (async () => {
       try {
         const response = await api.get(`users/${state.userInfo.id}`);
         const { data } = response;
+
+        const newIsVideosPlus = data.isVideoPlus === 1 ? 0 : 1;
 
         await api.put(`users/${state.userInfo.id}`, {
           name: data.name,
@@ -33,13 +46,13 @@ export default function EditAbo() {
           firstname: data.firstname,
           role: data.role,
           isPremium: data.isPremium,
-          isVideoPlus: 1,
+          isVideoPlus: newIsVideosPlus,
         });
-        setEditPremium(false);
+        // setEditPremium(false);
         setAboMessage(true);
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 2000);
       } catch (error) {
         console.error(error);
         setErrorAbo(true);
@@ -48,7 +61,7 @@ export default function EditAbo() {
     setTimeout(() => {
       setErrorAbo(false);
     }, 3000);
-  }
+  };
 
   const relogUser = () => {
     const user = {
@@ -170,7 +183,7 @@ export default function EditAbo() {
                 color: "black",
                 borderRadius: "30px",
               }}
-              onClick={() => setEditPremium(true)}
+              onClick={() => clickEditPremium()}
             >
               Annuler Abonnement
             </button>
@@ -180,7 +193,7 @@ export default function EditAbo() {
             <button
               className="valide-mdp-button"
               type="button"
-              onClick={() => setEditPremium(true)}
+              onClick={() => clickEditPremium()}
             >
               Ajouter
             </button>
