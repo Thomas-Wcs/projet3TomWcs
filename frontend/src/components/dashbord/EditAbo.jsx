@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
 import userRole from "../../utils/users";
+import PopUp from "./PopUp";
 
 export default function EditAbo() {
   const { state } = useLocation();
@@ -20,17 +21,6 @@ export default function EditAbo() {
   const [aboMessage, setAboMessage] = useState(false);
   const [errorAbo, setErrorAbo] = useState(false);
   // const [aboActif, setAboActif] = useState(false);
-
-  // const addAbo = () => {
-  //   const confirm = () => {
-  //     console.log("Confirm");
-  //   };
-
-  //   const annulation = () => {
-  //     console.log("annulation");
-  //   };
-  //   return <div style={{ color: "white" }}>BONJOUR JE SUIS UNE DIV</div>;
-  // };
 
   const clickEditPremium = () => {
     (async () => {
@@ -210,16 +200,16 @@ export default function EditAbo() {
             />
           </p>
         </div>
+        <PopUp />
         <div>
           {errorMessage && <p id="password-error">Mot de passe incorrect</p>}
           {doneMessage && <p id="password-error">Mise à jour des infos</p>}
-          {}
           <button
             className="valide-mdp-button"
             type="button"
             onClick={editUser}
           >
-            VALIDER{" "}
+            VALIDER
           </button>
         </div>
       </div>
