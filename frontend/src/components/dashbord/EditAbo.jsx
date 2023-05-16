@@ -116,7 +116,7 @@ export default function EditAbo() {
               }
             />
           </p>
-          <h4>Name</h4>
+          <h4>Names</h4>
           <p>
             <input
               type="text"
