@@ -91,7 +91,7 @@ export default function EditAbo() {
     <div className="user-main-profile">
       <div className="user-adresse-information">
         <div>
-          <h3>Abonnement</h3>
+          <h3>Gestion de l'Abonnement</h3>
           <h4>FistName</h4>
           <div />
           <p>
@@ -159,14 +159,33 @@ export default function EditAbo() {
           )}
           {errorAbo && <p>Une erreur a eu lieu, contactez votre banque </p>}
         </div>
-        <button
-          className="valide-mdp-button"
-          type="button"
-          onClick={() => setEditPremium(true)}
-        >
-          Ajouter{" "}
-        </button>
 
+        {state.userInfo.isVideoPlus === 1 ? (
+          <div>
+            <button
+              className="valide-mdp-button"
+              type="button"
+              style={{
+                backgroundColor: "red",
+                color: "black",
+                borderRadius: "30px",
+              }}
+              onClick={() => setEditPremium(true)}
+            >
+              Annuler Abonnement
+            </button>
+          </div>
+        ) : (
+          <div>
+            <button
+              className="valide-mdp-button"
+              type="button"
+              onClick={() => setEditPremium(true)}
+            >
+              Ajouter
+            </button>
+          </div>
+        )}
         <div>
           <h4>Tapez votre mot de passe pour valider les modifications :</h4>
           <p>

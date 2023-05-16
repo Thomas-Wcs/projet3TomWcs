@@ -57,7 +57,7 @@ export default function EditProfile() {
     <div className="user-main-profile">
       <div className="user-adresse-information">
         <div>
-          <h3>Info Utilisateur</h3>
+          <h3>Modification du profil utilisateur</h3>
           <h4>FistName</h4>
           <div />
           <p>
