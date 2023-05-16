@@ -8,17 +8,18 @@ import PopUp from "./PopUp";
 
 export default function EditAbo() {
   const { state } = useLocation();
+
   const { setIsAdmin, setUserInfo } = useAuth();
+
   const api = useAPI();
 
   const [editableContent, setEditableContent] = useState(state);
   const [mdp, setMdp] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
   const [doneMessage, setDoneMessage] = useState(false);
+
   const [aboMessage, setAboMessage] = useState(false);
   const [errorAbo, setErrorAbo] = useState(false);
-  // const [editPremium, setEditPremium] = useState(false);
-  // const [aboActif, setAboActif] = useState(false);
 
   const clickEditPremium = () => {
     (async () => {
@@ -38,9 +39,9 @@ export default function EditAbo() {
         });
         // setEditPremium(false);
         setAboMessage(true);
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 2000);
       } catch (error) {
         console.error(error);
         setErrorAbo(true);
@@ -195,7 +196,7 @@ export default function EditAbo() {
             type="button"
             onClick={editUser}
           >
-            VALIDER
+            VALIDER{" "}
           </button>
         </div>
       </div>
