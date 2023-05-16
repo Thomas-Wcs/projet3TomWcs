@@ -19,15 +19,13 @@ export default function EditAbo() {
         const response = await api.get(`users/${state.userInfo.id}`);
         const { data } = response;
 
-        const newIsVideosPlus = data.isVideoPlus === 1 ? 0 : 1;
-
         await api.put(`users/${state.userInfo.id}`, {
           name: data.name,
           email: data.email,
           firstname: data.firstname,
           role: data.role,
           isPremium: data.isPremium,
-          isVideoPlus: newIsVideosPlus,
+          isVideoPlus: 1,
         });
         setAboMessage(true);
         setTimeout(() => {
