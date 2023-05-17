@@ -68,7 +68,7 @@ export default function EditAbo() {
               }
             />
           </p>
-          <h4>Names234</h4>
+          <h4>Names</h4>
           <p>
             <input
               type="text"
@@ -113,7 +113,6 @@ export default function EditAbo() {
           )}
           {errorAbo && <p>Une erreur a eu lieu, contactez votre banque </p>}
         </div>
-
         {state.userInfo.isVideoPlus === 1 ? (
           <div>
             <PopUp state={state} />

@@ -72,14 +72,9 @@ export default function PopUp() {
             {modal && (
               <div className="pop-up-abo">
                 <p>
-                  Nous sommes vraiment désolés. Es-tu sûr(e) de vouloir
-                  supprimer ton compte ? Si tu es certain(e) de ton choix, tu
-                  peux cliquer sur "Confirmer". Cela entraînera la déconnexion
-                  immédiate de ton compte, tu devras te reconnecter et ton
-                  compte seras alors mis à jour <br /> <br />
-                  Si tu hésites encore, n'hésite pas à contacter notre service
-                  client. Nous serons ravis de t'aider et de trouver une
-                  solution adaptée à ton abonnement.
+                  ON VERIFIE
+                  <br /> <br />
+                  BANQUE
                 </p>
                 <button
                   className="valide-mdp-button"

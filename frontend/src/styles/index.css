@@ -852,6 +852,10 @@ body h1 {
   width: 55%;
   height: 45%;
   z-index: 4;
+  overflow: hidden;
+}
+.pop-up-abo p {
+  overflow: hidden;
 }
 
 .overlay-abo-div {
@@ -862,4 +866,12 @@ body h1 {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 3;
+}
+
+@media (max-width: 769px) {
+  .pop-up-abo {
+    width: 90%;
+    height: 70%;
+    padding: 5%;
+  }
 }/*# sourceMappingURL=index.css.map */
