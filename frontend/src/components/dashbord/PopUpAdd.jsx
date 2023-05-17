@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useAPI from "../../api/useAPI";
+import bravo from "../../assets/bravo.svg.png";
 
 export default function PopUp() {
   const api = useAPI();
@@ -71,6 +72,7 @@ export default function PopUp() {
           <div className="overlay-abo-div" role="dialog" aria-modal="true">
             {modal && (
               <div className="pop-up-abo">
+                <img src={bravo} style={{ borderRadius: "30px" }} alt="bravo" />
                 <p>
                   Félicitations votre abonnement viens d'etre activé.
                   <br /> <br />
