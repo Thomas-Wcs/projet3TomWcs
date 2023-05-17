@@ -1,45 +1,12 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-import useAPI from "../../api/useAPI";
 import PopUp from "./PopUp";
+import PopUpAdd from "./PopUpAdd";
 
 export default function EditAbo() {
   const { state } = useLocation();
-
-  const api = useAPI();
-
   const [editableContent, setEditableContent] = useState(state);
-  const [aboMessage, setAboMessage] = useState(false);
-  const [errorAbo, setErrorAbo] = useState(false);
-
-  const clickEditPremium = () => {
-    (async () => {
-      try {
-        const response = await api.get(`users/${state.userInfo.id}`);
-        const { data } = response;
-
-        await api.put(`users/${state.userInfo.id}`, {
-          name: data.name,
-          email: data.email,
-          firstname: data.firstname,
-          role: data.role,
-          isPremium: data.isPremium,
-          isVideoPlus: 1,
-        });
-        setAboMessage(true);
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
-      } catch (error) {
-        console.error(error);
-        setErrorAbo(true);
-      }
-    })();
-    setTimeout(() => {
-      setErrorAbo(false);
-    }, 3000);
-  };
 
   return (
     <div className="user-main-profile">
@@ -104,28 +71,13 @@ export default function EditAbo() {
           <h4>Facturation </h4>
           <p>Prelevement</p>
         </div>
-        <div className="user-abo-message">
-          {aboMessage && (
-            <p>
-              Félicitations vous pouvez maintenant profiter de votre Abonnement
-              ! Veuillez vous reconnecter s'il vous plait.
-            </p>
-          )}
-          {errorAbo && <p>Une erreur a eu lieu, contactez votre banque </p>}
-        </div>
         {state.userInfo.isVideoPlus === 1 ? (
           <div>
             <PopUp state={state} />
           </div>
         ) : (
           <div>
-            <button
-              className="valide-mdp-button"
-              type="button"
-              onClick={() => clickEditPremium()}
-            >
-              Ajouter
-            </button>
+            <PopUpAdd state={state} />
           </div>
         )}
       </div>

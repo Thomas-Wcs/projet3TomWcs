@@ -854,9 +854,6 @@ body h1 {
   z-index: 4;
   overflow: hidden;
 }
-.pop-up-abo p {
-  overflow: hidden;
-}
 
 .overlay-abo-div {
   position: fixed;

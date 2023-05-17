@@ -45,11 +45,11 @@ export default function PopUp() {
           firstname: data.firstname,
           role: data.role,
           isPremium: data.isPremium,
-          isVideoPlus: 0,
+          isVideoPlus: 1,
         });
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 500);
       } catch (error) {
         console.error(error);
       }
@@ -62,9 +62,9 @@ export default function PopUp() {
         className="valide-mdp-button"
         type="button"
         onClick={toggleModal}
-        style={{ background: "red", color: "black", borderRadius: "30px" }}
+        style={{ background: "green", color: "black", borderRadius: "30px" }}
       >
-        Annuler l'abonnement
+        Ajouter Abonnement
       </button>
       <div>
         {modal && (
@@ -72,17 +72,11 @@ export default function PopUp() {
             {modal && (
               <div className="pop-up-abo">
                 <p>
-                  ON VERIFIE
+                  Félicitations votre abonnement viens d'etre activé.
                   <br /> <br />
-                  BANQUE
+                  Veuillez vous reconnecter s'il vous plait pour profiter de vos
+                  nouvelles options !
                 </p>
-                <button
-                  className="valide-mdp-button"
-                  type="button"
-                  onClick={toggleModal}
-                >
-                  Annuler
-                </button>
                 <button
                   className="valide-mdp-button"
                   type="button"
