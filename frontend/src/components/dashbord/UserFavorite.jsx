@@ -31,8 +31,8 @@ export default function UserFavorite() {
           {data.map((video) => (
             <Video
               key={uuidv4()}
-              width="650px"
-              height="450px"
+              width="300px"
+              height="150px"
               displayDescription
               displayDescriptionTitle={video.title}
               displayDescriptionText={video.description_text}
