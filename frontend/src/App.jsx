@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import UserFavorite from "./components/dashbord/UserFavorite";
 import EditAbo from "./components/dashbord/EditAbo";
 import EditProfile from "./components/dashbord/EditProfile";
 import UserProfile from "./components/dashbord/UserProfile";
@@ -28,6 +29,7 @@ function App() {
               <Route path="/profile/userid" element={<UserProfile />} />
               <Route path="/profile/useredit" element={<EditProfile />} />
               <Route path="/profile/aboedit" element={<EditAbo />} />
+              <Route path="/profile/userfavorite" element={<UserFavorite />} />
             </Route>
             <Route
               path="adminPanel"

@@ -133,7 +133,7 @@ export default function AccountMenu({ userInfo, reset }) {
           sx={dashbordStyles}
           component={Link}
           state={{ userInfo }}
-          to="/profile/useredit"
+          to="/profile/userfavorite"
           onClick={handleClose}
         >
           <VideoSettingsIcon sx={{ margin: "5%" }} /> My Videos
