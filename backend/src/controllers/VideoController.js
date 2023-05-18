@@ -15,6 +15,18 @@ const browse = (req, res) => {
     });
 };
 
+const favoriteV = (req, res) => {
+  models.video
+    .findV()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.video
     .find(req.params.id)
@@ -123,4 +135,5 @@ module.exports = {
   add,
   destroy,
   findFavorites,
+  favoriteV,
 };

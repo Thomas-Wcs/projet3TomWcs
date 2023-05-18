@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import useAPI from "../../api/useAPI";
+import Video from "../Sections/Video";
 
 export default function UserFavorite() {
   const [data, setData] = useState([]);
@@ -9,7 +11,7 @@ export default function UserFavorite() {
 
   const getVideoData = async () => {
     await api
-      .get("videos")
+      .get("videos/favoritesUser")
       .then((res) => {
         setData(res.data);
       })
@@ -25,9 +27,22 @@ export default function UserFavorite() {
     <div style={{ color: "white" }}>
       <p>VIDOES FAVORITES</p>
       <div>
-        <p>name : </p>
-        <p>description: </p>
-        <p>lien :</p>
+        <div>
+          {data.map((video) => (
+            <Video
+              key={uuidv4()}
+              width="650px"
+              height="450px"
+              displayDescription
+              displayDescriptionTitle={video.title}
+              displayDescriptionText={video.description_text}
+              src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+              isVideoPremium={video.isVideoPremium}
+              isVideoPaying={video.isVideoPaying}
+              isEnabled
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
