@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ReactPlayer from "react-player";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import useAPI from "../../api/useAPI";
 import "./UserFavorite.css";
 
@@ -60,9 +61,12 @@ export default function UserFavorite() {
                 controls
                 style={{ backgroundColor: "black" }}
               />
-              <div>
-                <h4 style={{ backgroundColor: "black" }}>{video.title}</h4>
+              <div className="favorite-text-and-button">
+                <h4>{video.title}</h4>
                 <div>BONJOUR JE SUIS DU TEXTE...</div>
+                <button type="button">
+                  <FavoriteIcon style={{ color: "red" }} />
+                </button>
               </div>
             </div>
           </div>
