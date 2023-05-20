@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "../../styles/index.css";
 import { useAuth } from "../../context/AuthContext";
-// import thumbnail from "../../assets/images/background-slider.png";
 import PlayButton from "./PlayButton";
 import videoLock from "../../assets/connect.png";
 import HotPot from "../../assets/imgPremium.png";

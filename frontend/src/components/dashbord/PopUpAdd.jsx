@@ -72,7 +72,15 @@ export default function PopUp() {
           <div className="overlay-abo-div" role="dialog" aria-modal="true">
             {modal && (
               <div className="pop-up-abo">
-                <img src={bravo} style={{ borderRadius: "30px" }} alt="bravo" />
+                <img
+                  src={bravo}
+                  style={{
+                    borderRadius: "30px",
+                    width: "300px",
+                    height: "200px",
+                  }}
+                  alt="bravo"
+                />
                 <p>
                   Félicitations votre abonnement viens d'etre activé.
                   <br /> <br />
