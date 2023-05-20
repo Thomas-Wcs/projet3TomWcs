@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ReactPlayer from "react-player";
+import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import useAPI from "../../api/useAPI";
 import "./UserFavorite.css";
 
@@ -33,8 +34,11 @@ export default function UserFavorite() {
 
   return (
     <div style={{ color: "white" }}>
-      <p>VIDEOS FAVORITES</p>
-      <div>
+      <p>
+        <OndemandVideoIcon /> VIDEOS FAVORITES
+      </p>
+      <div className="search-bar-profil">
+        <h4>Chercher une video :</h4>
         <input
           type="text"
           placeholder="Search videos..."
@@ -48,10 +52,10 @@ export default function UserFavorite() {
             <div className="video-content">
               <ReactPlayer
                 width="100%"
-                height="80%"
+                height="75%"
                 url={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
-                isVideoPremium={video.isVideoPremium}
-                isVideoPaying={video.isVideoPaying}
+                // isVideoPremium={video.isVideoPremium}
+                // isVideoPaying={video.isVideoPaying}
                 controls
                 style={{ backgroundColor: "black" }}
               />
