@@ -17,9 +17,9 @@ class VideosUserManager extends AbstractManager {
     );
   }
 
-  favoriteUserInsert({ userId, videoId }) {
+  insert({ userId, videoId }) {
     return this.database
-      .query(` insert into videos_user (user_id, videos_id) values (?, ?) `, [
+      .query(` insert into videos_user (user_id, videos_id) values (?, ?)`, [
         userId,
         videoId,
       ])
