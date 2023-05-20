@@ -33,18 +33,19 @@ export default function UserFavorite() {
   );
 
   return (
-    <div style={{ color: "white" }}>
-      <p>
-        <OndemandVideoIcon /> VIDEOS FAVORITES
-      </p>
-      <div className="search-bar-profil">
-        <h4>Chercher une video :</h4>
-        <input
-          type="text"
-          placeholder="Search videos..."
-          value={searchTerm}
-          onChange={handleSearch}
-        />
+    <div className="main-div-profil-video">
+      <div className="title-videos-favorites">
+        <OndemandVideoIcon style={{ fontSize: "100px" }} />
+        <h2>Videos Favorites</h2>
+        <div className="search-bar-profil">
+          <h4>Chercher une video :</h4>
+          <input
+            type="text"
+            placeholder="Chercher..."
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+        </div>
       </div>
       <div className="video-grid">
         {filteredData.map((video) => (
