@@ -60,17 +60,17 @@
 .favorite-text-and-button {
   position: relative;
 }
-.favorite-text-and-button button {
+.favorite-text-and-button .favorite-profil-button {
   background-color: black;
   position: absolute;
   bottom: 0;
   right: 0;
   border: none;
   transition: ease-in-out 0.3s;
-  margin: 4%;
+  margin-right: 3%;
 }
 
-.favorite-text-and-button button:hover {
+.favorite-text-and-button .favorite-profil-button:hover {
   transform: rotate(360deg);
 }
 

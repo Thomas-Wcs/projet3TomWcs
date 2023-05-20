@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import useAPI from "../../api/useAPI";
-import "./UserFavorite.css";
+import "../../styles/index.css";
 
 export default function UserFavorite() {
   const [data, setData] = useState([]);
@@ -14,7 +14,7 @@ export default function UserFavorite() {
 
   const getVideoData = async () => {
     try {
-      const res = await api.get("videos");
+      const res = await api.get("videos/favoritesUser");
       setData(res.data);
     } catch (error) {
       console.error(error);
@@ -64,8 +64,8 @@ export default function UserFavorite() {
               <div className="favorite-text-and-button">
                 <h4>{video.title}</h4>
                 <div>BONJOUR JE SUIS DU TEXTE...</div>
-                <button type="button">
-                  <FavoriteIcon style={{ color: "red" }} />
+                <button className="favorite-profil-button" type="button">
+                  <FavoriteIcon style={{ fontSize: "30px", color: "red" }} />
                 </button>
               </div>
             </div>
