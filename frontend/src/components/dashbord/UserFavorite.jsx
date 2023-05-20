@@ -4,9 +4,13 @@ import ReactPlayer from "react-player";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import useAPI from "../../api/useAPI";
+import { useAuth } from "../../context/AuthContext";
+import subscribe from "../../assets/Project-1.mp4";
 import "../../styles/index.css";
 
 export default function UserFavorite() {
+  const { userInfo } = useAuth();
+  if (!userInfo?.isPremium) userInfo.isPremium = 0;
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -55,11 +59,15 @@ export default function UserFavorite() {
               <ReactPlayer
                 width="100%"
                 height="75%"
-                url={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
-                // isVideoPremium={video.isVideoPremium}
-                // isVideoPaying={video.isVideoPaying}
-                controls
                 style={{ backgroundColor: "black" }}
+                url={
+                  ((!userInfo || userInfo.isPremium === 0) &&
+                    video.isVideoPremium === 1) ||
+                  (userInfo.isVideoPlus === 0 && video.isVideoPaying === 1)
+                    ? subscribe
+                    : `${import.meta.env.VITE_APP_API_URL}${video.link}`
+                }
+                controls
               />
               <div className="favorite-text-and-button">
                 <h4>{video.title}</h4>
