@@ -28,18 +28,6 @@ class VideoManager extends AbstractManager {
       });
   }
 
-  findV(id) {
-    return this.database.query(
-      `SELECT videos.*, categorie.name, user.id
-    FROM videos
-    INNER JOIN categorie ON videos.category_id = categorie.id
-    INNER JOIN videos_user ON videos.id = videos_user.videos_id
-    INNER JOIN user ON videos_user.user_id = user.id
-    WHERE user.id = ?;`,
-      [id]
-    );
-  }
-
   update(id, videos) {
     return this.database
       .query(`update ${this.table} set  ? where id = ?`, [videos, id])
