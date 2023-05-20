@@ -18,7 +18,7 @@ export default function UserFavorite() {
 
   const getVideoData = async () => {
     try {
-      const res = await api.get("videos/favoritesUser");
+      const res = await api.get(`videos/favoritesUser/${userInfo.id}`);
       setData(res.data);
     } catch (error) {
       console.error(error);

@@ -17,7 +17,7 @@ const browse = (req, res) => {
 
 const favoriteV = (req, res) => {
   models.video
-    .findV()
+    .findV(req.params.id)
     .then(([rows]) => {
       res.send(rows);
     })
