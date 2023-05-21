@@ -117,32 +117,34 @@ function Section1({ sectionName }) {
                   isVideoPaying={video.isVideoPaying}
                   isEnabled
                 />
-                <div className="favorite-text-and-button">
-                  <div style={{ color: "white" }}>
-                    hi {dataUserFavorite.title}
+                {userInfo.email ? (
+                  <div className="favorite-text-and-button">
+                    <div style={{ color: "white" }}>
+                      {dataUserFavorite.title}
+                    </div>
+                    {favoriteVideo ? (
+                      <button
+                        className="favorite-profil-button"
+                        type="button"
+                        // onClick={() => giveVideoId(userInfo.id, video.id)}
+                      >
+                        <FavoriteIcon
+                          style={{ fontSize: "30px", color: "red" }}
+                        />
+                      </button>
+                    ) : (
+                      <button
+                        className="favorite-profil-button"
+                        type="button"
+                        onClick={() => giveVideoId(userInfo.id, video.id)}
+                      >
+                        <FavoriteIcon
+                          style={{ fontSize: "30px", color: "white" }}
+                        />
+                      </button>
+                    )}
                   </div>
-                  {favoriteVideo ? (
-                    <button
-                      className="favorite-profil-button"
-                      type="button"
-                      // onClick={() => giveVideoId(userInfo.id, video.id)}
-                    >
-                      <FavoriteIcon
-                        style={{ fontSize: "30px", color: "red" }}
-                      />
-                    </button>
-                  ) : (
-                    <button
-                      className="favorite-profil-button"
-                      type="button"
-                      onClick={() => giveVideoId(userInfo.id, video.id)}
-                    >
-                      <FavoriteIcon
-                        style={{ fontSize: "30px", color: "white" }}
-                      />
-                    </button>
-                  )}
-                </div>
+                ) : null}
               </div>
             );
           })}

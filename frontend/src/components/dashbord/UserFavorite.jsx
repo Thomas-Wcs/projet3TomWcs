@@ -80,7 +80,7 @@ export default function UserFavorite() {
                 controls
               />
               <div className="favorite-text-and-button">
-                <h4>{video.id}</h4>
+                <h4>{video.title}</h4>
                 <div>BONJOUR JE SUIS DU TEXTE...</div>
                 <button
                   className="favorite-profil-button"
