@@ -8,13 +8,30 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
+import { useAuth } from "../../context/AuthContext";
 
 function Section1({ sectionName }) {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [data, setData] = useState([]);
+  const [dataUserFavorite, setDataUserFavorite] = useState([]);
   const api = useAPI();
+  const { userInfo } = useAuth();
+  if (!userInfo?.isPremium) userInfo.isPremium = 0;
+
+  const getVideoDataUserFavorite = async () => {
+    try {
+      await api
+        .get(`videosUser/${userInfo.id}`)
+        .then((res) => setDataUserFavorite(res.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getVideoDataUserFavorite();
+  }, []);
 
   const getVideoData = async () => {
     await api
@@ -67,30 +84,59 @@ function Section1({ sectionName }) {
           disabled={position === 0}
         />
         <div className="container container-section" ref={listRef}>
-          {data.map((video) => (
-            <div key={video.id}>
-              <Video
-                width="650px"
-                height="450px"
-                displayDescription
-                displayDescriptionTitle={video.title}
-                displayDescriptionText={video.description_text}
-                src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
-                isVideoPremium={video.isVideoPremium}
-                isVideoPaying={video.isVideoPaying}
-                isEnabled
-              />
-              <div className="favorite-text-and-button">
-                <button
+          {data.map((video) => {
+            const favoriteVideo = dataUserFavorite.find(
+              (favVideo) => favVideo.title === video.title
+            );
+            return (
+              <div key={video.id}>
+                <Video
+                  width="650px"
+                  height="450px"
+                  displayDescription
+                  displayDescriptionTitle={video.title}
+                  displayDescriptionText={video.description_text}
+                  src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+                  isVideoPremium={video.isVideoPremium}
+                  isVideoPaying={video.isVideoPaying}
+                  isEnabled
+                />
+                <div className="favorite-text-and-button">
+                  <div style={{ color: "white" }}>
+                    hi {dataUserFavorite.title}
+                  </div>
+                  {favoriteVideo ? (
+                    <button
+                      className="favorite-profil-button"
+                      type="button"
+                      // onClick={() => giveVideoId(userInfo.id, video.id)}
+                    >
+                      <FavoriteIcon
+                        style={{ fontSize: "30px", color: "red" }}
+                      />
+                    </button>
+                  ) : (
+                    <button
+                      className="favorite-profil-button"
+                      type="button"
+                      // onClick={() => giveVideoId(userInfo.id, video.id)}
+                    >
+                      <FavoriteIcon
+                        style={{ fontSize: "30px", color: "white" }}
+                      />
+                    </button>
+                  )}
+                  {/* <button
                   className="favorite-profil-button"
                   type="button"
                   // onClick={() => giveVideoId(userInfo.id, video.id)}
                 >
                   <FavoriteIcon style={{ fontSize: "30px", color: "red" }} />
-                </button>
+                </button> */}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         <ArrowForwardIosOutlined
           className="sliderArrow right"
