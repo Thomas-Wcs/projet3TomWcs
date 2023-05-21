@@ -47,6 +47,22 @@ function Section1({ sectionName }) {
     getVideoData();
   }, []);
 
+  const insertFavoriteVideo = async (newValue) => {
+    try {
+      await api.post(`videosUser/`, newValue);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const giveVideoId = (userId, videoId) => {
+    const newValue = { userId, videoId };
+    insertFavoriteVideo(newValue);
+    // setTimeout(() => {
+    //   getVideoData();
+    // }, 2000);
+  };
+
   function handleClick(direction) {
     const distance = listRef.current.getBoundingClientRect().x;
     if (direction === "left" && videoNumber > 0) {
@@ -72,7 +88,7 @@ function Section1({ sectionName }) {
             className="next-btn"
             onClick={() => handleClick("right")}
           >
-            VOIR PLUS{" "}
+            VOIR PLUS
           </button>
         </div>
       </div>
@@ -119,20 +135,13 @@ function Section1({ sectionName }) {
                     <button
                       className="favorite-profil-button"
                       type="button"
-                      // onClick={() => giveVideoId(userInfo.id, video.id)}
+                      onClick={() => giveVideoId(userInfo.id, video.id)}
                     >
                       <FavoriteIcon
                         style={{ fontSize: "30px", color: "white" }}
                       />
                     </button>
                   )}
-                  {/* <button
-                  className="favorite-profil-button"
-                  type="button"
-                  // onClick={() => giveVideoId(userInfo.id, video.id)}
-                >
-                  <FavoriteIcon style={{ fontSize: "30px", color: "red" }} />
-                </button> */}
                 </div>
               </div>
             );
