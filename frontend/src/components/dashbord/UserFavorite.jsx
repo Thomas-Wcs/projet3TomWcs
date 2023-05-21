@@ -37,6 +37,15 @@ export default function UserFavorite() {
     video.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const insertFavoriteVideo = (newValue) => {
+    api.post(`videosUser/`, newValue);
+  };
+
+  const giveVideoId = (userId, videoId) => {
+    const newValue = { userId, videoId };
+    insertFavoriteVideo(newValue);
+  };
+
   return (
     <div className="main-div-profil-video">
       <div className="title-videos-favorites">
@@ -70,9 +79,13 @@ export default function UserFavorite() {
                 controls
               />
               <div className="favorite-text-and-button">
-                <h4>{video.title}</h4>
+                <h4>{video.id}</h4>
                 <div>BONJOUR JE SUIS DU TEXTE...</div>
-                <button className="favorite-profil-button" type="button">
+                <button
+                  className="favorite-profil-button"
+                  type="button"
+                  onClick={() => giveVideoId(userInfo.id, video.id)}
+                >
                   <FavoriteIcon style={{ fontSize: "30px", color: "red" }} />
                 </button>
               </div>

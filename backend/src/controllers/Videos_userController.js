@@ -1,5 +1,17 @@
 const models = require("../models");
 
+const browse = (req, res) => {
+  models.videos_user
+    .findAll()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.videos_user
     .read(req.params.id)
@@ -13,17 +25,11 @@ const read = (req, res) => {
 };
 
 const insert = (req, res) => {
-  // eslint-disable-next-line no-restricted-syntax
-  console.log(req);
-  models.videos_user
-    .insert(req.body)
-    .then(([rows]) => {
-      res.send(rows);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+  const { userId, videoId } = req.body;
+  models.videos_user.insert({ userId, videoId }).catch((err) => {
+    console.error(err);
+    res.sendStatus(500);
+  });
 };
 
 const destroy = (req, res) => {
@@ -43,6 +49,7 @@ const destroy = (req, res) => {
 };
 
 module.exports = {
+  browse,
   read,
   destroy,
   insert,

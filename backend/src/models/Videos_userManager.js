@@ -5,24 +5,30 @@ class VideosUserManager extends AbstractManager {
     super({ table: "videos_user" });
   }
 
+  findAll() {
+    return this.database.query(`select * from ${this.table}`);
+  }
+
   read(id) {
     return this.database.query(
-      `SELECT videos.*, categorie.name, user.id
-    FROM videos
-    INNER JOIN categorie ON videos.category_id = categorie.id
-    INNER JOIN videos_user ON videos.id = videos_user.videos_id
-    INNER JOIN user ON videos_user.user_id = user.id
-    WHERE user.id = ?;`,
+      `SELECT videos.id AS video_id, videos.*, categorie.name
+      FROM videos
+      INNER JOIN categorie ON videos.category_id = categorie.id
+      INNER JOIN videos_user ON videos.id = videos_user.videos_id
+      INNER JOIN user ON videos_user.user_id = user.id
+      WHERE user.id = ?;
+      `,
       [id]
     );
   }
 
   insert({ userId, videoId }) {
     return this.database
-      .query(` insert into videos_user (user_id, videos_id) values (?, ?)`, [
-        userId,
-        videoId,
-      ])
+      .query(
+        `INSERT INTO videos_user (user_id, videos_id) VALUES (?, ?)
+        `,
+        [userId, videoId]
+      )
       .catch((err) => {
         console.error(err);
         return err.errno;
