@@ -5,6 +5,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 
@@ -67,18 +68,28 @@ function Section1({ sectionName }) {
         />
         <div className="container container-section" ref={listRef}>
           {data.map((video) => (
-            <Video
-              key={video.id}
-              width="650px"
-              height="450px"
-              displayDescription
-              displayDescriptionTitle={video.title}
-              displayDescriptionText={video.description_text}
-              src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
-              isVideoPremium={video.isVideoPremium}
-              isVideoPaying={video.isVideoPaying}
-              isEnabled
-            />
+            <div key={video.id}>
+              <Video
+                width="650px"
+                height="450px"
+                displayDescription
+                displayDescriptionTitle={video.title}
+                displayDescriptionText={video.description_text}
+                src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+                isVideoPremium={video.isVideoPremium}
+                isVideoPaying={video.isVideoPaying}
+                isEnabled
+              />
+              <div className="favorite-text-and-button">
+                <button
+                  className="favorite-profil-button"
+                  type="button"
+                  // onClick={() => giveVideoId(userInfo.id, video.id)}
+                >
+                  <FavoriteIcon style={{ fontSize: "30px", color: "red" }} />
+                </button>
+              </div>
+            </div>
           ))}
         </div>
         <ArrowForwardIosOutlined
