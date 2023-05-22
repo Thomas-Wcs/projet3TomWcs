@@ -39,10 +39,14 @@ export default function UserFavorite() {
   );
 
   const insertFavoriteVideo = (newValue) => {
-    api.delete(
-      `videosUser/${newValue.videoId}?user=${newValue.userId}`,
-      newValue
-    );
+    api
+      .delete(
+        `videosUser/${newValue.videoId}?user=${newValue.userId}`,
+        newValue
+      )
+      .then(() => {
+        getVideoData();
+      });
   };
 
   const giveVideoId = (userId, videoId) => {

@@ -15,25 +15,10 @@ function Section1({ sectionName }) {
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [data, setData] = useState([]);
-  // const [dataUserFavorite, setDataUserFavorite] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const api = useAPI();
   const { userInfo } = useAuth();
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
-  console.log(data);
-
-  // const getVideoDataUserFavorite = async () => {
-  //   try {
-  //     await api
-  //       .get(`videosUser/${userInfo.id}`)
-  //       .then((res) => setDataUserFavorite(res.data));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getVideoDataUserFavorite();
-  // }, []);
 
   const getVideoData = async () => {
     try {
@@ -51,7 +36,6 @@ function Section1({ sectionName }) {
 
   useEffect(() => {
     getVideoData();
-    // getVideoDataUserFavorite();
   }, [refresh]);
 
   const insertFavoriteVideo = async (newValue) => {
