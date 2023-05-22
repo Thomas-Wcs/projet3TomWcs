@@ -35,15 +35,13 @@ class VideosUserManager extends AbstractManager {
       });
   }
 
-  update(section) {
+  delete({ userId, videoId }) {
     return this.database.query(
-      `update ${this.table} set name = ? where id = ?`,
-      [section.name, section.id]
+      `DELETE FROM ${this.table}
+    WHERE user_id = ?
+    AND videos_id = ?;`,
+      [userId, videoId]
     );
-  }
-
-  delete(id) {
-    return this.database.query(`delete from ${this.table} where id = ?`, [id]);
   }
 }
 

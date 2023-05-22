@@ -15,41 +15,50 @@ function Section1({ sectionName }) {
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [data, setData] = useState([]);
-  const [dataUserFavorite, setDataUserFavorite] = useState([]);
+  // const [dataUserFavorite, setDataUserFavorite] = useState([]);
+  const [refresh, setRefresh] = useState(false);
   const api = useAPI();
   const { userInfo } = useAuth();
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
+  console.log(data);
 
-  const getVideoDataUserFavorite = async () => {
+  // const getVideoDataUserFavorite = async () => {
+  //   try {
+  //     await api
+  //       .get(`videosUser/${userInfo.id}`)
+  //       .then((res) => setDataUserFavorite(res.data));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getVideoDataUserFavorite();
+  // }, []);
+
+  const getVideoData = async () => {
     try {
-      await api
-        .get(`videosUser/${userInfo.id}`)
-        .then((res) => setDataUserFavorite(res.data));
+      if (userInfo.id) {
+        const res = await api.get(`videos/allVideoAndFavorite/${userInfo.id}`);
+        setData(res.data);
+      } else {
+        const res = await api.get(`videos`);
+        setData(res.data);
+      }
     } catch (error) {
       console.error(error);
     }
   };
-  useEffect(() => {
-    getVideoDataUserFavorite();
-  }, []);
 
-  const getVideoData = async () => {
-    await api
-      .get("videos")
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
   useEffect(() => {
     getVideoData();
-  }, []);
+    // getVideoDataUserFavorite();
+  }, [refresh]);
 
   const insertFavoriteVideo = async (newValue) => {
     try {
-      await api.post(`videosUser/`, newValue);
+      await api.post(`videosUser/`, newValue).then(() => {
+        setRefresh(!refresh);
+      });
     } catch (error) {
       console.error(error);
     }
@@ -58,9 +67,6 @@ function Section1({ sectionName }) {
   const giveVideoId = (userId, videoId) => {
     const newValue = { userId, videoId };
     insertFavoriteVideo(newValue);
-    // setTimeout(() => {
-    //   getVideoData();
-    // }, 2000);
   };
 
   function handleClick(direction) {
@@ -101,7 +107,7 @@ function Section1({ sectionName }) {
         />
         <div className="container container-section" ref={listRef}>
           {data.map((video) => {
-            const favoriteVideo = dataUserFavorite.find(
+            const favoriteVideo = data.find(
               (favVideo) => favVideo.title === video.title
             );
             return (
@@ -119,9 +125,7 @@ function Section1({ sectionName }) {
                 />
                 {userInfo.email ? (
                   <div className="favorite-text-and-button">
-                    <div style={{ color: "white" }}>
-                      {dataUserFavorite.title}
-                    </div>
+                    <div style={{ color: "white" }}>{data.title}</div>
                     {favoriteVideo ? (
                       <button
                         className="favorite-profil-button"

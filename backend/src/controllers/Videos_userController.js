@@ -26,21 +26,28 @@ const read = (req, res) => {
 
 const insert = (req, res) => {
   const { userId, videoId } = req.body;
-  models.videos_user.insert({ userId, videoId }).catch((err) => {
-    console.error(err);
-    res.sendStatus(500);
-  });
+  models.videos_user
+    .insert({ userId, videoId })
+    .then(() => {
+      res.status(200).json({
+        message: "La video a bien été ajouté aux favoris utilisateur",
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
 };
 
 const destroy = (req, res) => {
+  const videoId = parseInt(req.params.videoId, 10);
+  const userId = parseInt(req.query.user, 10);
   models.videos_user
-    .delete(req.params.id)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
+    .delete({ userId, videoId })
+    .then(() => {
+      res.status(200).json({
+        message: "La video a bien été supprimé de favoris utilisateur",
+      });
     })
     .catch((err) => {
       console.error(err);

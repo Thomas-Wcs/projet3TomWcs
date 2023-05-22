@@ -104,9 +104,10 @@ const destroy = async (req, res) => {
     });
 };
 
-const findFavorites = async (req, res) => {
-  await models.video
-    .findFavorites(req.query.name)
+const findAllVideoAndFavorite = (req, res) => {
+  const userId = req.params.id;
+  models.video
+    .findFavorites(userId)
     .then(([result]) => {
       res.json(result);
     })
@@ -122,5 +123,5 @@ module.exports = {
   edit,
   add,
   destroy,
-  findFavorites,
+  findAllVideoAndFavorite,
 };

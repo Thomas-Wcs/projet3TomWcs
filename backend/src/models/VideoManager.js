@@ -28,6 +28,22 @@ class VideoManager extends AbstractManager {
       });
   }
 
+  findFavorites(userId) {
+    return this.database
+      .query(
+        `SELECT videos.*, categorie.name, videos_user.user_id
+        FROM videos
+        INNER JOIN categorie ON videos.category_id = categorie.id
+        LEFT JOIN videos_user ON videos.id = videos_user.videos_id
+        where user_id = ? or user_id is NULL
+        ;`,
+        [userId]
+      )
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   update(id, videos) {
     return this.database
       .query(`update ${this.table} set  ? where id = ?`, [videos, id])

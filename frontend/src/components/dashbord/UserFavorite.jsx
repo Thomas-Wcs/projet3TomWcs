@@ -39,7 +39,10 @@ export default function UserFavorite() {
   );
 
   const insertFavoriteVideo = (newValue) => {
-    api.post(`videosUser/`, newValue);
+    api.delete(
+      `videosUser/${newValue.videoId}?user=${newValue.userId}`,
+      newValue
+    );
   };
 
   const giveVideoId = (userId, videoId) => {
@@ -81,7 +84,7 @@ export default function UserFavorite() {
               />
               <div className="favorite-text-and-button">
                 <h4>{video.title}</h4>
-                <div>BONJOUR JE SUIS DU TEXTE...</div>
+                <div> {video.description_text} </div>
                 <button
                   className="favorite-profil-button"
                   type="button"
