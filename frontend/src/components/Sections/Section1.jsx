@@ -38,6 +38,22 @@ function Section1({ sectionName }) {
     getVideoData();
   }, [refresh]);
 
+  const deleteFavoriteVideo = (newValue) => {
+    api
+      .delete(
+        `videosUser/${newValue.videoId}?user=${newValue.userId}`,
+        newValue
+      )
+      .then(() => {
+        getVideoData();
+      });
+  };
+
+  const giveVideoDeleteId = (userId, videoId) => {
+    const newValue = { userId, videoId };
+    deleteFavoriteVideo(newValue);
+  };
+
   const insertFavoriteVideo = async (newValue) => {
     try {
       await api.post(`videosUser/`, newValue).then(() => {
@@ -92,7 +108,8 @@ function Section1({ sectionName }) {
         <div className="container container-section" ref={listRef}>
           {data.map((video) => {
             const favoriteVideo = data.find(
-              (favVideo) => favVideo.title === video.title
+              (favVideo) =>
+                favVideo.user_id !== null && favVideo.title === video.title
             );
             return (
               <div key={video.id}>
@@ -114,7 +131,7 @@ function Section1({ sectionName }) {
                       <button
                         className="favorite-profil-button"
                         type="button"
-                        // onClick={() => giveVideoId(userInfo.id, video.id)}
+                        onClick={() => giveVideoDeleteId(userInfo.id, video.id)}
                       >
                         <FavoriteIcon
                           style={{ fontSize: "30px", color: "red" }}
