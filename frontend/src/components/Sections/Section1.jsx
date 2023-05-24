@@ -19,6 +19,7 @@ function Section1({ sectionName }) {
   const api = useAPI();
   const { userInfo } = useAuth();
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
+  console.log(data);
 
   const getVideoData = async () => {
     try {
