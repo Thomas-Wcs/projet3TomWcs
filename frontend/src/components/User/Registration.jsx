@@ -118,6 +118,8 @@ Registration.propTypes = {
   mdp: PropTypes.string.isRequired,
   setMdp: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  refPass: PropTypes.string.isRequired,
-  refMail: PropTypes.string.isRequired,
+  refPass: PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    .isRequired,
+  refMail: PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+    .isRequired,
 };

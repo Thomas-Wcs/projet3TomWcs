@@ -15,6 +15,7 @@ function SectionCategory({ sectionName }) {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const [data, setData] = useState([]);
+
   const api = useAPI();
 
   const getVideoData = async () => {
@@ -130,13 +131,14 @@ function SectionCategory({ sectionName }) {
             ? data.map((item) => (
                 <Video
                   key={item.id}
-                  src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
+                  src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
                   width="650px"
                   height="450px"
                   displayDescription
                   displayDescriptionTitle={item.title}
                   displayDescriptionText={item.description_text}
                   isEnabled
+                  isVideoPremium={item.isVideoPremium}
                 />
               ))
             : data
@@ -144,13 +146,14 @@ function SectionCategory({ sectionName }) {
                 .map((item) => (
                   <Video
                     key={item.id}
-                    src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
+                    src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
                     width="650px"
                     height="450px"
                     displayDescription
-                    displayDescriptionTitle={item.titre}
+                    displayDescriptionTitle={item.title}
                     displayDescriptionText={item.description_text}
                     isEnabled
+                    isVideoPremium={item.isVideoPremium}
                   />
                 ))}
         </div>
