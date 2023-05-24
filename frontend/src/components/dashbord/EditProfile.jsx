@@ -69,7 +69,6 @@ export default function EditProfile() {
     setMdp("");
     setAvatarUpload(null);
   };
-
   const handleAddVideos = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -115,7 +114,7 @@ export default function EditProfile() {
               handleAddVideos(e);
               doneImageAvatar();
             }}
-            id="add-avatar-user-button"
+            className="valide-mdp-button"
           >
             Ajouter
           </button>
