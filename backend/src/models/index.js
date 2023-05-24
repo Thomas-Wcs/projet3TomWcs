@@ -44,6 +44,10 @@ const SectionManager = require("./SectionManager");
 models.section = new SectionManager();
 models.section.setDatabase(pool);
 
+const AdvertsManager = require("./AdvertsManager");
+models.adverts = new AdvertsManager();
+models.adverts.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
