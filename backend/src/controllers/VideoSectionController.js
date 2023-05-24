@@ -1,10 +1,9 @@
-/* eslint-disable camelcase */
 const path = require("path");
 const fs = require("fs");
 const models = require("../models");
 
 const browse = (req, res) => {
-  models.video
+  models.videoSection
     .findAll()
     .then(([rows]) => {
       res.send(rows);
@@ -15,35 +14,12 @@ const browse = (req, res) => {
     });
 };
 
-const read = (req, res) => {
-  models.video
-    .find(req.params.id)
-    .then(([rows]) => {
-      if (rows[0] == null) {
-        res.sendStatus(404);
-      } else {
-        res.send(rows[0]);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
-
-const edit = async (req, res) => {
-  const result = await models.video.update(
-    parseInt(req.params.id, 10),
-    req.body
-  );
-  if (result) {
-    res.sendStatus(204);
-  } else res.sendStatus(404);
-};
-
 const add = async (req, res) => {
-  // eslint-disable-next-line camelcase
-  const { title, description_text, category_id, date_publication } = req.body;
+  // TODO validations (length, format...)
+
+  const { title, description_text, category_id, date_publication, section_id } =
+    req.body;
+
   const { file } = req;
   if (!file) {
     return res.sendStatus(500);
@@ -75,23 +51,24 @@ const add = async (req, res) => {
       date_publication,
     });
 
-    const newVideo = {
-      title,
+    const insertVideoId = result[0].insertId;
+    const sectionArray = section_id.split(",");
 
-      description_text,
-      category_id,
-      link,
-      date_publication,
-      id: result,
-    };
-    return res.status(201).json(newVideo);
+    sectionArray.forEach((sect) => {
+      models.videoSection.insert(insertVideoId, sect).catch((err) => {
+        console.error(err);
+        res.sendStatus(500);
+      });
+    });
+
+    res.status(201);
   } catch (e) {
     return res.status(500).send(e.message);
   }
 };
 
 const destroy = async (req, res) => {
-  await models.video
+  await models.videoSection
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
@@ -106,23 +83,8 @@ const destroy = async (req, res) => {
     });
 };
 
-const findFavorites = async (req, res) => {
-  await models.video
-    .findFavorites(req.query.name)
-    .then(([result]) => {
-      res.json(result);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
-
 module.exports = {
   browse,
-  read,
-  edit,
   add,
   destroy,
-  findFavorites,
 };

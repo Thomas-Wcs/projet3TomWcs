@@ -23,14 +23,6 @@ class VideoManager extends AbstractManager {
           videos.date_publication,
         ]
       )
-      .then(([result]) => {
-        const videoId = result.insertId;
-
-        return this.database.query(
-          `insert into video_section (video_id) values (?)`,
-          [videoId]
-        );
-      })
       .then((res) => {
         return res;
       })

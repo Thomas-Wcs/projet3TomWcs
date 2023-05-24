@@ -10,12 +10,14 @@ function VideoAdd() {
   const [videoTitle, setTitle] = useState("");
   const [categorie, setCategorie] = useState(1);
   const [description, setDescription] = useState("");
-  const [section, setSection] = useState("");
+  const [section, setSection] = useState([]);
+
   const [fileUpload, setFileUpload] = useState(null);
   const [videosChanging, setVideosChanging] = useState(true);
   const [newCategorie, setNewCategorie] = useState({ name: "" });
   const [allCategories, setAllCategories] = useState([]);
   const [allSections, setAllSections] = useState([]);
+
   const api = useAPI();
 
   useEffect(() => {
@@ -32,9 +34,12 @@ function VideoAdd() {
     formData.append("category_id", categorie);
     formData.append("link", fileUpload);
     formData.append("date_publication", Date());
+    formData.append("section_id", section);
 
+    console.log(section);
     api
-      .post("/videos", formData)
+      .post("/video_section", formData)
+
       .then(() => {
         setVideosChanging(!videosChanging);
       })
@@ -126,16 +131,32 @@ function VideoAdd() {
             </button>
             <label htmlFor="category_id">Ajouter à :</label>
 
-            <select
-              name="section-id"
-              onChange={(e) => setSection(e.target.value)}
-            >
+            <div className="section-checkboxes">
               {allSections.map((sect) => (
-                <option value={sect.id} key={sect.id}>
-                  {sect.name}
-                </option>
+                <div key={sect.id}>
+                  <input
+                    type="checkbox"
+                    id={`section-${sect.id}`}
+                    value={sect.id}
+                    checked={section.includes(sect.id)}
+                    onChange={(e) => {
+                      const sectionId = sect.id;
+                      if (e.target.checked) {
+                        setSection((prevSections) => [
+                          ...prevSections,
+                          sectionId,
+                        ]);
+                      } else {
+                        setSection((prevSections) =>
+                          prevSections.filter((id) => id !== sectionId)
+                        );
+                      }
+                    }}
+                  />
+                  <label htmlFor={`section-${sect.id}`}>{sect.name}</label>
+                </div>
               ))}
-            </select>
+            </div>
           </form>
         </div>
         <label htmlFor="link">
