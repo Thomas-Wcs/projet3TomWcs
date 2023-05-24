@@ -16,6 +16,14 @@ export default function EditProfile() {
   const [errorMessage, setErrorMessage] = useState(false);
   const [doneMessage, setDoneMessage] = useState(false);
   const [avatarUpload, setAvatarUpload] = useState(null);
+  const [imageAvatarDone, setImageAvatarDone] = useState(false);
+
+  const doneImageAvatar = () => {
+    setImageAvatarDone(true);
+    setTimeout(() => {
+      setImageAvatarDone(false);
+    }, 3000);
+  };
 
   let avatarImg;
 
@@ -59,6 +67,7 @@ export default function EditProfile() {
     }
     relogUser();
     setMdp("");
+    setAvatarUpload(null);
   };
 
   const handleAddVideos = (e) => {
@@ -79,15 +88,19 @@ export default function EditProfile() {
           <h4>Modifier avatar :</h4>
           <div className="avatar-div-user-img">
             {avatarImg ? (
-              <img
-                className="avatar-upload-image"
-                src={avatarImg}
-                alt=" avatar utilisateur "
-                // style={{ width: "80px", height: "80px" }}
-              />
+              <div>
+                <img
+                  className="avatar-upload-image"
+                  src={avatarImg}
+                  alt=" avatar utilisateur "
+                />
+                <p style={{ color: "red" }}>
+                  Veuillez taper votre mot de passe pour valider les
+                  modifications
+                </p>
+              </div>
             ) : null}
           </div>
-
           <label htmlFor="lien">
             <input
               type="file"
@@ -100,12 +113,13 @@ export default function EditProfile() {
             type="submit"
             onClick={(e) => {
               handleAddVideos(e);
+              doneImageAvatar();
             }}
             id="add-avatar-user-button"
           >
             Ajouter
           </button>
-
+          {imageAvatarDone ? <p>Image ajouté</p> : null}
           <h4>FistName</h4>
           <div />
           <p>
