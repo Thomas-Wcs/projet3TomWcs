@@ -28,6 +28,15 @@
     flex-wrap: wrap;
     width: 50%;
     margin: 5%;
+    .avatar-div-user-img {
+      width: auto;
+      height: auto;
+      margin: 10px;
+      .avatar-upload-image {
+        width: 80px;
+        height: 80px;
+      }
+    }
   }
   .user-edit-adresse-information {
     display: block;

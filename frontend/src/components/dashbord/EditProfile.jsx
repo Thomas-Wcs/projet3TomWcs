@@ -16,7 +16,14 @@ export default function EditProfile() {
   const [errorMessage, setErrorMessage] = useState(false);
   const [doneMessage, setDoneMessage] = useState(false);
   const [avatarUpload, setAvatarUpload] = useState(null);
-  const avatarImg = URL.createObjectURL(avatarUpload);
+
+  let avatarImg;
+
+  if (avatarUpload) {
+    avatarImg = URL.createObjectURL(avatarUpload);
+  } else {
+    avatarImg = undefined;
+  }
 
   const relogUser = () => {
     const user = {
@@ -70,11 +77,17 @@ export default function EditProfile() {
         <div>
           <h3>Modification du profil utilisateur</h3>
           <h4>Modifier avatar :</h4>
-          <img
-            src={avatarImg}
-            alt=" avatar utilisateur "
-            style={{ width: "50px", height: "50px" }}
-          />
+          <div className="avatar-div-user-img">
+            {avatarImg ? (
+              <img
+                className="avatar-upload-image"
+                src={avatarImg}
+                alt=" avatar utilisateur "
+                // style={{ width: "80px", height: "80px" }}
+              />
+            ) : null}
+          </div>
+
           <label htmlFor="lien">
             <input
               type="file"
