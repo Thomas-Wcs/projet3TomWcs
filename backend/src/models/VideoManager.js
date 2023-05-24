@@ -13,13 +13,15 @@ class VideoManager extends AbstractManager {
   insert(videos) {
     return this.database
       .query(
-        `insert into ${this.table} (title, link, category_id, description_text, date_publication) values (?, ?, ?, ?, ?)`,
+        `insert into ${this.table} (title, link, category_id, description_text, date_publication, isVideoPremium, isVideoPaying) values (?, ?, ?, ?, ?, ?, ?)`,
         [
           videos.title,
           videos.link,
           videos.category_id,
           videos.description_text,
           videos.date_publication,
+          videos.isVideoPremium,
+          videos.isVideoPaying,
         ]
       )
       .then(([result]) => result.insertId)

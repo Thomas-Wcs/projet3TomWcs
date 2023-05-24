@@ -144,7 +144,7 @@ export default function EditProfile() {
             type="button"
             onClick={editUser}
           >
-            VALIDER{" "}
+            VALIDER
           </button>
         </div>
       </div>

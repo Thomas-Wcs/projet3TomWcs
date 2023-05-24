@@ -114,8 +114,8 @@ function Section1({ sectionName }) {
             return (
               <div key={video.id}>
                 <Video
-                  width="650px"
-                  height="450px"
+                  width="100%%"
+                  height="100%%"
                   displayDescription
                   displayDescriptionTitle={video.title}
                   displayDescriptionText={video.description_text}
