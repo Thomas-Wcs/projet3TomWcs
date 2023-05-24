@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
@@ -155,8 +155,8 @@ export default function AccountMenu({ userInfo, reset }) {
           sx={dashbordStyles}
           component={Link}
           state={{ userInfo }}
-          to="/profile/aboedit"
           onClick={handleClose}
+          to="/profile/aboedit"
         >
           <ListItemIcon>
             <AdminPanelSettingsIcon fontSize="small" />
@@ -182,9 +182,6 @@ export default function AccountMenu({ userInfo, reset }) {
           Logout
         </MenuItem>
       </Menu>
-      <div className="div-savoir-tu-esqui">
-        <Outlet name="accountDisplay" />
-      </div>
     </>
   ) : (
     <div className="veuillez-vous-log">

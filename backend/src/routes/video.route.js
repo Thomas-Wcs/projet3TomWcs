@@ -10,6 +10,10 @@ const videoRoute = express.Router();
 const VideoController = require("../controllers/VideoController");
 
 videoRoute.get("/", VideoController.browse);
+videoRoute.get(
+  "/allVideoAndFavorite/:id",
+  VideoController.findAllVideoAndFavorite
+);
 videoRoute.get("/:id", VideoController.read);
 videoRoute.put("/:id", VideoController.edit);
 videoRoute.post("/", upload.single("link"), VideoController.add);

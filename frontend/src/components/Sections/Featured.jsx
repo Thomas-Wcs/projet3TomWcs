@@ -68,6 +68,9 @@ function Featured() {
               height="100vh"
               displayPlayButton
               src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
+              isVideoPremium={video.isVideoPremium}
+              isVideoPaying={video.isVideoPaying}
+              isEnabled
             />
           ))}
         </div>

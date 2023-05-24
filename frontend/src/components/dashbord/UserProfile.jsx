@@ -5,23 +5,22 @@ import PropTypes from "prop-types";
 export default function UserProfile() {
   const { state } = useLocation();
 
-  // eslint-disable-next-line no-restricted-syntax
-  console.log(state);
-
   return (
     <div className="user-main-profile">
       <div className="user-adresse-information">
-        <h3>User Info</h3>
+        <h3>Info Utilisateur</h3>
         <h4>FistName</h4>
         <p>{state.userInfo.firstname}</p>
         <h4>LastName</h4>
         <p>{state.userInfo.name}</p>
-        <h4>Role </h4>
-        <p> Admin</p>
         <h4>Email </h4>
         <p>{state.userInfo.email}</p>
         <h4>Premium </h4>
-        <p>Yes</p>
+        <p>
+          {state.userInfo.isPremium === 1
+            ? "Utilisateur Premium"
+            : "Utilisateur Standart"}
+        </p>
       </div>
       <div className="user-adresse-information">
         <h3>Adresse</h3>
