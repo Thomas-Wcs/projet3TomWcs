@@ -1,4 +1,6 @@
 const joi = require("joi");
+const path = require("path");
+const fs = require("fs");
 const models = require("../models");
 const { hashPassword } = require("../utils/Auth");
 
@@ -89,6 +91,44 @@ const add = async (req, res) => {
   }
 };
 
+const addAvatar = async (req, res) => {
+  const { file } = req;
+
+  const id = parseInt(req.params.id, 10);
+  if (!file) {
+    return res.sendStatus(500);
+  }
+  const baseFolder = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "assets",
+    "images"
+  );
+  const originalName = path.join(baseFolder, file.originalname);
+  const filename = path.join(baseFolder, file.filename);
+
+  try {
+    fs.rename(filename, originalName, () => {
+      // console.error(err);
+    });
+  } catch (err) {
+    return res.sendStatus(500);
+  }
+
+  const link = `assets/images/${file.originalname}`;
+  try {
+    const result = await models.user.insertAvatar({
+      link,
+      id,
+    });
+    return res.status(200).send(result);
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+};
+
 const destroy = (req, res) => {
   models.user
     .delete(req.params.id)
@@ -130,6 +170,7 @@ module.exports = {
   read,
   edit,
   add,
+  addAvatar,
   destroy,
   login,
   findOne,

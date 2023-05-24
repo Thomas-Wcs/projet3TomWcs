@@ -63,7 +63,7 @@ export default function AccountMenu({ userInfo, reset }) {
           >
             <Avatar
               alt="Image de l'utilisateur"
-              src={monImage}
+              src={`${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`}
               sx={{ width: 100, height: 100 }}
             />
           </IconButton>
@@ -201,6 +201,7 @@ AccountMenu.propTypes = {
     name: PropTypes.string,
     firstname: PropTypes.string,
     email: PropTypes.string,
+    avatar: PropTypes.string,
   }),
   reset: PropTypes.func,
 };
@@ -209,6 +210,7 @@ AccountMenu.defaultProps = {
     name: "",
     firstname: "",
     email: "",
+    avatar: "",
   },
   reset: () => {},
 };

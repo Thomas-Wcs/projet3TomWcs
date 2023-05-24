@@ -15,13 +15,14 @@ export default function EditProfile() {
   const [mdp, setMdp] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
   const [doneMessage, setDoneMessage] = useState(false);
+  const [avatarUpload, setAvatarUpload] = useState(null);
+  const avatarImg = URL.createObjectURL(avatarUpload);
 
   const relogUser = () => {
     const user = {
       mdp,
       email: editableContent.userInfo.email,
     };
-
     api
       .post("users/login/", user)
       .then((res) => {
@@ -53,11 +54,45 @@ export default function EditProfile() {
     setMdp("");
   };
 
+  const handleAddVideos = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("link", avatarUpload);
+    api
+      .post(`/users/${state.userInfo.id}`, formData)
+      .then(() => {})
+      .catch((err) => console.error(err));
+  };
+
   return (
     <div className="user-main-profile">
       <div className="user-adresse-information">
         <div>
           <h3>Modification du profil utilisateur</h3>
+          <h4>Modifier avatar :</h4>
+          <img
+            src={avatarImg}
+            alt=" avatar utilisateur "
+            style={{ width: "50px", height: "50px" }}
+          />
+          <label htmlFor="lien">
+            <input
+              type="file"
+              name="lien"
+              onChange={(e) => setAvatarUpload(e.target.files[0])}
+              id="file-avatar-user-button"
+            />
+          </label>
+          <button
+            type="submit"
+            onClick={(e) => {
+              handleAddVideos(e);
+            }}
+            id="add-avatar-user-button"
+          >
+            Ajouter
+          </button>
+
           <h4>FistName</h4>
           <div />
           <p>
