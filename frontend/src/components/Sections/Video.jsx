@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "../../styles/index.css";
-import thumbnail from "../../assets/images/background-slider.png";
 import PlayButton from "./PlayButton";
 
 function Video({
@@ -40,7 +39,6 @@ function Video({
     <div className="wrapper-video">
       <video
         src={src}
-        poster={thumbnail}
         muted
         ref={videoRef}
         preload="metadata"

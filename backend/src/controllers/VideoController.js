@@ -74,6 +74,7 @@ const add = async (req, res) => {
       description_text,
       date_publication,
     });
+
     const newVideo = {
       title,
 

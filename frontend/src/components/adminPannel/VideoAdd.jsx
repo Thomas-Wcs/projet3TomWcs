@@ -10,10 +10,12 @@ function VideoAdd() {
   const [videoTitle, setTitle] = useState("");
   const [categorie, setCategorie] = useState(1);
   const [description, setDescription] = useState("");
+  const [section, setSection] = useState("");
   const [fileUpload, setFileUpload] = useState(null);
   const [videosChanging, setVideosChanging] = useState(true);
   const [newCategorie, setNewCategorie] = useState({ name: "" });
   const [allCategories, setAllCategories] = useState([]);
+  const [allSections, setAllSections] = useState([]);
   const api = useAPI();
 
   useEffect(() => {
@@ -63,6 +65,10 @@ function VideoAdd() {
     e.preventDefault();
     addCategorie();
   }
+
+  useEffect(() => {
+    api.get("sections").then((res) => setAllSections(res.data));
+  }, []);
 
   return (
     <div className="sectionUpdate">
@@ -118,6 +124,18 @@ function VideoAdd() {
               {" "}
               Ajouter
             </button>
+            <label htmlFor="category_id">Ajouter à :</label>
+
+            <select
+              name="section-id"
+              onChange={(e) => setSection(e.target.value)}
+            >
+              {allSections.map((sect) => (
+                <option value={sect.id} key={sect.id}>
+                  {sect.name}
+                </option>
+              ))}
+            </select>
           </form>
         </div>
         <label htmlFor="link">

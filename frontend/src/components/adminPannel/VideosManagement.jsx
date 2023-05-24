@@ -58,7 +58,7 @@ function VideosManagement() {
       editable: true,
     },
     {
-      field: "section_id",
+      field: "name",
       headerName: "Section",
       width: 150,
       editable: true,
@@ -102,6 +102,7 @@ function VideosManagement() {
     category_id: video.category_id,
     link: video.link,
     date_publication: video.date_publication,
+    name: video.name,
   }));
 
   return (

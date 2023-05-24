@@ -57,7 +57,7 @@ export default function Profile() {
         {data.map((item) => (
           <ReactPlayer
             key={item.id}
-            url={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
+            url={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
             width="100%"
             controls
             className="video-div"
@@ -83,7 +83,7 @@ export default function Profile() {
         {data.map((item) => (
           <ReactPlayer
             key={item.id}
-            url={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
+            url={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
             width="100%"
             controls
             className="video-div"
