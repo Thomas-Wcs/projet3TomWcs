@@ -3,8 +3,8 @@ import { useEffect, useState, useCallback } from "react";
 import { DataGrid } from "@mui/x-data-grid/node";
 import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import SaveIcon from "@mui/icons-material/Save";
+import BeenhereIcon from "@mui/icons-material/Beenhere";
 import useAPI from "../../api/useAPI";
 import dataTableStyle from "./DataTableStyle";
 
@@ -45,7 +45,15 @@ export default function DataTable() {
     setData(updatedData);
 
     const [name, email, firstname, role, isPremium] = value;
-    const newUser = { name, email, firstname, role, isPremium };
+    let newRole = role;
+
+    if (role === "admin") {
+      newRole = "13579AETUO";
+    } else if (role === "user") {
+      newRole = "24680ZRYIP";
+    }
+
+    const newUser = { name, email, firstname, role: newRole, isPremium };
 
     await api.put(`users/${id}`, newUser);
     getUserData();
@@ -98,7 +106,8 @@ export default function DataTable() {
     {
       field: "role",
       headerName: "Role",
-      type: "string",
+      type: "singleSelect",
+      valueOptions: ["admin", "user"],
       width: 150,
       editable: true,
     },
@@ -111,7 +120,7 @@ export default function DataTable() {
     },
     {
       field: "edit",
-      headerName: "Edit",
+      headerName: "Save Edit",
       width: 150,
       renderCell: (params) => (
         <button
@@ -140,9 +149,9 @@ export default function DataTable() {
           }}
         >
           {rowStates[params.id] ? (
-            <CheckCircleIcon style={{ width: "100%", scale: "1.3" }} />
+            <BeenhereIcon style={{ width: "100%" }} />
           ) : (
-            <CheckCircleOutlineIcon style={{ width: "100%" }} />
+            <SaveIcon style={{ width: "100%" }} />
           )}
         </button>
       ),
@@ -156,7 +165,7 @@ export default function DataTable() {
           type="button"
           style={{
             fontFamily: "PT Sans",
-            backgroundColor: "red",
+            backgroundColor: "none",
             height: "90%",
             margin: "1em",
             padding: "0.9em",
@@ -171,25 +180,40 @@ export default function DataTable() {
     },
   ];
 
-  const personnels = data.map((personne) => ({
-    id: personne.id,
-    name: personne.name,
-    firstname: personne.firstname,
-    email: personne.email,
-    role: personne.role,
-    isPremium: personne.isPremium,
-  }));
+  const personnels = data.map((personne) => {
+    let { role } = personne;
+    if (personne.role === "24680ZRYIP") {
+      role = "user";
+    } else if (personne.role === "13579AETUO") {
+      role = "admin";
+    }
+    return {
+      id: personne.id,
+      name: personne.name,
+      firstname: personne.firstname,
+      email: personne.email,
+      role,
+      isPremium: personne.isPremium,
+    };
+  });
 
   return (
-    <Box sx={{ height: 800, width: "100%", backgroundColor: "black" }}>
+    <div>
       <h1>Users</h1>
-      <DataGrid
-        rows={personnels}
-        columns={columns}
-        rowsPerPageOptions={[5, 10, 20]}
-        style={dataTableStyle}
-      />
-      <div style={{ backgroundColor: "black", height: "500px" }} />
-    </Box>
+      <Box sx={{ height: 800, width: "100%", backgroundColor: "black" }}>
+        <DataGrid
+          rows={personnels}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { pageSize: 10, page: 0 },
+            },
+          }}
+          pageSizeOptions={[10, 15, 25]}
+          style={dataTableStyle}
+        />
+        <div style={{ backgroundColor: "black", height: "500px" }} />
+      </Box>
+    </div>
   );
 }

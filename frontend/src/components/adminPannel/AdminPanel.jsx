@@ -1,7 +1,6 @@
 import React from "react";
-import "../../scss/index.css";
-import { Link, Outlet } from "react-router-dom";
 import "../../styles/index.css";
+import { Link, Outlet } from "react-router-dom";
 import monImage from "../../assets/imagedemo.png";
 import { useAuth } from "../../context/AuthContext";
 
@@ -31,7 +30,7 @@ export default function AdminPanel() {
               <Link to="/adminPanel/videosTable">Pages</Link>
             </li>
             <li>
-              <Link to="/adminPanel/videosTable">Section</Link>
+              <Link to="/adminPanel/sectionsTable">Section</Link>
             </li>
             <li>
               <Link to="/adminPanel/videosTable">Pub</Link>

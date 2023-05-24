@@ -16,9 +16,14 @@ function SectionVideosHautes({ sectionName }) {
   const api = useAPI();
 
   const getVideoData = async () => {
-    await api.get("videos").then((res) => {
-      setData(res.data);
-    });
+    await api
+      .get("videos")
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   useEffect(() => {
     getVideoData();
@@ -30,7 +35,7 @@ function SectionVideosHautes({ sectionName }) {
       setVideoNumber(videoNumber - 1);
       listRef.current.style.transform = `translateX(${650 + distance}px)`;
     }
-    if (direction === "right" && videoNumber < 155) {
+    if (direction === "right" && videoNumber < 25) {
       setVideoNumber(videoNumber + 1);
       listRef.current.style.transform = `translateX(${-650 + distance}px)`;
     }

@@ -1,95 +1,17 @@
 import "../../styles/index.css";
-
-import { useEffect, useState } from "react";
-import ReactPlayer from "react-player";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
+import AccountMenu from "../dashbord/AccountMenu";
 
 export default function Profile() {
-  const api = useAPI();
-  const [data, setData] = useState([]);
   const { userInfo } = useAuth();
 
-  useEffect(() => {
-    api.get("videos").then((result) => setData(result.data));
-  }, []);
-
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 4,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
-
   return (
-    <div id="profile">
-      <h2 className="section-title">{userInfo.email}</h2>
-      <h2 className="section-title">MES FAVORIS</h2>
-      <Carousel
-        swipeable={false}
-        draggable={false}
-        showDots
-        responsive={responsive}
-        infinite
-        autoPlaySpeed={1000}
-        keyBoardControl
-        customTransition="all .5"
-        transitionDuration={500}
-        containerClass="carousel-container"
-        removeArrowOnDeviceType={["tablet", "mobile"]}
-        dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-40-px"
-      >
-        {data.map((item) => (
-          <ReactPlayer
-            key={item.id}
-            url={`${import.meta.env.VITE_BACKEND_URL}${item.link}`}
-            width="100%"
-            controls
-            className="video-div"
-          />
-        ))}
-      </Carousel>
-      <h2 className="section-title">A LA UNE</h2>
-      <Carousel
-        swipeable={false}
-        draggable={false}
-        showDots
-        responsive={responsive}
-        infinite
-        autoPlaySpeed={1000}
-        keyBoardControl
-        customTransition="all .5"
-        transitionDuration={500}
-        containerClass="carousel-container"
-        removeArrowOnDeviceType={["tablet", "mobile"]}
-        dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-40-px"
-      >
-        {data.map((item) => (
-          <ReactPlayer
-            key={item.id}
-            url={`${import.meta.env.VITE_BACKEND_URL}${item.link}`}
-            width="100%"
-            controls
-            className="video-div"
-          />
-        ))}
-      </Carousel>
+    <div id="profil-display">
+      <h1 className="section-title">Profile</h1>
+      <div className="account-menu-display">
+        <AccountMenu userInfo={userInfo} />
+      </div>
     </div>
   );
 }

@@ -5,7 +5,7 @@ const mysql = require("mysql2/promise");
 // create a connection pool to the database
 
 const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
-console.log("toto", DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME);
+
 const pool = mysql.createPool({
   host: DB_HOST,
   port: DB_PORT,
@@ -16,9 +16,8 @@ const pool = mysql.createPool({
 
 // try a connection
 
-pool.getConnection().catch((err) => {
+pool.getConnection().catch(() => {
   console.warn(
-    err,
     "Warning:",
     "Failed to get a DB connection.",
     "Did you create a .env file with valid credentials?",
@@ -40,10 +39,10 @@ const UserManager = require("./UserManager");
 models.user = new UserManager();
 models.user.setDatabase(pool);
 
-const AdvertsManager = require("./AdvertsManager");
+const SectionManager = require("./SectionManager");
 
-models.adverts = new AdvertsManager();
-models.adverts.setDatabase(pool);
+models.section = new SectionManager();
+models.section.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
