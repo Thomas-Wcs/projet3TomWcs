@@ -14,6 +14,7 @@ function SectionCategory({ sectionName }) {
   const [videoNumber, setVideoNumber] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [data, setData] = useState([]);
+
   const api = useAPI();
 
   const getVideoData = async () => {
@@ -49,7 +50,7 @@ function SectionCategory({ sectionName }) {
       setVideoNumber(videoNumber - 1);
       listRef.current.style.transform = `translateX(${650 + distance}px)`;
     }
-    if (direction === "right" && videoNumber < 155) {
+    if (direction === "right" && videoNumber < 25) {
       setVideoNumber(videoNumber + 1);
       listRef.current.style.transform = `translateX(${-650 + distance}px)`;
     }
@@ -96,13 +97,14 @@ function SectionCategory({ sectionName }) {
             ? data.map((item) => (
                 <Video
                   key={item.id}
-                  src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
+                  src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
                   width="650px"
                   height="450px"
                   displayDescription
                   displayDescriptionTitle={item.title}
                   displayDescriptionText={item.description_text}
                   isEnabled
+                  isVideoPremium={item.isVideoPremium}
                 />
               ))
             : data
@@ -110,13 +112,14 @@ function SectionCategory({ sectionName }) {
                 .map((item) => (
                   <Video
                     key={item.id}
-                    src={`${import.meta.env.VITE_APP_API_URL}/${item.link}`}
+                    src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
                     width="650px"
                     height="450px"
                     displayDescription
-                    displayDescriptionTitle={item.titre}
+                    displayDescriptionTitle={item.title}
                     displayDescriptionText={item.description_text}
                     isEnabled
+                    isVideoPremium={item.isVideoPremium}
                   />
                 ))}
         </div>

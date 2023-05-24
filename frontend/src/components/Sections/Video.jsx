@@ -1,8 +1,10 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "../../styles/index.css";
-import thumbnail from "../../assets/images/background-slider.png";
+import { useAuth } from "../../context/AuthContext";
+// import thumbnail from "../../assets/images/background-slider.png";
 import PlayButton from "./PlayButton";
+import videoLock from "../../assets/imgPremium.png";
 
 function Video({
   title,
@@ -14,7 +16,11 @@ function Video({
   displayDescriptionTitle,
   isEnabled,
   src,
+  isVideoPremium,
 }) {
+  const { userInfo } = useAuth();
+  if (!userInfo?.isPremium) userInfo.isPremium = 0;
+
   const [isPlaying, setIsPlaying] = useState(false);
 
   const videoRef = useRef(null);
@@ -40,13 +46,25 @@ function Video({
     <div className="wrapper-video">
       <video
         src={src}
-        poster={thumbnail}
+        poster={
+          (!userInfo || userInfo.isPremium === 0) && isVideoPremium === 1
+            ? videoLock
+            : null
+        }
         muted
         ref={videoRef}
         preload="metadata"
         style={{ width, height }}
-        onMouseOver={isEnabled ? handleToggleVideo : undefined}
-        onFocus={isEnabled ? handleToggleVideo : undefined}
+        onMouseOver={
+          isEnabled && userInfo.isPremium === 0 && isVideoPremium === 1
+            ? null
+            : handleToggleVideo
+        }
+        onFocus={
+          isEnabled && userInfo.isPremium === 0 && isVideoPremium === 1
+            ? null
+            : handleToggleVideo
+        }
       />
       <h3 className="video-title">{title}</h3>
       {displayPlayButton && (
@@ -71,6 +89,7 @@ Video.propTypes = {
   displayDescriptionText: PropTypes.string,
   displayDescriptionTitle: PropTypes.string,
   isEnabled: PropTypes.bool,
+  isVideoPremium: PropTypes.number,
 };
 
 Video.defaultProps = {
@@ -80,5 +99,6 @@ Video.defaultProps = {
   displayDescriptionText: "",
   displayDescriptionTitle: "",
   isEnabled: false,
+  isVideoPremium: undefined,
 };
 export default Video;

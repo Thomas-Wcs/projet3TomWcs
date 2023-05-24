@@ -72,10 +72,11 @@ function Section1({ sectionName }) {
               width="650px"
               height="450px"
               displayDescription
-              displayDescriptionTitle={video.titre}
+              displayDescriptionTitle={video.title}
               displayDescriptionText={video.description_text}
-              src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
+              src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
               isEnabled
+              isVideoPremium={data.isVideoPremium}
             />
           ))}
         </div>

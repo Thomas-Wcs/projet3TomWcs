@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-
 import useApi from "../api/useAPI";
 import "../styles/index.css";
-
 import Featured from "../components/Sections/Featured";
 import SectionTeasers from "../components/Sections/SectionTeasers";
 import Section1 from "../components/Sections/Section1";
