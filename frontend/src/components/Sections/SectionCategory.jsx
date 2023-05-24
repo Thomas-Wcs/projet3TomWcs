@@ -69,12 +69,14 @@ function SectionCategory({ sectionName }) {
     videoWidth += whatToAddToVideoWidth;
 
     const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
+    const totalRestVideosTotalWidth = videoWidth * restVideo;
 
     if (
       direction === "right" &&
       restVideo > 0 &&
       restVideo <= nbVideos &&
-      nbVideos >= nbVideosDisplayedPerClick
+      nbVideos >= nbVideosDisplayedPerClick &&
+      totalRestVideosTotalWidth > windowWidth
     ) {
       const newVideoNumber = videoNumber + 1;
       const translateX = -(newVideoNumber * videoWidth);
