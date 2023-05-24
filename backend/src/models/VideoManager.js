@@ -13,18 +13,36 @@ class VideoManager extends AbstractManager {
   insert(videos) {
     return this.database
       .query(
-        `insert into ${this.table} (title, link, category_id, description_text, date_publication) values (?, ?, ?, ?, ?)`,
+        `insert into ${this.table} (title, link, category_id, description_text, date_publication, isVideoPremium, isVideoPaying) values (?, ?, ?, ?, ?, ?, ?)`,
         [
           videos.title,
           videos.link,
           videos.category_id,
           videos.description_text,
           videos.date_publication,
+          videos.isVideoPremium,
+          videos.isVideoPaying,
         ]
       )
       .then(([result]) => result.insertId)
       .catch((err) => {
         throw err;
+      });
+  }
+
+  findFavorites(userId) {
+    return this.database
+      .query(
+        `SELECT videos.*, categorie.name, videos_user.user_id
+        FROM videos
+        INNER JOIN categorie ON videos.category_id = categorie.id
+        LEFT JOIN videos_user ON videos.id = videos_user.videos_id
+        where user_id = ? or user_id is NULL
+        ;`,
+        [userId]
+      )
+      .catch((err) => {
+        console.error(err);
       });
   }
 
