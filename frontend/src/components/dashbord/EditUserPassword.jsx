@@ -33,6 +33,12 @@ export default function EditUserPassword() {
     };
   }, [modal]);
 
+  const [newPassword, setNewPassword] = useState("");
+  const [verifyPassword, setVerifyPassword] = useState("");
+  const [actualPassword, setActualPassword] = useState("");
+
+  const addNewValues = console.log(newPassword, verifyPassword, actualPassword);
+
   return (
     <div>
       <button className="valide-mdp-button" type="button" onClick={toggleModal}>
@@ -45,16 +51,65 @@ export default function EditUserPassword() {
               <div className="pop-up-abo">
                 <p>Tape ton nouveau mot de passe</p>
                 <form action="editPassword">
-                  <input type="password" name="" id="" />
+                  <input
+                    type="password"
+                    name=""
+                    id="edit-password1"
+                    value={newPassword}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setNewPassword(e.target.value);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                      }
+                    }}
+                  />
                   <br />
-                  <input type="password" name="" id="" />
+                  <input
+                    type="password"
+                    name=""
+                    id="edit-password2"
+                    value={verifyPassword}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setVerifyPassword(e.target.value);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                      }
+                    }}
+                  />
                   <p>Tape ton mot de passe actuel pour confirmer</p>
-                  <input type="password" name="" id="" />
+                  <input
+                    type="password"
+                    name=""
+                    id="edit-password2"
+                    value={actualPassword}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setActualPassword(e.target.value);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                      }
+                    }}
+                  />
                 </form>
                 <button
                   className="valide-mdp-button"
                   type="button"
-                  onClick={toggleModal}
+                  onClick={() => {
+                    console.log("appui");
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                    }
+                  }}
                 >
                   Valider
                 </button>
