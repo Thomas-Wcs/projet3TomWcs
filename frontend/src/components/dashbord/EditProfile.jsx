@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
 import userRole from "../../utils/users";
+import EditUserPassword from "./EditUserPassword";
 
 export default function EditProfile() {
   const { state } = useLocation();
@@ -117,71 +118,65 @@ export default function EditProfile() {
             </button>
           ) : null}
           {imageAvatarDone ? (
-            <p>
-              Image téléchargé avec succées{" "}
+            <div>
+              Image téléchargé avec succées
               <p style={{ color: "red" }}>
                 Veuillez taper votre mot de passe en bas de page pour valider
                 les modifications
               </p>
-            </p>
+            </div>
           ) : null}
           <h4>FistName</h4>
           <div />
-          <p>
-            <input
-              type="text"
-              style={{ backgroundColor: "white", color: "black" }}
-              value={editableContent.userInfo.firstname}
-              onChange={(e) =>
-                setEditableContent({
-                  ...editableContent,
-                  userInfo: {
-                    ...editableContent.userInfo,
-                    firstname: e.target.value,
-                  },
-                })
-              }
-            />
-          </p>
+          <input
+            type="text"
+            style={{ backgroundColor: "white", color: "black" }}
+            value={editableContent.userInfo.firstname}
+            onChange={(e) =>
+              setEditableContent({
+                ...editableContent,
+                userInfo: {
+                  ...editableContent.userInfo,
+                  firstname: e.target.value,
+                },
+              })
+            }
+          />
           <h4>Name</h4>
-          <p>
-            <input
-              type="text"
-              style={{ backgroundColor: "white", color: "black" }}
-              value={editableContent.userInfo.name}
-              onChange={(e) =>
-                setEditableContent({
-                  ...editableContent,
-                  userInfo: {
-                    ...editableContent.userInfo,
-                    name: e.target.value,
-                  },
-                })
-              }
-            />
-          </p>
+          <input
+            type="text"
+            style={{ backgroundColor: "white", color: "black" }}
+            value={editableContent.userInfo.name}
+            onChange={(e) =>
+              setEditableContent({
+                ...editableContent,
+                userInfo: {
+                  ...editableContent.userInfo,
+                  name: e.target.value,
+                },
+              })
+            }
+          />
           <h4>Email </h4>
-          <p>
-            <input
-              type="text"
-              style={{ backgroundColor: "white", color: "black" }}
-              value={editableContent.userInfo.email}
-              onChange={(e) =>
-                setEditableContent({
-                  ...editableContent,
-                  userInfo: {
-                    ...editableContent.userInfo,
-                    email: e.target.value,
-                  },
-                })
-              }
-            />
-          </p>
+          <input
+            type="text"
+            style={{ backgroundColor: "white", color: "black" }}
+            value={editableContent.userInfo.email}
+            onChange={(e) =>
+              setEditableContent({
+                ...editableContent,
+                userInfo: {
+                  ...editableContent.userInfo,
+                  email: e.target.value,
+                },
+              })
+            }
+          />
         </div>
         <div>
-          <button className="valide-mdp-button" type="button">
-            Modifier mot de passe
-          </button>
+          <div>
+            <EditUserPassword />
+          </div>
         </div>
         <div className="user-edit-adresse-information">
           <h3>Adresse</h3>

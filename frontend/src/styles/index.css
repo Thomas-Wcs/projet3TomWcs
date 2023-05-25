@@ -800,7 +800,7 @@ body h1 {
   margin: 10px;
 }
 .user-main-profile .user-adresse-information .avatar-div-user-img .avatar-upload-image {
-  margin: 5%;
+  margin: 25px;
   width: 80px;
   height: 80px;
 }
@@ -847,7 +847,7 @@ body h1 {
     margin: 10px;
   }
   .user-main-profile .user-adresse-information .avatar-div-user-img .avatar-upload-image {
-    margin: 5%;
+    margin: 10px;
     width: 80px;
     height: 80px;
   }
