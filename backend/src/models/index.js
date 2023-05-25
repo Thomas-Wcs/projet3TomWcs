@@ -14,6 +14,8 @@ const pool = mysql.createPool({
   database: DB_NAME,
 });
 
+// try a connection
+
 pool.getConnection().catch(() => {
   console.warn(
     "Warning:",
@@ -22,6 +24,8 @@ pool.getConnection().catch(() => {
     "Routes using models won't work as intended"
   );
 });
+
+// declare and fill models: that's where you should register your own managers
 
 const models = {};
 
@@ -41,12 +45,17 @@ models.section = new SectionManager();
 models.section.setDatabase(pool);
 
 const AdvertsManager = require("./AdvertsManager");
+
 models.adverts = new AdvertsManager();
 models.adverts.setDatabase(pool);
 
 const VideosUserManager = require("./Videos_userManager");
+
 models.videos_user = new VideosUserManager();
 models.videos_user.setDatabase(pool);
+
+// bonus: use a proxy to personalize error message,
+// when asking for a non existing model
 
 const handler = {
   get(obj, prop) {
