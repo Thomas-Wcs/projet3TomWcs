@@ -7,6 +7,8 @@ import AdminPanel from "./components/adminPannel/AdminPanel";
 import Header from "./components/Header/Header";
 import ConnectionPage from "./components/User/ConnectionPage";
 import Profile from "./components/User/Profile";
+import Advert from "./components/advertising/Advert";
+import Footer from "./components/footer/Footer";
 import DataTable from "./components/adminPannel/DataTable";
 import VideosManagement from "./components/adminPannel/VideosManagement";
 import SectionsManagement from "./components/adminPannel/SectionsManagement";
@@ -47,6 +49,8 @@ function App() {
             <Route path="/newSection" element={<SectionAdd />} />
           </Routes>
         </Router>
+        <Advert />
+        <Footer />
       </AuthProvider>
     </div>
   );

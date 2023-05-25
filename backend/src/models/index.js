@@ -44,6 +44,11 @@ const SectionManager = require("./SectionManager");
 models.section = new SectionManager();
 models.section.setDatabase(pool);
 
+const AdvertsManager = require("./AdvertsManager");
+
+models.adverts = new AdvertsManager();
+models.adverts.setDatabase(pool);
+
 const VideosUserManager = require("./Videos_userManager");
 
 models.videos_user = new VideosUserManager();
