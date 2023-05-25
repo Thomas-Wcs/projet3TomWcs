@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 .list .wrapper {
   position: relative;
 }
@@ -777,19 +778,34 @@ body h1 {
 }
 
 #video-main {
+  font-family: "PT Sans";
   width: 100vh;
-  z-index: 6000000000;
 }
 #video-main #video-display {
   width: 100vw;
   height: 100vh;
   color: white;
-  padding: 100px;
-  z-index: 50000;
+  padding-left: 25%;
+  padding-right: 25%;
+  padding-top: 100px;
 }
 #video-main #video-display #video-date {
   color: white;
+  text-align: end;
+  font-size: 1.3rem;
+  padding-bottom: 1%;
 }
-#video-main #video-date {
-  color: white;
+#video-main #video-display #video {
+  width: 100%;
+}
+#video-main #video-display #video-warning {
+  font-size: 1.2rem;
+  color: rgb(172, 172, 172);
+}
+#video-main #video-display #video-description {
+  font-size: 1.3rem;
+}
+#video-main #caroussel {
+  padding-top: 180px;
+  width: 100vw;
 }/*# sourceMappingURL=index.css.map */

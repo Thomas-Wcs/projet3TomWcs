@@ -1,20 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+
 #video-main {
+  font-family: "PT Sans";
   width: 100vh;
-  z-index: 6000000000;
 
   #video-display {
     width: 100vw;
     height: 100vh;
     color: white;
-
-    padding: 100px;
-    z-index: 50000;
+    padding-left: 25%;
+    padding-right: 25%;
+    padding-top: 100px;
 
     #video-date {
       color: white;
+      text-align: end;
+      font-size: 1.3rem;
+      padding-bottom: 1%;
+    }
+    #video {
+      width: 100%;
+    }
+    #video-warning {
+      font-size: 1.2rem;
+      color: rgb(172, 172, 172);
+    }
+    #video-description {
+      font-size: 1.3rem;
     }
   }
-  #video-date {
-    color: white;
+  #caroussel {
+    padding-top: 180px;
+    width: 100vw;
   }
 }

@@ -5,6 +5,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 
@@ -95,17 +96,19 @@ function SectionCategory({ sectionName }) {
         <div className="container container-section" ref={listRef}>
           {!selectedCategory
             ? data.map((item) => (
-                <Video
-                  key={item.id}
-                  src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
-                  width="650px"
-                  height="450px"
-                  displayDescription
-                  displayDescriptionTitle={item.title}
-                  displayDescriptionText={item.description_text}
-                  isEnabled
-                  isVideoPremium={item.isVideoPremium}
-                />
+                <Link to={`/video_description/${item.id}`}>
+                  <Video
+                    key={item.id}
+                    src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
+                    width="650px"
+                    height="450px"
+                    displayDescription
+                    displayDescriptionTitle={item.title}
+                    displayDescriptionText={item.description_text}
+                    isEnabled
+                    isVideoPremium={item.isVideoPremium}
+                  />
+                </Link>
               ))
             : data
                 .filter((item) => item.name === selectedCategory)

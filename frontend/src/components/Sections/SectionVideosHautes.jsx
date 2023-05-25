@@ -5,6 +5,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 
@@ -67,16 +68,18 @@ function SectionVideosHautes({ sectionName }) {
         />
         <div className="container container-section" ref={listRef}>
           {data.map((video) => (
-            <Video
-              key={video.id}
-              width="650px"
-              height="750px"
-              displayDescription
-              displayDescriptionTitle={video.titre}
-              displayDescriptionText={video.description_text}
-              src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
-              isEnabled
-            />
+            <Link to={`/video_description/${video.id}`}>
+              <Video
+                key={video.id}
+                width="650px"
+                height="750px"
+                displayDescription
+                displayDescriptionTitle={video.titre}
+                displayDescriptionText={video.description_text}
+                src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+                isEnabled
+              />
+            </Link>
           ))}
         </div>
         <ArrowForwardIosOutlined
