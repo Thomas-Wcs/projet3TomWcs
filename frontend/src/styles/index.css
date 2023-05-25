@@ -835,6 +835,22 @@ body h1 {
   .user-main-profile {
     display: block;
   }
+  .user-main-profile .user-adresse-information {
+    display: block;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 5%;
+  }
+  .user-main-profile .user-adresse-information .avatar-div-user-img {
+    width: auto;
+    height: auto;
+    margin: 10px;
+  }
+  .user-main-profile .user-adresse-information .avatar-div-user-img .avatar-upload-image {
+    margin: 5%;
+    width: 80px;
+    height: 80px;
+  }
 }
 
 #img-admin-wall {

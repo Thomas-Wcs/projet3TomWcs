@@ -118,7 +118,7 @@ export default function EditProfile() {
           >
             Ajouter
           </button>
-          {imageAvatarDone ? <p>Image ajouté</p> : null}
+          {imageAvatarDone ? <p>Image téléchargé avec succées</p> : null}
           <h4>FistName</h4>
           <div />
           <p>

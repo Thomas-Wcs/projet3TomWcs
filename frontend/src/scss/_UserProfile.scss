@@ -70,5 +70,21 @@
 
   @media screen and (max-width: 768px) {
     display: block;
+    .user-adresse-information {
+      display: block;
+      flex-wrap: wrap;
+      width: 100%;
+      margin: 5%;
+      .avatar-div-user-img {
+        width: auto;
+        height: auto;
+        margin: 10px;
+        .avatar-upload-image {
+          margin: 5%;
+          width: 80px;
+          height: 80px;
+        }
+      }
+    }
   }
 }
