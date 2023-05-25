@@ -28,6 +28,8 @@ function SectionsManagement() {
   const sections = data.map((section) => ({
     id: section.id,
     name: section.name,
+    section_type: section.section_type,
+    order: section.order,
   }));
 
   const deleteSection = async (id) => {
@@ -50,6 +52,26 @@ function SectionsManagement() {
       width: 350,
       editable: true,
       type: "string",
+    },
+    {
+      field: "section_type",
+      headerName: "Section type",
+      width: 350,
+      editable: true,
+      type: "singleSelect",
+      valueOptions: [
+        "section avec catégorie",
+        "section sans catégorie",
+        "section teasers",
+        "section hero",
+      ],
+    },
+    {
+      field: "order",
+      headerName: "Ordre",
+      width: 100,
+      editable: true,
+      type: "number",
     },
     {
       field: "action",

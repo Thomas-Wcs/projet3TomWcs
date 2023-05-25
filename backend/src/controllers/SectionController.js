@@ -60,7 +60,11 @@ const edit = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      if (err.errno === 1062) {
+        res.sendStatus(409);
+      } else {
+        res.sendStatus(500);
+      }
     });
 };
 
