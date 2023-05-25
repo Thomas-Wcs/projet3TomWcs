@@ -36,7 +36,6 @@ function VideoAdd() {
     formData.append("date_publication", Date());
     formData.append("section_id", section);
 
-    console.log(section);
     api
       .post("/video_section", formData)
 

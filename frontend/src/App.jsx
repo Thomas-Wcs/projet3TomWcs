@@ -14,6 +14,7 @@ import SectionAdd from "./components/adminPannel/SectionAdd";
 import VideoAdd from "./components/adminPannel/VideoAdd";
 import { AuthProvider } from "./context/AuthContext";
 import AdminWall from "./utils/AdminWall";
+import VideoDescription from "./components/VideoDescription/VideoDescription";
 
 function App() {
   return (
@@ -41,6 +42,10 @@ function App() {
             </Route>
             <Route path="/sections/:id" element={<SectionUpdate />} />
             <Route path="/videos/:id" element={<VideoUpdate />} />
+            <Route
+              path="video_description/:id"
+              element={<VideoDescription />}
+            />
 
             <Route path="/newSection" element={<SectionAdd />} />
             <Route path="/newVideo" element={<VideoAdd />} />

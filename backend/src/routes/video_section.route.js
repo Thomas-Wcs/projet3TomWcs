@@ -9,6 +9,8 @@ const upload = multer({ dest: uploadFolder });
 const VideoSectionController = require("../controllers/VideoSectionController");
 
 videoSectionRouter.get("/", VideoSectionController.browse);
+videoSectionRouter.get("/:id", VideoSectionController.read);
+
 videoSectionRouter.post("/", upload.single("link"), VideoSectionController.add);
 videoSectionRouter.delete("/:id", VideoSectionController.destroy);
 

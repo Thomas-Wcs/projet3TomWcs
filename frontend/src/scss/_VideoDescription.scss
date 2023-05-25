@@ -1,0 +1,20 @@
+#video-main {
+  width: 100vh;
+  z-index: 6000000000;
+
+  #video-display {
+    width: 100vw;
+    height: 100vh;
+    color: white;
+
+    padding: 100px;
+    z-index: 50000;
+
+    #video-date {
+      color: white;
+    }
+  }
+  #video-date {
+    color: white;
+  }
+}
