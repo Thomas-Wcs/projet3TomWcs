@@ -21,6 +21,7 @@ function SectionUpdate() {
     "section sans catégorie",
     "section teasers",
     "section hero",
+    "section grande hauteur",
   ];
 
   useEffect(() => {
@@ -102,6 +103,7 @@ function SectionUpdate() {
               onChange={handleChange}
               name="order"
               min="1"
+              max="10"
               style={{ border: error ? "1px solid red" : "" }}
             />
           </div>
@@ -116,8 +118,8 @@ function SectionUpdate() {
               onChange={handleChange}
               name="section_type"
             >
-              {options.map((option, index) => (
-                <option value={option} key={index}>
+              {options.map((option) => (
+                <option value={option} key={option.id}>
                   {option}
                 </option>
               ))}

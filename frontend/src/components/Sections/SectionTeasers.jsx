@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import "../../styles/index.css";
 import {
   ArrowBackIosOutlined,
@@ -7,7 +8,7 @@ import {
 import useAPI from "../../api/useAPI";
 import Video from "./Video";
 
-function SectionTeasers() {
+function SectionTeasers({ sectionName }) {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
@@ -65,7 +66,7 @@ function SectionTeasers() {
 
   return (
     <div className="list">
-      <h1 className="section-name">teasers</h1>
+      <h1 className="section-name">{sectionName}</h1>
       <div className="wrapper">
         <ArrowBackIosOutlined
           className="sliderArrow left"
@@ -91,5 +92,9 @@ function SectionTeasers() {
     </div>
   );
 }
+
+SectionTeasers.propTypes = {
+  sectionName: PropTypes.string.isRequired,
+};
 
 export default SectionTeasers;
