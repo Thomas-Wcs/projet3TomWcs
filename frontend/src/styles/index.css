@@ -303,10 +303,8 @@ body h1 {
   font-weight: 400;
   font-family: Roboto;
   outline: 0;
-  -webkit-transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
-    padding 0.2s;
-  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
-    padding 0.2s;
+  -webkit-transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out, padding 0.2s;
+  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out, padding 0.2s;
   -webkit-transition-delay: 0.4s;
   transition-delay: 0.4s;
   -webkit-transform: translate(-100%, -50%);
@@ -396,10 +394,8 @@ body h1 {
   max-width: 300px;
   position: fixed;
   left: 0;
-  -webkit-transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out,
-    padding 0.2s;
-  transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out,
-    padding 0.2s;
+  -webkit-transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out, padding 0.2s;
+  transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out, padding 0.2s;
   -webkit-transition-delay: 0.4s, 0s, 0.4s;
   transition-delay: 0.4s, 0s, 0.4s;
   -webkit-transform: translate(-100%, -50%);
@@ -643,12 +639,18 @@ body h1 {
   }
 }
 .advert_image {
-  position: relative;
   width: 100%;
   height: 255px;
   display: flex;
   justify-content: center;
 }
+.advert_image .advert_position {
+  width: 100%;
+  height: 255px;
+  display: flex;
+  justify-content: center;
+}
+
 .css-204u17-MuiDataGrid-main {
   color: white;
 }
@@ -730,41 +732,15 @@ body h1 {
   height: 300px;
   line-height: 2rem;
 }
-.advert_image.advert_position {
-  position: relative;
-  width: 100%;
-  height: 255px;
-  display: flex;
-  justify-content: center;
-  .admin-videos {
-    border: 1px solid black;
-    height: 300px;
-    line-height: 2rem;
-  }
-  .admin-videos button {
-    text-decoration: none;
-    color: #10bcdd;
-    transition: 0.3s ease-in-out;
-    border: solid 2px;
-    border-radius: 5%;
-    padding: 10px 30px;
-    margin: 10px;
-    background-color: #000000;
-  }
-  .admin-videos button:hover {
-    background-color: rgb(85, 85, 85);
-    opacity: 1.4;
-    transform: scale(1.1);
-  }
-  .admin-videos .video-text {
-    font-size: 2rem;
-    height: 40px;
-  }
-  .admin-videos .video-text input {
-    height: 40px;
-    background: rgba(128, 128, 128, 0);
-    font-size: 2rem;
-  }
+.admin-videos button {
+  text-decoration: none;
+  color: #10bcdd;
+  transition: 0.3s ease-in-out;
+  border: solid 2px;
+  border-radius: 5%;
+  padding: 10px 30px;
+  margin: 10px;
+  background-color: #000000;
 }
 .admin-videos button:hover {
   background-color: rgb(85, 85, 85);
@@ -868,7 +844,7 @@ body h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-} /*# sourceMappingURL=index.css.map */
+}
 
 .modal-open {
   overflow-y: hidden;
@@ -1005,4 +981,35 @@ body h1 {
   .video-grid {
     grid-template-columns: 1fr;
   }
-} /*# sourceMappingURL=index.css.map */
+}
+.footer_container {
+  display: flex;
+  flex-direction: row;
+  padding: 2rem;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.footer_container .footer_logo {
+  width: 40px;
+  height: 40px;
+}
+.footer_container .footer_brand_text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  color: #10bcdd;
+}
+.footer_container .footer_brand_text .footer_list {
+  display: flex;
+  list-style-type: none;
+}
+.footer_container .footer_brand_text .footer_list .footer_list li {
+  margin-left: 4px;
+}
+.footer_container .footer_link {
+  color: #10bcdd;
+}/*# sourceMappingURL=index.css.map */

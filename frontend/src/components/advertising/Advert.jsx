@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../styles/Advert.css";
+import "../../styles/index.css";
 import useAPI from "../../api/useAPI";
 
 function Advert() {
