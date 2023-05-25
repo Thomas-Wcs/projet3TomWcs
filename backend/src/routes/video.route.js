@@ -11,6 +11,10 @@ const videoRoute = express.Router();
 const VideoController = require("../controllers/VideoController");
 
 videoRoute.get("/", VideoController.browse);
+videoRoute.get(
+  "/allVideoAndFavorite/:id",
+  VideoController.findAllVideoAndFavorite
+);
 videoRoute.get("/:id", VideoController.read);
 videoRoute.use(auth.verifyToken);
 videoRoute.put("/:id", VideoController.edit);

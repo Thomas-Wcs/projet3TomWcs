@@ -1,9 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import UserFavorite from "./components/dashbord/UserFavorite";
+import EditAbo from "./components/dashbord/EditAbo";
+import EditProfile from "./components/dashbord/EditProfile";
 import UserProfile from "./components/dashbord/UserProfile";
 import AdminPanel from "./components/adminPannel/AdminPanel";
 import Header from "./components/Header/Header";
 import ConnectionPage from "./components/User/ConnectionPage";
 import Profile from "./components/User/Profile";
+import Advert from "./components/advertising/Advert";
+import Footer from "./components/footer/Footer";
 import DataTable from "./components/adminPannel/DataTable";
 import VideosManagement from "./components/adminPannel/VideosManagement";
 import SectionsManagement from "./components/adminPannel/SectionsManagement";
@@ -27,6 +32,9 @@ function App() {
             <Route path="/connexion" element={<ConnectionPage />} />
             <Route path="/profile" element={<Profile />}>
               <Route path="/profile/userid" element={<UserProfile />} />
+              <Route path="/profile/useredit" element={<EditProfile />} />
+              <Route path="/profile/aboedit" element={<EditAbo />} />
+              <Route path="/profile/userfavorite" element={<UserFavorite />} />
             </Route>
             <Route
               path="adminPanel"
@@ -51,6 +59,8 @@ function App() {
             <Route path="/newVideo" element={<VideoAdd />} />
           </Routes>
         </Router>
+        <Advert />
+        <Footer />
       </AuthProvider>
     </div>
   );

@@ -55,8 +55,10 @@ function SectionTeasers() {
               key={video.id}
               width="650px"
               height="450px"
+              src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
+              isVideoPremium={video.isVideoPremium}
+              isVideoPaying={video.isVideoPaying}
               isEnabled
-              src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
             />
           ))}
         </div>

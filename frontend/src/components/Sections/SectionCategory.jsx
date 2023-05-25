@@ -121,8 +121,9 @@ function SectionCategory({ sectionName }) {
                     displayDescription
                     displayDescriptionTitle={item.title}
                     displayDescriptionText={item.description_text}
-                    isEnabled
                     isVideoPremium={item.isVideoPremium}
+                    isVideoPaying={item.isVideoPaying}
+                    isEnabled
                   />
                 ))}
         </div>

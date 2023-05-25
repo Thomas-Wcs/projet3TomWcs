@@ -44,7 +44,7 @@ function VideosManagement() {
 
   const columns = [
     { field: "id", headerName: "Id", width: 150 },
-    { field: "title", headerName: "Title", width: 150, editable: true },
+    { field: "title", headerName: "Title", width: 350, editable: true },
     {
       field: "description_text",
       headerName: "Description",

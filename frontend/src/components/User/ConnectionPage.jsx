@@ -70,6 +70,11 @@ export default function ConnectionPage() {
             placeholder="Mot de Passe"
             value={mdp}
             onChange={(e) => setMdp(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit(e);
+              }
+            }}
           />
           {errorMessage && <p id="password-error">Sorry, Wrong Password</p>}
           <button type="button" className="user-button" onClick={handleSubmit}>

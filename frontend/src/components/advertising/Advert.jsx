@@ -1,0 +1,44 @@
+import React, { useState, useEffect } from "react";
+import "../../styles/index.css";
+import useAPI from "../../api/useAPI";
+
+function Advert() {
+  const [advert, setAdvert] = useState([]);
+  console.error(advert);
+  const api = useAPI();
+  const [currentAdvertIndex, setCurrentAdvertIndex] = useState(0);
+
+  useEffect(() => {
+    api
+      .get("/adverts")
+      .then((res) => {
+        setAdvert(res.data);
+        console.error(res.data);
+        setCurrentAdvertIndex(Math.floor(Math.random() * res.data.length));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  const currentAdvert = advert[currentAdvertIndex];
+  console.error(currentAdvert);
+
+  return (
+    <div className="advert_image">
+      {currentAdvert && (
+        <a href={currentAdvert.picture_link}>
+          <img
+            src={`${import.meta.env.VITE_APP_API_URL}/${
+              currentAdvert.picture_link
+            }`}
+            alt={currentAdvert.pictures}
+            className="advert_position"
+          />
+        </a>
+      )}
+    </div>
+  );
+}
+
+export default Advert;

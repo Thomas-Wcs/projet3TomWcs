@@ -7,7 +7,7 @@ function VideoUpdate() {
   const { id } = useParams();
   const api = useAPI();
   const navigate = useNavigate();
-
+  const [allCategory, setCategory] = useState();
   const [videoData, setVideoData] = useState({
     id: "",
     category_id: "",
@@ -15,6 +15,10 @@ function VideoUpdate() {
     description_text: "",
     title: "",
   });
+
+  useEffect(() => {
+    api.get("/category").then((res) => setCategory(res.data));
+  }, [id]);
 
   useEffect(() => {
     const getVideoData = async () => {
@@ -93,16 +97,19 @@ function VideoUpdate() {
           />
         </div>
         <div className="sectionUpdateName">
-          <select
-            name="category_id"
-            value={videoData.category_id}
-            onChange={handleChange}
-          >
-            <option value="1">Animaux</option>
-            <option value="2">Sports</option>
-            <option value="3">Cuisine</option>
-            <option value="4">Voyage</option>
-          </select>
+          {allCategory?.name && (
+            <select
+              name="category_id"
+              value={videoData.category_id}
+              onChange={handleChange}
+            >
+              {allCategory.map((cat) => (
+                <option value={cat.id} key={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
         <button type="submit" className="sectionUpdateButton">
           Mettre à jour

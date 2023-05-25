@@ -4,6 +4,7 @@ import "../../styles/index.css";
 import monImage from "../../assets/imagedemo.png";
 import { useAuth } from "../../context/AuthContext";
 import useAPI from "../../api/useAPI";
+import AccountMenu2 from "../dashbord/AccountMenu2";
 
 export default function AdminPanel() {
   const { userInfo, setSuccess, success, setIsAdmin } = useAuth();
@@ -33,6 +34,12 @@ export default function AdminPanel() {
       </div>
       <div className="display-nav-admin2">
         <div>
+          <div className="user-connected">
+            <AccountMenu2 userInfo={userInfo} />
+            <p> Admin : {userInfo.name}</p>
+            <p> {userInfo.email}</p>
+            <button type="button">DECONNEXION</button>
+          </div>
           <ul>
             <li>
               <Link to="/adminPanel/usersTable">Users</Link>
@@ -53,7 +60,7 @@ export default function AdminPanel() {
         </div>
       </div>
       <div>
-        <Outlet />
+        <Outlet name="adminPanel" />
       </div>
     </div>
   );

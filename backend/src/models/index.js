@@ -49,6 +49,15 @@ models.categorie.setDatabase(pool);
 
 models.videoSection = new VideoSectionManager();
 models.videoSection.setDatabase(pool);
+const AdvertsManager = require("./AdvertsManager");
+
+models.adverts = new AdvertsManager();
+models.adverts.setDatabase(pool);
+
+const VideosUserManager = require("./Videos_userManager");
+
+models.videos_user = new VideosUserManager();
+models.videos_user.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
