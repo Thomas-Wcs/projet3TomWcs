@@ -28,7 +28,7 @@ const verifyPassword = async (req, res) => {
       if (isVerified) {
         const payload = { sub: req.user.id };
         const token = jwt.sign(payload, process.env.JWT_SECRET);
-        delete req.user.hashedPassword;
+        delete req.user.mdp;
         res.send({ token, user: req.user });
       } else {
         res.sendStatus(401);

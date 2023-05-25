@@ -22,7 +22,7 @@ export default function EditProfile() {
     setImageAvatarDone(true);
     setTimeout(() => {
       setImageAvatarDone(false);
-    }, 3000);
+    }, 5000);
   };
 
   let avatarImg;
@@ -69,7 +69,7 @@ export default function EditProfile() {
     setMdp("");
     setAvatarUpload(null);
   };
-  const handleAddVideos = (e) => {
+  const handleAddAvatar = (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("link", avatarUpload);
@@ -93,10 +93,6 @@ export default function EditProfile() {
                   src={avatarImg}
                   alt=" avatar utilisateur "
                 />
-                <p style={{ color: "red" }}>
-                  Veuillez taper votre mot de passe pour valider les
-                  modifications
-                </p>
               </div>
             ) : null}
           </div>
@@ -108,17 +104,27 @@ export default function EditProfile() {
               id="file-avatar-user-button"
             />
           </label>
-          <button
-            type="submit"
-            onClick={(e) => {
-              handleAddVideos(e);
-              doneImageAvatar();
-            }}
-            className="valide-mdp-button"
-          >
-            Ajouter
-          </button>
-          {imageAvatarDone ? <p>Image téléchargé avec succées</p> : null}
+          {avatarImg ? (
+            <button
+              type="submit"
+              onClick={(e) => {
+                handleAddAvatar(e);
+                doneImageAvatar();
+              }}
+              className="valide-mdp-button"
+            >
+              Valider avatar
+            </button>
+          ) : null}
+          {imageAvatarDone ? (
+            <p>
+              Image téléchargé avec succées{" "}
+              <p style={{ color: "red" }}>
+                Veuillez taper votre mot de passe en bas de page pour valider
+                les modifications
+              </p>
+            </p>
+          ) : null}
           <h4>FistName</h4>
           <div />
           <p>
@@ -172,7 +178,11 @@ export default function EditProfile() {
             />
           </p>
         </div>
-
+        <div>
+          <button className="valide-mdp-button" type="button">
+            Modifier mot de passe
+          </button>
+        </div>
         <div className="user-edit-adresse-information">
           <h3>Adresse</h3>
           <h4>Ville</h4>
@@ -188,19 +198,33 @@ export default function EditProfile() {
         </div>
         <div>
           <h4>Tapez votre mot de passe pour valider les modifications :</h4>
-          <p>
+          <form action="">
             <input
               type="password"
               style={{ backgroundColor: "white", color: "black" }}
               value={mdp}
-              onChange={(e) => setMdp(e.target.value)}
+              onChange={(e) => {
+                e.preventDefault();
+                setMdp(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  editUser();
+                }
+              }}
             />
-          </p>
+          </form>
         </div>
         <div>
-          {errorMessage && <p id="password-error">Mot de passe incorrect</p>}
+          {errorMessage && (
+            <p style={{ color: "red" }} id="password-error">
+              Mot de passe incorrect
+            </p>
+          )}
           {doneMessage && <p id="password-error">Mise à jour des infos</p>}
           <button
+            autoComplete="off"
             className="valide-mdp-button"
             type="button"
             onClick={editUser}
