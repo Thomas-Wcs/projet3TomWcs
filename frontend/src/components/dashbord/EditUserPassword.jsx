@@ -37,7 +37,7 @@ export default function EditUserPassword() {
   const [verifyPassword, setVerifyPassword] = useState("");
   const [actualPassword, setActualPassword] = useState("");
 
-  const addNewValues = console.log(newPassword, verifyPassword, actualPassword);
+  // const addNewValues = console.log(newPassword, verifyPassword, actualPassword);
 
   return (
     <div>
@@ -103,6 +103,7 @@ export default function EditUserPassword() {
                   className="valide-mdp-button"
                   type="button"
                   onClick={() => {
+                    // eslint-disable-next-line no-restricted-syntax
                     console.log("appui");
                   }}
                   onKeyDown={(e) => {
