@@ -196,7 +196,6 @@ export default function EditProfile() {
           <form action="">
             <input
               type="password"
-              style={{ backgroundColor: "white", color: "black" }}
               value={mdp}
               onChange={(e) => {
                 e.preventDefault();
