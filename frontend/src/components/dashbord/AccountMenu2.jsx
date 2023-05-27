@@ -16,7 +16,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import VideoSettingsIcon from "@mui/icons-material/VideoSettings";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import HomeIcon from "@mui/icons-material/Home";
-import monImage from "../../assets/imagedemo.png";
 import dashbordStyles from "./dashbord";
 
 export default function AccountMenu({ userInfo, reset }) {
@@ -118,7 +117,11 @@ export default function AccountMenu({ userInfo, reset }) {
           to="/profile/userid"
           onClick={handleClose}
         >
-          <Avatar alt="Image de l'utilisateur" src={monImage} /> Informations
+          <Avatar
+            alt="Image de l'utilisateur"
+            src={`${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`}
+          />
+          Informations
         </MenuItem>
         <MenuItem
           sx={dashbordStyles}
