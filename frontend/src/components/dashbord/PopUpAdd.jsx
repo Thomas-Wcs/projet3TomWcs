@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import bravo from "../../assets/bravo.svg.png";
+import { useAuth } from "../../context/AuthContext";
 
 export default function PopUp() {
   const api = useAPI();
   const { state } = useLocation();
+  const { setUserInfo } = useAuth();
 
   const [modal, setModal] = useState(false);
 
@@ -34,6 +36,15 @@ export default function PopUp() {
     };
   }, [modal]);
 
+  const refreshAboStatus = async () => {
+    try {
+      const res = await api.get(`users/${state.userInfo.id}`);
+      setUserInfo(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const clickEditPremium = () => {
     (async () => {
       try {
@@ -48,12 +59,13 @@ export default function PopUp() {
           isPremium: data.isPremium,
           isVideoPlus: 1,
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
       } catch (error) {
         console.error(error);
       }
+      refreshAboStatus();
+      setTimeout(() => {
+        toggleModal();
+      }, 500);
     })();
   };
 
@@ -81,12 +93,7 @@ export default function PopUp() {
                   }}
                   alt="bravo"
                 />
-                <p>
-                  Félicitations votre abonnement viens d'etre activé.
-                  <br /> <br />
-                  Veuillez vous reconnecter s'il vous plait pour profiter de vos
-                  nouvelles options !
-                </p>
+                <p>Valider le paiement avec la banque</p>
                 <button
                   className="valide-mdp-button"
                   type="button"

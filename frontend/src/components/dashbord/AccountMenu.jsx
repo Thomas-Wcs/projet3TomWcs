@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import PropTypes from "prop-types";
+import PropTypes, { number } from "prop-types";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -205,6 +205,7 @@ AccountMenu.propTypes = {
     firstname: PropTypes.string,
     email: PropTypes.string,
     avatar: PropTypes.string,
+    isVideoPlus: PropTypes.number,
   }),
   reset: PropTypes.func,
 };
@@ -214,6 +215,7 @@ AccountMenu.defaultProps = {
     firstname: "",
     email: "",
     avatar: "",
+    isVideoPlus: number,
   },
   reset: () => {},
 };
