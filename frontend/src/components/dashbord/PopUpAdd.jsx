@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import bravo from "../../assets/bravo.svg.png";
+import bank from "../../assets/bank.jpg";
 import { useAuth } from "../../context/AuthContext";
 
 export default function PopUp() {
@@ -10,6 +11,7 @@ export default function PopUp() {
   const { setUserInfo } = useAuth();
 
   const [modal, setModal] = useState(false);
+  const [bravoModal, setBravoModal] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -35,6 +37,31 @@ export default function PopUp() {
       document.body.classList.remove("modal-open");
     };
   }, [modal]);
+
+  const toggleBravoModal = () => {
+    setBravoModal(!bravoModal);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setBravoModal(false);
+      }
+    };
+
+    if (bravoModal) {
+      document.addEventListener("keydown", handleKeyDown);
+      document.body.classList.add("modal-open");
+    } else {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.classList.remove("modal-open");
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.classList.remove("modal-open");
+    };
+  }, [bravoModal]);
 
   const refreshAboStatus = async () => {
     try {
@@ -66,6 +93,7 @@ export default function PopUp() {
       setTimeout(() => {
         toggleModal();
       }, 500);
+      toggleBravoModal();
     })();
   };
 
@@ -85,7 +113,7 @@ export default function PopUp() {
             {modal && (
               <div className="pop-up-abo">
                 <img
-                  src={bravo}
+                  src={bank}
                   style={{
                     borderRadius: "30px",
                     width: "300px",
@@ -97,7 +125,44 @@ export default function PopUp() {
                 <button
                   className="valide-mdp-button"
                   type="button"
+                  onClick={toggleModal}
+                >
+                  Annuler
+                </button>
+                <button
+                  className="valide-mdp-button"
+                  type="button"
                   onClick={clickEditPremium}
+                >
+                  Confirmer
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      <div>
+        {bravoModal && (
+          <div className="overlay-abo-div" role="dialog" aria-modal="true">
+            {bravoModal && (
+              <div className="pop-up-abo">
+                <img
+                  src={bravo}
+                  style={{
+                    borderRadius: "30px",
+                    width: "300px",
+                    height: "200px",
+                  }}
+                  alt="bravo"
+                />
+                <p>
+                  Bravo vous pouvez maintenant profiter de votre abonnement !
+                </p>
+                <button
+                  className="valide-mdp-button"
+                  type="button"
+                  onClick={toggleBravoModal}
                 >
                   Confirmer
                 </button>
