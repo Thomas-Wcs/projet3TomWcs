@@ -156,9 +156,7 @@ export default function PopUp() {
                   }}
                   alt="bravo"
                 />
-                <p>
-                  Bravo vous pouvez maintenant profiter de votre abonnement !
-                </p>
+                <p>Vous pouvez maintenant profiter de votre abonnement !</p>
                 <button
                   className="valide-mdp-button"
                   type="button"
