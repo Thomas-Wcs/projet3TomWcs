@@ -123,14 +123,14 @@ export default function PopUp() {
                 />
                 <p>Valider le paiement avec la banque</p>
                 <button
-                  className="valide-mdp-button"
+                  className="button-pop-for-all"
                   type="button"
                   onClick={toggleModal}
                 >
                   Annuler
                 </button>
                 <button
-                  className="valide-mdp-button"
+                  className="button-pop-for-all"
                   type="button"
                   onClick={clickEditPremium}
                 >
@@ -158,7 +158,7 @@ export default function PopUp() {
                 />
                 <p>Vous pouvez maintenant profiter de votre abonnement !</p>
                 <button
-                  className="valide-mdp-button"
+                  className="button-pop-for-all"
                   type="button"
                   onClick={toggleBravoModal}
                 >

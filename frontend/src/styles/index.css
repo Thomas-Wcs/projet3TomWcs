@@ -867,6 +867,7 @@ body h1 {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  align-items: center;
   border-radius: 30px;
   color: #10bcdd;
   position: fixed;
@@ -890,6 +891,22 @@ body h1 {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 3;
+}
+
+.button-pop-for-all {
+  font-family: "PT Sans";
+  color: #10bcdd;
+  transition: 0.3s ease-in-out;
+  border: solid 2px;
+  border-radius: 5%;
+  padding: 10px 30px;
+  margin: 2%;
+  background-color: black;
+}
+.button-pop-for-all:hover {
+  background-color: rgb(85, 85, 85);
+  opacity: 1.4;
+  transform: scale(1.1);
 }
 
 @media (max-width: 769px) {

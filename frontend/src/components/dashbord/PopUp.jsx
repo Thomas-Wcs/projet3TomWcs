@@ -87,14 +87,14 @@ export default function PopUp() {
                   solution adaptée à ton abonnement.
                 </p>
                 <button
-                  className="valide-mdp-button"
+                  className="button-pop-for-all"
                   type="button"
                   onClick={toggleModal}
                 >
                   Annuler
                 </button>
                 <button
-                  className="valide-mdp-button"
+                  className="button-pop-for-all"
                   type="button"
                   onClick={clickEditPremium}
                 >
