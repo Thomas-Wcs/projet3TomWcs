@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import contactAbo from "../../assets/service.png";
+import { useAuth } from "../../context/AuthContext";
 
 export default function PopUp() {
   const api = useAPI();
   const { state } = useLocation();
+  const { setUserInfo } = useAuth();
 
   const [modal, setModal] = useState(false);
 
@@ -34,6 +36,15 @@ export default function PopUp() {
     };
   }, [modal]);
 
+  const refreshAboStatus = async () => {
+    try {
+      const res = await api.get(`users/${state.userInfo.id}`);
+      setUserInfo(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const clickEditPremium = () => {
     (async () => {
       try {
@@ -48,9 +59,10 @@ export default function PopUp() {
           isPremium: data.isPremium,
           isVideoPlus: 0,
         });
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 2000);
+        refreshAboStatus();
+        setTimeout(() => {
+          toggleModal();
+        }, 200);
       } catch (error) {
         console.error(error);
       }
