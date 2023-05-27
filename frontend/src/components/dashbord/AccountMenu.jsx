@@ -130,7 +130,7 @@ export default function AccountMenu({ userInfo, reset }) {
           to="/"
           onClick={handleClose}
         >
-          <HomeIcon sx={{ margin: "5%" }} /> Home
+          <HomeIcon sx={{ margin: "5%" }} /> Acceuil
         </MenuItem>
         <MenuItem
           sx={dashbordStyles}
@@ -139,7 +139,7 @@ export default function AccountMenu({ userInfo, reset }) {
           to="/profile/userfavorite"
           onClick={handleClose}
         >
-          <VideoSettingsIcon sx={{ margin: "5%" }} /> My Videos
+          <VideoSettingsIcon sx={{ margin: "5%" }} /> Mes Videos
         </MenuItem>
         <Divider />
         <MenuItem
@@ -152,7 +152,7 @@ export default function AccountMenu({ userInfo, reset }) {
           <ListItemIcon>
             <EditIcon fontSize="small" />
           </ListItemIcon>
-          Edit Profil
+          Editer Profil
         </MenuItem>
         <MenuItem
           sx={dashbordStyles}
@@ -170,7 +170,7 @@ export default function AccountMenu({ userInfo, reset }) {
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Settings
+          Réglages
         </MenuItem>
         <MenuItem sx={dashbordStyles} onClick={handleClose}>
           <ListItemIcon>
@@ -182,7 +182,7 @@ export default function AccountMenu({ userInfo, reset }) {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          Déconnexion
         </MenuItem>
       </Menu>
       <div className="div-savoir-tu-esqui">

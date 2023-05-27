@@ -4,7 +4,7 @@ import "../../styles/index.css";
 import { useAuth } from "../../context/AuthContext";
 import PlayButton from "./PlayButton";
 import videoLock from "../../assets/connect.png";
-import HotPot from "../../assets/imgPremium.png";
+import HotPot from "../../assets/cadenat.jpeg";
 
 function Video({
   title,
