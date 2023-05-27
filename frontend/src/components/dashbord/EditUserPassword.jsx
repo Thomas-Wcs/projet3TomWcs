@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-// import { useLocation } from "react-router-dom";
-// import useAPI from "../../api/useAPI";
+import { useLocation } from "react-router-dom";
+import useAPI from "../../api/useAPI";
 
 export default function EditUserPassword() {
-  // const api = useAPI();
-  // const { state } = useLocation();
+  const api = useAPI();
+  const { state } = useLocation();
 
   const [modal, setModal] = useState(false);
 
@@ -35,9 +35,23 @@ export default function EditUserPassword() {
 
   const [newPassword, setNewPassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
-  const [actualPassword, setActualPassword] = useState("");
+  const [mdp, setMdp] = useState("");
 
-  // const addNewValues = console.log(newPassword, verifyPassword, actualPassword);
+  const addNewPassword = async () => {
+    const newValue = {
+      newPassword,
+      mdp,
+      email: state.userInfo.email,
+      id: state.userInfo.id,
+    };
+    if (newPassword === verifyPassword) {
+      try {
+        await api.post("users/updatePassword", newValue);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   return (
     <div>
@@ -86,11 +100,11 @@ export default function EditUserPassword() {
                   <input
                     type="password"
                     name=""
-                    id="edit-password2"
-                    value={actualPassword}
+                    id="edit-password3"
+                    value={mdp}
                     onChange={(e) => {
                       e.preventDefault();
-                      setActualPassword(e.target.value);
+                      setMdp(e.target.value);
                     }}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
@@ -103,8 +117,7 @@ export default function EditUserPassword() {
                   className="valide-mdp-button"
                   type="button"
                   onClick={() => {
-                    // eslint-disable-next-line no-restricted-syntax
-                    console.log("appui");
+                    addNewPassword();
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {

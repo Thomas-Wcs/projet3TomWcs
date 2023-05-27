@@ -15,6 +15,18 @@ const validate = (data, forCreation = true) => {
     .validate(data, { abortEarly: false }).error;
 };
 
+const validatePassword = (data, forCreation = true) => {
+  const presence = forCreation ? "required" : "optional";
+  return joi
+    .object({
+      newPassword: joi.string().max(255).presence(presence),
+      mdp: joi.string().max(255).presence(presence),
+      email: joi.string().email().presence(presence),
+      id: joi.number().presence(presence),
+    })
+    .validate(data, { abortEarly: false }).error;
+};
+
 const browse = (req, res) => {
   models.user
     .findAll()
@@ -80,12 +92,33 @@ const add = async (req, res) => {
       email,
       mdp: hashed,
     });
-
     return res.status(201).json(result);
   } catch (err) {
     if (err.message === "User already exists") {
       return res.status(409).send("User already exists");
     }
+    console.error(err);
+    return res.sendStatus(500);
+  }
+};
+
+const updateNewPassword = async (req, res) => {
+  const error = validatePassword(req.body);
+  if (error) {
+    return res.sendStatus(422);
+  }
+  const { newPassword, id } = req.body;
+  const hashed = await hashPassword(newPassword);
+  if (!hashed) {
+    return res.sendStatus(500);
+  }
+  try {
+    await models.user.updatePassword({
+      mdp: hashed,
+      id,
+    });
+    return res.status(201);
+  } catch (err) {
     console.error(err);
     return res.sendStatus(500);
   }
@@ -174,4 +207,5 @@ module.exports = {
   destroy,
   login,
   findOne,
+  updateNewPassword,
 };

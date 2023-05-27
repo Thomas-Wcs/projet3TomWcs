@@ -176,7 +176,7 @@ export default function EditProfile() {
         </div>
         <div>
           <div>
-            <EditUserPassword />
+            <EditUserPassword state={state} />
           </div>
         </div>
         <div className="user-edit-adresse-information">

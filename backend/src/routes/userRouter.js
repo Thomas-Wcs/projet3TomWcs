@@ -15,6 +15,12 @@ userRouter.get("/name", userController.findOne);
 
 userRouter.get("/:id", userController.read);
 userRouter.put("/:id", userController.edit);
+userRouter.post(
+  "/updatePassword",
+  userController.login,
+  auth.verifyEditPassword,
+  userController.updateNewPassword
+);
 userRouter.post("/", userController.add);
 userRouter.post("/login", userController.login, auth.verifyPassword);
 userRouter.post("/:id", upload.single("link"), userController.addAvatar);
