@@ -33,12 +33,14 @@ class VideoManager extends AbstractManager {
   findFavorites(userId) {
     return this.database
       .query(
-        `SELECT videos.*, categorie.name, videos_user.user_id
-        FROM videos
+        `SELECT ${this.table}.*, videos_user.user_id, videos_user.videos_id, categorie.name
+        FROM ${this.table}
         INNER JOIN categorie ON videos.category_id = categorie.id
-        LEFT JOIN videos_user ON videos.id = videos_user.videos_id
-        where user_id = ? or user_id is NULL
-        ;`,
+        LEFT JOIN (
+            SELECT user_id, videos_id
+            FROM videos_user
+            WHERE user_id = ?
+        ) AS videos_user ON videos.id = videos_user.videos_id;`,
         [userId]
       )
       .catch((err) => {
