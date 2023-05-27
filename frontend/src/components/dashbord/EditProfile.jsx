@@ -85,7 +85,7 @@ export default function EditProfile() {
       <div className="user-adresse-information">
         <div>
           <h3>Modification du profil utilisateur</h3>
-          <h4>Modifier avatar :</h4>
+          <h4>Modifier avatar:</h4>
           <div className="avatar-div-user-img">
             {avatarImg ? (
               <div>
