@@ -27,9 +27,6 @@ export default function AdminPanel() {
               <Link to="/adminPanel/videosTable">Videos</Link>
             </li>
             <li>
-              <Link to="/adminPanel/videosTable">Pages</Link>
-            </li>
-            <li>
               <Link to="/adminPanel/sectionsTable">Section</Link>
             </li>
             <li>
