@@ -15,6 +15,7 @@ function SectionCategory({ sectionName }) {
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
+
   const [data, setData] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const { userInfo } = useAuth();
@@ -50,7 +51,10 @@ function SectionCategory({ sectionName }) {
   });
 
   function handleCategory(category) {
+    setVideoNumber(0);
     setSelectedCategory(category);
+    const translateX = 0; // Remet le translateX à zero pour revenir au début du container
+    listRef.current.style.transform = `translateX(${translateX}px)`;
   }
 
   const deleteFavoriteVideo = (newValue) => {
@@ -85,14 +89,46 @@ function SectionCategory({ sectionName }) {
   };
 
   function handleClick(direction) {
-    const distance = listRef.current.getBoundingClientRect().x;
-    if (direction === "left" && videoNumber > 0) {
-      setVideoNumber(videoNumber - 1);
-      listRef.current.style.transform = `translateX(${650 + distance}px)`;
+    let videoWidth = 670; // Largeur d'une video
+    if (videoNumber > 0) {
+      const distanceBack = -(videoWidth * videoNumber);
+      listRef.current.style.transform = `translateX(${distanceBack}px)`;
     }
-    if (direction === "right" && videoNumber < 25) {
-      setVideoNumber(videoNumber + 1);
-      listRef.current.style.transform = `translateX(${-650 + distance}px)`;
+    const filteredData = selectedCategory
+      ? data.filter((item) => item.name === selectedCategory)
+      : data;
+
+    const nbVideos = filteredData.length;
+    const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
+    const windowWidth = window.innerWidth; // largeur de l'écran
+    const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
+
+    const totalWidthVideos = videoWidth * nbVideos;
+    const totalEmptySpace = widthContainer - totalWidthVideos; // indique le nombre total d'espace vide sur le container
+    const whatToAddToVideoWidth = Math.ceil(totalEmptySpace / nbVideos);
+    videoWidth += whatToAddToVideoWidth;
+
+    const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
+    const totalRestVideosTotalWidth = videoWidth * restVideo;
+
+    if (
+      direction === "right" &&
+      restVideo > 0 &&
+      restVideo <= nbVideos &&
+      nbVideos >= nbVideosDisplayedPerClick &&
+      totalRestVideosTotalWidth > windowWidth
+    ) {
+      const newVideoNumber = videoNumber + 1;
+      const translateX = -(newVideoNumber * videoWidth);
+      setVideoNumber(newVideoNumber);
+      listRef.current.style.transform = `translateX(${translateX}px)`;
+    }
+
+    if (direction === "left" && videoNumber > 0) {
+      const newVideoNumber = videoNumber - 1;
+      const translateX = -(newVideoNumber * videoWidth);
+      setVideoNumber(newVideoNumber);
+      listRef.current.style.transform = `translateX(${translateX}px)`;
     }
   }
 

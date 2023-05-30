@@ -8,6 +8,7 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 .list .wrapper {
   position: relative;
+  overflow: hidden;
 }
 .list .wrapper .sliderArrow {
   width: 50px;
@@ -638,6 +639,19 @@ body h1 {
     flex-direction: column;
   }
 }
+.advert_image {
+  width: 100%;
+  height: 255px;
+  display: flex;
+  justify-content: center;
+}
+.advert_image .advert_position {
+  width: 100%;
+  height: 255px;
+  display: flex;
+  justify-content: center;
+}
+
 .css-204u17-MuiDataGrid-main {
   color: white;
 }
@@ -688,28 +702,32 @@ body h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
   background-color: grey;
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   border-radius: 16px;
 }
 .sectionUpdate label {
   display: block;
-  margin-bottom: 8px;
+  margin: 10px 0 8px 0;
 }
 .sectionUpdate input {
   height: 30px;
   width: 250px;
 }
-.sectionUpdate .sectionUpdateName {
+.sectionUpdate .sectionUpdateName,
+.sectionUpdate .sectionUpdateOrder {
   margin-top: 15px;
+}
+.sectionUpdate #section_type {
+  height: 30px;
+  width: 250px;
 }
 .sectionUpdate .sectionUpdateButton {
   width: 100px;
   height: 30px;
   border: none;
-  margin-top: 10px;
+  margin-top: 20px;
   background-color: green;
   cursor: pointer;
 }
@@ -1011,4 +1029,35 @@ body h1 {
   .video-grid {
     grid-template-columns: 1fr;
   }
+}
+.footer_container {
+  display: flex;
+  flex-direction: row;
+  padding: 2rem;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.footer_container .footer_logo {
+  width: 40px;
+  height: 40px;
+}
+.footer_container .footer_brand_text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  color: #10bcdd;
+}
+.footer_container .footer_brand_text .footer_list {
+  display: flex;
+  list-style-type: none;
+}
+.footer_container .footer_brand_text .footer_list .footer_list li {
+  margin-left: 4px;
+}
+.footer_container .footer_link {
+  color: #10bcdd;
 }/*# sourceMappingURL=index.css.map */

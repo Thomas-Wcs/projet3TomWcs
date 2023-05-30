@@ -41,5 +41,5 @@ const useAuth = () => useContext(AuthContext);
 export { AuthProvider, useAuth, AuthContext };
 
 AuthProvider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };

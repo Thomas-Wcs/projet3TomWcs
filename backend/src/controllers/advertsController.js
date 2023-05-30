@@ -1,7 +1,7 @@
 const models = require("../models");
 
 const browse = (req, res) => {
-  models.section
+  models.adverts
     .findAll()
     .then(([rows]) => {
       res.send(rows);
@@ -13,7 +13,7 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
-  models.section
+  models.adverts
     .find(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
@@ -28,33 +28,13 @@ const read = (req, res) => {
     });
 };
 
-const add = (req, res) => {
-  const sections = req.body;
-
-  // TODO validations (length, format...)
-
-  models.section
-    .insert(sections)
-    .then(() => {
-      res.sendStatus(201);
-    })
-    .catch((err) => {
-      console.error(err);
-      if (err.errno === 1062) {
-        res.sendStatus(409);
-      } else {
-        res.sendStatus(500);
-      }
-    });
-};
-
 const edit = (req, res) => {
-  const sections = req.body;
+  const adverts = req.body;
 
-  sections.id = parseInt(req.params.id, 10);
+  adverts.id = parseInt(req.params.id, 10);
 
-  models.section
-    .update(sections)
+  models.adverts
+    .update(adverts)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -64,16 +44,28 @@ const edit = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      if (err.errno === 1062) {
-        res.sendStatus(409);
-      } else {
-        res.sendStatus(500);
-      }
+      res.sendStatus(500);
+    });
+};
+
+const add = (req, res) => {
+  const adverts = req.body;
+
+  // TODO validations (length, format...)
+
+  models.adverts
+    .insert(adverts)
+    .then(([result]) => {
+      if (result.status === 201) res.send("Adverts updated");
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
     });
 };
 
 const destroy = (req, res) => {
-  models.section
+  models.adverts
     .delete(req.params.id)
     .then(([result]) => {
       if (result.affectedRows === 0) {
@@ -91,7 +83,7 @@ const destroy = (req, res) => {
 module.exports = {
   browse,
   read,
-  add,
   edit,
+  add,
   destroy,
 };
