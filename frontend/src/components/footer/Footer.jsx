@@ -13,7 +13,6 @@ function Footer() {
         <div className="footer_brand_logo">
           <img src={logo} alt="logo" className="footer_logo" />
         </div>
-
         <div className="footer_brand_text">
           <ul className="footer_list">
             <li>Mentions légales |</li>
