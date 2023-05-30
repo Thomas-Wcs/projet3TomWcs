@@ -44,16 +44,9 @@ function Homepage2() {
 
   return (
     <div>
-      {/* <Featured />
-      <SectionTeasers />
-      <Section1 sectionName="Section 1" />
-      <Section1 sectionName="Section 2" /> */}
-
       {data.map((section) => {
         return <div key={section.id}>{sectionType(section)}</div>;
       })}
-      {/* <SectionCategory sectionName="Section 3" /> */}
-      {/* <SectionVideosHautes sectionName="Section 4" /> */}
     </div>
   );
 }
