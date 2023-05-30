@@ -53,7 +53,7 @@ function VideosManagement() {
     },
     {
       field: "category_id",
-      headerName: "Category",
+      headerName: "Categorie",
       width: 150,
       editable: true,
     },
@@ -71,6 +71,7 @@ function VideosManagement() {
       editable: true,
       renderCell: (params) =>
         moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
+      valueOption: data.map((vid) => vid.title),
     },
     {
       field: "action",
@@ -99,7 +100,7 @@ function VideosManagement() {
     id: video.id,
     title: video.title,
     description_text: video.description_text,
-    category_id: video.category_id,
+    category_id: video.toto,
     link: video.link,
     date_publication: video.date_publication,
     name: video.name,

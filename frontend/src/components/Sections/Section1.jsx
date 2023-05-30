@@ -116,8 +116,8 @@ function Section1({ sectionName }) {
               <div key={video.id}>
                 <Link to={`/video_description/${video.id}`}>
                   <Video
-                    width="100%%"
-                    height="100%%"
+                    width="650px"
+                    height="450px"
                     displayDescription
                     displayDescriptionTitle={video.title}
                     displayDescriptionText={video.description_text}

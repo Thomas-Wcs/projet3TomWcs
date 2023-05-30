@@ -9,9 +9,9 @@ export default function UserProfile() {
     <div className="user-main-profile">
       <div className="user-adresse-information">
         <h3>Info Utilisateur</h3>
-        <h4>FistName</h4>
+        <h4>Prénom</h4>
         <p>{state.userInfo.firstname}</p>
-        <h4>LastName</h4>
+        <h4>Nom</h4>
         <p>{state.userInfo.name}</p>
         <h4>Email </h4>
         <p>{state.userInfo.email}</p>

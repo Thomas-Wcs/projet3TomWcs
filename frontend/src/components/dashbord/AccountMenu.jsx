@@ -127,7 +127,7 @@ export default function AccountMenu({ userInfo, reset }) {
           to="/"
           onClick={handleClose}
         >
-          <HomeIcon sx={{ margin: "5%" }} /> Home
+          <HomeIcon sx={{ margin: "5%" }} /> Accueil
         </MenuItem>
         <MenuItem
           sx={dashbordStyles}
@@ -136,7 +136,7 @@ export default function AccountMenu({ userInfo, reset }) {
           to="/profile/userfavorite"
           onClick={handleClose}
         >
-          <VideoSettingsIcon sx={{ margin: "5%" }} /> My Videos
+          <VideoSettingsIcon sx={{ margin: "5%" }} /> Mes Videos
         </MenuItem>
         <Divider />
         <MenuItem

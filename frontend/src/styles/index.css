@@ -1,4 +1,11 @@
-
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 .list .wrapper {
   position: relative;
@@ -302,11 +309,7 @@ body h1 {
   font-weight: 400;
   font-family: Roboto;
   outline: 0;
-  -webkit-transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
-    padding 0.2s;
-  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
-    padding 0.2s;
-  -webkit-transition-delay: 0.4s;
+  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out, padding 0.2s;
   transition-delay: 0.4s;
   transform: translate(-100%, -50%);
 }
@@ -380,11 +383,7 @@ body h1 {
   max-width: 300px;
   position: fixed;
   left: 0;
-  -webkit-transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out,
-    padding 0.2s;
-  transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out,
-    padding 0.2s;
-  -webkit-transition-delay: 0.4s, 0s, 0.4s;
+  transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out, padding 0.2s;
   transition-delay: 0.4s, 0s, 0.4s;
   transform: translate(-100%, -50%) translateY(13%);
 }
@@ -414,6 +413,16 @@ body h1 {
   letter-spacing: 2px;
   opacity: 1;
   z-index: 10;
+  padding-top: 10%;
+}
+#connection h2 .button-text {
+  background: none;
+  color: #50abc7;
+  border: none;
+  font-size: 1.3rem;
+}
+#connection h2 .button-text:hover {
+  cursor: pointer;
 }
 #connection #password-error {
   color: red;
@@ -501,8 +510,8 @@ body h1 {
   flex-direction: column;
   height: auto;
   width: auto;
-  margin: 5%;
   background: #000000;
+  padding-top: 6%;
 }
 #profil-display .section-title {
   color: #10bcdd;
@@ -871,7 +880,8 @@ body h1 {
 #video-main #caroussel {
   padding-top: 180px;
   width: 100vw;
-}/*# sourceMappingURL=index.css.map */
+}
+
 .modal-open {
   overflow-y: hidden;
 }
@@ -1038,4 +1048,4 @@ body h1 {
 }
 .footer_container .footer_link {
   color: #10bcdd;
-} /*# sourceMappingURL=index.css.map */
+}/*# sourceMappingURL=index.css.map */

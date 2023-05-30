@@ -61,7 +61,7 @@ export default function Header() {
             <div className="menu-items">
               <li>
                 <Link to="/" onClick={() => handleLinkClick()}>
-                  Home
+                  Accueil
                 </Link>
               </li>
               {success ? (
@@ -73,7 +73,7 @@ export default function Header() {
               ) : (
                 <li>
                   <Link to="/profile" onClick={() => handleLinkClick()}>
-                    Profile
+                    Mon Profil
                   </Link>
                 </li>
               )}
@@ -91,7 +91,7 @@ export default function Header() {
                   type="button"
                   onClick={handleLogOut}
                 >
-                  Logout
+                  Deconnexion
                 </button>
               )}
             </div>

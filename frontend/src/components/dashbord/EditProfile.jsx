@@ -58,7 +58,7 @@ export default function EditProfile() {
       <div className="user-adresse-information">
         <div>
           <h3>Modification du profil utilisateur</h3>
-          <h4>FistName</h4>
+          <h4>Prénom</h4>
           <div />
           <p>
             <input
@@ -76,7 +76,7 @@ export default function EditProfile() {
               }
             />
           </p>
-          <h4>Name</h4>
+          <h4>Nom</h4>
           <p>
             <input
               type="text"
