@@ -59,6 +59,10 @@ export default function Header() {
                   if (e.key === "Enter") {
                     e.preventDefault();
                     handleSearch();
+                  } else if (e.key === "Escape") {
+                    e.preventDefault();
+                    setTextSearch("");
+                    expand();
                   }
                 }}
                 className={`input ${isSearchClosed ? "square" : ""}`}
