@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-// import { ToastContainer, toast } from "react-toastify";
+
 import useAPI from "../../api/useAPI";
 
 export default function EditUserPassword() {
@@ -9,6 +9,7 @@ export default function EditUserPassword() {
 
   const [modal, setModal] = useState(false);
   const [passwordFalse, setPasswordFalse] = useState(false);
+  const [passwordDone, setPasswordDone] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -51,12 +52,19 @@ export default function EditUserPassword() {
         await api.post("users/updatePassword", newValue).then((response) => {
           if (response.status === 201) {
             // eslint-disable-next-line no-restricted-syntax
-            console.log("Le mot de passe a été modifié");
+            setPasswordDone(true);
+            setTimeout(() => {
+              setPasswordDone(false);
+              setModal(!modal);
+            }, 2000);
           }
         });
       } catch (error) {
         if (error.response.status === 401) {
           setPasswordFalse(true);
+          setTimeout(() => {
+            setPasswordFalse(false);
+          }, 3000);
         }
         console.error(error);
       }
@@ -126,6 +134,11 @@ export default function EditUserPassword() {
                 {passwordFalse ? (
                   <div style={{ color: "red" }}>
                     Le mot de passe actuel ne correspond pas
+                  </div>
+                ) : null}
+                {passwordDone ? (
+                  <div style={{ color: "black" }}>
+                    Le mot de passe est modifié avec succées
                   </div>
                 ) : null}
                 <button
