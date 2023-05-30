@@ -2,16 +2,25 @@ import "../../styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
+import searchOnGoogle from "./SearchOnGoogle";
 
 export default function Header() {
   const navigate = useNavigate();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
+  const [textSearch, setTextSearch] = useState("");
   const { success, isAdmin } = useAuth();
 
   const checkboxRef = useRef();
 
+  function handleSearch() {
+    if (textSearch) {
+      searchOnGoogle(textSearch);
+    }
+  }
+
   function expand() {
     setIsSearchClosed(!isSearchClosed);
+    setTextSearch("");
   }
 
   function handleLinkClick() {
@@ -44,6 +53,14 @@ export default function Header() {
               <input
                 type="text"
                 name="input"
+                value={textSearch}
+                onChange={(e) => setTextSearch(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleSearch();
+                  }
+                }}
                 className={`input ${isSearchClosed ? "square" : ""}`}
               />
               <button
@@ -56,7 +73,7 @@ export default function Header() {
             <div className="menu-items">
               <li>
                 <Link to="/" onClick={() => handleLinkClick()}>
-                  Home
+                  Acceuil
                 </Link>
               </li>
               {success ? (
@@ -68,7 +85,7 @@ export default function Header() {
               ) : (
                 <li>
                   <Link to="/profile" onClick={() => handleLinkClick()}>
-                    Profile
+                    Profil
                   </Link>
                 </li>
               )}
@@ -76,7 +93,7 @@ export default function Header() {
               {isAdmin && (
                 <li>
                   <Link to="/adminPanel/" onClick={() => handleLinkClick()}>
-                    Admin
+                    Administrateur
                   </Link>
                 </li>
               )}
@@ -86,7 +103,7 @@ export default function Header() {
                   type="button"
                   onClick={clickToLogout}
                 >
-                  Logout
+                  Déconnexion
                 </button>
               )}
             </div>
