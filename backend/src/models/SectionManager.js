@@ -12,19 +12,27 @@ class SectionManager extends AbstractManager {
   }
 
   findAll() {
-    return this.database.query(`select * from ${this.table}`);
+    return this.database.query(
+      `select * from ${this.table} ORDER BY  \`order\` ASC`
+    );
   }
 
+  // insert(section) {
+  //   return this.database.query(`insert into ${this.table} (name) values (?)`, [
+  //     section.name,
+  //   ]);
+  // }
   insert(section) {
-    return this.database.query(`insert into ${this.table} (name) values (?)`, [
-      section.name,
-    ]);
+    return this.database.query(
+      `INSERT INTO ${this.table} (name,  \`order\`, section_type) VALUES (?, ?, ?)`,
+      [section.name, section.order, section.section_type]
+    );
   }
 
   update(section) {
     return this.database.query(
-      `update ${this.table} set name = ? where id = ?`,
-      [section.name, section.id]
+      `UPDATE ${this.table} SET name = ?, \`order\` = ?, section_type = ? WHERE id = ?`,
+      [section.name, section.order, section.section_type, section.id]
     );
   }
 

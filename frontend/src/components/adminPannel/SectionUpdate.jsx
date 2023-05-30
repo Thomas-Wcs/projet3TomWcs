@@ -7,10 +7,22 @@ function SectionUpdate() {
   const { id } = useParams();
   const api = useAPI();
   const navigate = useNavigate();
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [sectionData, setSectionData] = useState({
     id: "",
     name: "",
+    section_type: "",
+    order: 0,
   });
+  const options = [
+    "",
+    "section avec catégorie",
+    "section sans catégorie",
+    "section teasers",
+    "section hero",
+    "section grande hauteur",
+  ];
 
   useEffect(() => {
     const getSectionsData = async () => {
@@ -31,17 +43,27 @@ function SectionUpdate() {
 
   function updateSectionData() {
     api
-      .put(`sections/${sectionData.id}`, { name: sectionData.name })
+      .put(`sections/${sectionData.id}`, {
+        name: sectionData.name,
+        order: sectionData.order,
+        section_type: sectionData.section_type,
+      })
       .then(() => {
         navigate("/adminPanel/sectionsTable");
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((err) => {
+        setError(true);
+        if (err.response.status === 409) {
+          setErrorMessage("Cette entrée existe déjà");
+        } else {
+          setErrorMessage("Une erreur est survenue");
+        }
       });
   }
 
   function handleSubmit(e) {
     e.preventDefault();
+    setError(false);
     updateSectionData();
   }
 
@@ -71,7 +93,40 @@ function SectionUpdate() {
             onChange={handleChange}
             name="name"
           />
+          <div className="sectionUpdateOrder">
+            <label htmlFor="name">Ordre :</label>
+            <input
+              type="number"
+              placeholder="Ordre"
+              className="sectionUpdateInput"
+              value={sectionData.order}
+              onChange={handleChange}
+              name="order"
+              min="1"
+              max="10"
+              style={{ border: error ? "1px solid red" : "" }}
+            />
+          </div>
+
+          {error && <p>{errorMessage}</p>}
+
+          <div className="sectionUpdateSectionType">
+            <label htmlFor="name">Type de la section :</label>
+            <select
+              id="section_type"
+              value={sectionData.section_type}
+              onChange={handleChange}
+              name="section_type"
+            >
+              {options.map((option) => (
+                <option value={option} key={option.id}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
+
         <button type="submit" className="sectionUpdateButton">
           Mettre à jour
         </button>

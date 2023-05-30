@@ -7,9 +7,22 @@ import useAPI from "../../api/useAPI";
 function SectionAdd() {
   const navigate = useNavigate();
   const api = useAPI();
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [newSectionData, setNewSectionData] = useState({
     name: "",
+    section_type: "",
+    order: 0,
   });
+
+  const options = [
+    "",
+    "section avec catégorie",
+    "section sans catégorie",
+    "section teasers",
+    "section hero",
+    "section grande hauteur",
+  ];
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -25,8 +38,13 @@ function SectionAdd() {
       .then(() => {
         navigate("/adminPanel/sectionsTable");
       })
-      .catch((error) => {
-        console.error("Error adding section:", error);
+      .catch((err) => {
+        setError(true);
+        if (err.response.status === 409) {
+          setErrorMessage("Cette entrée existe déjà");
+        } else {
+          setErrorMessage("Une erreur est survenue");
+        }
       });
   }
 
@@ -51,6 +69,37 @@ function SectionAdd() {
             name="name"
           />
         </div>
+        <div className="sectionUpdateOrder">
+          <label htmlFor="name">Ordre :</label>
+          <input
+            type="number"
+            placeholder="Ordre"
+            className="sectionUpdateInput"
+            value={newSectionData.order}
+            onChange={handleChange}
+            name="order"
+            min="1"
+            max="10"
+            style={{ border: error ? "1px solid red" : "" }}
+          />
+        </div>
+        {error && <p>{errorMessage}</p>}
+        <div className="sectionUpdateSectionType">
+          <label htmlFor="name">Type de la section :</label>
+          <select
+            id="section_type"
+            value={newSectionData.section_type}
+            onChange={handleChange}
+            name="section_type"
+          >
+            {options.map((option) => (
+              <option value={option} key={option.id}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <button type="submit" className="sectionUpdateButton">
           Ajouter
         </button>

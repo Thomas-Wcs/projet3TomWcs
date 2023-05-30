@@ -1,6 +1,6 @@
 node_modules
 .env
-public/assets/videos/
+
 public/assets/images/
 backend/public/assets/videos/
 public/assets/videos/
