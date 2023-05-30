@@ -41,7 +41,6 @@ function Videos({ videos, onDeleteVideo }) {
         <div className="title">
           <h2>{videos.title}</h2>
           <button type="button" onClick={handleModifyTitle}>
-            {" "}
             Modifier le titre
           </button>
         </div>
@@ -55,7 +54,6 @@ function Videos({ videos, onDeleteVideo }) {
                   onChange={(e) => setNewDescription(e.target.value)}
                 />
               </label>
-
               <button
                 type="button"
                 onClick={() => {

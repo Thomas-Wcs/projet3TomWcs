@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+// import { ToastContainer, toast } from "react-toastify";
 import useAPI from "../../api/useAPI";
 
 export default function EditUserPassword() {
@@ -7,6 +8,7 @@ export default function EditUserPassword() {
   const { state } = useLocation();
 
   const [modal, setModal] = useState(false);
+  const [passwordFalse, setPasswordFalse] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -46,8 +48,16 @@ export default function EditUserPassword() {
     };
     if (newPassword === verifyPassword) {
       try {
-        await api.post("users/updatePassword", newValue);
+        await api.post("users/updatePassword", newValue).then((response) => {
+          if (response.status === 201) {
+            // eslint-disable-next-line no-restricted-syntax
+            console.log("Le mot de passe a été modifié");
+          }
+        });
       } catch (error) {
+        if (error.response.status === 401) {
+          setPasswordFalse(true);
+        }
         console.error(error);
       }
     }
@@ -113,6 +123,11 @@ export default function EditUserPassword() {
                     }}
                   />
                 </form>
+                {passwordFalse ? (
+                  <div style={{ color: "red" }}>
+                    Le mot de passe actuel ne correspond pas
+                  </div>
+                ) : null}
                 <button
                   className="valide-mdp-button"
                   type="button"
