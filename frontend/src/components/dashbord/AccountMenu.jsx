@@ -15,19 +15,34 @@ import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import EditIcon from "@mui/icons-material/Edit";
 import VideoSettingsIcon from "@mui/icons-material/VideoSettings";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import HomeIcon from "@mui/icons-material/Home";
 import monImage from "../../assets/imagedemo.png";
 import dashbordStyles from "./dashbord";
 
-export default function AccountMenu({ userInfo }) {
+export default function AccountMenu({ userInfo, reset }) {
+  const logout = () => {
+    reset();
+  };
+
+  const handleLogout = () => {
+    logout();
+  };
+
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
-  return (
+
+  const userConnected = Boolean(userInfo?.email);
+
+  return userConnected ? (
     <>
       <Box
         sx={{
@@ -49,7 +64,7 @@ export default function AccountMenu({ userInfo }) {
             <Avatar
               alt="Image de l'utilisateur"
               src={monImage}
-              sx={{ width: 56, height: 56 }}
+              sx={{ width: 100, height: 100 }}
             />
           </IconButton>
         </Tooltip>
@@ -103,24 +118,46 @@ export default function AccountMenu({ userInfo }) {
           to="/profile/userid"
           onClick={handleClose}
         >
-          <Avatar alt="Image de l'utilisateur" src={monImage} /> Profile
+          <Avatar alt="Image de l'utilisateur" src={monImage} /> Informations
         </MenuItem>
         <MenuItem
           sx={dashbordStyles}
           component={Link}
-          to="/profile/userid"
+          state={{ userInfo }}
+          to="/"
+          onClick={handleClose}
+        >
+          <HomeIcon sx={{ margin: "5%" }} /> Home
+        </MenuItem>
+        <MenuItem
+          sx={dashbordStyles}
+          component={Link}
+          state={{ userInfo }}
+          to="/profile/userfavorite"
           onClick={handleClose}
         >
           <VideoSettingsIcon sx={{ margin: "5%" }} /> My Videos
         </MenuItem>
         <Divider />
-        <MenuItem sx={dashbordStyles} onClick={handleClose}>
+        <MenuItem
+          sx={dashbordStyles}
+          component={Link}
+          state={{ userInfo }}
+          onClick={handleClose}
+          to="/profile/useredit"
+        >
           <ListItemIcon>
             <EditIcon fontSize="small" />
           </ListItemIcon>
           Edit Profil
         </MenuItem>
-        <MenuItem sx={dashbordStyles} onClick={handleClose}>
+        <MenuItem
+          sx={dashbordStyles}
+          component={Link}
+          state={{ userInfo }}
+          to="/profile/aboedit"
+          onClick={handleClose}
+        >
           <ListItemIcon>
             <AdminPanelSettingsIcon fontSize="small" />
           </ListItemIcon>
@@ -138,7 +175,7 @@ export default function AccountMenu({ userInfo }) {
           </ListItemIcon>
           Contact
         </MenuItem>
-        <MenuItem sx={dashbordStyles} onClick={handleClose}>
+        <MenuItem sx={dashbordStyles} onClick={(handleClose, handleLogout)}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
@@ -146,9 +183,16 @@ export default function AccountMenu({ userInfo }) {
         </MenuItem>
       </Menu>
       <div className="div-savoir-tu-esqui">
-        <Outlet />
+        <Outlet name="accountDisplay" />
       </div>
     </>
+  ) : (
+    <div className="veuillez-vous-log">
+      <p>Veuillez vous connecter</p>
+      <Link to="/connexion" style={{ color: "white" }}>
+        Connexion
+      </Link>
+    </div>
   );
 }
 
@@ -158,6 +202,7 @@ AccountMenu.propTypes = {
     firstname: PropTypes.string,
     email: PropTypes.string,
   }),
+  reset: PropTypes.func,
 };
 AccountMenu.defaultProps = {
   userInfo: {
@@ -165,4 +210,5 @@ AccountMenu.defaultProps = {
     firstname: "",
     email: "",
   },
+  reset: () => {},
 };

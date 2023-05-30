@@ -79,8 +79,10 @@ function SectionTeasers({ sectionName }) {
               key={video.id}
               width="650px"
               height="450px"
-              isEnabled
               src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
+              isVideoPremium={video.isVideoPremium}
+              isVideoPaying={video.isVideoPaying}
+              isEnabled
             />
           ))}
         </div>

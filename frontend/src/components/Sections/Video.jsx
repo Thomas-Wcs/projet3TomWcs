@@ -2,9 +2,9 @@ import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "../../styles/index.css";
 import { useAuth } from "../../context/AuthContext";
-// import thumbnail from "../../assets/images/background-slider.png";
 import PlayButton from "./PlayButton";
-import videoLock from "../../assets/imgPremium.png";
+import videoLock from "../../assets/connect.png";
+import HotPot from "../../assets/imgPremium.png";
 
 function Video({
   title,
@@ -17,6 +17,7 @@ function Video({
   isEnabled,
   src,
   isVideoPremium,
+  isVideoPaying,
 }) {
   const { userInfo } = useAuth();
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
@@ -42,26 +43,35 @@ function Video({
     }
   };
 
+  let posterImage = null;
+  if ((!userInfo || userInfo.isPremium === 0) && isVideoPremium === 1) {
+    posterImage = videoLock;
+  } else if (userInfo.isVideoPlus === 0 && isVideoPaying === 1) {
+    posterImage = HotPot;
+  }
+
   return (
     <div className="wrapper-video">
       <video
         src={src}
-        poster={
-          (!userInfo || userInfo.isPremium === 0) && isVideoPremium === 1
-            ? videoLock
-            : null
-        }
+        poster={posterImage}
         muted
         ref={videoRef}
         preload="metadata"
         style={{ width, height }}
         onMouseOver={
-          isEnabled && userInfo.isPremium === 0 && isVideoPremium === 1
+          (isEnabled &&
+            (!userInfo || userInfo.isPremium === 0) &&
+            isVideoPremium === 1) ||
+          (userInfo.isVideoPlus === 0 && isVideoPaying === 1)
             ? null
             : handleToggleVideo
         }
         onFocus={
-          isEnabled && userInfo.isPremium === 0 && isVideoPremium === 1
+          (isEnabled &&
+            (!userInfo || userInfo.isPremium === 0) &&
+            isVideoPremium === 1) ||
+          (userInfo.isVideoPlus === 0 && isVideoPaying === 1)
             ? null
             : handleToggleVideo
         }
@@ -90,6 +100,7 @@ Video.propTypes = {
   displayDescriptionTitle: PropTypes.string,
   isEnabled: PropTypes.bool,
   isVideoPremium: PropTypes.number,
+  isVideoPaying: PropTypes.number,
 };
 
 Video.defaultProps = {
@@ -100,5 +111,6 @@ Video.defaultProps = {
   displayDescriptionTitle: "",
   isEnabled: false,
   isVideoPremium: undefined,
+  isVideoPaying: undefined,
 };
 export default Video;
