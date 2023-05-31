@@ -7,9 +7,9 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import Video from "./Video";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
+import Video from "./Video";
 
 function Section1({ sectionName }) {
   const listRef = useRef();
