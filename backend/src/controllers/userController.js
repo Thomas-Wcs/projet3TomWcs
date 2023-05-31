@@ -125,7 +125,7 @@ const updateNewPassword = async (req, res) => {
       mdp: hashed,
       id,
     });
-    return res.sendStatus(201);
+    return res.sendStatus(204);
   } catch (err) {
     console.error(err);
     return res.sendStatus(500);
