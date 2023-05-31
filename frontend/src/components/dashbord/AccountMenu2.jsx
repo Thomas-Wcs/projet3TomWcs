@@ -139,7 +139,7 @@ export default function AccountMenu({ userInfo, reset }) {
           to="/"
           onClick={handleClose}
         >
-          <HomeIcon sx={{ margin: "5%" }} /> Acceuil
+          <HomeIcon sx={{ margin: "5%" }} /> Accueil
         </MenuItem>
         <MenuItem
           sx={dashbordStyles}
@@ -148,7 +148,7 @@ export default function AccountMenu({ userInfo, reset }) {
           to="/profile/userfavorite"
           onClick={handleClose}
         >
-          <VideoSettingsIcon sx={{ margin: "5%" }} /> Mes Videos
+          <VideoSettingsIcon sx={{ margin: "5%" }} /> Mes vidéos
         </MenuItem>
         <Divider />
         <MenuItem
@@ -161,7 +161,7 @@ export default function AccountMenu({ userInfo, reset }) {
           <ListItemIcon>
             <EditIcon fontSize="small" />
           </ListItemIcon>
-          Editer Profil
+          Modifier le profil
         </MenuItem>
         <MenuItem
           sx={dashbordStyles}

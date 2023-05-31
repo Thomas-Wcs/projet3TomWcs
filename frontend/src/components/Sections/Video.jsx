@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "../../styles/index.css";
+
 import { useAuth } from "../../context/AuthContext";
 import PlayButton from "./PlayButton";
 import videoLock from "../../assets/connect.png";
@@ -19,13 +20,23 @@ function Video({
   isVideoPremium,
   isVideoPaying,
   controls,
+<<<<<<< HEAD
+=======
+  setDuration,
+>>>>>>> 4e6a460240eb4fe8ab1e27f762a345113d6bfa51
 }) {
   const { userInfo } = useAuth();
+  const videoRef = useRef(null);
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const handleLoadedMetadata = () => {
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      setDuration(videoElement.duration);
+    }
+  };
 
-  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const handleToggleVideo = () => {
     const video = videoRef.current;
@@ -54,10 +65,11 @@ function Video({
   return (
     <div className="wrapper-video">
       <video
+        ref={videoRef}
+        onLoadedMetadata={handleLoadedMetadata}
         src={src}
         poster={posterImage}
         muted
-        ref={videoRef}
         preload="metadata"
         style={{ width, height }}
         controls={controls}
@@ -77,6 +89,7 @@ function Video({
             ? null
             : handleToggleVideo
         }
+        controls={controls}
       />
       <h3 className="video-title">{title}</h3>
       {displayPlayButton && (
@@ -104,6 +117,10 @@ Video.propTypes = {
   isVideoPremium: PropTypes.number,
   isVideoPaying: PropTypes.number,
   controls: PropTypes.bool,
+<<<<<<< HEAD
+=======
+  setDuration: PropTypes.func.isRequired,
+>>>>>>> 4e6a460240eb4fe8ab1e27f762a345113d6bfa51
 };
 
 Video.defaultProps = {

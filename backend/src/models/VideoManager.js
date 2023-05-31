@@ -6,8 +6,9 @@ class VideoManager extends AbstractManager {
   }
 
   findAll() {
-    return this.database.query(`
-      select ${this.table}.*, categorie.name from videos inner join categorie on ${this.table}.category_id = categorie.id;`);
+    return this.database.query(
+      `select ${this.table}.*, categorie.name as categorie_name, section.name from videos inner join categorie on ${this.table}.category_id = categorie.id inner join video_section on ${this.table}.id = video_section.video_id inner join section where video_section.section_id = section.id;`
+    );
   }
 
   insert(videos) {
@@ -24,7 +25,9 @@ class VideoManager extends AbstractManager {
           videos.isVideoPaying,
         ]
       )
-      .then(([result]) => result.insertId)
+      .then((res) => {
+        return res;
+      })
       .catch((err) => {
         throw err;
       });
@@ -58,7 +61,13 @@ class VideoManager extends AbstractManager {
   }
 
   delete(id) {
-    return this.database.query(`delete from ${this.table} where id = ?`, [id]);
+    return this.database
+      .query("delete from video_section where video_id= ?", [id])
+      .then(() => {
+        return this.database.query(`delete from ${this.table} where id = ?`, [
+          id,
+        ]);
+      });
   }
 }
 

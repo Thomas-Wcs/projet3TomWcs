@@ -86,7 +86,7 @@ const verifyToken = (req, res, next) => {
     }
     const [type, token] = authorizationHeader.split(" ");
     if (type !== "Bearer") {
-      throw new Error("Authization header had not the bearer type");
+      throw new Error("Authorization header had not the bearer type");
     }
     req.payload = jwt.verify(token, process.env.JWT_SECRET);
     next();

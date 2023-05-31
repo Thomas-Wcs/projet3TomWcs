@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Link } from "react-router-dom";
+import { DeleteOutline } from "@mui/icons-material";
+import PostAddRoundedIcon from "@mui/icons-material/PostAddRounded";
+import { Box } from "@mui/material";
+
 import moment from "moment";
 import { DataGrid } from "@mui/x-data-grid/node";
 import useAPI from "../../api/useAPI";
@@ -9,28 +13,7 @@ import dataTableStyle from "./DataTableStyle";
 function VideosManagement() {
   const api = useAPI();
   const [videos, setVideos] = useState([]);
-  const [videoTitle, setTitle] = useState("");
-  const [categorie, setCategorie] = useState(1);
-  const [description, setDescription] = useState("");
-  const [fileUpload, setFileUpload] = useState(null);
   const [videosChanging, setVideosChanging] = useState(true);
-
-  const handleAddVideos = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", videoTitle);
-    formData.append("description_text", description);
-    formData.append("category_id", categorie);
-    formData.append("link", fileUpload);
-    formData.append("date_publication", Date());
-
-    api
-      .post("/videos", formData)
-      .then(() => {
-        setVideosChanging(!videosChanging);
-      })
-      .catch((err) => console.error(err));
-  };
 
   useEffect(() => {
     api
@@ -70,12 +53,12 @@ function VideosManagement() {
     },
     {
       field: "category_id",
-      headerName: "Category",
+      headerName: "Categorie",
       width: 150,
       editable: true,
     },
     {
-      field: "section_id",
+      field: "name",
       headerName: "Section",
       width: 150,
       editable: true,
@@ -90,26 +73,25 @@ function VideosManagement() {
         moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
     },
     {
-      field: "delete",
-      headerName: "Delete",
-      width: 130,
-      renderCell: (params) => (
-        <button
-          type="button"
-          style={{
-            fontFamily: "PT Sans",
-            backgroundColor: "red",
-            height: "90%",
-            margin: "1em",
-            padding: "0.9em",
-            borderRadius: "20%",
-            border: "none",
-          }}
-          onClick={() => handleDeleteVideo(params.row.id)}
-        >
-          <DeleteIcon style={{ width: "100%" }} />
-        </button>
-      ),
+      field: "action",
+      headerName: "Action",
+      width: 250,
+      renderCell: (params) => {
+        return (
+          <>
+            <Link to={`/videos/${params.row.id}`}>
+              <button className="sectionEditBtn" type="submit">
+                Edit
+              </button>
+            </Link>
+
+            <DeleteOutline
+              className="sectionDeleteBtn"
+              onClick={() => handleDeleteVideo(params.row.id)}
+            />
+          </>
+        );
+      },
     },
   ];
 
@@ -117,72 +99,41 @@ function VideosManagement() {
     id: video.id,
     title: video.title,
     description_text: video.description_text,
-    category_id: video.category_id,
+    category_id: video.categorie_name,
     link: video.link,
     date_publication: video.date_publication,
+    name: video.name,
   }));
 
   return (
     <div className="user-management">
       <h1>Videos</h1>
-
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { pageSize: 5, page: 0 },
-          },
+      <Link to="/newVideo">
+        <PostAddRoundedIcon
+          style={{ fontSize: 48, color: "#10bcdd" }}
+          className="addButton"
+        />
+      </Link>
+      <Box
+        sx={{
+          height: 800,
+          width: "100%",
+          backgroundColor: "black",
         }}
-        pageSizeOptions={[5, 10, 25]}
-        style={dataTableStyle}
-        autoHeight
-      />
-      <h1>Ajouter une video</h1>
-      <div id="title">
-        <label htmlFor="Title">
-          <input
-            type="text"
-            placeholder="Title"
-            name="Title"
-            value={videoTitle}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </label>
-        <label htmlFor="descritpion">
-          <input
-            type="text"
-            placeholder="Description"
-            name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </label>
-
-        <label htmlFor="lien">
-          <input
-            type="file"
-            name="lien"
-            onChange={(e) => setFileUpload(e.target.files[0])}
-            id="file-selection-button"
-          />
-        </label>
-        <select onChange={(e) => setCategorie(e.target.value)}>
-          <option value="1">Animaux</option>
-          <option value="2">Sports</option>
-          <option value="3">Cuisine</option>
-          <option value="4">Voyage</option>
-        </select>
-        <button
-          type="submit"
-          onClick={(e) => {
-            handleAddVideos(e);
+      >
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { pageSize: 5, page: 0 },
+            },
           }}
-          id="add-button"
-        >
-          Ajouter
-        </button>
-      </div>
+          pageSizeOptions={[5, 10, 25]}
+          style={dataTableStyle}
+          autoHeight
+        />
+      </Box>
     </div>
   );
 }
