@@ -44,19 +44,68 @@ function App() {
                 </AdminWall>
               }
             >
-              <Route path="usersTable" element={<DataTable />} />
-              <Route path="videosTable" element={<VideosManagement />} />
-              <Route path="sectionsTable" element={<SectionsManagement />} />
+              <Route
+                path="usersTable"
+                element={
+                  <AdminWall>
+                    <DataTable />
+                  </AdminWall>
+                }
+              />
+              <Route
+                path="videosTable"
+                element={
+                  <AdminWall>
+                    <VideosManagement />
+                  </AdminWall>
+                }
+              />
+              <Route
+                path="sectionsTable"
+                element={
+                  <AdminWall>
+                    <SectionsManagement />
+                  </AdminWall>
+                }
+              />
             </Route>
-            <Route path="/sections/:id" element={<SectionUpdate />} />
-            <Route path="/videos/:id" element={<VideoUpdate />} />
+            <Route
+              path="/sections/:id"
+              element={
+                <AdminWall>
+                  <SectionUpdate />
+                </AdminWall>
+              }
+            />
+            <Route
+              path="/videos/:id"
+              element={
+                <AdminWall>
+                  <VideoUpdate />
+                </AdminWall>
+              }
+            />
             <Route
               path="video_description/:id"
               element={<VideoDescription />}
             />
 
-            <Route path="/newSection" element={<SectionAdd />} />
-            <Route path="/newVideo" element={<VideoAdd />} />
+            <Route
+              path="/newSection"
+              element={
+                <AdminWall>
+                  <SectionAdd />
+                </AdminWall>
+              }
+            />
+            <Route
+              path="/newVideo"
+              element={
+                <AdminWall>
+                  <VideoAdd />
+                </AdminWall>
+              }
+            />
           </Routes>
         </Router>
         <Advert />
