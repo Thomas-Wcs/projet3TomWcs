@@ -71,7 +71,6 @@ function VideosManagement() {
       editable: true,
       renderCell: (params) =>
         moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
-      valueOption: data.map((vid) => vid.title),
     },
     {
       field: "action",

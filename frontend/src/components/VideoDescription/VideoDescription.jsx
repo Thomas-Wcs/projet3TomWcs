@@ -32,6 +32,7 @@ export default function VideoDescription() {
             height="90vh"
             src={`${import.meta.env.VITE_APP_API_URL}${videoData.link}`}
             id="video"
+            controls
           />
           {videoData.isVideoPremium === 1 && (
             <p id="video-warning">Avertissement accès premium</p>

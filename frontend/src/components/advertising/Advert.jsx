@@ -27,7 +27,7 @@ function Advert() {
         <a href={currentAdvert.pictures_link}>
           <img
             src={`${import.meta.env.VITE_APP_API_URL}${
-              currentAdvert.pictures_link
+              currentAdvert.picture_link
             }`}
             alt={currentAdvert.pictures}
             className="advert_position"

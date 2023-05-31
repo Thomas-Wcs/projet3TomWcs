@@ -8,13 +8,7 @@ function VideoUpdate() {
   const api = useAPI();
   const navigate = useNavigate();
   const [allCategory, setCategory] = useState();
-  const [videoData, setVideoData] = useState({
-    id: "",
-    category_id: "",
-    link: "",
-    description_text: "",
-    title: "",
-  });
+  const [videoData, setVideoData] = useState();
 
   useEffect(() => {
     api.get("/category").then((res) => setCategory(res.data));

@@ -76,7 +76,7 @@ export default function ConnectionPage() {
               }
             }}
           />
-          {errorMessage && <p id="password-error">Sorry, Wrong Password</p>}
+          {errorMessage && <p id="password-error">Mot de passe erronné</p>}
           <button type="button" className="user-button" onClick={handleSubmit}>
             Connexion
           </button>
