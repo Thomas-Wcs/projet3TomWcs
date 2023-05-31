@@ -4,7 +4,6 @@ import useAPI from "../../api/useAPI";
 
 function Advert() {
   const [advert, setAdvert] = useState([]);
-  // console.error(advert);
   const api = useAPI();
   const [currentAdvertIndex, setCurrentAdvertIndex] = useState(0);
 
@@ -13,7 +12,6 @@ function Advert() {
       .get("/adverts")
       .then((res) => {
         setAdvert(res.data);
-        // console.error(res.data);
         setCurrentAdvertIndex(Math.floor(Math.random() * res.data.length));
       })
       .catch((err) => {
@@ -22,7 +20,6 @@ function Advert() {
   }, []);
 
   const currentAdvert = advert[currentAdvertIndex];
-  // console.error(currentAdvert);
 
   return (
     <div className="advert_image">

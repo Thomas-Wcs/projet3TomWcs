@@ -31,7 +31,11 @@ const browse = (req, res) => {
   models.user
     .findAll()
     .then(([rows]) => {
-      res.send(rows);
+      const sanitizedRows = rows.map((row) => {
+        const { mdp, ...sanitizedRow } = row;
+        return sanitizedRow;
+      });
+      res.send(sanitizedRows);
     })
     .catch((err) => {
       console.error(err);
@@ -47,7 +51,11 @@ const read = (req, res) => {
       if (rows[0] == null) {
         res.sendStatus(404);
       } else {
-        res.send(rows[0]);
+        const sanitizedRows = rows.map((row) => {
+          const { mdp, ...sanitizedRow } = row;
+          return sanitizedRow;
+        });
+        res.send(sanitizedRows[0]);
       }
     })
     .catch((err) => {
