@@ -99,7 +99,7 @@ function VideosManagement() {
     id: video.id,
     title: video.title,
     description_text: video.description_text,
-    category_id: video.toto,
+    category_id: video.categorie_name,
     link: video.link,
     date_publication: video.date_publication,
     name: video.name,

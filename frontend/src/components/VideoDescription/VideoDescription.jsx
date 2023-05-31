@@ -10,6 +10,7 @@ export default function VideoDescription() {
   const [videoData, setVideoData] = useState();
   const api = useAPI();
   const { id } = useParams();
+  const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     api.get(`videos/${id}`).then((res) => setVideoData(res.data));
@@ -21,7 +22,9 @@ export default function VideoDescription() {
         <div id="video-display">
           <p id="video-date">
             {" "}
-            {moment(videoData.date_publication).format("DD-MM-YYYY")}{" "}
+            {`${moment(videoData.date_publication).format(
+              "DD-MM-YYYY"
+            )} || ${duration.toFixed(2)} min`}{" "}
           </p>
 
           <Video
@@ -32,6 +35,8 @@ export default function VideoDescription() {
             src={`${import.meta.env.VITE_APP_API_URL}${videoData.link}`}
             id="video"
             controls
+            duration={duration}
+            setDuration={setDuration}
           />
           {videoData.isVideoPremium === 1 && (
             <p id="video-warning">Avertissement accès premium</p>

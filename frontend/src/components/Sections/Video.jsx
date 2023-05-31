@@ -20,10 +20,10 @@ function Video({
   isVideoPremium,
   isVideoPaying,
   controls,
+  setDuration,
 }) {
   const { userInfo } = useAuth();
   const videoRef = useRef(null);
-  const [duration, setDuration] = useState(0);
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
 
   const handleLoadedMetadata = () => {
@@ -113,6 +113,7 @@ Video.propTypes = {
   isVideoPremium: PropTypes.number,
   isVideoPaying: PropTypes.number,
   controls: PropTypes.bool,
+  setDuration: PropTypes.func.isRequired,
 };
 
 Video.defaultProps = {
