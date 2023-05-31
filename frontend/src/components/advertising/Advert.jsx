@@ -24,7 +24,7 @@ function Advert() {
   return (
     <div className="advert_image">
       {currentAdvert && (
-        <a href="https://www.wildcodeschool.com/fr-FR">
+        <a href="https://www.wildcodeschool.com/fr-FR" target="blank">
           <img
             src={`${import.meta.env.VITE_APP_API_URL}/${
               currentAdvert.picture_link

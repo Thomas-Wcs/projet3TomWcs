@@ -2,13 +2,16 @@ import "../../styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
-import searchOnGoogle from "./SearchOnGoogle";
 
 export default function Header() {
   const navigate = useNavigate();
+  const { success, isAdmin } = useAuth();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
   const [textSearch, setTextSearch] = useState("");
-  const { success, isAdmin } = useAuth();
+  const searchOnGoogle = () => {
+    // eslint-disable-next-line no-restricted-syntax
+    console.log(` "bientot on pourras chercher sur notre site : ${textSearch}`);
+  };
 
   const checkboxRef = useRef();
 
