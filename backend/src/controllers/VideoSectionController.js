@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const path = require("path");
 const fs = require("fs");
 const models = require("../models");
@@ -81,6 +82,7 @@ const add = async (req, res) => {
   } catch (e) {
     return res.status(500).send(e.message);
   }
+  return true;
 };
 
 const destroy = async (req, res) => {
