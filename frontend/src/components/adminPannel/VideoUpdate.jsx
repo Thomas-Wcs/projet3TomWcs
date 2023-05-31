@@ -61,7 +61,7 @@ function VideoUpdate() {
           <input
             type="text"
             placeholder="id"
-            value={videoData.id}
+            value={videoData?.id}
             className="sectionUpdateInput"
             onChange={handleChange}
             name="id"
@@ -74,7 +74,7 @@ function VideoUpdate() {
             type="text"
             placeholder="Titre de la video"
             className="sectionUpdateInput"
-            value={videoData.title}
+            value={videoData?.title}
             onChange={handleChange}
             name="title"
           />
@@ -85,7 +85,7 @@ function VideoUpdate() {
             type="text"
             placeholder="Description"
             className="sectionUpdateInput"
-            value={videoData.description_text}
+            value={videoData?.description_text}
             onChange={handleChange}
             name="description_text"
           />
@@ -94,7 +94,7 @@ function VideoUpdate() {
           {allCategory?.name && (
             <select
               name="category_id"
-              value={videoData.category_id}
+              value={videoData?.category_id}
               onChange={handleChange}
             >
               {allCategory.map((cat) => (

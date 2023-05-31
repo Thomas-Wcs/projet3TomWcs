@@ -27,7 +27,6 @@ export default function VideoDescription() {
           <Video
             key={videoData.id}
             title={videoData.titre}
-            displayPlayButton
             width="100%"
             height="90vh"
             src={`${import.meta.env.VITE_APP_API_URL}${videoData.link}`}

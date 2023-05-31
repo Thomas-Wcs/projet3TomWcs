@@ -68,7 +68,6 @@ function Featured() {
                 title={video.titre}
                 width="100vw"
                 height="100vh"
-                displayPlayButton
                 src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
               />
             </Link>
