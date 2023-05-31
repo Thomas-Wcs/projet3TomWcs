@@ -149,6 +149,7 @@ function Section1({ sectionName }) {
                   isVideoPremium={video.isVideoPremium}
                   isVideoPaying={video.isVideoPaying}
                   isEnabled
+                  control
                 />
                 {userInfo.email ? (
                   <div className="favorite-text-and-button">

@@ -152,7 +152,7 @@ const addAvatar = async (req, res) => {
 
   try {
     fs.rename(filename, originalName, () => {
-      // console.error(err);
+      res.sendStatus(201);
     });
   } catch (err) {
     return res.sendStatus(500);

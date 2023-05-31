@@ -18,6 +18,7 @@ function Video({
   src,
   isVideoPremium,
   isVideoPaying,
+  controls,
 }) {
   const { userInfo } = useAuth();
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
@@ -59,6 +60,7 @@ function Video({
         ref={videoRef}
         preload="metadata"
         style={{ width, height }}
+        controls={controls}
         onMouseOver={
           (isEnabled &&
             (!userInfo || userInfo.isPremium === 0) &&
@@ -101,6 +103,7 @@ Video.propTypes = {
   isEnabled: PropTypes.bool,
   isVideoPremium: PropTypes.number,
   isVideoPaying: PropTypes.number,
+  controls: PropTypes.bool,
 };
 
 Video.defaultProps = {
@@ -112,5 +115,6 @@ Video.defaultProps = {
   isEnabled: false,
   isVideoPremium: undefined,
   isVideoPaying: undefined,
+  controls: false,
 };
 export default Video;
