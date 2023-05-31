@@ -9,24 +9,26 @@ function About() {
     <div>
       <h2>About</h2>
       <p>
-        Welcome to our online video platform! We are dedicated to providing you
-        with a wide range of high-quality videos for your entertainment. Whether
-        you're looking for movies, TV shows, documentaries, or educational
-        content, we've got you covered.
+        Bienvenue sur notre plateforme vidéo en ligne ! Nous nous engageons à
+        vous fournir une large sélection de vidéos de haute qualité pour votre
+        divertissement. Que vous recherchiez des films, des séries télévisées,
+        des documentaires ou du contenu éducatif, nous avons ce qu'il vous faut.
       </p>
       <p>
-        Our premium option offers exclusive access to even more exciting
-        content. Upgrade to premium and unlock a world of additional videos,
-        ad-free streaming, and offline downloads. Don't miss out on this
-        enhanced viewing experience!
+        Notre option premium offre un accès exclusif à encore plus de contenus
+        passionnants. Passez à la version premium et débloquez un monde de
+        vidéos supplémentaires, de streaming sans publicité et de
+        téléchargements hors ligne. Ne manquez pas cette expérience de
+        visionnage améliorée !
       </p>
       <p>
-        If you have any questions, suggestions, or feedback, please feel free to
-        contact us. Click the button below to send us an email, and our friendly
-        support team will get back to you as soon as possible.
+        Si vous avez des questions, des suggestions ou des commentaires,
+        n'hésitez pas à nous contacter. Cliquez sur le bouton ci-dessous pour
+        nous envoyer un email, et notre équipe de support sympathique vous
+        répondra dans les plus brefs délais.
       </p>
       <button type="button" onClick={handleContactClick}>
-        Contact Us
+        Contactez-nous
       </button>
     </div>
   );

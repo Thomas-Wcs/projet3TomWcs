@@ -194,7 +194,7 @@ const findOne = async (req, res) => {
 
 const login = async (req, res, next) => {
   const { email } = req.body;
-  if (!email) res.sendStatus(422);
+  if (!email) return res.sendStatus(422);
   const result = await models.user.login(email);
   if (result) {
     const [firstResult] = result;

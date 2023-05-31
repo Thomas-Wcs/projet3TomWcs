@@ -5,6 +5,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
@@ -139,17 +140,19 @@ function Section1({ sectionName }) {
             );
             return (
               <div key={video.id}>
-                <Video
-                  width="650px"
-                  height="450px"
-                  displayDescription
-                  displayDescriptionTitle={video.title}
-                  displayDescriptionText={video.description_text}
-                  src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
-                  isVideoPremium={video.isVideoPremium}
-                  isVideoPaying={video.isVideoPaying}
-                  isEnabled
-                />
+                <Link to={`/video_description/${video.id}`}>
+                  <Video
+                    width="650px"
+                    height="450px"
+                    displayDescription
+                    displayDescriptionTitle={video.title}
+                    displayDescriptionText={video.description_text}
+                    src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+                    isVideoPremium={video.isVideoPremium}
+                    isVideoPaying={video.isVideoPaying}
+                    isEnabled
+                  />
+                </Link>
                 {userInfo.email ? (
                   <div className="favorite-text-and-button">
                     {favoriteVideo ? (

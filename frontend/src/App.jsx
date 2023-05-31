@@ -14,9 +14,12 @@ import VideosManagement from "./components/adminPannel/VideosManagement";
 import SectionsManagement from "./components/adminPannel/SectionsManagement";
 import Homepage2 from "./pages/Homepage2";
 import SectionUpdate from "./components/adminPannel/SectionUpdate";
+import VideoUpdate from "./components/adminPannel/VideoUpdate";
 import SectionAdd from "./components/adminPannel/SectionAdd";
+import VideoAdd from "./components/adminPannel/VideoAdd";
 import { AuthProvider } from "./context/AuthContext";
 import AdminWall from "./utils/AdminWall";
+import VideoDescription from "./components/VideoDescription/VideoDescription";
 
 function App() {
   return (
@@ -46,7 +49,14 @@ function App() {
               <Route path="sectionsTable" element={<SectionsManagement />} />
             </Route>
             <Route path="/sections/:id" element={<SectionUpdate />} />
+            <Route path="/videos/:id" element={<VideoUpdate />} />
+            <Route
+              path="video_description/:id"
+              element={<VideoDescription />}
+            />
+
             <Route path="/newSection" element={<SectionAdd />} />
+            <Route path="/newVideo" element={<VideoAdd />} />
           </Routes>
         </Router>
         <Advert />

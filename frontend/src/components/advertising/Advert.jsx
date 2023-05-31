@@ -30,7 +30,7 @@ function Advert() {
           rel="noreferrer"
         >
           <img
-            src={`${import.meta.env.VITE_APP_API_URL}/${
+            src={`${import.meta.env.VITE_APP_API_URL}${
               currentAdvert.picture_link
             }`}
             alt={currentAdvert.pictures}

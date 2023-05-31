@@ -56,7 +56,7 @@ export default function Registration({
         className="user-input"
         value={registrationMail}
         onChange={(e) => setRegistrationMail(e.target.value)}
-        placeholder="Adresse mail :"
+        placeholder="Adresse mail "
       />
       <input
         type="text"
@@ -64,7 +64,7 @@ export default function Registration({
         id="userName"
         value={userName}
         onChange={(e) => setUserName(e.target.value)}
-        placeholder="Nom :"
+        placeholder="Nom "
       />
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       <input
@@ -72,7 +72,7 @@ export default function Registration({
         className="user-input"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        placeholder="Mot de passe :"
+        placeholder="Mot de passe "
       />
 
       <input

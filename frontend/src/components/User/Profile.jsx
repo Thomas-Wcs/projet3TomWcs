@@ -13,7 +13,7 @@ export default function Profile() {
         alt="logo du site"
         style={{ width: " 300px", height: "100px" }}
       />
-      <h1 className="section-title">Profile</h1>
+      <h1 className="section-title">Profil</h1>
       <div className="account-menu-display">
         <AccountMenu userInfo={userInfo} reset={reset} />
       </div>

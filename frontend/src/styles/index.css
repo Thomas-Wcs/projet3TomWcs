@@ -6,6 +6,7 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 .list .wrapper {
   position: relative;
   overflow: hidden;
@@ -30,6 +31,7 @@
 }
 .list .wrapper .container {
   display: flex;
+  width: -moz-max-content;
   width: max-content;
   transform: translateX(0px);
   transition: all 1s ease;
@@ -104,7 +106,8 @@ body h1 {
   position: relative;
 }
 .wrapper-video video {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .wrapper-video .video-title {
   position: absolute;
@@ -144,12 +147,14 @@ body h1 {
   box-shadow: 0 1px 4px rgb(0, 0, 0);
   color: #ffffff;
   background-color: black;
-  position: relative;
+  position: fixed;
+  z-index: 3000;
 }
 #nav-body .navbar .menu-items {
   padding-top: 10%;
   background: rgba(0, 0, 0, 0.737);
-  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
   height: 100vh;
   width: 100vw;
   transform: translateX(-150%) translateY(50%);
@@ -282,6 +287,7 @@ body h1 {
 }
 #nav-body .navbar .checkbox:checked ~ .menu-items {
   transform: translateX(0) translateY(50%);
+  position: fixed;
 }
 #nav-body .navbar #content {
   position: absolute;
@@ -310,8 +316,6 @@ body h1 {
     padding 0.2s;
   -webkit-transition-delay: 0.4s;
   transition-delay: 0.4s;
-  -webkit-transform: translate(-100%, -50%);
-  -ms-transform: translate(-100%, -50%);
   transform: translate(-100%, -50%);
 }
 #nav-body .navbar #content .search {
@@ -327,10 +331,7 @@ body h1 {
   border: 0;
   color: inherit;
   cursor: pointer;
-  -webkit-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
-  -webkit-transform: translate(-100%, -50%);
-  -ms-transform: translate(-100%, -50%);
   transform: translate(-100%, -50%) translateY(15%);
 }
 #nav-body .navbar #content .search:before {
@@ -339,18 +340,13 @@ body h1 {
   width: 20px;
   height: 4px;
   background-color: #ffffff;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
   transform: rotate(45deg);
   margin-top: 14px;
   margin-left: 11px;
-  -webkit-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
 }
 #nav-body .navbar #content .close {
-  -webkit-transition: 0.4s ease-in-out;
   transition: 0.4s ease-in-out;
-  -webkit-transition-delay: 0.4s;
   transition-delay: 0.4s;
   padding-top: 15%;
 }
@@ -362,10 +358,7 @@ body h1 {
   margin-top: -1px;
   margin-left: -13px;
   background-color: #ffffff;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-  -webkit-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
 }
 #nav-body .navbar #content .close:after {
@@ -377,8 +370,6 @@ body h1 {
   margin-top: -1px;
   margin-left: -13px;
   cursor: pointer;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 #nav-body .navbar #content .square {
@@ -403,8 +394,6 @@ body h1 {
     padding 0.2s;
   -webkit-transition-delay: 0.4s, 0s, 0.4s;
   transition-delay: 0.4s, 0s, 0.4s;
-  -webkit-transform: translate(-100%, -50%);
-  -ms-transform: translate(-100%, -50%);
   transform: translate(-100%, -50%) translateY(13%);
 }
 @media screen and (max-width: 760px) {
@@ -433,6 +422,16 @@ body h1 {
   letter-spacing: 2px;
   opacity: 1;
   z-index: 10;
+  padding-top: 10%;
+}
+#connection h2 .button-text {
+  background: none;
+  color: #50abc7;
+  border: none;
+  font-size: 1.3rem;
+}
+#connection h2 .button-text:hover {
+  cursor: pointer;
 }
 #connection #password-error {
   color: red;
@@ -446,11 +445,13 @@ body h1 {
   width: 100%;
   height: auto;
   z-index: -300;
-  object-fit: center;
+  -o-object-fit: center;
+     object-fit: center;
 }
 @media screen and (max-width: 760px) {
   #connection .connection-bg {
-    object-fit: fill;
+    -o-object-fit: fill;
+       object-fit: fill;
     height: 100%;
   }
 }
@@ -466,6 +467,11 @@ body h1 {
   background: rgba(255, 255, 255, 0.197);
   font-family: "PT sans", sans-serif;
   padding-left: 20px;
+}
+#connection .user-input::-moz-placeholder {
+  color: #ffffff;
+  opacity: 10;
+  z-index: 30;
 }
 #connection .user-input::placeholder {
   color: #ffffff;
@@ -513,8 +519,8 @@ body h1 {
   flex-direction: column;
   height: auto;
   width: auto;
-  margin: 5%;
   background: #000000;
+  padding-top: 6%;
 }
 #profil-display .section-title {
   color: #10bcdd;
@@ -710,6 +716,7 @@ body h1 {
   width: 400px;
   height: 400px;
   border-radius: 16px;
+  padding: 20px 0px;
 }
 .sectionUpdate label {
   display: block;
@@ -885,6 +892,39 @@ body h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#video-main {
+  font-family: "PT Sans";
+  width: 100vh;
+}
+#video-main #video-display {
+  width: 100vw;
+  height: 100vh;
+  color: white;
+  padding-left: 25%;
+  padding-right: 25%;
+  padding-top: 100px;
+}
+#video-main #video-display #video-date {
+  color: white;
+  text-align: end;
+  font-size: 1.3rem;
+  padding-bottom: 1%;
+}
+#video-main #video-display #video {
+  width: 100%;
+}
+#video-main #video-display #video-warning {
+  font-size: 1.2rem;
+  color: rgb(172, 172, 172);
+}
+#video-main #video-display #video-description {
+  font-size: 1.3rem;
+}
+#video-main #caroussel {
+  padding-top: 180px;
+  width: 100vw;
 }
 
 .modal-open {

@@ -2,10 +2,12 @@ import "../../styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
+import useAPI from "../../api/useAPI";
 
 export default function Header() {
+  const api = useAPI();
   const navigate = useNavigate();
-  const { success, isAdmin } = useAuth();
+  const { success, isAdmin, setSuccess, setIsAdmin } = useAuth();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
   const [textSearch, setTextSearch] = useState("");
   const searchOnGoogle = () => {
@@ -30,10 +32,13 @@ export default function Header() {
     checkboxRef.current.checked = false;
   }
 
-  function clickToLogout() {
-    checkboxRef.current.checked = false;
+  const handleLogOut = () => {
+    delete api.defaults.headers.authorization;
+    setSuccess(!success);
+    handleLinkClick();
+    setIsAdmin(false);
     navigate("/connexion");
-  }
+  };
 
   return (
     <div id="nav-body">
@@ -80,7 +85,7 @@ export default function Header() {
             <div className="menu-items">
               <li>
                 <Link to="/" onClick={() => handleLinkClick()}>
-                  Acceuil
+                  Accueil
                 </Link>
               </li>
               {success ? (
@@ -92,7 +97,7 @@ export default function Header() {
               ) : (
                 <li>
                   <Link to="/profile" onClick={() => handleLinkClick()}>
-                    Profil
+                    Mon Profil
                   </Link>
                 </li>
               )}
@@ -108,7 +113,7 @@ export default function Header() {
                 <button
                   className="user-button"
                   type="button"
-                  onClick={clickToLogout}
+                  onClick={handleLogOut}
                 >
                   Déconnexion
                 </button>

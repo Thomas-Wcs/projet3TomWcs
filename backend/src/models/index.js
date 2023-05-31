@@ -30,20 +30,25 @@ pool.getConnection().catch(() => {
 const models = {};
 
 const VideoManager = require("./VideoManager");
+const UserManager = require("./UserManager");
+const SectionManager = require("./SectionManager");
+const CategorieManager = require("./CategorieManager");
+const VideoSectionManager = require("./VideoSectionManager");
 
 models.video = new VideoManager();
 models.video.setDatabase(pool);
 
-const UserManager = require("./UserManager");
-
 models.user = new UserManager();
 models.user.setDatabase(pool);
-
-const SectionManager = require("./SectionManager");
 
 models.section = new SectionManager();
 models.section.setDatabase(pool);
 
+models.categorie = new CategorieManager();
+models.categorie.setDatabase(pool);
+
+models.videoSection = new VideoSectionManager();
+models.videoSection.setDatabase(pool);
 const AdvertsManager = require("./AdvertsManager");
 
 models.adverts = new AdvertsManager();
