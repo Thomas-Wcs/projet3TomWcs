@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import PropTypes from "prop-types";
+import PropTypes, { number } from "prop-types";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -16,7 +16,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import VideoSettingsIcon from "@mui/icons-material/VideoSettings";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import HomeIcon from "@mui/icons-material/Home";
-import monImage from "../../assets/imagedemo.png";
 import dashbordStyles from "./dashbord";
 
 export default function AccountMenu({ userInfo, reset }) {
@@ -63,7 +62,7 @@ export default function AccountMenu({ userInfo, reset }) {
           >
             <Avatar
               alt="Image de l'utilisateur"
-              src={monImage}
+              src={`${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`}
               sx={{ width: 100, height: 100 }}
             />
           </IconButton>
@@ -118,7 +117,11 @@ export default function AccountMenu({ userInfo, reset }) {
           to="/profile/userid"
           onClick={handleClose}
         >
-          <Avatar alt="Image de l'utilisateur" src={monImage} /> Informations
+          <Avatar
+            alt="Image de l'utilisateur"
+            src={`${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`}
+          />
+          Informations
         </MenuItem>
         <MenuItem
           sx={dashbordStyles}
@@ -127,7 +130,7 @@ export default function AccountMenu({ userInfo, reset }) {
           to="/"
           onClick={handleClose}
         >
-          <HomeIcon sx={{ margin: "5%" }} /> Home
+          <HomeIcon sx={{ margin: "5%" }} /> Acceuil
         </MenuItem>
         <MenuItem
           sx={dashbordStyles}
@@ -136,7 +139,7 @@ export default function AccountMenu({ userInfo, reset }) {
           to="/profile/userfavorite"
           onClick={handleClose}
         >
-          <VideoSettingsIcon sx={{ margin: "5%" }} /> My Videos
+          <VideoSettingsIcon sx={{ margin: "5%" }} /> Mes Videos
         </MenuItem>
         <Divider />
         <MenuItem
@@ -149,7 +152,7 @@ export default function AccountMenu({ userInfo, reset }) {
           <ListItemIcon>
             <EditIcon fontSize="small" />
           </ListItemIcon>
-          Edit Profil
+          Editer Profil
         </MenuItem>
         <MenuItem
           sx={dashbordStyles}
@@ -167,7 +170,7 @@ export default function AccountMenu({ userInfo, reset }) {
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Settings
+          Réglages
         </MenuItem>
         <MenuItem sx={dashbordStyles} onClick={handleClose}>
           <ListItemIcon>
@@ -179,7 +182,7 @@ export default function AccountMenu({ userInfo, reset }) {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          Déconnexion
         </MenuItem>
       </Menu>
       <div className="div-savoir-tu-esqui">
@@ -201,6 +204,8 @@ AccountMenu.propTypes = {
     name: PropTypes.string,
     firstname: PropTypes.string,
     email: PropTypes.string,
+    avatar: PropTypes.string,
+    isVideoPlus: PropTypes.number,
   }),
   reset: PropTypes.func,
 };
@@ -209,6 +214,8 @@ AccountMenu.defaultProps = {
     name: "",
     firstname: "",
     email: "",
+    avatar: "",
+    isVideoPlus: number,
   },
   reset: () => {},
 };

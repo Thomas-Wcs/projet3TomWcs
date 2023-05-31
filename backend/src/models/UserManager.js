@@ -43,6 +43,22 @@ class UserManager extends AbstractManager {
       });
   }
 
+  insertAvatar({ link, id }) {
+    return this.database
+      .query(`update ${this.table} set avatar = ? where id = ?;`, [link, id])
+      .then(() => {})
+      .catch((err) => {
+        throw err;
+      });
+  }
+
+  updatePassword({ mdp, id }) {
+    return this.database.query(`update user set mdp = ? where id = ?;`, [
+      mdp,
+      id,
+    ]);
+  }
+
   update(user) {
     return this.database.query(
       `update ${this.table} set name = ?, email = ?, firstname = ?, role = ?, isPremium = ?, isVideoPlus = ?  where id = ?`,
