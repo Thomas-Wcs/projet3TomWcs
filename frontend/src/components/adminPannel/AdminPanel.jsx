@@ -5,7 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import AccountMenu2 from "../dashbord/AccountMenu2";
 
 export default function AdminPanel() {
-  const { userInfo } = useAuth();
+  const { userInfo, reset } = useAuth();
   return (
     <div className="admin-pannel">
       <div className="display-nav-admin-picture">
@@ -14,7 +14,7 @@ export default function AdminPanel() {
       <div className="display-nav-admin2">
         <div>
           <div className="user-connected">
-            <AccountMenu2 userInfo={userInfo} />
+            <AccountMenu2 userInfo={userInfo} reset={reset} />
             <p> Admin : {userInfo.name}</p>
             <p> {userInfo.email}</p>
             <button type="button">DECONNEXION</button>
