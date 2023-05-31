@@ -42,8 +42,6 @@ export default function AccountMenu({ userInfo, reset }) {
 
   const userConnected = Boolean(userInfo?.email);
 
-  console.log(userInfo.avatar);
-
   return userConnected ? (
     <>
       <Box
