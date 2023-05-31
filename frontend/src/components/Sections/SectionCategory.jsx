@@ -5,8 +5,10 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
+import { useAuth } from "../../context/AuthContext";
 
 function SectionCategory({ sectionName }) {
   const listRef = useRef();
@@ -15,22 +17,29 @@ function SectionCategory({ sectionName }) {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const [data, setData] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+  const { userInfo } = useAuth();
+  if (!userInfo?.isPremium) userInfo.isPremium = 0;
 
   const api = useAPI();
 
   const getVideoData = async () => {
-    await api
-      .get("videos")
-      .then((res) => {
+    try {
+      if (userInfo.id) {
+        const res = await api.get(`videos/allVideoAndFavorite/${userInfo.id}`);
         setData(res.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      } else {
+        const res = await api.get(`videos`);
+        setData(res.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   useEffect(() => {
     getVideoData();
-  }, []);
+  }, [refresh]);
 
   // Pour éliminer les noms de catégories qui sont dupliqués
   const uniqueCategories = data.filter((item, index) => {
@@ -47,6 +56,37 @@ function SectionCategory({ sectionName }) {
     const translateX = 0; // Remet le translateX à zero pour revenir au début du container
     listRef.current.style.transform = `translateX(${translateX}px)`;
   }
+
+  const deleteFavoriteVideo = (newValue) => {
+    api
+      .delete(
+        `videosUser/${newValue.videoId}?user=${newValue.userId}`,
+        newValue
+      )
+      .then(() => {
+        getVideoData();
+      });
+  };
+
+  const giveVideoDeleteId = (userId, videoId) => {
+    const newValue = { userId, videoId };
+    deleteFavoriteVideo(newValue);
+  };
+
+  const insertFavoriteVideo = async (newValue) => {
+    try {
+      await api.post(`videosUser/`, newValue).then(() => {
+        setRefresh(!refresh);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const giveVideoId = (userId, videoId) => {
+    const newValue = { userId, videoId };
+    insertFavoriteVideo(newValue);
+  };
 
   function handleClick(direction) {
     let videoWidth = 670; // Largeur d'une video
@@ -130,36 +170,106 @@ function SectionCategory({ sectionName }) {
         </div>
         <div className="container container-section" ref={listRef}>
           {!selectedCategory
-            ? data.map((item) => (
-                <Video
-                  key={item.id}
-                  src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
-                  width="650px"
-                  height="450px"
-                  displayDescription
-                  displayDescriptionTitle={item.title}
-                  displayDescriptionText={item.description_text}
-                  isEnabled
-                  isVideoPremium={item.isVideoPremium}
-                  isVideoPaying={item.isVideoPaying}
-                />
-              ))
+            ? data.map((item) => {
+                const favoriteVideo = data.find(
+                  (favVideo) =>
+                    favVideo.user_id !== null && favVideo.title === item.title
+                );
+                return (
+                  <div key={item.id}>
+                    <Video
+                      key={item.id}
+                      src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
+                      width="650px"
+                      height="450px"
+                      displayDescription
+                      displayDescriptionTitle={item.title}
+                      displayDescriptionText={item.description_text}
+                      isVideoPremium={item.isVideoPremium}
+                      isVideoPaying={item.isVideoPaying}
+                      isEnabled
+                    />
+                    {userInfo.email ? (
+                      <div className="favorite-text-and-button">
+                        {favoriteVideo ? (
+                          <button
+                            className="favorite-profil-button"
+                            type="button"
+                            onClick={() =>
+                              giveVideoDeleteId(userInfo.id, item.id)
+                            }
+                          >
+                            <FavoriteIcon
+                              style={{ fontSize: "30px", color: "red" }}
+                            />
+                          </button>
+                        ) : (
+                          <button
+                            className="favorite-profil-button"
+                            type="button"
+                            onClick={() => giveVideoId(userInfo.id, item.id)}
+                          >
+                            <FavoriteIcon
+                              style={{ fontSize: "30px", color: "white" }}
+                            />
+                          </button>
+                        )}
+                      </div>
+                    ) : null}
+                  </div>
+                );
+              })
             : data
                 .filter((item) => item.name === selectedCategory)
-                .map((item) => (
-                  <Video
-                    key={item.id}
-                    src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
-                    width="650px"
-                    height="450px"
-                    displayDescription
-                    displayDescriptionTitle={item.title}
-                    displayDescriptionText={item.description_text}
-                    isVideoPremium={item.isVideoPremium}
-                    isVideoPaying={item.isVideoPaying}
-                    isEnabled
-                  />
-                ))}
+                .map((item) => {
+                  const favoriteVideo = data.find(
+                    (favVideo) =>
+                      favVideo.user_id !== null && favVideo.title === item.title
+                  );
+                  return (
+                    <div key={item.id}>
+                      <Video
+                        key={item.id}
+                        src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
+                        width="650px"
+                        height="450px"
+                        displayDescription
+                        displayDescriptionTitle={item.title}
+                        displayDescriptionText={item.description_text}
+                        isVideoPremium={item.isVideoPremium}
+                        isVideoPaying={item.isVideoPaying}
+                        isEnabled
+                      />
+                      {userInfo.email ? (
+                        <div className="favorite-text-and-button">
+                          {favoriteVideo ? (
+                            <button
+                              className="favorite-profil-button"
+                              type="button"
+                              onClick={() =>
+                                giveVideoDeleteId(userInfo.id, item.id)
+                              }
+                            >
+                              <FavoriteIcon
+                                style={{ fontSize: "30px", color: "red" }}
+                              />
+                            </button>
+                          ) : (
+                            <button
+                              className="favorite-profil-button"
+                              type="button"
+                              onClick={() => giveVideoId(userInfo.id, item.id)}
+                            >
+                              <FavoriteIcon
+                                style={{ fontSize: "30px", color: "white" }}
+                              />
+                            </button>
+                          )}
+                        </div>
+                      ) : null}
+                    </div>
+                  );
+                })}
         </div>
         <ArrowForwardIosOutlined
           className="sliderArrow right"

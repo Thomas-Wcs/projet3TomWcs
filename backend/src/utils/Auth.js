@@ -28,8 +28,25 @@ const verifyPassword = async (req, res) => {
       if (isVerified) {
         const payload = { sub: req.user.id };
         const token = jwt.sign(payload, process.env.JWT_SECRET);
-        delete req.user.hashedPassword;
+        delete req.user.mdp;
         res.send({ token, user: req.user });
+      } else {
+        res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const verifyEditPassword = async (req, res, next) => {
+  argon2
+    .verify(req.user.mdp, req.body.mdp)
+    .then((isVerified) => {
+      if (isVerified) {
+        delete req.user.mdp;
+        next();
       } else {
         res.sendStatus(401);
       }
@@ -80,4 +97,10 @@ const verifyToken = (req, res, next) => {
   return true;
 };
 
-module.exports = { hashPassword, verifyPassword, verifyToken, verifyAdmin };
+module.exports = {
+  hashPassword,
+  verifyPassword,
+  verifyToken,
+  verifyAdmin,
+  verifyEditPassword,
+};

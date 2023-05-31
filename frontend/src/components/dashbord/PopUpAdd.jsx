@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import bravo from "../../assets/bravo.svg.png";
+import bank from "../../assets/bank.jpg";
+import { useAuth } from "../../context/AuthContext";
 
 export default function PopUp() {
   const api = useAPI();
   const { state } = useLocation();
+  const { setUserInfo } = useAuth();
 
   const [modal, setModal] = useState(false);
+  const [bravoModal, setBravoModal] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -34,6 +38,40 @@ export default function PopUp() {
     };
   }, [modal]);
 
+  const toggleBravoModal = () => {
+    setBravoModal(!bravoModal);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setBravoModal(false);
+      }
+    };
+
+    if (bravoModal) {
+      document.addEventListener("keydown", handleKeyDown);
+      document.body.classList.add("modal-open");
+    } else {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.classList.remove("modal-open");
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.classList.remove("modal-open");
+    };
+  }, [bravoModal]);
+
+  const refreshAboStatus = async () => {
+    try {
+      const res = await api.get(`users/${state.userInfo.id}`);
+      setUserInfo(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const clickEditPremium = () => {
     (async () => {
       try {
@@ -48,12 +86,14 @@ export default function PopUp() {
           isPremium: data.isPremium,
           isVideoPlus: 1,
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
       } catch (error) {
         console.error(error);
       }
+      refreshAboStatus();
+      setTimeout(() => {
+        toggleModal();
+      }, 500);
+      toggleBravoModal();
     })();
   };
 
@@ -73,6 +113,41 @@ export default function PopUp() {
             {modal && (
               <div className="pop-up-abo">
                 <img
+                  src={bank}
+                  style={{
+                    borderRadius: "30px",
+                    width: "300px",
+                    height: "200px",
+                  }}
+                  alt="bravo"
+                />
+                <p>Valider le paiement avec la banque</p>
+                <button
+                  className="button-pop-for-all"
+                  type="button"
+                  onClick={toggleModal}
+                >
+                  Annuler
+                </button>
+                <button
+                  className="button-pop-for-all"
+                  type="button"
+                  onClick={clickEditPremium}
+                >
+                  Confirmer
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      <div>
+        {bravoModal && (
+          <div className="overlay-abo-div" role="dialog" aria-modal="true">
+            {bravoModal && (
+              <div className="pop-up-abo">
+                <img
                   src={bravo}
                   style={{
                     borderRadius: "30px",
@@ -81,16 +156,11 @@ export default function PopUp() {
                   }}
                   alt="bravo"
                 />
-                <p>
-                  Félicitations votre abonnement viens d'etre activé.
-                  <br /> <br />
-                  Veuillez vous reconnecter s'il vous plait pour profiter de vos
-                  nouvelles options !
-                </p>
+                <p>Vous pouvez maintenant profiter de votre abonnement !</p>
                 <button
-                  className="valide-mdp-button"
+                  className="button-pop-for-all"
                   type="button"
-                  onClick={clickEditPremium}
+                  onClick={toggleBravoModal}
                 >
                   Confirmer
                 </button>

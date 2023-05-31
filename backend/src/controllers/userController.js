@@ -1,4 +1,6 @@
 const joi = require("joi");
+const path = require("path");
+const fs = require("fs");
 const models = require("../models");
 const { hashPassword } = require("../utils/Auth");
 
@@ -13,11 +15,27 @@ const validate = (data, forCreation = true) => {
     .validate(data, { abortEarly: false }).error;
 };
 
+const validatePassword = (data, forCreation = true) => {
+  const presence = forCreation ? "required" : "optional";
+  return joi
+    .object({
+      newPassword: joi.string().max(255).presence(presence),
+      mdp: joi.string().max(255).presence(presence),
+      email: joi.string().email().presence(presence),
+      id: joi.number().presence(presence),
+    })
+    .validate(data, { abortEarly: false }).error;
+};
+
 const browse = (req, res) => {
   models.user
     .findAll()
     .then(([rows]) => {
-      res.send(rows);
+      const sanitizedRows = rows.map((row) => {
+        const { mdp, ...sanitizedRow } = row;
+        return sanitizedRow;
+      });
+      res.send(sanitizedRows);
     })
     .catch((err) => {
       console.error(err);
@@ -33,7 +51,11 @@ const read = (req, res) => {
       if (rows[0] == null) {
         res.sendStatus(404);
       } else {
-        res.send(rows[0]);
+        const sanitizedRows = rows.map((row) => {
+          const { mdp, ...sanitizedRow } = row;
+          return sanitizedRow;
+        });
+        res.send(sanitizedRows[0]);
       }
     })
     .catch((err) => {
@@ -78,7 +100,6 @@ const add = async (req, res) => {
       email,
       mdp: hashed,
     });
-
     return res.status(201).json(result);
   } catch (err) {
     if (err.message === "User already exists") {
@@ -86,6 +107,66 @@ const add = async (req, res) => {
     }
     console.error(err);
     return res.sendStatus(500);
+  }
+};
+
+const updateNewPassword = async (req, res) => {
+  const error = validatePassword(req.body);
+  if (error) {
+    return res.sendStatus(422);
+  }
+  const { newPassword, id } = req.body;
+  const hashed = await hashPassword(newPassword);
+  if (!hashed) {
+    return res.sendStatus(500);
+  }
+  try {
+    await models.user.updatePassword({
+      mdp: hashed,
+      id,
+    });
+    return res.sendStatus(204);
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(500);
+  }
+};
+
+const addAvatar = async (req, res) => {
+  const { file } = req;
+
+  const id = parseInt(req.params.id, 10);
+  if (!file) {
+    return res.sendStatus(500);
+  }
+  const baseFolder = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "assets",
+    "images"
+  );
+  const originalName = path.join(baseFolder, file.originalname);
+  const filename = path.join(baseFolder, file.filename);
+
+  try {
+    fs.rename(filename, originalName, () => {
+      res.sendStatus(201);
+    });
+  } catch (err) {
+    return res.sendStatus(500);
+  }
+
+  const link = `assets/images/${file.originalname}`;
+  try {
+    const result = await models.user.insertAvatar({
+      link,
+      id,
+    });
+    return res.status(200).send(result);
+  } catch (err) {
+    return res.status(500).send(err);
   }
 };
 
@@ -130,7 +211,9 @@ module.exports = {
   read,
   edit,
   add,
+  addAvatar,
   destroy,
   login,
   findOne,
+  updateNewPassword,
 };

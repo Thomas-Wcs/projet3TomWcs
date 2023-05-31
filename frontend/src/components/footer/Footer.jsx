@@ -4,7 +4,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import "../../styles/index.css";
-import logo from "../../assets/imagedemo.png";
+import logo from "../../assets/favicon.png";
 
 function Footer() {
   return (
@@ -13,7 +13,6 @@ function Footer() {
         <div className="footer_brand_logo">
           <img src={logo} alt="logo" className="footer_logo" />
         </div>
-
         <div className="footer_brand_text">
           <ul className="footer_list">
             <li>Mentions légales |</li>
