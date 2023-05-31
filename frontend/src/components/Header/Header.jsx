@@ -85,11 +85,7 @@ export default function Header() {
             <div className="menu-items">
               <li>
                 <Link to="/" onClick={() => handleLinkClick()}>
-<<<<<<< HEAD
                   Accueil
-=======
-                  Acceuil
->>>>>>> a1e58afa1166dcd1d3284a336414625cd0066004
                 </Link>
               </li>
               {success ? (
@@ -101,11 +97,7 @@ export default function Header() {
               ) : (
                 <li>
                   <Link to="/profile" onClick={() => handleLinkClick()}>
-<<<<<<< HEAD
                     Mon Profil
-=======
-                    Profil
->>>>>>> a1e58afa1166dcd1d3284a336414625cd0066004
                   </Link>
                 </li>
               )}
@@ -123,11 +115,7 @@ export default function Header() {
                   type="button"
                   onClick={handleLogOut}
                 >
-<<<<<<< HEAD
-                  Deconnexion
-=======
                   Déconnexion
->>>>>>> a1e58afa1166dcd1d3284a336414625cd0066004
                 </button>
               )}
             </div>

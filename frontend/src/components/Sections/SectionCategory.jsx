@@ -5,11 +5,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
-<<<<<<< HEAD
-import { Link } from "react-router-dom";
-=======
 import FavoriteIcon from "@mui/icons-material/Favorite";
->>>>>>> a1e58afa1166dcd1d3284a336414625cd0066004
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
