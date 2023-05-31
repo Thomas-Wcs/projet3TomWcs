@@ -7,10 +7,11 @@ export default function Header() {
   const navigate = useNavigate();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
   const [textSearch, setTextSearch] = useState("");
-  // eslint-disable-next-line no-restricted-syntax
-  const searchOnSite = console.log(
-    "bientot on pourras chercher sur notre site :)"
-  );
+  const searchOnSite = () => {
+    // eslint-disable-next-line no-restricted-syntax
+    console.log("bientot on pourras chercher sur notre site :");
+  };
+
   const { success, isAdmin } = useAuth();
 
   const checkboxRef = useRef();
