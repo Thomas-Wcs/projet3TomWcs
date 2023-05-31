@@ -155,7 +155,6 @@ function Section1({ sectionName }) {
                 </Link>
                 {userInfo.email ? (
                   <div className="favorite-text-and-button">
-                    <div style={{ color: "white" }}>{data.title}</div>
                     {favoriteVideo ? (
                       <button
                         className="favorite-profil-button"

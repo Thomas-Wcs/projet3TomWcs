@@ -7,13 +7,25 @@ import useAPI from "../../api/useAPI";
 export default function Header() {
   const api = useAPI();
   const navigate = useNavigate();
+  const { success, isAdmin } = useAuth();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
-  const { setSuccess, success, setIsAdmin, isAdmin } = useAuth();
+  const [textSearch, setTextSearch] = useState("");
+  const searchOnGoogle = () => {
+    // eslint-disable-next-line no-restricted-syntax
+    console.log(` "bientot on pourras chercher sur notre site : ${textSearch}`);
+  };
 
   const checkboxRef = useRef();
 
+  function handleSearch() {
+    if (textSearch) {
+      searchOnGoogle(textSearch);
+    }
+  }
+
   function expand() {
     setIsSearchClosed(!isSearchClosed);
+    setTextSearch("");
   }
 
   function handleLinkClick() {
@@ -49,6 +61,18 @@ export default function Header() {
               <input
                 type="text"
                 name="input"
+                value={textSearch}
+                onChange={(e) => setTextSearch(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleSearch();
+                  } else if (e.key === "Escape") {
+                    e.preventDefault();
+                    setTextSearch("");
+                    expand();
+                  }
+                }}
                 className={`input ${isSearchClosed ? "square" : ""}`}
               />
               <button
@@ -61,7 +85,11 @@ export default function Header() {
             <div className="menu-items">
               <li>
                 <Link to="/" onClick={() => handleLinkClick()}>
+<<<<<<< HEAD
                   Accueil
+=======
+                  Acceuil
+>>>>>>> a1e58afa1166dcd1d3284a336414625cd0066004
                 </Link>
               </li>
               {success ? (
@@ -73,7 +101,11 @@ export default function Header() {
               ) : (
                 <li>
                   <Link to="/profile" onClick={() => handleLinkClick()}>
+<<<<<<< HEAD
                     Mon Profil
+=======
+                    Profil
+>>>>>>> a1e58afa1166dcd1d3284a336414625cd0066004
                   </Link>
                 </li>
               )}
@@ -81,7 +113,7 @@ export default function Header() {
               {isAdmin && (
                 <li>
                   <Link to="/adminPanel/" onClick={() => handleLinkClick()}>
-                    Admin
+                    Administrateur
                   </Link>
                 </li>
               )}
@@ -91,7 +123,11 @@ export default function Header() {
                   type="button"
                   onClick={handleLogOut}
                 >
+<<<<<<< HEAD
                   Deconnexion
+=======
+                  Déconnexion
+>>>>>>> a1e58afa1166dcd1d3284a336414625cd0066004
                 </button>
               )}
             </div>

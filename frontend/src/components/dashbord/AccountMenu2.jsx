@@ -16,7 +16,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import VideoSettingsIcon from "@mui/icons-material/VideoSettings";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import HomeIcon from "@mui/icons-material/Home";
-import monImage from "../../assets/imagedemo.png";
 import dashbordStyles from "./dashbord";
 
 export default function AccountMenu({ userInfo, reset }) {
@@ -63,7 +62,7 @@ export default function AccountMenu({ userInfo, reset }) {
           >
             <Avatar
               alt="Image de l'utilisateur"
-              src={monImage}
+              src={`${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`}
               sx={{ width: 100, height: 100 }}
             />
           </IconButton>
@@ -118,7 +117,11 @@ export default function AccountMenu({ userInfo, reset }) {
           to="/profile/userid"
           onClick={handleClose}
         >
-          <Avatar alt="Image de l'utilisateur" src={monImage} /> Informations
+          <Avatar
+            alt="Image de l'utilisateur"
+            src={`${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`}
+          />
+          Informations
         </MenuItem>
         <MenuItem
           sx={dashbordStyles}
@@ -167,7 +170,7 @@ export default function AccountMenu({ userInfo, reset }) {
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Paramètres
+          Réglages
         </MenuItem>
         <MenuItem sx={dashbordStyles} onClick={handleClose}>
           <ListItemIcon>
@@ -179,7 +182,7 @@ export default function AccountMenu({ userInfo, reset }) {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Deconnexion
+          Déconnexion
         </MenuItem>
       </Menu>
     </>
@@ -198,6 +201,7 @@ AccountMenu.propTypes = {
     name: PropTypes.string,
     firstname: PropTypes.string,
     email: PropTypes.string,
+    avatar: PropTypes.string,
   }),
   reset: PropTypes.func,
 };
@@ -206,6 +210,7 @@ AccountMenu.defaultProps = {
     name: "",
     firstname: "",
     email: "",
+    avatar: "",
   },
   reset: () => {},
 };

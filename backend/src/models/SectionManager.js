@@ -17,11 +17,6 @@ class SectionManager extends AbstractManager {
     );
   }
 
-  // insert(section) {
-  //   return this.database.query(`insert into ${this.table} (name) values (?)`, [
-  //     section.name,
-  //   ]);
-  // }
   insert(section) {
     return this.database.query(
       `INSERT INTO ${this.table} (name,  \`order\`, section_type) VALUES (?, ?, ?)`,

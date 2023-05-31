@@ -40,6 +40,23 @@ const verifyPassword = async (req, res) => {
     });
 };
 
+const verifyEditPassword = async (req, res, next) => {
+  argon2
+    .verify(req.user.mdp, req.body.mdp)
+    .then((isVerified) => {
+      if (isVerified) {
+        delete req.user.mdp;
+        next();
+      } else {
+        res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const verifyAdmin = async (req, res) => {
   argon2
     .verify(req.user.mdp, req.body.mdp)
@@ -80,4 +97,10 @@ const verifyToken = (req, res, next) => {
   return true;
 };
 
-module.exports = { hashPassword, verifyPassword, verifyToken, verifyAdmin };
+module.exports = {
+  hashPassword,
+  verifyPassword,
+  verifyToken,
+  verifyAdmin,
+  verifyEditPassword,
+};

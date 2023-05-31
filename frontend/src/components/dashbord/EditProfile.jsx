@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
 import userRole from "../../utils/users";
+import EditUserPassword from "./EditUserPassword";
 
 export default function EditProfile() {
   const { state } = useLocation();
@@ -15,13 +16,29 @@ export default function EditProfile() {
   const [mdp, setMdp] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
   const [doneMessage, setDoneMessage] = useState(false);
+  const [avatarUpload, setAvatarUpload] = useState(null);
+  const [imageAvatarDone, setImageAvatarDone] = useState(false);
+
+  const doneImageAvatar = () => {
+    setImageAvatarDone(true);
+    setTimeout(() => {
+      setImageAvatarDone(false);
+    }, 5000);
+  };
+
+  let avatarImg;
+
+  if (avatarUpload) {
+    avatarImg = URL.createObjectURL(avatarUpload);
+  } else {
+    avatarImg = undefined;
+  }
 
   const relogUser = () => {
     const user = {
       mdp,
       email: editableContent.userInfo.email,
     };
-
     api
       .post("users/login/", user)
       .then((res) => {
@@ -51,6 +68,17 @@ export default function EditProfile() {
     }
     relogUser();
     setMdp("");
+    setAvatarUpload(null);
+  };
+
+  const handleAddAvatar = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("link", avatarUpload);
+    api
+      .post(`/users/${state.userInfo.id}`, formData)
+      .then(() => {})
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -58,60 +86,99 @@ export default function EditProfile() {
       <div className="user-adresse-information">
         <div>
           <h3>Modification du profil utilisateur</h3>
-          <h4>Prénom</h4>
+          <h4>Modifier avatar :</h4>
+          <div className="avatar-div-user-img">
+            {avatarImg ? (
+              <div>
+                <img
+                  className="avatar-upload-image"
+                  src={avatarImg}
+                  alt=" avatar utilisateur "
+                />
+              </div>
+            ) : null}
+          </div>
+          <label htmlFor="lien">
+            <input
+              type="file"
+              name="lien"
+              onChange={(e) => setAvatarUpload(e.target.files[0])}
+              id="file-avatar-user-button"
+            />
+          </label>
+          {avatarImg ? (
+            <button
+              type="submit"
+              onClick={(e) => {
+                handleAddAvatar(e);
+                doneImageAvatar();
+              }}
+              className="valide-mdp-button"
+            >
+              Valider avatar
+            </button>
+          ) : null}
+          {imageAvatarDone ? (
+            <div>
+              Image téléchargé avec succées
+              <p style={{ color: "red" }}>
+                Veuillez taper votre mot de passe en bas de page pour valider
+                les modifications
+              </p>
+            </div>
+          ) : null}
+          <h4>FistName</h4>
           <div />
-          <p>
-            <input
-              type="text"
-              style={{ backgroundColor: "white", color: "black" }}
-              value={editableContent.userInfo.firstname}
-              onChange={(e) =>
-                setEditableContent({
-                  ...editableContent,
-                  userInfo: {
-                    ...editableContent.userInfo,
-                    firstname: e.target.value,
-                  },
-                })
-              }
-            />
-          </p>
-          <h4>Nom</h4>
-          <p>
-            <input
-              type="text"
-              style={{ backgroundColor: "white", color: "black" }}
-              value={editableContent.userInfo.name}
-              onChange={(e) =>
-                setEditableContent({
-                  ...editableContent,
-                  userInfo: {
-                    ...editableContent.userInfo,
-                    name: e.target.value,
-                  },
-                })
-              }
-            />
-          </p>
+          <input
+            type="text"
+            style={{ backgroundColor: "white", color: "black" }}
+            value={editableContent.userInfo.firstname}
+            onChange={(e) =>
+              setEditableContent({
+                ...editableContent,
+                userInfo: {
+                  ...editableContent.userInfo,
+                  firstname: e.target.value,
+                },
+              })
+            }
+          />
+          <h4>Name</h4>
+          <input
+            type="text"
+            style={{ backgroundColor: "white", color: "black" }}
+            value={editableContent.userInfo.name}
+            onChange={(e) =>
+              setEditableContent({
+                ...editableContent,
+                userInfo: {
+                  ...editableContent.userInfo,
+                  name: e.target.value,
+                },
+              })
+            }
+          />
           <h4>Email </h4>
-          <p>
-            <input
-              type="text"
-              style={{ backgroundColor: "white", color: "black" }}
-              value={editableContent.userInfo.email}
-              onChange={(e) =>
-                setEditableContent({
-                  ...editableContent,
-                  userInfo: {
-                    ...editableContent.userInfo,
-                    email: e.target.value,
-                  },
-                })
-              }
-            />
-          </p>
+          <input
+            type="text"
+            style={{ backgroundColor: "white", color: "black" }}
+            value={editableContent.userInfo.email}
+            onChange={(e) =>
+              setEditableContent({
+                ...editableContent,
+                userInfo: {
+                  ...editableContent.userInfo,
+                  email: e.target.value,
+                },
+              })
+            }
+          />
         </div>
-
+        <div>
+          <div>
+            <EditUserPassword state={state} />
+          </div>
+        </div>
         <div className="user-edit-adresse-information">
           <h3>Adresse</h3>
           <h4>Ville</h4>
@@ -127,19 +194,32 @@ export default function EditProfile() {
         </div>
         <div>
           <h4>Tapez votre mot de passe pour valider les modifications :</h4>
-          <p>
+          <form action="">
             <input
               type="password"
-              style={{ backgroundColor: "white", color: "black" }}
               value={mdp}
-              onChange={(e) => setMdp(e.target.value)}
+              onChange={(e) => {
+                e.preventDefault();
+                setMdp(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  editUser();
+                }
+              }}
             />
-          </p>
+          </form>
         </div>
         <div>
-          {errorMessage && <p id="password-error">Mot de passe incorrect</p>}
+          {errorMessage && (
+            <p style={{ color: "red" }} id="password-error">
+              Mot de passe incorrect
+            </p>
+          )}
           {doneMessage && <p id="password-error">Mise à jour des infos</p>}
           <button
+            autoComplete="off"
             className="valide-mdp-button"
             type="button"
             onClick={editUser}

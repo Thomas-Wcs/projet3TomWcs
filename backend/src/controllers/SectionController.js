@@ -31,8 +31,6 @@ const read = (req, res) => {
 const add = (req, res) => {
   const sections = req.body;
 
-  // TODO validations (length, format...)
-
   models.section
     .insert(sections)
     .then(() => {

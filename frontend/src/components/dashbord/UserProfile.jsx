@@ -9,13 +9,13 @@ export default function UserProfile() {
     <div className="user-main-profile">
       <div className="user-adresse-information">
         <h3>Info Utilisateur</h3>
-        <h4>Prénom</h4>
+        <h4>Prénom :</h4>
         <p>{state.userInfo.firstname}</p>
-        <h4>Nom</h4>
+        <h4>Nom :</h4>
         <p>{state.userInfo.name}</p>
-        <h4>Email </h4>
+        <h4>Email :</h4>
         <p>{state.userInfo.email}</p>
-        <h4>Premium </h4>
+        <h4>Premium :</h4>
         <p>
           {state.userInfo.isPremium === 1
             ? "Utilisateur Premium"
@@ -24,13 +24,13 @@ export default function UserProfile() {
       </div>
       <div className="user-adresse-information">
         <h3>Adresse</h3>
-        <h4>Ville</h4>
+        <h4>Ville :</h4>
         <p>Lyon</p>
-        <h4>Rue</h4>
+        <h4>Rue :</h4>
         <p>Rue Victor Hugo 42</p>
-        <h4>Code Postal </h4>
+        <h4>Code Postal : </h4>
         <p>69003</p>
-        <h4>Tél :</h4>
+        <h4>Téléphone :</h4>
         <p> 0606060606</p>
         <h4>Complement :</h4>
         <p>Vide</p>
