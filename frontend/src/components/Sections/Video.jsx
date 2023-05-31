@@ -20,10 +20,7 @@ function Video({
   isVideoPremium,
   isVideoPaying,
   controls,
-<<<<<<< HEAD
-=======
   setDuration,
->>>>>>> 4e6a460240eb4fe8ab1e27f762a345113d6bfa51
 }) {
   const { userInfo } = useAuth();
   const videoRef = useRef(null);
@@ -89,7 +86,6 @@ function Video({
             ? null
             : handleToggleVideo
         }
-        controls={controls}
       />
       <h3 className="video-title">{title}</h3>
       {displayPlayButton && (
@@ -117,10 +113,7 @@ Video.propTypes = {
   isVideoPremium: PropTypes.number,
   isVideoPaying: PropTypes.number,
   controls: PropTypes.bool,
-<<<<<<< HEAD
-=======
   setDuration: PropTypes.func.isRequired,
->>>>>>> 4e6a460240eb4fe8ab1e27f762a345113d6bfa51
 };
 
 Video.defaultProps = {

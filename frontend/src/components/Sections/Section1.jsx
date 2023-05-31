@@ -140,20 +140,6 @@ function Section1({ sectionName }) {
             );
             return (
               <div key={video.id}>
-<<<<<<< HEAD
-                <Video
-                  width="650px"
-                  height="450px"
-                  displayDescription
-                  displayDescriptionTitle={video.title}
-                  displayDescriptionText={video.description_text}
-                  src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
-                  isVideoPremium={video.isVideoPremium}
-                  isVideoPaying={video.isVideoPaying}
-                  isEnabled
-                  control
-                />
-=======
                 <Link to={`/video_description/${video.id}`}>
                   <Video
                     width="650px"
@@ -167,7 +153,6 @@ function Section1({ sectionName }) {
                     isEnabled
                   />
                 </Link>
->>>>>>> 4e6a460240eb4fe8ab1e27f762a345113d6bfa51
                 {userInfo.email ? (
                   <div className="favorite-text-and-button">
                     {favoriteVideo ? (

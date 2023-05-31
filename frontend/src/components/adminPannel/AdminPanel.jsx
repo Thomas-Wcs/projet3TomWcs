@@ -6,7 +6,7 @@ import useAPI from "../../api/useAPI";
 import AccountMenu2 from "../dashbord/AccountMenu2";
 
 export default function AdminPanel() {
-  const { userInfo, setSuccess, success, setIsAdmin } = useAuth();
+  const { userInfo, setSuccess, success, setIsAdmin, reset } = useAuth();
   const api = useAPI();
   const navigate = useNavigate();
 
