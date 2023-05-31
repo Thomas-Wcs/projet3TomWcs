@@ -7,7 +7,7 @@ import useAPI from "../../api/useAPI";
 export default function Header() {
   const api = useAPI();
   const navigate = useNavigate();
-  const { success, isAdmin } = useAuth();
+  const { success, isAdmin, setSuccess, setIsAdmin } = useAuth();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
   const [textSearch, setTextSearch] = useState("");
   const searchOnGoogle = () => {

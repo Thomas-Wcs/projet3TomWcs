@@ -22,11 +22,18 @@ function Video({
   controls,
 }) {
   const { userInfo } = useAuth();
+  const videoRef = useRef(null);
+  const [duration, setDuration] = useState(0);
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const handleLoadedMetadata = () => {
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      setDuration(videoElement.duration);
+    }
+  };
 
-  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const handleToggleVideo = () => {
     const video = videoRef.current;
@@ -55,10 +62,11 @@ function Video({
   return (
     <div className="wrapper-video">
       <video
+        ref={videoRef}
+        onLoadedMetadata={handleLoadedMetadata}
         src={src}
         poster={posterImage}
         muted
-        ref={videoRef}
         preload="metadata"
         style={{ width, height }}
         onMouseOver={
