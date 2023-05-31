@@ -26,7 +26,7 @@ function About() {
         support team will get back to you as soon as possible.
       </p>
       <button type="button" onClick={handleContactClick}>
-        Contact Us
+        Nous contacter
       </button>
     </div>
   );
