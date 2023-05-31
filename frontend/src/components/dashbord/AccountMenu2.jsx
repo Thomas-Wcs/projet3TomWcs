@@ -16,6 +16,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import VideoSettingsIcon from "@mui/icons-material/VideoSettings";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import HomeIcon from "@mui/icons-material/Home";
+import profilImageFirst from "../../assets/profilDefault.png";
 import dashbordStyles from "./dashbord";
 
 export default function AccountMenu({ userInfo, reset }) {
@@ -41,6 +42,8 @@ export default function AccountMenu({ userInfo, reset }) {
 
   const userConnected = Boolean(userInfo?.email);
 
+  console.log(userInfo.avatar);
+
   return userConnected ? (
     <>
       <Box
@@ -62,7 +65,11 @@ export default function AccountMenu({ userInfo, reset }) {
           >
             <Avatar
               alt="Image de l'utilisateur"
-              src={`${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`}
+              src={
+                userInfo.avatar
+                  ? `${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`
+                  : profilImageFirst
+              }
               sx={{ width: 100, height: 100 }}
             />
           </IconButton>
@@ -119,7 +126,11 @@ export default function AccountMenu({ userInfo, reset }) {
         >
           <Avatar
             alt="Image de l'utilisateur"
-            src={`${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`}
+            src={
+              userInfo.avatar
+                ? `${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`
+                : profilImageFirst
+            }
           />
           Informations
         </MenuItem>
