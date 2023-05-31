@@ -9,7 +9,9 @@ export default function Header() {
   const [textSearch, setTextSearch] = useState("");
   const searchOnSite = () => {
     // eslint-disable-next-line no-restricted-syntax
-    console.log("bientot on pourras chercher sur notre site :");
+    console.log(
+      `"bientot on pourras chercher sur notre site :" ${textSearch} `
+    );
   };
 
   const { success, isAdmin } = useAuth();
