@@ -17,6 +17,7 @@ import VideoSettingsIcon from "@mui/icons-material/VideoSettings";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import HomeIcon from "@mui/icons-material/Home";
 import dashbordStyles from "./dashbord";
+import profilImageFirst from "../../assets/profilDefault3.svg.png";
 
 export default function AccountMenu({ userInfo, reset }) {
   const logout = () => {
@@ -62,7 +63,11 @@ export default function AccountMenu({ userInfo, reset }) {
           >
             <Avatar
               alt="Image de l'utilisateur"
-              src={`${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`}
+              src={
+                userInfo.avatar
+                  ? `${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`
+                  : profilImageFirst
+              }
               sx={{ width: 100, height: 100 }}
             />
           </IconButton>
@@ -119,7 +124,11 @@ export default function AccountMenu({ userInfo, reset }) {
         >
           <Avatar
             alt="Image de l'utilisateur"
-            src={`${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`}
+            src={
+              userInfo.avatar
+                ? `${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`
+                : profilImageFirst
+            }
           />
           Informations
         </MenuItem>

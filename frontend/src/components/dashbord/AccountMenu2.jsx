@@ -16,7 +16,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import VideoSettingsIcon from "@mui/icons-material/VideoSettings";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import HomeIcon from "@mui/icons-material/Home";
-import profilImageFirst from "../../assets/profilDefault.png";
+import profilImageFirst from "../../assets/profilDefault3.svg.png";
 import dashbordStyles from "./dashbord";
 
 export default function AccountMenu({ userInfo, reset }) {
