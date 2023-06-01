@@ -62,7 +62,7 @@ function Featured() {
         />
         <div className="container" ref={listRef}>
           {data.map((video) => (
-            <Link to={`/video_description/${video.id}`}>
+            <Link to={`/video_description/${video.id}`} key={video.id}>
               <Video
                 key={video.id}
                 title={video.titre}

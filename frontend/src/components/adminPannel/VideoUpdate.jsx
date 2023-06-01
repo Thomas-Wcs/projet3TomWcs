@@ -7,12 +7,10 @@ function VideoUpdate() {
   const { id } = useParams();
   const api = useAPI();
   const navigate = useNavigate();
-  const [allCategory, setCategory] = useState();
+  const [allCategory, setCategory] = useState([]);
   const [videoData, setVideoData] = useState();
-
-  useEffect(() => {
-    api.get("/category").then((res) => setCategory(res.data));
-  }, [id]);
+  const [allSection, setAllSection] = useState();
+  const [videoSection, setVideoSection] = useState();
 
   useEffect(() => {
     const getVideoData = async () => {
@@ -23,12 +21,34 @@ function VideoUpdate() {
     getVideoData();
   }, [id]);
 
+  useEffect(() => {
+    api.get("/category").then((res) => setCategory(res.data));
+  }, [id]);
+
+  useEffect(() => {
+    api.get("/sections").then((res) => setAllSection(res.data));
+  }, [id]);
+
+  useEffect(() => {
+    api.get("/video_section").then((res) => {
+      const videoSectionData = res.data.find(
+        (item) => item.video_id === videoData?.id
+      );
+      setVideoSection(videoSectionData?.section_id || "");
+    });
+  }, [videoData?.id]);
+
   function handleChange(e) {
     const { name, value } = e.target;
     setVideoData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
+  }
+
+  function handleSectionChange(e) {
+    const { value } = e.target;
+    setVideoSection(value);
   }
 
   function updateVideoData() {
@@ -44,6 +64,18 @@ function VideoUpdate() {
       })
       .catch((error) => {
         console.error(error);
+      });
+
+    api
+      .put(`video_section/${videoData.video_section_id}`, {
+        section_id: videoSection,
+        id: videoData.video_section_id,
+      })
+      .then(() => {
+        navigate("/adminPanel/videosTable");
+      })
+      .catch((err) => {
+        console.error(err);
       });
   }
 
@@ -63,7 +95,7 @@ function VideoUpdate() {
             placeholder="id"
             value={videoData?.id}
             className="sectionUpdateInput"
-            onChange={handleChange}
+            onChange={(handleChange, handleSectionChange)}
             name="id"
             disabled
           />
@@ -91,7 +123,7 @@ function VideoUpdate() {
           />
         </div>
         <div className="sectionUpdateName">
-          {allCategory?.name && (
+          {allCategory && (
             <select
               name="category_id"
               value={videoData?.category_id}
@@ -100,6 +132,19 @@ function VideoUpdate() {
               {allCategory.map((cat) => (
                 <option value={cat.id} key={cat.id}>
                   {cat.name}
+                </option>
+              ))}
+            </select>
+          )}
+          {allSection && (
+            <select
+              name="section_id"
+              value={videoSection}
+              onChange={handleSectionChange}
+            >
+              {allSection.map((sec) => (
+                <option value={sec.id} key={sec.id}>
+                  {sec.name}
                 </option>
               ))}
             </select>

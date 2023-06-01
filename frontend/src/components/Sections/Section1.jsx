@@ -17,6 +17,7 @@ function Section1({ sectionName }) {
   const [videoNumber, setVideoNumber] = useState(0);
   const [data, setData] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [showMore, setShowMore] = useState(true);
   const api = useAPI();
   const { userInfo } = useAuth();
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
@@ -30,6 +31,7 @@ function Section1({ sectionName }) {
         setData(res.data);
       } else {
         const res = await api.get(`videos`);
+
         setData(res.data);
       }
     } catch (error) {
@@ -108,6 +110,10 @@ function Section1({ sectionName }) {
     }
   }
 
+  function seeMore() {
+    setShowMore(!showMore);
+  }
+
   return (
     <div className="list">
       <div className="wrapper-sectionName-buttons">
@@ -116,82 +122,104 @@ function Section1({ sectionName }) {
           <button type="submit" className="follow-btn">
             À SUIVRE
           </button>
-          <button
-            type="submit"
-            className="next-btn"
-            onClick={() => handleClick("right")}
-          >
+          <button type="submit" className="next-btn" onClick={() => seeMore}>
             VOIR PLUS
           </button>
         </div>
       </div>
 
-      <div className="wrapper">
-        <ArrowBackIosOutlined
-          className="sliderArrow left"
-          onClick={() => handleClick("left")}
-          disabled={position === 0}
-        />
-        <div className="container container-section" ref={listRef}>
-          {data.map((video) => {
-            const favoriteVideo = data.find(
-              (favVideo) =>
-                favVideo.user_id !== null && favVideo.title === video.title
-            );
-            return (
-              <div key={video.id}>
-                <Link to={`/video_description/${video.id}`}>
-                  <Video
-                    width="650px"
-                    height="450px"
-                    displayDescription
-                    displayDescriptionTitle={video.title}
-                    displayDescriptionText={video.description_text}
-                    src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
-                    isVideoPremium={video.isVideoPremium}
-                    isVideoPaying={video.isVideoPaying}
-                    isEnabled
-                  />
-                </Link>
-                {userInfo.email ? (
-                  <div className="favorite-text-and-button">
-                    {favoriteVideo ? (
-                      <button
-                        className="favorite-profil-button"
-                        type="button"
-                        onClick={() => giveVideoDeleteId(userInfo.id, video.id)}
-                      >
-                        <FavoriteIcon
-                          style={{ fontSize: "30px", color: "red" }}
-                        />
-                      </button>
-                    ) : (
-                      <button
-                        className="favorite-profil-button"
-                        type="button"
-                        onClick={() => giveVideoId(userInfo.id, video.id)}
-                      >
-                        <FavoriteIcon
-                          style={{ fontSize: "30px", color: "white" }}
-                        />
-                      </button>
-                    )}
-                  </div>
-                ) : null}
-              </div>
-            );
-          })}
+      {showMore ? (
+        <div className="wrapper">
+          <ArrowBackIosOutlined
+            className="sliderArrow left"
+            onClick={() => handleClick("left")}
+            disabled={position === 0}
+          />
+          <div className="container container-section" ref={listRef}>
+            {data.map((video) => {
+              const favoriteVideo = data.find(
+                (favVideo) =>
+                  favVideo.user_id !== null && favVideo.title === video.title
+              );
+              return (
+                <div key={video.id}>
+                  <Link to={`/video_description/${video.id}`}>
+                    <Video
+                      width="650px"
+                      height="450px"
+                      displayDescription
+                      displayDescriptionTitle={video.title}
+                      displayDescriptionText={video.description_text}
+                      src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+                      isVideoPremium={video.isVideoPremium}
+                      isVideoPaying={video.isVideoPaying}
+                      isEnabled
+                    />
+                  </Link>
+                  {userInfo.email ? (
+                    <div className="favorite-text-and-button">
+                      {favoriteVideo ? (
+                        <button
+                          className="favorite-profil-button"
+                          type="button"
+                          onClick={() =>
+                            giveVideoDeleteId(userInfo.id, video.id)
+                          }
+                        >
+                          <FavoriteIcon
+                            style={{ fontSize: "30px", color: "red" }}
+                          />
+                        </button>
+                      ) : (
+                        <button
+                          className="favorite-profil-button"
+                          type="button"
+                          onClick={() => giveVideoId(userInfo.id, video.id)}
+                        >
+                          <FavoriteIcon
+                            style={{ fontSize: "30px", color: "white" }}
+                          />
+                        </button>
+                      )}
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
+          <ArrowForwardIosOutlined
+            className="sliderArrow right"
+            onClick={() => handleClick("right")}
+          />
         </div>
-        <ArrowForwardIosOutlined
-          className="sliderArrow right"
-          onClick={() => handleClick("right")}
-        />
-      </div>
+      ) : (
+        <div>
+          {data.map((video) => (
+            <Link to={`/video_description/${video.id}`}>
+              <Video
+                width="650px"
+                height="450px"
+                displayDescription
+                displayDescriptionTitle={video.title}
+                displayDescriptionText={video.description_text}
+                src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+                isVideoPremium={video.isVideoPremium}
+                isVideoPaying={video.isVideoPaying}
+                isEnabled
+              />
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
 Section1.propTypes = {
-  sectionName: PropTypes.string.isRequired,
+  sectionName: PropTypes.string,
+};
+
+Section1.defaultProps = {
+  sectionName: "",
 };
 export default Section1;

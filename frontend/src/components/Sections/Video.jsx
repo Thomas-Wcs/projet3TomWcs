@@ -113,7 +113,7 @@ Video.propTypes = {
   isVideoPremium: PropTypes.number,
   isVideoPaying: PropTypes.number,
   controls: PropTypes.bool,
-  setDuration: PropTypes.func.isRequired,
+  setDuration: PropTypes.func,
 };
 
 Video.defaultProps = {
@@ -126,5 +126,6 @@ Video.defaultProps = {
   isVideoPremium: undefined,
   isVideoPaying: undefined,
   controls: false,
+  setDuration: () => {},
 };
 export default Video;
