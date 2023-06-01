@@ -56,7 +56,6 @@
           margin-bottom: 20px;
         }
       }
-
       li {
         margin-bottom: 1.2rem;
         font-size: 1.5rem;
@@ -178,7 +177,22 @@
       right: 0;
       transform: translate(-50%, -50%);
       z-index: 300000;
-
+      .all-video {
+        list-style: none;
+        width: 280px;
+        margin-top: 101%;
+        margin-left: -286px;
+        background: #00000096;
+        .video-list {
+          padding: 5px;
+          border: 1px solid black;
+          color: white;
+          font-size: 1.1rem;
+          font-family: "PT Sans", sans-serif;
+          font-size: 1.2rem;
+          font-weight: 500;
+        }
+      }
       .input {
         width: 30px;
         height: 30px;

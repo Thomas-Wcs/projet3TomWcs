@@ -43,7 +43,6 @@ function SectionCategory({ sectionName }) {
     getVideoData();
   }, [refresh]);
 
-  // Pour éliminer les noms de catégories qui sont dupliqués
   const uniqueCategories = data.filter((item, index) => {
     return (
       data.findIndex((object) => {
@@ -55,7 +54,7 @@ function SectionCategory({ sectionName }) {
   function handleCategory(category) {
     setVideoNumber(0);
     setSelectedCategory(category);
-    const translateX = 0; // Remet le translateX à zero pour revenir au début du container
+    const translateX = 0;
     listRef.current.style.transform = `translateX(${translateX}px)`;
   }
 
