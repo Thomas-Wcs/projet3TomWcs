@@ -5,9 +5,19 @@ class VideoManager extends AbstractManager {
     super({ table: "videos" });
   }
 
+  findReallyAll() {
+    return this.database
+      .query(`SELECT videos.*, categorie.name AS categorie_name, section.name, section.id AS SectionID
+    FROM videos
+    INNER JOIN categorie ON videos.category_id = categorie.id
+    LEFT JOIN video_section ON videos.id = video_section.video_id
+    LEFT JOIN section ON video_section.section_id = section.id;
+    `);
+  }
+
   findAll() {
     return this.database.query(
-      `select ${this.table}.*, categorie.name as categorie_name, section.name from videos inner join categorie on ${this.table}.category_id = categorie.id inner join video_section on ${this.table}.id = video_section.video_id inner join section where video_section.section_id = section.id;`
+      `select ${this.table}.*, categorie.name as categorie_name, section.name, section.id AS SectionID from videos inner join categorie on ${this.table}.category_id = categorie.id inner join video_section on ${this.table}.id = video_section.video_id inner join section where video_section.section_id = section.id;`
     );
   }
 

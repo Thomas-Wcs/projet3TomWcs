@@ -17,7 +17,7 @@ function VideosManagement() {
 
   useEffect(() => {
     api
-      .get("/videos")
+      .get("/videos/adminFindAllVideos")
       .then((data) => {
         setVideos(data.data);
       })
@@ -43,8 +43,8 @@ function VideosManagement() {
   };
 
   const columns = [
-    { field: "id", headerName: "Id", width: 150 },
-    { field: "title", headerName: "Title", width: 350, editable: true },
+    { field: "id", headerName: "Id", width: 80 },
+    { field: "title", headerName: "Title", width: 150, editable: true },
     {
       field: "description_text",
       headerName: "Description",
@@ -65,12 +65,10 @@ function VideosManagement() {
     },
     { field: "link", headerName: "Link", width: 150, editable: true },
     {
-      field: "date_publication",
-      headerName: "Date",
+      field: "SectionID",
+      headerName: "Section ID",
       width: 150,
       editable: true,
-      renderCell: (params) =>
-        moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
     },
     {
       field: "action",
@@ -93,6 +91,14 @@ function VideosManagement() {
         );
       },
     },
+    {
+      field: "date_publication",
+      headerName: "Date",
+      width: 250,
+      editable: true,
+      renderCell: (params) =>
+        moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
+    },
   ];
 
   const rows = videos.map((video) => ({
@@ -103,6 +109,7 @@ function VideosManagement() {
     link: video.link,
     date_publication: video.date_publication,
     name: video.name,
+    SectionID: video.SectionID,
   }));
 
   return (

@@ -119,7 +119,7 @@ function SectionUpdate() {
               name="section_type"
             >
               {options.map((option) => (
-                <option value={option} key={option.id}>
+                <option value={option} key={option}>
                   {option}
                 </option>
               ))}

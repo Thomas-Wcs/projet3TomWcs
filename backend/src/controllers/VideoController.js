@@ -15,6 +15,18 @@ const browse = (req, res) => {
     });
 };
 
+const findAllVideoForAdmin = (req, res) => {
+  models.video
+    .findReallyAll()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.video
     .find(req.params.id)
@@ -127,4 +139,5 @@ module.exports = {
   add,
   destroy,
   findAllVideoAndFavorite,
+  findAllVideoForAdmin,
 };

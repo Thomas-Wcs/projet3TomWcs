@@ -11,6 +11,7 @@ const videoRoute = express.Router();
 const VideoController = require("../controllers/VideoController");
 
 videoRoute.get("/", VideoController.browse);
+videoRoute.get("/adminFindAllVideos", VideoController.findAllVideoForAdmin);
 videoRoute.get(
   "/allVideoAndFavorite/:id/:sectionId",
   VideoController.findAllVideoAndFavorite
