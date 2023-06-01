@@ -10,15 +10,15 @@ import SectionCategory from "../components/Sections/SectionCategory";
 const sectionType = (data) => {
   switch (data.section_type) {
     case "section avec catégorie":
-      return <SectionCategory sectionName={data.name} />;
+      return <SectionCategory sectionName={data.name} sectionInfo={data} />;
     case "section sans catégorie":
-      return <Section1 sectionName={data.name} sectionId={data} />;
+      return <Section1 sectionName={data.name} sectionInfo={data} />;
     case "section teasers":
-      return <SectionTeasers sectionName={data.name} />;
+      return <SectionTeasers sectionName={data.name} sectionInfo={data} />;
     case "section hero":
-      return <Featured />;
+      return <Featured sectionInfo={data} />;
     case "section grande hauteur":
-      return <SectionVideosHautes sectionName={data.name} />;
+      return <SectionVideosHautes sectionName={data.name} sectionInfo={data} />;
     default:
       return null;
   }

@@ -9,10 +9,16 @@ function VideoUpdate() {
   const navigate = useNavigate();
   const [allCategory, setCategory] = useState();
   const [videoData, setVideoData] = useState();
+  const [sectionData, setSectionData] = useState();
+  const [selectedOption, setSelectedOption] = useState("");
 
   useEffect(() => {
     api.get("/category").then((res) => setCategory(res.data));
   }, [id]);
+
+  useEffect(() => {
+    api.get("/sections").then((res) => setSectionData(res.data));
+  }, []);
 
   useEffect(() => {
     const getVideoData = async () => {
@@ -22,6 +28,17 @@ function VideoUpdate() {
     };
     getVideoData();
   }, [id]);
+
+  const handleSelectChange = (e) => {
+    const { value } = e.target;
+    setSelectedOption(value);
+  };
+
+  const handleSubmit2 = (e) => {
+    e.preventDefault();
+    // eslint-disable-next-line no-restricted-syntax
+    console.log(selectedOption);
+  };
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -105,6 +122,20 @@ function VideoUpdate() {
             </select>
           )}
         </div>
+        <button type="submit" className="sectionUpdateButton">
+          Mettre à jour
+        </button>
+      </form>
+      <form className="sectionUpdateForm" onSubmit={handleSubmit2}>
+        <p>Identifiant de la section :</p>
+        <select name="optionsSection" id="" onChange={handleSelectChange}>
+          {sectionData &&
+            sectionData.map((options) => (
+              <option value={options.name} key={options.name}>
+                {options.name}
+              </option>
+            ))}
+        </select>
         <button type="submit" className="sectionUpdateButton">
           Mettre à jour
         </button>

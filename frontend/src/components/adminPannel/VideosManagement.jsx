@@ -133,7 +133,7 @@ function VideosManagement() {
           columns={columns}
           initialState={{
             pagination: {
-              paginationModel: { pageSize: 5, page: 0 },
+              paginationModel: { pageSize: 10, page: 0 },
             },
           }}
           pageSizeOptions={[5, 10, 25]}

@@ -6,6 +6,7 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { v4 as uuidv4 } from "uuid";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
@@ -156,7 +157,7 @@ function SectionCategory({ sectionName }) {
           onClick={() => handleClick("left")}
           disabled={position === 0}
         />
-        <div className="category-container">
+        <div className="category-container" key={uuidv4()}>
           {uniqueCategories.map((item) => (
             <button
               key={item.id}
@@ -176,7 +177,7 @@ function SectionCategory({ sectionName }) {
                     favVideo.user_id !== null && favVideo.title === item.title
                 );
                 return (
-                  <div key={item.id}>
+                  <div key={uuidv4()}>
                     <Video
                       key={item.id}
                       src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
@@ -227,9 +228,9 @@ function SectionCategory({ sectionName }) {
                       favVideo.user_id !== null && favVideo.title === item.title
                   );
                   return (
-                    <div key={item.id}>
+                    <div key={uuidv4()}>
                       <Video
-                        key={item.id}
+                        key={uuidv4()}
                         src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
                         width="650px"
                         height="450px"

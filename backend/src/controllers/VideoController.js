@@ -89,7 +89,6 @@ const add = async (req, res) => {
 
     const newVideo = {
       title,
-
       description_text,
       category_id,
       link,
