@@ -17,36 +17,33 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  // gap: 10px;
-  background-color: grey;
-  width: 400px;
-  height: 400px;
-  border-radius: 16px;
+    background-color: grey;
+    width: 400px;
+    height: auto;
+    border-radius: 16px;
+  }
+  label {
+    display: block;
+    margin: 10px 0 8px 0;
+  }
+  input {
+    height: 30px;
+    width: 250px;
+  }
+  .sectionUpdateName,
+  .sectionUpdateOrder {
+    margin-top: 15px;
+  }
+  #section_type {
+    height: 30px;
+    width: 250px;
+  }
+  .sectionUpdateButton {
+    width: 100px;
+    height: 30px;
+    border: none;
+    margin-top: 20px;
+    background-color: green;
+    cursor: pointer;
+  }
 }
-label{
-  display: block;
-  // margin-bottom: 8px;
-  margin: 10px 0 8px 0;
-}
-input{
-  height: 30px;
-  width:250px;
-}
-.sectionUpdateName,
-.sectionUpdateOrder{
-  margin-top: 15px;
-}
-#section_type {
-height: 30px;
-width: 250px;
-}
-.sectionUpdateButton{
-width: 100px;
-height: 30px;
-border: none;
-margin-top: 20px;
-background-color: green;
-cursor: pointer;
-}
-}
-

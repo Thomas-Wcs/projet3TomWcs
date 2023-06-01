@@ -31,6 +31,7 @@ function Section1({ sectionName }) {
         setData(res.data);
       } else {
         const res = await api.get(`videos`);
+
         setData(res.data);
       }
     } catch (error) {
@@ -215,6 +216,10 @@ function Section1({ sectionName }) {
 }
 
 Section1.propTypes = {
-  sectionName: PropTypes.string.isRequired,
+  sectionName: PropTypes.string,
+};
+
+Section1.defaultProps = {
+  sectionName: "",
 };
 export default Section1;
