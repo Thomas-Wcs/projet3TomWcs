@@ -24,7 +24,7 @@ export default function VideoDescription() {
             {" "}
             {`${moment(videoData.date_publication).format(
               "DD-MM-YYYY"
-            )} || ${duration.toFixed(2)} min`}{" "}
+            )} || ${duration.toFixed(2)} sec`}{" "}
           </p>
 
           <Video

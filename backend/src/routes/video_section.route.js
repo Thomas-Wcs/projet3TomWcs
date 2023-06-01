@@ -12,6 +12,7 @@ const VideoSectionController = require("../controllers/VideoSectionController");
 videoSectionRouter.get("/", VideoSectionController.browse);
 videoSectionRouter.get("/:id", VideoSectionController.read);
 videoSectionRouter.use(auth.verifyAdmin);
+videoSectionRouter.put("/:id", VideoSectionController.edit);
 videoSectionRouter.post("/", upload.single("link"), VideoSectionController.add);
 videoSectionRouter.delete("/:id", VideoSectionController.destroy);
 
