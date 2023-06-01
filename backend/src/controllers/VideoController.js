@@ -108,8 +108,9 @@ const destroy = async (req, res) => {
 
 const findAllVideoAndFavorite = (req, res) => {
   const userId = req.params.id;
+  const sectionID = req.params.sectionId;
   models.video
-    .findFavorites(userId)
+    .findFavorites({ userId, sectionID })
     .then(([result]) => {
       res.json(result);
     })

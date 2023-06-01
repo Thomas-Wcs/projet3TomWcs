@@ -12,7 +12,7 @@ const sectionType = (data) => {
     case "section avec catégorie":
       return <SectionCategory sectionName={data.name} />;
     case "section sans catégorie":
-      return <Section1 sectionName={data.name} />;
+      return <Section1 sectionName={data.name} sectionId={data} />;
     case "section teasers":
       return <SectionTeasers sectionName={data.name} />;
     case "section hero":

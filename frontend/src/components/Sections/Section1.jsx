@@ -11,7 +11,7 @@ import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
 import Video from "./Video";
 
-function Section1({ sectionName }) {
+function Section1({ sectionName, sectionId }) {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
@@ -26,7 +26,9 @@ function Section1({ sectionName }) {
   const getVideoData = async () => {
     try {
       if (userInfo.id) {
-        const res = await api.get(`videos/allVideoAndFavorite/${userInfo.id}`);
+        const res = await api.get(
+          `videos/allVideoAndFavorite/${userInfo.id}/${sectionId.id}`
+        );
         setData(res.data);
       } else {
         const res = await api.get(`videos`);
@@ -193,5 +195,6 @@ function Section1({ sectionName }) {
 
 Section1.propTypes = {
   sectionName: PropTypes.string.isRequired,
+  sectionId: PropTypes.number.isRequired,
 };
 export default Section1;

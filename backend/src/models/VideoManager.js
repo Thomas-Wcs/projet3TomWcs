@@ -33,18 +33,17 @@ class VideoManager extends AbstractManager {
       });
   }
 
-  findFavorites(userId) {
+  findFavorites({ userId, sectionID }) {
     return this.database
       .query(
-        `SELECT ${this.table}.*, videos_user.user_id, videos_user.videos_id, categorie.name
+        `SELECT DISTINCT ${this.table}.*, videos_user.user_id, videos_user.videos_id, categorie.name, video_section.section_id
         FROM ${this.table}
         INNER JOIN categorie ON videos.category_id = categorie.id
-        LEFT JOIN (
-            SELECT user_id, videos_id
-            FROM videos_user
-            WHERE user_id = ?
-        ) AS videos_user ON videos.id = videos_user.videos_id;`,
-        [userId]
+        INNER JOIN video_section ON videos.id = video_section.video_id
+        INNER JOIN section ON video_section.section_id = section.id
+        LEFT JOIN videos_user ON videos.id = videos_user.videos_id AND videos_user.user_id = ?
+        WHERE section_id = ?;`,
+        [userId, sectionID]
       )
       .catch((err) => {
         console.error(err);

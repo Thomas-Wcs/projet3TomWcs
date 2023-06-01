@@ -12,7 +12,7 @@ const VideoController = require("../controllers/VideoController");
 
 videoRoute.get("/", VideoController.browse);
 videoRoute.get(
-  "/allVideoAndFavorite/:id",
+  "/allVideoAndFavorite/:id/:sectionId",
   VideoController.findAllVideoAndFavorite
 );
 videoRoute.get("/:id", VideoController.read);
