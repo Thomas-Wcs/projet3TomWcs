@@ -18,6 +18,7 @@ function Video({
   src,
   isVideoPremium,
   isVideoPaying,
+  controls,
 }) {
   const { userInfo } = useAuth();
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
@@ -54,6 +55,7 @@ function Video({
     <div className="wrapper-video">
       <video
         src={src}
+        controls={controls}
         poster={posterImage}
         muted
         ref={videoRef}
@@ -101,6 +103,7 @@ Video.propTypes = {
   isEnabled: PropTypes.bool,
   isVideoPremium: PropTypes.number,
   isVideoPaying: PropTypes.number,
+  controls: PropTypes.bool,
 };
 
 Video.defaultProps = {
@@ -112,5 +115,6 @@ Video.defaultProps = {
   isEnabled: false,
   isVideoPremium: undefined,
   isVideoPaying: undefined,
+  controls: false,
 };
 export default Video;
