@@ -6,6 +6,7 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
@@ -140,7 +141,11 @@ function Section1({ sectionName, sectionInfo }) {
             onClick={() => handleClick("left")}
             disabled={position === 0}
           />
-          <div className="container container-section" ref={listRef}>
+          <div
+            className="container container-section"
+            ref={listRef}
+            key={uuidv4()}
+          >
             {newFilteredData.map((video) => {
               const favoriteVideo = data.find(
                 (favVideo) =>
@@ -198,7 +203,7 @@ function Section1({ sectionName, sectionInfo }) {
           />
         </div>
       ) : (
-        <div>
+        <div key={uuidv4()}>
           {data.map((video) => (
             <Link to={`/video_description/${video.id}`}>
               <Video

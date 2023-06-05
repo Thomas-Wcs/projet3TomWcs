@@ -5,7 +5,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
-// import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 
@@ -61,7 +61,7 @@ function Featured() {
           onClick={() => handleClick("left")}
           disabled={position === 0}
         />
-        <div className="container" ref={listRef}>
+        <div className="container" ref={listRef} key={uuidv4()}>
           {data.map((video) => (
             <Link to={`/video_description/${video.id}`} key={video.id}>
               <Video
