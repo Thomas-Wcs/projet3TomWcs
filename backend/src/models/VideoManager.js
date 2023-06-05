@@ -17,7 +17,18 @@ class VideoManager extends AbstractManager {
 
   findAll() {
     return this.database.query(
-      `select ${this.table}.*, categorie.name as categorie_name, section.name, section.id AS SectionID from videos inner join categorie on ${this.table}.category_id = categorie.id inner join video_section on ${this.table}.id = video_section.video_id inner join section where video_section.section_id = section.id;`
+      `select ${this.table}.*, categorie.name as categorie_name, section.name, section.id AS SectionID, section.section_type from videos inner join categorie on ${this.table}.category_id = categorie.id inner join video_section on ${this.table}.id = video_section.video_id inner join section where video_section.section_id = section.id;`
+    );
+  }
+
+  find(id) {
+    return this.database.query(
+      `select ${this.table}.*, section.id as section_id, video_section.id as video_section_id
+      from ${this.table}
+      inner join video_section on ${this.table}.id = video_section.video_id
+      inner join section on video_section.section_id = section.id
+      where ${this.table}.id = ?`,
+      [id]
     );
   }
 

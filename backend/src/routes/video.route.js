@@ -17,7 +17,7 @@ videoRoute.get(
   VideoController.findAllVideoAndFavorite
 );
 videoRoute.get("/:id", VideoController.read);
-videoRoute.use(auth.verifyToken);
+videoRoute.use(auth.verifyAdmin);
 videoRoute.put("/:id", VideoController.edit);
 videoRoute.post("/", upload.single("link"), VideoController.add);
 videoRoute.delete("/:id", VideoController.destroy);

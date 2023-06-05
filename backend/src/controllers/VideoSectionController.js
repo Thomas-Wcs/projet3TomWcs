@@ -46,7 +46,25 @@ const destroy = async (req, res) => {
     });
 };
 
+const edit = (req, res) => {
+  const result = req.body;
+  models.videoSection
+    .update(result)
+    .then((response) => {
+      if (!response) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
+  edit,
   browse,
   destroy,
   read,

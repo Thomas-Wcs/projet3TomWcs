@@ -5,7 +5,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 
@@ -63,7 +63,7 @@ function Featured() {
         />
         <div className="container" ref={listRef}>
           {data.map((video) => (
-            <Link to={`/video_description/${video.id}`} key={uuidv4()}>
+            <Link to={`/video_description/${video.id}`} key={video.id}>
               <Video
                 title={video.titre}
                 width="100vw"
