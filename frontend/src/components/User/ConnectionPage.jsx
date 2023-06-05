@@ -29,9 +29,9 @@ export default function ConnectionPage() {
         const { token } = res.data;
         api.defaults.headers.authorization = `Bearer ${token}`;
         setSuccess(false);
-        navigate("/profile");
         setUserInfo(res.data.user);
         if (res.data.user.role === userRole.ADMIN) setIsAdmin(true);
+        navigate("/profile");
       })
       .catch((err) => {
         console.error(err);
@@ -76,28 +76,22 @@ export default function ConnectionPage() {
               }
             }}
           />
-          {errorMessage && <p id="password-error">Sorry, Wrong Password</p>}
+          {errorMessage && <p id="password-error">Mot de passe erronné</p>}
           <button type="button" className="user-button" onClick={handleSubmit}>
             Connexion
           </button>
-          <h2>S'INSCRIRE</h2>
-          <input
-            type="text"
-            name="Email"
-            className="user-input"
-            placeholder="Email"
-            value={registrationMail}
-            onChange={(e) => setRegistrationMail(e.target.value)}
-          />
-          <button
-            type="button"
-            className="user-button"
-            onClick={() => {
-              setAccount(false);
-            }}
-          >
-            Inscription
-          </button>
+          <h2>
+            Pas encore de compte?{"  "}
+            <button
+              type="button"
+              className="button-text"
+              onClick={() => {
+                setAccount(false);
+              }}
+            >
+              Inscrivez-vous{" "}
+            </button>
+          </h2>
         </div>
       )}
     </div>

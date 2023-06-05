@@ -26,9 +26,9 @@ const verifyPassword = async (req, res) => {
     .verify(req.user.mdp, req.body.mdp)
     .then((isVerified) => {
       if (isVerified) {
-        const payload = { sub: req.user.id };
+        const payload = { sub: req.user.id, role: req.user.role };
         const token = jwt.sign(payload, process.env.JWT_SECRET);
-        delete req.user.hashedPassword;
+        delete req.user.mdp;
         res.send({ token, user: req.user });
       } else {
         res.sendStatus(401);
@@ -40,17 +40,13 @@ const verifyPassword = async (req, res) => {
     });
 };
 
-const verifyAdmin = async (req, res) => {
+const verifyEditPassword = async (req, res, next) => {
   argon2
     .verify(req.user.mdp, req.body.mdp)
     .then((isVerified) => {
       if (isVerified) {
-        const payload = { sub: { id: req.user.id, role: req.user.role } };
-        const token = jwt.sign(payload, process.env.JWT_SECRET);
-        delete req.user.hashedPassword;
-        res.send({ token, user: req.user });
-      } else if (req.user.role !== "13579AETUO") {
-        res.sendStatus(403);
+        delete req.user.mdp;
+        next();
       } else {
         res.sendStatus(401);
       }
@@ -59,6 +55,28 @@ const verifyAdmin = async (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
+};
+
+const verifyAdmin = async (req, res, next) => {
+  try {
+    const authorizationHeader = req.get("Authorization");
+    if (authorizationHeader === null || !authorizationHeader) {
+      throw new Error("Authorization header is missing");
+    }
+    const [type, token] = authorizationHeader.split(" ");
+    if (type !== "Bearer") {
+      throw new Error("Authorization header had not the bearer type");
+    }
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    if (payload.role !== "13579AETUO") {
+      throw new Error("User is not an admin");
+    }
+    next();
+  } catch (err) {
+    console.error(err);
+    return res.status(403).send("Forbidden");
+  }
+  return true;
 };
 
 const verifyToken = (req, res, next) => {
@@ -69,7 +87,7 @@ const verifyToken = (req, res, next) => {
     }
     const [type, token] = authorizationHeader.split(" ");
     if (type !== "Bearer") {
-      throw new Error("Authization header had not the bearer type");
+      throw new Error("Authorization header had not the bearer type");
     }
     req.payload = jwt.verify(token, process.env.JWT_SECRET);
     next();
@@ -80,4 +98,10 @@ const verifyToken = (req, res, next) => {
   return true;
 };
 
-module.exports = { hashPassword, verifyPassword, verifyToken, verifyAdmin };
+module.exports = {
+  hashPassword,
+  verifyPassword,
+  verifyToken,
+  verifyAdmin,
+  verifyEditPassword,
+};

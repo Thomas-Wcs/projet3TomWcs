@@ -5,32 +5,43 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Link } from "react-router-dom";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
+import { useAuth } from "../../context/AuthContext";
 
 function SectionCategory({ sectionName }) {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [showMore, setShowMore] = useState(true);
 
   const [data, setData] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+  const { userInfo } = useAuth();
+  if (!userInfo?.isPremium) userInfo.isPremium = 0;
 
   const api = useAPI();
 
   const getVideoData = async () => {
-    await api
-      .get("videos")
-      .then((res) => {
+    try {
+      if (userInfo.id) {
+        const res = await api.get(`videos/allVideoAndFavorite/${userInfo.id}`);
         setData(res.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      } else {
+        const res = await api.get(`videos/`);
+        setData(res.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   useEffect(() => {
     getVideoData();
-  }, []);
+  }, [refresh]);
 
   // Pour éliminer les noms de catégories qui sont dupliqués
   const uniqueCategories = data.filter((item, index) => {
@@ -47,6 +58,37 @@ function SectionCategory({ sectionName }) {
     const translateX = 0; // Remet le translateX à zero pour revenir au début du container
     listRef.current.style.transform = `translateX(${translateX}px)`;
   }
+
+  const deleteFavoriteVideo = (newValue) => {
+    api
+      .delete(
+        `videosUser/${newValue.videoId}?user=${newValue.userId}`,
+        newValue
+      )
+      .then(() => {
+        getVideoData();
+      });
+  };
+
+  const giveVideoDeleteId = (userId, videoId) => {
+    const newValue = { userId, videoId };
+    deleteFavoriteVideo(newValue);
+  };
+
+  const insertFavoriteVideo = async (newValue) => {
+    try {
+      await api.post(`videosUser/`, newValue).then(() => {
+        setRefresh(!refresh);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const giveVideoId = (userId, videoId) => {
+    const newValue = { userId, videoId };
+    insertFavoriteVideo(newValue);
+  };
 
   function handleClick(direction) {
     let videoWidth = 670; // Largeur d'une video
@@ -92,6 +134,10 @@ function SectionCategory({ sectionName }) {
     }
   }
 
+  function seeMore() {
+    setShowMore(!showMore);
+  }
+
   return (
     <div className="list">
       <div className="wrapper-sectionName-buttons">
@@ -100,72 +146,176 @@ function SectionCategory({ sectionName }) {
           <button type="submit" className="follow-btn">
             À SUIVRE
           </button>
-          <button
-            type="submit"
-            className="next-btn"
-            onClick={() => handleClick("right")}
-          >
-            VOIR PLUS{" "}
-          </button>
+          {showMore ? (
+            <button
+              type="submit"
+              className="next-btn"
+              onClick={() => seeMore()}
+            >
+              VOIR PLUS{" "}
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="next-btn"
+              onClick={() => seeMore()}
+            >
+              VOIR MOINS{" "}
+            </button>
+          )}
         </div>
       </div>
-
-      <div className="wrapper">
-        <ArrowBackIosOutlined
-          className="sliderArrow left"
-          onClick={() => handleClick("left")}
-          disabled={position === 0}
-        />
-        <div className="category-container">
-          {uniqueCategories.map((item) => (
-            <button
-              key={item.id}
-              className="category-btn"
-              type="submit"
-              onClick={() => handleCategory(item.name)}
-            >
-              {item.name}
-            </button>
+      {showMore ? (
+        <div className="wrapper">
+          <ArrowBackIosOutlined
+            className="sliderArrow left"
+            onClick={() => handleClick("left")}
+            disabled={position === 0}
+          />
+          <div className="category-container">
+            {uniqueCategories.map((item) => (
+              <button
+                key={item.id}
+                className="category-btn"
+                type="submit"
+                onClick={() => handleCategory(item.name)}
+              >
+                {item.name}
+              </button>
+            ))}
+          </div>
+          <div className="container container-section" ref={listRef}>
+            {!selectedCategory
+              ? data.map((item) => {
+                  const favoriteVideo = data.find(
+                    (favVideo) =>
+                      favVideo.user_id !== null && favVideo.title === item.title
+                  );
+                  return (
+                    <div key={item.id}>
+                      <Video
+                        key={item.id}
+                        src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
+                        width="650px"
+                        height="450px"
+                        displayDescription
+                        displayDescriptionTitle={item.title}
+                        displayDescriptionText={item.description_text}
+                        isVideoPremium={item.isVideoPremium}
+                        isVideoPaying={item.isVideoPaying}
+                        isEnabled
+                      />
+                      {userInfo.email ? (
+                        <div className="favorite-text-and-button">
+                          {favoriteVideo ? (
+                            <button
+                              className="favorite-profil-button"
+                              type="button"
+                              onClick={() =>
+                                giveVideoDeleteId(userInfo.id, item.id)
+                              }
+                            >
+                              <FavoriteIcon
+                                style={{ fontSize: "30px", color: "red" }}
+                              />
+                            </button>
+                          ) : (
+                            <button
+                              className="favorite-profil-button"
+                              type="button"
+                              onClick={() => giveVideoId(userInfo.id, item.id)}
+                            >
+                              <FavoriteIcon
+                                style={{ fontSize: "30px", color: "white" }}
+                              />
+                            </button>
+                          )}
+                        </div>
+                      ) : null}
+                    </div>
+                  );
+                })
+              : data
+                  .filter((item) => item.name === selectedCategory)
+                  .map((item) => {
+                    const favoriteVideo = data.find(
+                      (favVideo) =>
+                        favVideo.user_id !== null &&
+                        favVideo.title === item.title
+                    );
+                    return (
+                      <div key={item.id}>
+                        <Video
+                          key={item.id}
+                          src={`${import.meta.env.VITE_APP_API_URL}${
+                            item.link
+                          }`}
+                          width="650px"
+                          height="450px"
+                          displayDescription
+                          displayDescriptionTitle={item.title}
+                          displayDescriptionText={item.description_text}
+                          isVideoPremium={item.isVideoPremium}
+                          isVideoPaying={item.isVideoPaying}
+                          isEnabled
+                        />
+                        {userInfo.email ? (
+                          <div className="favorite-text-and-button">
+                            {favoriteVideo ? (
+                              <button
+                                className="favorite-profil-button"
+                                type="button"
+                                onClick={() =>
+                                  giveVideoDeleteId(userInfo.id, item.id)
+                                }
+                              >
+                                <FavoriteIcon
+                                  style={{ fontSize: "30px", color: "red" }}
+                                />
+                              </button>
+                            ) : (
+                              <button
+                                className="favorite-profil-button"
+                                type="button"
+                                onClick={() =>
+                                  giveVideoId(userInfo.id, item.id)
+                                }
+                              >
+                                <FavoriteIcon
+                                  style={{ fontSize: "30px", color: "white" }}
+                                />
+                              </button>
+                            )}
+                          </div>
+                        ) : null}
+                      </div>
+                    );
+                  })}
+          </div>
+          <ArrowForwardIosOutlined
+            className="sliderArrow right"
+            onClick={() => handleClick("right")}
+          />
+        </div>
+      ) : (
+        <div id="display-all">
+          {data.map((video) => (
+            <Link to={`/video_description/${video.id}`}>
+              <Video
+                width="650px"
+                height="450px"
+                displayDescription
+                displayDescriptionTitle={video.title}
+                displayDescriptionText={video.description_text}
+                src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+                isVideoPremium={video.isVideoPremium}
+                isVideoPaying={video.isVideoPaying}
+                isEnabled
+              />
+            </Link>
           ))}
         </div>
-        <div className="container container-section" ref={listRef}>
-          {!selectedCategory
-            ? data.map((item) => (
-                <Video
-                  key={item.id}
-                  src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
-                  width="650px"
-                  height="450px"
-                  displayDescription
-                  displayDescriptionTitle={item.title}
-                  displayDescriptionText={item.description_text}
-                  isEnabled
-                  isVideoPremium={item.isVideoPremium}
-                  isVideoPaying={item.isVideoPaying}
-                />
-              ))
-            : data
-                .filter((item) => item.name === selectedCategory)
-                .map((item) => (
-                  <Video
-                    key={item.id}
-                    src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
-                    width="650px"
-                    height="450px"
-                    displayDescription
-                    displayDescriptionTitle={item.title}
-                    displayDescriptionText={item.description_text}
-                    isVideoPremium={item.isVideoPremium}
-                    isVideoPaying={item.isVideoPaying}
-                    isEnabled
-                  />
-                ))}
-        </div>
-        <ArrowForwardIosOutlined
-          className="sliderArrow right"
-          onClick={() => handleClick("right")}
-        />
-      </div>
+      )}
     </div>
   );
 }

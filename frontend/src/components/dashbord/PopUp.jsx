@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useAPI from "../../api/useAPI";
+import contactAbo from "../../assets/service.png";
+import { useAuth } from "../../context/AuthContext";
 
 export default function PopUp() {
   const api = useAPI();
   const { state } = useLocation();
+  const { setUserInfo } = useAuth();
 
   const [modal, setModal] = useState(false);
 
@@ -33,6 +36,15 @@ export default function PopUp() {
     };
   }, [modal]);
 
+  const refreshAboStatus = async () => {
+    try {
+      const res = await api.get(`users/${state.userInfo.id}`);
+      setUserInfo(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const clickEditPremium = () => {
     (async () => {
       try {
@@ -47,9 +59,10 @@ export default function PopUp() {
           isPremium: data.isPremium,
           isVideoPlus: 0,
         });
+        refreshAboStatus();
         setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+          toggleModal();
+        }, 200);
       } catch (error) {
         console.error(error);
       }
@@ -71,25 +84,29 @@ export default function PopUp() {
           <div className="overlay-abo-div" role="dialog" aria-modal="true">
             {modal && (
               <div className="pop-up-abo">
+                <img
+                  src={contactAbo}
+                  style={{ width: "50px", height: "50px" }}
+                  alt=""
+                />
                 <p>
                   Nous sommes vraiment désolés. Es-tu sûr(e) de vouloir
                   supprimer ton compte ? Si tu es certain(e) de ton choix, tu
-                  peux cliquer sur "Confirmer". Cela entraînera la déconnexion
-                  immédiate de ton compte, tu devras te reconnecter et ton
-                  compte seras alors mis à jour <br /> <br />
+                  peux cliquer sur "Confirmer".
+                  <br />
                   Si tu hésites encore, n'hésite pas à contacter notre service
                   client. Nous serons ravis de t'aider et de trouver une
                   solution adaptée à ton abonnement.
                 </p>
                 <button
-                  className="valide-mdp-button"
+                  className="button-pop-for-all"
                   type="button"
                   onClick={toggleModal}
                 >
                   Annuler
                 </button>
                 <button
-                  className="valide-mdp-button"
+                  className="button-pop-for-all"
                   type="button"
                   onClick={clickEditPremium}
                 >

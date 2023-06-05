@@ -5,6 +5,14 @@
     padding: 60px;
   }
 
+  #display-all {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    .wrapper-video {
+      margin-bottom: 5%;
+    }
+  }
   .wrapper-sectionName-buttons {
     display: flex;
 
@@ -13,7 +21,7 @@
       justify-content: space-between;
 
       width: 80%;
-     
+
       align-items: center;
 
       .next-btn {

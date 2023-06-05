@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "../../styles/index.css";
 import {
   ArrowBackIosOutlined,
@@ -61,17 +62,15 @@ function Featured() {
         />
         <div className="container" ref={listRef}>
           {data.map((video) => (
-            <Video
-              key={video.id}
-              title={video.titre}
-              width="100vw"
-              height="100vh"
-              displayPlayButton
-              src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
-              isVideoPremium={video.isVideoPremium}
-              isVideoPaying={video.isVideoPaying}
-              isEnabled
-            />
+            <Link to={`/video_description/${video.id}`} key={video.id}>
+              <Video
+                key={video.id}
+                title={video.titre}
+                width="100vw"
+                height="100vh"
+                src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+              />
+            </Link>
           ))}
         </div>
         <ArrowForwardIosOutlined

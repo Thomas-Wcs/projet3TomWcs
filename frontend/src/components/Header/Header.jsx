@@ -2,26 +2,43 @@ import "../../styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
+import useAPI from "../../api/useAPI";
 
 export default function Header() {
+  const api = useAPI();
   const navigate = useNavigate();
+  const { success, isAdmin, setSuccess, setIsAdmin } = useAuth();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
-  const { success, isAdmin } = useAuth();
+  const [textSearch, setTextSearch] = useState("");
+  const searchOnGoogle = () => {
+    // eslint-disable-next-line no-restricted-syntax
+    console.log(` "bientot on pourras chercher sur notre site : ${textSearch}`);
+  };
 
   const checkboxRef = useRef();
 
+  function handleSearch() {
+    if (textSearch) {
+      searchOnGoogle(textSearch);
+    }
+  }
+
   function expand() {
     setIsSearchClosed(!isSearchClosed);
+    setTextSearch("");
   }
 
   function handleLinkClick() {
     checkboxRef.current.checked = false;
   }
 
-  function clickToLogout() {
-    checkboxRef.current.checked = false;
+  const handleLogOut = () => {
+    delete api.defaults.headers.authorization;
+    setSuccess(!success);
+    handleLinkClick();
+    setIsAdmin(false);
     navigate("/connexion");
-  }
+  };
 
   return (
     <div id="nav-body">
@@ -44,6 +61,18 @@ export default function Header() {
               <input
                 type="text"
                 name="input"
+                value={textSearch}
+                onChange={(e) => setTextSearch(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleSearch();
+                  } else if (e.key === "Escape") {
+                    e.preventDefault();
+                    setTextSearch("");
+                    expand();
+                  }
+                }}
                 className={`input ${isSearchClosed ? "square" : ""}`}
               />
               <button
@@ -56,7 +85,7 @@ export default function Header() {
             <div className="menu-items">
               <li>
                 <Link to="/" onClick={() => handleLinkClick()}>
-                  Home
+                  Accueil
                 </Link>
               </li>
               {success ? (
@@ -68,7 +97,7 @@ export default function Header() {
               ) : (
                 <li>
                   <Link to="/profile" onClick={() => handleLinkClick()}>
-                    Profile
+                    Mon Profil
                   </Link>
                 </li>
               )}
@@ -76,7 +105,7 @@ export default function Header() {
               {isAdmin && (
                 <li>
                   <Link to="/adminPanel/" onClick={() => handleLinkClick()}>
-                    Admin
+                    Administrateur
                   </Link>
                 </li>
               )}
@@ -84,9 +113,9 @@ export default function Header() {
                 <button
                   className="user-button"
                   type="button"
-                  onClick={clickToLogout}
+                  onClick={handleLogOut}
                 >
-                  Logout
+                  Déconnexion
                 </button>
               )}
             </div>
