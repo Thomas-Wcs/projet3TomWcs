@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../styles/index.css";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import { v4 as uuidv4 } from "uuid";
 import useAPI from "../../api/useAPI";
 import Video from "../Sections/Video";
 import Section1 from "../Sections/Section1";
@@ -28,7 +29,7 @@ export default function VideoDescription() {
           </p>
 
           <Video
-            key={videoData.id}
+            key={uuidv4()}
             title={videoData.titre}
             width="100%"
             height="90vh"

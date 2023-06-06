@@ -61,9 +61,9 @@ function Featured() {
           onClick={() => handleClick("left")}
           disabled={position === 0}
         />
-        <div className="container" ref={listRef} key={uuidv4()}>
+        <div className="container" ref={listRef}>
           {data.map((video) => (
-            <Link to={`/video_description/${video.id}`} key={video.id}>
+            <Link to={`/video_description/${video.id}`} key={uuidv4()}>
               <Video
                 title={video.titre}
                 width="100vw"

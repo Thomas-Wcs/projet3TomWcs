@@ -173,10 +173,10 @@ function SectionCategory({ sectionName }) {
             onClick={() => handleClick("left")}
             disabled={position === 0}
           />
-          <div className="category-container" key={uuidv4()}>
+          <div className="category-container">
             {uniqueCategories.map((item) => (
               <button
-                key={item.id}
+                key={uuidv4()}
                 className="category-btn"
                 type="submit"
                 onClick={() => handleCategory(item.name)}
