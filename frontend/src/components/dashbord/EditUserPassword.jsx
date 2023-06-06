@@ -99,6 +99,15 @@ export default function EditUserPassword() {
                     }}
                   />
                   <br />
+                  {newPassword === verifyPassword ? (
+                    <p style={{ color: "green" }}>
+                      Les mot de passe correspondent
+                    </p>
+                  ) : (
+                    <p style={{ color: "red" }}>
+                      Les mot de passe ne correspond pas{" "}
+                    </p>
+                  )}
                   <input
                     type="password"
                     name=""

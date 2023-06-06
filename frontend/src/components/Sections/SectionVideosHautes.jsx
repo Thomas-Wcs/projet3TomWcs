@@ -6,6 +6,7 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 
@@ -93,9 +94,8 @@ function SectionVideosHautes({ sectionName }) {
         />
         <div className="container container-section" ref={listRef}>
           {data.map((video) => (
-            <Link to={`/video_description/${video.id}`}>
+            <Link to={`/video_description/${video.id}`} key={uuidv4()}>
               <Video
-                key={video.id}
                 width="650px"
                 height="750px"
                 displayDescription
