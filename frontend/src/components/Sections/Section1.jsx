@@ -34,7 +34,6 @@ function Section1({ sectionName, sectionInfo }) {
         setData(res.data);
       } else {
         const res = await api.get(`videos`);
-
         setData(res.data);
       }
     } catch (error) {

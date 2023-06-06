@@ -57,7 +57,7 @@ class VideoManager extends AbstractManager {
   findFavorites({ userId, sectionID }) {
     return this.database
       .query(
-        `SELECT DISTINCT ${this.table}.*, videos_user.user_id, videos_user.videos_id, categorie.name, video_section.section_id
+        `SELECT DISTINCT ${this.table}.*, videos_user.user_id, videos_user.videos_id, categorie.name, video_section.section_id AS SectionID
         FROM ${this.table}
         INNER JOIN categorie ON videos.category_id = categorie.id
         INNER JOIN video_section ON videos.id = video_section.video_id
