@@ -50,8 +50,7 @@ export default function EditUserPassword() {
     if (newPassword === verifyPassword) {
       try {
         await api.post("users/updatePassword", newValue).then((response) => {
-          if (response.status === 201) {
-            // eslint-disable-next-line no-restricted-syntax
+          if (response.status === 204) {
             setPasswordDone(true);
             setTimeout(() => {
               setPasswordDone(false);
