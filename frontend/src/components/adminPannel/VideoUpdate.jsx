@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../styles/index.css";
+import { v4 as uuidv4 } from "uuid";
 import useAPI from "../../api/useAPI";
 
 function VideoUpdate() {
@@ -142,7 +143,7 @@ function VideoUpdate() {
               className="selecter"
             >
               {allCategory.map((cat) => (
-                <option value={cat.id} key={cat.id}>
+                <option value={cat.id} key={uuidv4()}>
                   {cat.name}
                 </option>
               ))}
@@ -158,7 +159,7 @@ function VideoUpdate() {
               className="selecter"
             >
               {allSection.map((sec) => (
-                <option value={sec.id} key={sec.id}>
+                <option value={sec.id} key={uuidv4()}>
                   {sec.name}
                 </option>
               ))}

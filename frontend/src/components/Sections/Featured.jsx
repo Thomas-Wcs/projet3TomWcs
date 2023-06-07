@@ -74,6 +74,9 @@ function Featured({ sectionInfo }) {
                 width="100vw"
                 height="100vh"
                 src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+                isVideoPremium={video.isVideoPremium}
+                isVideoPaying={video.isVideoPaying}
+                isEnabled
               />
             </Link>
           ))}
