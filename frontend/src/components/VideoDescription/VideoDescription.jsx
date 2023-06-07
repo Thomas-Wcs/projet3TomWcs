@@ -22,12 +22,10 @@ export default function VideoDescription() {
       {videoData?.date_publication && (
         <div id="video-display">
           <p id="video-date">
-            {" "}
             {`${moment(videoData.date_publication).format(
               "DD-MM-YYYY"
-            )} || ${duration.toFixed(2)} sec`}{" "}
+            )} || ${duration.toFixed(2)} sec`}
           </p>
-
           <Video
             key={uuidv4()}
             title={videoData.titre}
@@ -42,7 +40,6 @@ export default function VideoDescription() {
           {videoData.isVideoPremium === 1 && (
             <p id="video-warning">Avertissement accès premium</p>
           )}
-
           <p id="video-description"> {videoData.description_text} </p>
         </div>
       )}
