@@ -32,7 +32,6 @@ const read = (req, res) => {
 };
 
 const add = async (req, res) => {
-  console.log(req.body);
   // TODO validations (length, format...)
 
   const {
@@ -95,6 +94,18 @@ const add = async (req, res) => {
   return true;
 };
 
+const addSectionOnly = async (req, res) => {
+  const { videoId, sectionId } = req.body;
+
+  await models.videoSection
+    .insert(videoId, sectionId)
+    .then(() => res.sendStatus(204))
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const destroy = async (req, res) => {
   await models.videoSection
     .delete(req.params.id)
@@ -134,4 +145,5 @@ module.exports = {
   add,
   destroy,
   read,
+  addSectionOnly,
 };

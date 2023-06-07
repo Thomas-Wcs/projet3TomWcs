@@ -12,7 +12,6 @@ function VideoUpdate() {
   const [allSection, setAllSection] = useState();
   const [videoSection, setVideoSection] = useState();
   const [rawVideoData, setRawVideoData] = useState();
-  console.log(videoData);
 
   useEffect(() => {
     const getVideoData = async () => {
@@ -66,10 +65,7 @@ function VideoUpdate() {
   }
 
   function multiUpdate() {
-    if (
-      rawVideoData.video_section_id !== null &&
-      videoData.video_section_id !== null
-    ) {
+    if (rawVideoData.SectionID !== null && videoData.SectionID !== null) {
       api
         .put(`videos/${videoData.id}`, {
           title: videoData.title,
@@ -98,8 +94,8 @@ function VideoUpdate() {
           console.error(err);
         });
     } else if (
-      rawVideoData.video_section_id === null &&
-      videoData.video_section_id === null
+      rawVideoData.SectionID === null &&
+      videoData.SectionID === null
     ) {
       api
         .put(`videos/${videoData.id}`, {
@@ -117,8 +113,8 @@ function VideoUpdate() {
           console.error(error);
         });
     } else if (
-      rawVideoData.video_section_id === null &&
-      videoData.video_section_id !== null
+      rawVideoData.SectionID === null &&
+      videoData.SectionID !== null
     ) {
       api
         .put(`videos/${videoData.id}`, {
@@ -135,16 +131,13 @@ function VideoUpdate() {
         .catch((error) => {
           console.error(error);
         });
-      const videoSectionValue = {
-        videoId: videoData.id,
-        sectionId: videoData.video_section_id,
-      };
 
       api
-        .post("video_section", videoSectionValue)
-        .then((res) => {
-          console.log(res);
+        .post("video_section/add_section", {
+          videoId: videoData.id,
+          sectionId: videoData.SectionID,
         })
+        .then()
         .catch((err) => {
           console.error(err);
         });
@@ -214,7 +207,7 @@ function VideoUpdate() {
           <label htmlFor="section_id">
             {" "}
             {videoData?.video_section_id
-              ? "Modifier la section"
+              ? `Modifier la section (section actuelle : ${videoData.SectionName})`
               : "Ajouter à une section"}
           </label>
 
@@ -225,6 +218,7 @@ function VideoUpdate() {
               onChange={handleSectionChange}
               className="selecter"
             >
+              <option value="">Veuillez sélectionner une section</option>
               {allSection.map((sec) => (
                 <option value={sec.id} key={sec.id}>
                   {sec.name}

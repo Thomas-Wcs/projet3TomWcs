@@ -10,13 +10,11 @@ function VideoAdd() {
   const [videoTitle, setTitle] = useState("");
   const [categorie, setCategorie] = useState(1);
   const [description, setDescription] = useState("");
-  const [section, setSection] = useState([]);
 
   const [fileUpload, setFileUpload] = useState(null);
   const [videosChanging, setVideosChanging] = useState(true);
   const [newCategorie, setNewCategorie] = useState({ name: "", id: "" });
   const [allCategories, setAllCategories] = useState([]);
-  const [allSections, setAllSections] = useState([]);
   const [videoPaying, setVideoPaying] = useState(0);
   const [videoPremium, setVideoPremium] = useState(0);
 
@@ -74,10 +72,6 @@ function VideoAdd() {
     addCategorie();
   }
 
-  useEffect(() => {
-    api.get("sections").then((res) => setAllSections(res.data));
-  }, []);
-
   return (
     <div className="sectionUpdate">
       <h2 className="sectionUpdateTitle">Page de video</h2>
@@ -133,34 +127,7 @@ function VideoAdd() {
               {" "}
               Ajouter
             </button>
-            <label htmlFor="category_id">Selectionnez une section :</label>
 
-            <div className="section-checkboxes">
-              {allSections.map((sect) => (
-                <div key={sect.id} className="section-update-checkbox">
-                  <input
-                    type="checkbox"
-                    id={`section-${sect.id}`}
-                    value={sect.id}
-                    checked={section.includes(sect.id)}
-                    onChange={(e) => {
-                      const sectionId = sect.id;
-                      if (e.target.checked) {
-                        setSection((prevSections) => [
-                          ...prevSections,
-                          sectionId,
-                        ]);
-                      } else {
-                        setSection((prevSections) =>
-                          prevSections.filter((id) => id !== sectionId)
-                        );
-                      }
-                    }}
-                  />
-                  <label htmlFor={`section-${sect.id}`}>{sect.name}</label>
-                </div>
-              ))}
-            </div>
             <div id="video-paying">
               <label htmlFor="videoPaying">Video Payante?</label>
               <input
