@@ -34,8 +34,15 @@ const read = (req, res) => {
 const add = async (req, res) => {
   // TODO validations (length, format...)
 
-  const { title, description_text, category_id, date_publication, section_id } =
-    req.body;
+  const {
+    title,
+    description_text,
+    category_id,
+    date_publication,
+    section_id,
+    isVideoPaying,
+    isVideoPremium,
+  } = req.body;
 
   const { file } = req;
   if (!file) {
@@ -66,6 +73,8 @@ const add = async (req, res) => {
       category_id,
       description_text,
       date_publication,
+      isVideoPaying,
+      isVideoPremium,
     });
 
     const insertVideoId = result[0].insertId;

@@ -1,6 +1,6 @@
 import "../../styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import useAPI from "../../api/useAPI";
 
@@ -10,18 +10,17 @@ export default function Header() {
   const { success, isAdmin, setSuccess, setIsAdmin } = useAuth();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
   const [textSearch, setTextSearch] = useState("");
-  const searchOnGoogle = () => {
-    // eslint-disable-next-line no-restricted-syntax
-    console.log(` "bientot on pourras chercher sur notre site : ${textSearch}`);
-  };
+  const [allVideos, setAllVideos] = useState();
+
+  useEffect(() => {
+    api.get("videos").then((res) => setAllVideos(res.data));
+  }, []);
+
+  const filteredVideos = allVideos?.filter((item) =>
+    item.title.includes(textSearch)
+  );
 
   const checkboxRef = useRef();
-
-  function handleSearch() {
-    if (textSearch) {
-      searchOnGoogle(textSearch);
-    }
-  }
 
   function expand() {
     setIsSearchClosed(!isSearchClosed);
@@ -30,6 +29,13 @@ export default function Header() {
 
   function handleLinkClick() {
     checkboxRef.current.checked = false;
+    setTextSearch("");
+  }
+
+  function handleVideoLinkClick() {
+    checkboxRef.current.checked = false;
+    setTextSearch("");
+    setIsSearchClosed(!isSearchClosed);
   }
 
   const handleLogOut = () => {
@@ -63,18 +69,27 @@ export default function Header() {
                 name="input"
                 value={textSearch}
                 onChange={(e) => setTextSearch(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    handleSearch();
-                  } else if (e.key === "Escape") {
-                    e.preventDefault();
-                    setTextSearch("");
-                    expand();
-                  }
-                }}
                 className={`input ${isSearchClosed ? "square" : ""}`}
               />
+              <ul className="all-video">
+                {textSearch &&
+                  filteredVideos?.map((video) => (
+                    <Link
+                      to={`/video_description/${video.id}`}
+                      key={video.id}
+                      onClick={() => handleVideoLinkClick()}
+                    >
+                      <li
+                        key={video.id}
+                        className="video-list"
+                        id="video-list-{video.id}"
+                      >
+                        {video.title}
+                      </li>
+                    </Link>
+                  ))}
+              </ul>
+
               <button
                 type="button"
                 className={`search ${isSearchClosed ? "close" : ""}`}
