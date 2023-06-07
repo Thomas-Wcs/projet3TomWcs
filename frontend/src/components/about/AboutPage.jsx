@@ -28,7 +28,7 @@ function AboutPage() {
   // eslint-disable-next-line no-restricted-syntax
   console.log(hiddenElements);
   // eslint-disable-next-line no-plusplus
-  for (let index = 0; index < 5; index++) {
+  for (let index = 0; index < 4; index++) {
     const ref = useRef(null);
     hiddenElements.push(ref);
 
