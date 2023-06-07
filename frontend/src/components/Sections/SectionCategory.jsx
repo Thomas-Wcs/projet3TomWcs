@@ -12,7 +12,7 @@ import Video from "./Video";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
 
-function SectionCategory({ sectionName }) {
+function SectionCategory({ sectionInfo }) {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
@@ -141,7 +141,7 @@ function SectionCategory({ sectionName }) {
   return (
     <div className="list">
       <div className="wrapper-sectionName-buttons">
-        <h1 className="section-name">{sectionName}</h1>
+        <h1 className="section-name">{sectionInfo.name}</h1>
         <div className="button-wrapper">
           <button type="submit" className="follow-btn">
             À SUIVRE
@@ -196,8 +196,8 @@ function SectionCategory({ sectionName }) {
                       favVideo.user_id !== null && favVideo.title === item.title
                   );
                   return (
-                    <div>
-                      <Link to={`/video_description/${item.id}`} key={uuidv4()}>
+                    <div key={uuidv4()}>
+                      <Link to={`/video_description/${item.id}`}>
                         <Video
                           src={`${import.meta.env.VITE_APP_API_URL}${
                             item.link
@@ -307,9 +307,9 @@ function SectionCategory({ sectionName }) {
           />
         </div>
       ) : (
-        <div id="display-all" key={uuidv4()}>
+        <div id="display-all">
           {data.map((video) => (
-            <Link to={`/video_description/${video.id}`}>
+            <Link to={`/video_description/${video.id}`} key={uuidv4()}>
               <Video
                 width="650px"
                 height="450px"
@@ -329,6 +329,11 @@ function SectionCategory({ sectionName }) {
   );
 }
 SectionCategory.propTypes = {
-  sectionName: PropTypes.string.isRequired,
+  sectionInfo: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    order: PropTypes.number,
+    section_type: PropTypes.string,
+  }).isRequired,
 };
 export default SectionCategory;

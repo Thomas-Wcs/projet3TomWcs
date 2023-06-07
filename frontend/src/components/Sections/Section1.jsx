@@ -12,7 +12,7 @@ import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
 import Video from "./Video";
 
-function Section1({ sectionName, sectionInfo }) {
+function Section1({ sectionInfo }) {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
@@ -122,7 +122,7 @@ function Section1({ sectionName, sectionInfo }) {
   return (
     <div className="list">
       <div className="wrapper-sectionName-buttons">
-        <h1 className="section-name">{sectionName}</h1>
+        <h1 className="section-name">{sectionInfo.name}</h1>
         <div className="button-wrapper">
           <button type="submit" className="follow-btn">
             À SUIVRE
@@ -225,7 +225,6 @@ function Section1({ sectionName, sectionInfo }) {
 }
 
 Section1.propTypes = {
-  sectionName: PropTypes.string.isRequired,
   sectionInfo: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,

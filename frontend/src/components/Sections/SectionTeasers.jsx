@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import Video from "./Video";
 
-function SectionTeasers({ sectionName }) {
+function SectionTeasers({ sectionInfo }) {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
@@ -67,7 +67,7 @@ function SectionTeasers({ sectionName }) {
 
   return (
     <div className="list">
-      <h1 className="section-name">{sectionName}</h1>
+      <h1 className="section-name">{sectionInfo.name}</h1>
       <div className="wrapper">
         <ArrowBackIosOutlined
           className="sliderArrow left"
@@ -99,7 +99,12 @@ function SectionTeasers({ sectionName }) {
 }
 
 SectionTeasers.propTypes = {
-  sectionName: PropTypes.string.isRequired,
+  sectionInfo: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    order: PropTypes.number,
+    section_type: PropTypes.string,
+  }).isRequired,
 };
 
 export default SectionTeasers;
