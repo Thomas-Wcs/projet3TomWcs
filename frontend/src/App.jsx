@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AboutPage from "./components/about/AboutPage";
 import UserFavorite from "./components/dashbord/UserFavorite";
 import EditAbo from "./components/dashbord/EditAbo";
 import EditProfile from "./components/dashbord/EditProfile";
@@ -30,6 +31,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage2 />} />
             <Route path="/connexion" element={<ConnectionPage />} />
+            <Route path="/aboutPage" element={<AboutPage />} />
             <Route path="/profile" element={<Profile />}>
               <Route path="/profile/userid" element={<UserProfile />} />
               <Route path="/profile/useredit" element={<EditProfile />} />
