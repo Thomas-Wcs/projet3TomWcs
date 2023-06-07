@@ -150,7 +150,6 @@ function VideoUpdate() {
             </select>
           )}
           <label htmlFor="section_id"> Modifier la section:</label>
-
           {allSection && (
             <select
               name="section_id"

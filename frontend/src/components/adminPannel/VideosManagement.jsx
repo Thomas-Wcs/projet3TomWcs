@@ -80,12 +80,6 @@ function VideosManagement() {
       editable: true,
     },
     {
-      field: "date_publication",
-      headerName: "Date",
-      width: 150,
-      editable: true,
-    },
-    {
       field: "action",
       headerName: "Action",
       width: 250,
