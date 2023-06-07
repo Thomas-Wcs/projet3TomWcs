@@ -19,8 +19,9 @@ const add = (req, res) => {
 
   models.categorie
     .insert(categorie)
-    .then(() => {
-      res.sendStatus(201);
+    .then((categoryId) => {
+      categorie.id = categoryId;
+      res.json(categorie).status(201);
     })
     .catch((err) => {
       console.error(err);

@@ -65,8 +65,23 @@ function VideosManagement() {
     },
     { field: "link", headerName: "Link", width: 150, editable: true },
     {
-      field: "SectionID",
-      headerName: "Section ID",
+      field: "isVideoPaying",
+      headerName: "Paying",
+      type: "boolean",
+      width: 100,
+      editable: true,
+    },
+    {
+      field: "isVideoPremium",
+      headerName: "Premium",
+      type: "boolean",
+
+      width: 100,
+      editable: true,
+    },
+    {
+      field: "date_publication",
+      headerName: "Date",
       width: 150,
       editable: true,
     },
@@ -109,7 +124,8 @@ function VideosManagement() {
     link: video.link,
     date_publication: video.date_publication,
     name: video.name,
-    SectionID: video.SectionID,
+    isVideoPremium: video.isVideoPremium,
+    isVideoPaying: video.isVideoPaying,
   }));
 
   return (

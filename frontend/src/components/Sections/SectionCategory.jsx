@@ -44,7 +44,6 @@ function SectionCategory({ sectionName }) {
     getVideoData();
   }, [refresh]);
 
-  // Pour éliminer les noms de catégories qui sont dupliqués
   const uniqueCategories = data.filter((item, index) => {
     return (
       data.findIndex((object) => {
@@ -56,7 +55,7 @@ function SectionCategory({ sectionName }) {
   function handleCategory(category) {
     setVideoNumber(0);
     setSelectedCategory(category);
-    const translateX = 0; // Remet le translateX à zero pour revenir au début du container
+    const translateX = 0;
     listRef.current.style.transform = `translateX(${translateX}px)`;
   }
 
@@ -197,18 +196,22 @@ function SectionCategory({ sectionName }) {
                       favVideo.user_id !== null && favVideo.title === item.title
                   );
                   return (
-                    <div key={uuidv4()}>
-                      <Video
-                        src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
-                        width="650px"
-                        height="450px"
-                        displayDescription
-                        displayDescriptionTitle={item.title}
-                        displayDescriptionText={item.description_text}
-                        isVideoPremium={item.isVideoPremium}
-                        isVideoPaying={item.isVideoPaying}
-                        isEnabled
-                      />
+                    <div>
+                      <Link to={`/video_description/${item.id}`} key={uuidv4()}>
+                        <Video
+                          src={`${import.meta.env.VITE_APP_API_URL}${
+                            item.link
+                          }`}
+                          width="650px"
+                          height="450px"
+                          displayDescription
+                          displayDescriptionTitle={item.title}
+                          displayDescriptionText={item.description_text}
+                          isVideoPremium={item.isVideoPremium}
+                          isVideoPaying={item.isVideoPaying}
+                          isEnabled
+                        />
+                      </Link>
                       {userInfo.email ? (
                         <div className="favorite-text-and-button">
                           {favoriteVideo ? (

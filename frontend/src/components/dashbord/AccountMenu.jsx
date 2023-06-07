@@ -139,7 +139,7 @@ export default function AccountMenu({ userInfo, reset }) {
           to="/"
           onClick={handleClose}
         >
-          <HomeIcon sx={{ margin: "5%" }} /> Acceuil
+          <HomeIcon sx={{ margin: "5%" }} /> Accueil
         </MenuItem>
         <MenuItem
           sx={dashbordStyles}

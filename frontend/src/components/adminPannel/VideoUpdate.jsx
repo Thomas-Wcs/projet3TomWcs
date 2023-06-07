@@ -39,10 +39,18 @@ function VideoUpdate() {
   }, [videoData?.id]);
 
   function handleChange(e) {
-    const { name, value } = e.target;
+    const { name, checked } = e.target;
+    let newValue;
+
+    if (name === "isVideoPaying" || name === "isVideoPremium") {
+      newValue = checked ? 1 : 0;
+    } else {
+      newValue = e.target.value;
+    }
+
     setVideoData((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: newValue,
     }));
   }
 
@@ -58,6 +66,8 @@ function VideoUpdate() {
         description_text: videoData.description_text,
         link: videoData.link,
         category_id: videoData.category_id,
+        isVideoPaying: videoData.isVideoPaying,
+        isVideoPremium: videoData.isVideoPremium,
       })
       .then(() => {
         navigate("/adminPanel/videosTable");
@@ -123,11 +133,13 @@ function VideoUpdate() {
           />
         </div>
         <div className="sectionUpdateName">
+          <label htmlFor="category_id"> Modifier la categorie:</label>
           {allCategory && (
             <select
               name="category_id"
               value={videoData?.category_id}
               onChange={handleChange}
+              className="selecter"
             >
               {allCategory.map((cat) => (
                 <option value={cat.id} key={cat.id}>
@@ -136,11 +148,14 @@ function VideoUpdate() {
               ))}
             </select>
           )}
+          <label htmlFor="section_id"> Modifier la section:</label>
+
           {allSection && (
             <select
               name="section_id"
               value={videoSection}
               onChange={handleSectionChange}
+              className="selecter"
             >
               {allSection.map((sec) => (
                 <option value={sec.id} key={sec.id}>
@@ -149,6 +164,20 @@ function VideoUpdate() {
               ))}
             </select>
           )}
+          <label htmlFor="isVideoPaying">Video Payante?</label>
+          <input
+            type="checkbox"
+            name="isVideoPaying"
+            checked={videoData?.isVideoPaying === 1}
+            onChange={handleChange}
+          />
+          <label htmlFor="isVideoPremium">Video Premium?</label>
+          <input
+            type="checkbox"
+            name="isVideoPremium"
+            checked={videoData?.isVideoPremium === 1}
+            onChange={handleChange}
+          />
         </div>
         <button type="submit" className="sectionUpdateButton">
           Mettre à jour

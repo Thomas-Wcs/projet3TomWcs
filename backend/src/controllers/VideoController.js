@@ -43,6 +43,15 @@ const read = (req, res) => {
     });
 };
 
+const readAll = (req, res) => {
+  models.video
+    .findAllFromEverything()
+    .then(([rows]) => res.send(rows))
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
 const edit = async (req, res) => {
   const result = await models.video.update(
     parseInt(req.params.id, 10),
@@ -138,5 +147,6 @@ module.exports = {
   add,
   destroy,
   findAllVideoAndFavorite,
+  readAll,
   findAllVideoForAdmin,
 };

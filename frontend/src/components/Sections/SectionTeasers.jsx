@@ -5,6 +5,7 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import Video from "./Video";
 
@@ -75,15 +76,17 @@ function SectionTeasers({ sectionName }) {
         />
         <div className="container container-section" ref={listRef}>
           {data.map((video) => (
-            <Video
-              key={video.id}
-              width="650px"
-              height="450px"
-              src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
-              isVideoPremium={video.isVideoPremium}
-              isVideoPaying={video.isVideoPaying}
-              isEnabled
-            />
+            <Link to={`/video_description/${video.id}`} key={video.id}>
+              <Video
+                key={video.id}
+                width="650px"
+                height="450px"
+                src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
+                isVideoPremium={video.isVideoPremium}
+                isVideoPaying={video.isVideoPaying}
+                isEnabled
+              />
+            </Link>
           ))}
         </div>
         <ArrowForwardIosOutlined
