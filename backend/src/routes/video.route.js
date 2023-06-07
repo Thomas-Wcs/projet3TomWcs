@@ -15,6 +15,7 @@ videoRoute.get(
   "/allVideoAndFavorite/:id",
   VideoController.findAllVideoAndFavorite
 );
+videoRoute.get("/allData", VideoController.readAll);
 videoRoute.get("/:id", VideoController.read);
 videoRoute.use(auth.verifyAdmin);
 videoRoute.put("/:id", VideoController.edit);

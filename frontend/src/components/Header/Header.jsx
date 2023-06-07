@@ -29,6 +29,13 @@ export default function Header() {
 
   function handleLinkClick() {
     checkboxRef.current.checked = false;
+    setTextSearch("");
+  }
+
+  function handleVideoLinkClick() {
+    checkboxRef.current.checked = false;
+    setTextSearch("");
+    setIsSearchClosed(!isSearchClosed);
   }
 
   const handleLogOut = () => {
@@ -70,9 +77,13 @@ export default function Header() {
                     <Link
                       to={`/video_description/${video.id}`}
                       key={video.id}
-                      onClick={() => setTextSearch("")}
+                      onClick={() => handleVideoLinkClick()}
                     >
-                      <li key={video.id} className="video-list">
+                      <li
+                        key={video.id}
+                        className="video-list"
+                        id="video-list-{video.id}"
+                      >
                         {video.title}
                       </li>
                     </Link>

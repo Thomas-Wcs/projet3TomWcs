@@ -192,18 +192,22 @@ function SectionCategory({ sectionName }) {
                   );
                   return (
                     <div key={item.id}>
-                      <Video
-                        key={item.id}
-                        src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
-                        width="650px"
-                        height="450px"
-                        displayDescription
-                        displayDescriptionTitle={item.title}
-                        displayDescriptionText={item.description_text}
-                        isVideoPremium={item.isVideoPremium}
-                        isVideoPaying={item.isVideoPaying}
-                        isEnabled
-                      />
+                      <Link to={`/video_description/${item.id}`}>
+                        <Video
+                          key={item.id}
+                          src={`${import.meta.env.VITE_APP_API_URL}${
+                            item.link
+                          }`}
+                          width="650px"
+                          height="450px"
+                          displayDescription
+                          displayDescriptionTitle={item.title}
+                          displayDescriptionText={item.description_text}
+                          isVideoPremium={item.isVideoPremium}
+                          isVideoPaying={item.isVideoPaying}
+                          isEnabled
+                        />
+                      </Link>
                       {userInfo.email ? (
                         <div className="favorite-text-and-button">
                           {favoriteVideo ? (
