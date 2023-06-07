@@ -11,10 +11,13 @@ function VideoUpdate() {
   const [videoData, setVideoData] = useState();
   const [allSection, setAllSection] = useState();
   const [videoSection, setVideoSection] = useState();
+  const [rawVideoData, setRawVideoData] = useState();
+  console.log(videoData);
 
   useEffect(() => {
     const getVideoData = async () => {
       await api.get(`videos/${id}`).then((res) => {
+        setRawVideoData(res.data);
         setVideoData(res.data);
       });
     };
@@ -56,42 +59,101 @@ function VideoUpdate() {
 
   function handleSectionChange(e) {
     const { value } = e.target;
-    setVideoSection(value);
+    setVideoData((prevVideoData) => ({
+      ...prevVideoData,
+      SectionID: parseInt(value, 10),
+    }));
   }
 
-  function updateVideoData() {
-    api
-      .put(`videos/${videoData.id}`, {
-        title: videoData.title,
-        description_text: videoData.description_text,
-        link: videoData.link,
-        category_id: videoData.category_id,
-        isVideoPaying: videoData.isVideoPaying,
-        isVideoPremium: videoData.isVideoPremium,
-      })
-      .then(() => {
-        navigate("/adminPanel/videosTable");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  function multiUpdate() {
+    if (
+      rawVideoData.video_section_id !== null &&
+      videoData.video_section_id !== null
+    ) {
+      api
+        .put(`videos/${videoData.id}`, {
+          title: videoData.title,
+          description_text: videoData.description_text,
+          link: videoData.link,
+          category_id: videoData.category_id,
+          isVideoPaying: videoData.isVideoPaying,
+          isVideoPremium: videoData.isVideoPremium,
+        })
+        .then(() => {
+          navigate("/adminPanel/videosTable");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
 
-    api
-      .put(`video_section/${videoData.video_section_id}`, {
-        section_id: videoSection,
-        id: videoData.video_section_id,
-      })
-      .then(() => {
-        navigate("/adminPanel/videosTable");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      api
+        .put(`video_section/${videoData.video_section_id}`, {
+          section_id: videoData.SectionID,
+          id: rawVideoData.video_section_id,
+        })
+        .then(() => {
+          navigate("/adminPanel/videosTable");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else if (
+      rawVideoData.video_section_id === null &&
+      videoData.video_section_id === null
+    ) {
+      api
+        .put(`videos/${videoData.id}`, {
+          title: videoData.title,
+          description_text: videoData.description_text,
+          link: videoData.link,
+          category_id: videoData.category_id,
+          isVideoPaying: videoData.isVideoPaying,
+          isVideoPremium: videoData.isVideoPremium,
+        })
+        .then(() => {
+          navigate("/adminPanel/videosTable");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else if (
+      rawVideoData.video_section_id === null &&
+      videoData.video_section_id !== null
+    ) {
+      api
+        .put(`videos/${videoData.id}`, {
+          title: videoData.title,
+          description_text: videoData.description_text,
+          link: videoData.link,
+          category_id: videoData.category_id,
+          isVideoPaying: videoData.isVideoPaying,
+          isVideoPremium: videoData.isVideoPremium,
+        })
+        .then(() => {
+          navigate("/adminPanel/videosTable");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      const videoSectionValue = {
+        videoId: videoData.id,
+        sectionId: videoData.video_section_id,
+      };
+
+      api
+        .post("video_section", videoSectionValue)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    updateVideoData();
+    multiUpdate();
   }
 
   return (
@@ -148,12 +210,18 @@ function VideoUpdate() {
               ))}
             </select>
           )}
-          <label htmlFor="section_id"> Modifier la section:</label>
+
+          <label htmlFor="section_id">
+            {" "}
+            {videoData?.video_section_id
+              ? "Modifier la section"
+              : "Ajouter à une section"}
+          </label>
 
           {allSection && (
             <select
               name="section_id"
-              value={videoSection}
+              value={videoSection?.id}
               onChange={handleSectionChange}
               className="selecter"
             >

@@ -30,6 +30,7 @@ class VideoSectionManager extends AbstractManager {
   }
 
   update(result) {
+    console.log(result);
     return this.database
       .query(`update ${this.table} set section_id = ? where id = ?`, [
         result.section_id,

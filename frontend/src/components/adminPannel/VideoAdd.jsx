@@ -36,12 +36,11 @@ function VideoAdd() {
     formData.append("category_id", categorie);
     formData.append("link", fileUpload);
     formData.append("date_publication", Date());
-    formData.append("section_id", section);
     formData.append("isVideoPaying", videoPaying);
     formData.append("isVideoPremium", videoPremium);
 
     api
-      .post("/video_section", formData)
+      .post("/videos", formData)
 
       .then(() => {
         setVideosChanging(!videosChanging);

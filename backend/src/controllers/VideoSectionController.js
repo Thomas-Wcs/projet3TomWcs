@@ -32,6 +32,7 @@ const read = (req, res) => {
 };
 
 const add = async (req, res) => {
+  console.log(req.body);
   // TODO validations (length, format...)
 
   const {
