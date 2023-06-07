@@ -6,7 +6,7 @@ import useAPI from "../../api/useAPI";
 import AccountMenu2 from "../dashbord/AccountMenu2";
 
 export default function AdminPanel() {
-  const { userInfo, setSuccess, success, setIsAdmin } = useAuth();
+  const { userInfo, setSuccess, success, setIsAdmin, reset } = useAuth();
   const api = useAPI();
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ export default function AdminPanel() {
       <div className="display-nav-admin2">
         <div>
           <div className="user-connected">
-            <AccountMenu2 userInfo={userInfo} />
+            <AccountMenu2 userInfo={userInfo} reset={reset} />
             <p> Admin : {userInfo.name}</p>
             <p> {userInfo.email}</p>
             <button type="button" onClick={handleLogOut}>

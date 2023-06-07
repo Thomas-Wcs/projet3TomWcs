@@ -6,12 +6,13 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import Video from "./Video";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
+import Video from "./Video";
 
-function Section1({ sectionName }) {
+function Section1({ sectionInfo }) {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
@@ -27,17 +28,21 @@ function Section1({ sectionName }) {
   const getVideoData = async () => {
     try {
       if (userInfo.id) {
-        const res = await api.get(`videos/allVideoAndFavorite/${userInfo.id}`);
+        const res = await api.get(
+          `videos/allVideoAndFavorite/${userInfo.id}/${sectionInfo.id}`
+        );
         setData(res.data);
       } else {
         const res = await api.get(`videos`);
-
         setData(res.data);
       }
     } catch (error) {
       console.error(error);
     }
   };
+  const newFilteredData = data.filter(
+    (newVideo) => newVideo.SectionID === sectionInfo.id
+  );
 
   useEffect(() => {
     getVideoData();
@@ -117,7 +122,7 @@ function Section1({ sectionName }) {
   return (
     <div className="list">
       <div className="wrapper-sectionName-buttons">
-        <h1 className="section-name">{sectionName}</h1>
+        <h1 className="section-name">{sectionInfo.name}</h1>
         <div className="button-wrapper">
           <button type="submit" className="follow-btn">
             À SUIVRE
@@ -135,8 +140,12 @@ function Section1({ sectionName }) {
             onClick={() => handleClick("left")}
             disabled={position === 0}
           />
-          <div className="container container-section" ref={listRef}>
-            {data.map((video) => {
+          <div
+            className="container container-section"
+            ref={listRef}
+            key={uuidv4()}
+          >
+            {newFilteredData.map((video) => {
               const favoriteVideo = data.find(
                 (favVideo) =>
                   favVideo.user_id !== null && favVideo.title === video.title
@@ -193,7 +202,7 @@ function Section1({ sectionName }) {
           />
         </div>
       ) : (
-        <div>
+        <div key={uuidv4()}>
           {data.map((video) => (
             <Link to={`/video_description/${video.id}`}>
               <Video
@@ -216,10 +225,11 @@ function Section1({ sectionName }) {
 }
 
 Section1.propTypes = {
-  sectionName: PropTypes.string,
-};
-
-Section1.defaultProps = {
-  sectionName: "",
+  sectionInfo: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    order: PropTypes.number,
+    section_type: PropTypes.string,
+  }).isRequired,
 };
 export default Section1;

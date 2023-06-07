@@ -7,11 +7,12 @@ import {
 } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
 
-function SectionCategory({ sectionName }) {
+function SectionCategory({ sectionInfo }) {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
@@ -140,7 +141,7 @@ function SectionCategory({ sectionName }) {
   return (
     <div className="list">
       <div className="wrapper-sectionName-buttons">
-        <h1 className="section-name">{sectionName}</h1>
+        <h1 className="section-name">{sectionInfo.name}</h1>
         <div className="button-wrapper">
           <button type="submit" className="follow-btn">
             À SUIVRE
@@ -174,7 +175,7 @@ function SectionCategory({ sectionName }) {
           <div className="category-container">
             {uniqueCategories.map((item) => (
               <button
-                key={item.id}
+                key={uuidv4()}
                 className="category-btn"
                 type="submit"
                 onClick={() => handleCategory(item.name)}
@@ -183,7 +184,11 @@ function SectionCategory({ sectionName }) {
               </button>
             ))}
           </div>
-          <div className="container container-section" ref={listRef}>
+          <div
+            className="container container-section"
+            ref={listRef}
+            key={uuidv4()}
+          >
             {!selectedCategory
               ? data.map((item) => {
                   const favoriteVideo = data.find(
@@ -191,10 +196,9 @@ function SectionCategory({ sectionName }) {
                       favVideo.user_id !== null && favVideo.title === item.title
                   );
                   return (
-                    <div key={item.id}>
+                    <div key={uuidv4()}>
                       <Link to={`/video_description/${item.id}`}>
                         <Video
-                          key={item.id}
                           src={`${import.meta.env.VITE_APP_API_URL}${
                             item.link
                           }`}
@@ -247,9 +251,8 @@ function SectionCategory({ sectionName }) {
                         favVideo.title === item.title
                     );
                     return (
-                      <div key={item.id}>
+                      <div key={uuidv4()}>
                         <Video
-                          key={item.id}
                           src={`${import.meta.env.VITE_APP_API_URL}${
                             item.link
                           }`}
@@ -263,7 +266,10 @@ function SectionCategory({ sectionName }) {
                           isEnabled
                         />
                         {userInfo.email ? (
-                          <div className="favorite-text-and-button">
+                          <div
+                            className="favorite-text-and-button"
+                            key={uuidv4()}
+                          >
                             {favoriteVideo ? (
                               <button
                                 className="favorite-profil-button"
@@ -303,7 +309,7 @@ function SectionCategory({ sectionName }) {
       ) : (
         <div id="display-all">
           {data.map((video) => (
-            <Link to={`/video_description/${video.id}`}>
+            <Link to={`/video_description/${video.id}`} key={uuidv4()}>
               <Video
                 width="650px"
                 height="450px"
@@ -323,6 +329,11 @@ function SectionCategory({ sectionName }) {
   );
 }
 SectionCategory.propTypes = {
-  sectionName: PropTypes.string.isRequired,
+  sectionInfo: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    order: PropTypes.number,
+    section_type: PropTypes.string,
+  }).isRequired,
 };
 export default SectionCategory;
