@@ -13,8 +13,6 @@ import { useAuth } from "../../context/AuthContext";
 import Video from "./Video";
 
 function Section1({ sectionInfo }) {
-  console.log(sectionInfo);
-
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
