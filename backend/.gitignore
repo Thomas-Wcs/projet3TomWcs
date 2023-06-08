@@ -4,4 +4,5 @@ node_modules
 backend/public/assets/videos/
 backend/public/assets/images/confidentiel/
 public/assets/videos/
+/public/assets/images/confidentiel/
 
