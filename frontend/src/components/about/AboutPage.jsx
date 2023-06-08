@@ -8,7 +8,6 @@ function AboutPage() {
   const [data, setData] = useState([]);
   const api = useAPI();
   const hiddenElementsRef = useRef([]);
-  const toto = useRef([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -22,10 +21,6 @@ function AboutPage() {
     });
 
     hiddenElementsRef.current.forEach((el) => observer.observe(el));
-
-    return () => {
-      hiddenElementsRef.current.forEach((el) => observer.unobserve(el));
-    };
   }, [data]);
 
   useEffect(() => {
@@ -36,14 +31,16 @@ function AboutPage() {
 
   return (
     <div className="about-main-section">
-      {data.map((item, index) => (
+      <img src={logoOrigins} alt="" />
+      {data.slice(0, 4).map((item, index) => (
         <section
           className="hidden"
           key={uuidv4()}
           // eslint-disable-next-line no-return-assign
           ref={(ref) => (hiddenElementsRef.current[index] = ref)}
         >
-          <h2 ref={toto}> NOM : {item.name} </h2>
+          <img src="" alt="developpeur" />
+          <h2> NOM : {item.name} </h2>
           <p>
             Bienvenue sur notre plateforme vidéo en ligne ! Nous nous engageons
             à vous fournir une large sélection de vidéos de haute qualité pour
@@ -51,7 +48,6 @@ function AboutPage() {
             télévisées, des documentaires ou du contenu éducatif, nous avons ce
             qu'il vous faut.
           </p>
-          <img src={logoOrigins} alt="" />
           <button type="button">Contactez-nous</button>
         </section>
       ))}
