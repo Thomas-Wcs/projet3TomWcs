@@ -24,7 +24,7 @@ userRouter.post(
 userRouter.post("/", userController.add);
 userRouter.post("/login", userController.login, auth.verifyPassword);
 userRouter.post("/:id", upload.single("link"), userController.addAvatar);
-userRouter.use(auth.verifyToken);
+userRouter.use(auth.verifyAdmin);
 userRouter.delete("/:id", userController.destroy);
 
 module.exports = userRouter;

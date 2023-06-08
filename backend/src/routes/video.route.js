@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
+const auth = require("../utils/Auth");
 
 const uploadFolder = path.join(__dirname, "../../public/assets/videos");
 
@@ -14,7 +15,9 @@ videoRoute.get(
   "/allVideoAndFavorite/:id",
   VideoController.findAllVideoAndFavorite
 );
+videoRoute.get("/allData", VideoController.readAll);
 videoRoute.get("/:id", VideoController.read);
+videoRoute.use(auth.verifyAdmin);
 videoRoute.put("/:id", VideoController.edit);
 videoRoute.post("/", upload.single("link"), VideoController.add);
 videoRoute.delete("/:id", VideoController.destroy);

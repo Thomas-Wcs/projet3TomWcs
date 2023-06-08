@@ -31,6 +31,15 @@ const read = (req, res) => {
     });
 };
 
+const readAll = (req, res) => {
+  models.video
+    .findAllFromEverything()
+    .then(([rows]) => res.send(rows))
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
 const edit = async (req, res) => {
   const result = await models.video.update(
     parseInt(req.params.id, 10),
@@ -74,8 +83,10 @@ const add = async (req, res) => {
       description_text,
       date_publication,
     });
+
     const newVideo = {
       title,
+
       description_text,
       category_id,
       link,
@@ -124,4 +135,5 @@ module.exports = {
   add,
   destroy,
   findAllVideoAndFavorite,
+  readAll,
 };

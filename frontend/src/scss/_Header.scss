@@ -17,7 +17,8 @@
     box-shadow: 0 1px 4px rgb(0, 0, 0);
     color: $main-white;
     background-color: black;
-    position: relative;
+    position: fixed;
+    z-index: 3000;
 
     .menu-items {
       padding-top: 10%;
@@ -55,7 +56,6 @@
           margin-bottom: 20px;
         }
       }
-
       li {
         margin-bottom: 1.2rem;
         font-size: 1.5rem;
@@ -164,6 +164,7 @@
       }
       &:checked ~ .menu-items {
         transform: translateX(0) translateY(50%);
+        position: fixed;
       }
     }
 
@@ -176,7 +177,22 @@
       right: 0;
       transform: translate(-50%, -50%);
       z-index: 300000;
-
+      .all-video {
+        list-style: none;
+        width: 280px;
+        margin-top: 101%;
+        margin-left: -286px;
+        background: #00000096;
+        .video-list {
+          padding: 5px;
+          border: 1px solid black;
+          color: white;
+          font-size: 1.1rem;
+          font-family: "PT Sans", sans-serif;
+          font-size: 1.2rem;
+          font-weight: 500;
+        }
+      }
       .input {
         width: 30px;
         height: 30px;

@@ -15,9 +15,12 @@ import SectionsManagement from "./components/adminPannel/SectionsManagement";
 import AdvertsManagement from "./components/advertising/AdvertManagement";
 import Homepage2 from "./pages/Homepage2";
 import SectionUpdate from "./components/adminPannel/SectionUpdate";
+import VideoUpdate from "./components/adminPannel/VideoUpdate";
 import SectionAdd from "./components/adminPannel/SectionAdd";
+import VideoAdd from "./components/adminPannel/VideoAdd";
 import { AuthProvider } from "./context/AuthContext";
 import AdminWall from "./utils/AdminWall";
+import VideoDescription from "./components/VideoDescription/VideoDescription";
 
 function App() {
   return (
@@ -42,13 +45,77 @@ function App() {
                 </AdminWall>
               }
             >
-              <Route path="usersTable" element={<DataTable />} />
-              <Route path="videosTable" element={<VideosManagement />} />
-              <Route path="sectionsTable" element={<SectionsManagement />} />
-              <Route path="AdvertsTable" element={<AdvertsManagement />} />
+              <Route
+                path="usersTable"
+                element={
+                  <AdminWall>
+                    <DataTable />
+                  </AdminWall>
+                }
+              />
+              <Route
+                path="videosTable"
+                element={
+                  <AdminWall>
+                    <VideosManagement />
+                  </AdminWall>
+                }
+              />
+              <Route
+                path="sectionsTable"
+                element={
+                  <AdminWall>
+                    <SectionsManagement />
+                  </AdminWall>
+                }
+              />
             </Route>
-            <Route path="/sections/:id" element={<SectionUpdate />} />
-            <Route path="/newSection" element={<SectionAdd />} />
+            <Route
+              path="/sections/:id"
+              element={
+                <AdminWall>
+                  <SectionUpdate />
+                </AdminWall>
+              }
+            />
+            <Route
+              path="/videos/:id"
+              element={
+                <AdminWall>
+                  <VideoUpdate />
+                </AdminWall>
+              }
+            />
+            <Route
+              path="AdvertsTable"
+              element={
+                <AdminWall>
+                  <AdvertsManagement />
+                </AdminWall>
+              }
+            />
+
+            <Route
+              path="video_description/:id"
+              element={<VideoDescription />}
+            />
+
+            <Route
+              path="/newSection"
+              element={
+                <AdminWall>
+                  <SectionAdd />
+                </AdminWall>
+              }
+            />
+            <Route
+              path="/newVideo"
+              element={
+                <AdminWall>
+                  <VideoAdd />
+                </AdminWall>
+              }
+            />
           </Routes>
         </Router>
         <Advert />

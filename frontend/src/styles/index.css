@@ -6,6 +6,7 @@
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
 .list .wrapper {
   position: relative;
   overflow: hidden;
@@ -30,6 +31,7 @@
 }
 .list .wrapper .container {
   display: flex;
+  width: -moz-max-content;
   width: max-content;
   transform: translateX(0px);
   transition: all 1s ease;
@@ -46,6 +48,14 @@ body h1 {
   color: white;
   text-transform: uppercase;
   padding: 60px;
+}
+.list #display-all {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.list #display-all .wrapper-video {
+  margin-bottom: 5%;
 }
 .list .wrapper-sectionName-buttons {
   display: flex;
@@ -104,7 +114,8 @@ body h1 {
   position: relative;
 }
 .wrapper-video video {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .wrapper-video .video-title {
   position: absolute;
@@ -144,12 +155,14 @@ body h1 {
   box-shadow: 0 1px 4px rgb(0, 0, 0);
   color: #ffffff;
   background-color: black;
-  position: relative;
+  position: fixed;
+  z-index: 3000;
 }
 #nav-body .navbar .menu-items {
   padding-top: 10%;
   background: rgba(0, 0, 0, 0.737);
-  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
   height: 100vh;
   width: 100vw;
   transform: translateX(-150%) translateY(50%);
@@ -282,6 +295,7 @@ body h1 {
 }
 #nav-body .navbar .checkbox:checked ~ .menu-items {
   transform: translateX(0) translateY(50%);
+  position: fixed;
 }
 #nav-body .navbar #content {
   position: absolute;
@@ -292,6 +306,22 @@ body h1 {
   right: 0;
   transform: translate(-50%, -50%);
   z-index: 300000;
+}
+#nav-body .navbar #content .all-video {
+  list-style: none;
+  width: 280px;
+  margin-top: 101%;
+  margin-left: -286px;
+  background: rgba(0, 0, 0, 0.5882352941);
+}
+#nav-body .navbar #content .all-video .video-list {
+  padding: 5px;
+  border: 1px solid black;
+  color: white;
+  font-size: 1.1rem;
+  font-family: "PT Sans", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 #nav-body .navbar #content .input {
   width: 30px;
@@ -304,14 +334,8 @@ body h1 {
   font-weight: 400;
   font-family: Roboto;
   outline: 0;
-  -webkit-transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
-    padding 0.2s;
-  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
-    padding 0.2s;
-  -webkit-transition-delay: 0.4s;
+  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out, padding 0.2s;
   transition-delay: 0.4s;
-  -webkit-transform: translate(-100%, -50%);
-  -ms-transform: translate(-100%, -50%);
   transform: translate(-100%, -50%);
 }
 #nav-body .navbar #content .search {
@@ -327,10 +351,7 @@ body h1 {
   border: 0;
   color: inherit;
   cursor: pointer;
-  -webkit-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
-  -webkit-transform: translate(-100%, -50%);
-  -ms-transform: translate(-100%, -50%);
   transform: translate(-100%, -50%) translateY(15%);
 }
 #nav-body .navbar #content .search:before {
@@ -339,18 +360,13 @@ body h1 {
   width: 20px;
   height: 4px;
   background-color: #ffffff;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
   transform: rotate(45deg);
   margin-top: 14px;
   margin-left: 11px;
-  -webkit-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
 }
 #nav-body .navbar #content .close {
-  -webkit-transition: 0.4s ease-in-out;
   transition: 0.4s ease-in-out;
-  -webkit-transition-delay: 0.4s;
   transition-delay: 0.4s;
   padding-top: 15%;
 }
@@ -362,10 +378,7 @@ body h1 {
   margin-top: -1px;
   margin-left: -13px;
   background-color: #ffffff;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-  -webkit-transition: 0.2s ease-in-out;
   transition: 0.2s ease-in-out;
 }
 #nav-body .navbar #content .close:after {
@@ -377,8 +390,6 @@ body h1 {
   margin-top: -1px;
   margin-left: -13px;
   cursor: pointer;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 #nav-body .navbar #content .square {
@@ -397,14 +408,8 @@ body h1 {
   max-width: 300px;
   position: fixed;
   left: 0;
-  -webkit-transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out,
-    padding 0.2s;
-  transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out,
-    padding 0.2s;
-  -webkit-transition-delay: 0.4s, 0s, 0.4s;
+  transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out, padding 0.2s;
   transition-delay: 0.4s, 0s, 0.4s;
-  -webkit-transform: translate(-100%, -50%);
-  -ms-transform: translate(-100%, -50%);
   transform: translate(-100%, -50%) translateY(13%);
 }
 @media screen and (max-width: 760px) {
@@ -433,6 +438,16 @@ body h1 {
   letter-spacing: 2px;
   opacity: 1;
   z-index: 10;
+  padding-top: 10%;
+}
+#connection h2 .button-text {
+  background: none;
+  color: #50abc7;
+  border: none;
+  font-size: 1.3rem;
+}
+#connection h2 .button-text:hover {
+  cursor: pointer;
 }
 #connection #password-error {
   color: red;
@@ -446,11 +461,13 @@ body h1 {
   width: 100%;
   height: auto;
   z-index: -300;
-  object-fit: center;
+  -o-object-fit: center;
+     object-fit: center;
 }
 @media screen and (max-width: 760px) {
   #connection .connection-bg {
-    object-fit: fill;
+    -o-object-fit: fill;
+       object-fit: fill;
     height: 100%;
   }
 }
@@ -466,6 +483,11 @@ body h1 {
   background: rgba(255, 255, 255, 0.197);
   font-family: "PT sans", sans-serif;
   padding-left: 20px;
+}
+#connection .user-input::-moz-placeholder {
+  color: #ffffff;
+  opacity: 10;
+  z-index: 30;
 }
 #connection .user-input::placeholder {
   color: #ffffff;
@@ -513,8 +535,8 @@ body h1 {
   flex-direction: column;
   height: auto;
   width: auto;
-  margin: 5%;
   background: #000000;
+  padding-top: 6%;
 }
 #profil-display .section-title {
   color: #10bcdd;
@@ -565,6 +587,10 @@ body h1 {
 
 .display-nav-admin-picture {
   margin-top: 5%;
+}
+
+.display-nav-admin {
+  margin-top: 6%;
 }
 
 .display-nav-admin2 ul {
@@ -693,6 +719,7 @@ body h1 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-family: "PT Sans";
 }
 .sectionUpdate .sectionUpdateTitle {
   text-align: center;
@@ -701,31 +728,81 @@ body h1 {
   font-size: 32px;
 }
 .sectionUpdate .sectionUpdateForm {
-  margin-top: 150px;
+  margin-top: 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: grey;
-  width: 400px;
-  height: 400px;
+  background-color: #808080;
+  width: 28%;
+  height: auto;
   border-radius: 16px;
+  margin-bottom: 5%;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.sectionUpdate .sectionUpdateForm .section-checkboxes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 15px;
+  justify-content: space-around;
+}
+.sectionUpdate .sectionUpdateForm .section-checkboxes .section-update-checkbox {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+.sectionUpdate .sectionUpdateForm .section-checkboxes .section-update-checkbox label {
+  margin: 0 5px;
+  font-size: 14px;
+  color: #333;
+}
+.sectionUpdate .sectionUpdateForm #video-paying {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 15px;
+  justify-content: space-around;
 }
 .sectionUpdate label {
   display: block;
-  margin: 10px 0 8px 0;
+  margin: 5% 0 4% 0;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #333;
 }
 .sectionUpdate input {
-  height: 30px;
-  width: 250px;
+  width: 100%;
+  padding: 3%;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+.sectionUpdate input:focus {
+  border-color: green;
 }
 .sectionUpdate .sectionUpdateName,
 .sectionUpdate .sectionUpdateOrder {
-  margin-top: 15px;
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  max-width: 63%;
 }
-.sectionUpdate #section_type {
+.sectionUpdate select {
   height: 30px;
-  width: 250px;
+  width: 100%;
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+.sectionUpdate select:focus {
+  border-color: green;
 }
 .sectionUpdate .sectionUpdateButton {
   width: 100px;
@@ -733,7 +810,16 @@ body h1 {
   border: none;
   margin-top: 20px;
   background-color: green;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
+  border-radius: 4px;
+  outline: none;
+  transition: background-color 0.3s ease-in-out;
+}
+.sectionUpdate .sectionUpdateButton:hover {
+  background-color: green;
 }
 
 .admin-videos {
@@ -821,10 +907,7 @@ body h1 {
   height: auto;
   margin: 10px;
 }
-.user-main-profile
-  .user-adresse-information
-  .avatar-div-user-img
-  .avatar-upload-image {
+.user-main-profile .user-adresse-information .avatar-div-user-img .avatar-upload-image {
   margin: 25px;
   width: 80px;
   height: 80px;
@@ -871,10 +954,7 @@ body h1 {
     height: auto;
     margin: 10px;
   }
-  .user-main-profile
-    .user-adresse-information
-    .avatar-div-user-img
-    .avatar-upload-image {
+  .user-main-profile .user-adresse-information .avatar-div-user-img .avatar-upload-image {
     margin: 10px;
     width: 80px;
     height: 80px;
@@ -887,6 +967,53 @@ body h1 {
   justify-content: center;
 }
 
+#video-main {
+  color: white;
+}
+#video-main #video-display {
+  padding-top: 13vh;
+}
+#video-main #video-display #video-date {
+  text-align: end;
+  font-size: 1rem;
+  padding-bottom: 1%;
+}
+#video-main #video {
+  width: 100%;
+}
+#video-main #video-description {
+  font-size: 1.3rem;
+  padding-top: 5%;
+  padding-left: 3vw;
+  padding-right: 3vw;
+}
+#video-main #video-warning {
+  font-size: 1.2rem;
+  color: rgb(172, 172, 172);
+  padding-left: 3vw;
+}
+
+@media screen and (min-width: 400px) {
+  #video-main {
+    font-family: "PT Sans";
+    width: 100vh;
+  }
+  #video-main #video-display {
+    width: 100vw;
+    height: 100vh;
+    color: white;
+    padding-left: 25%;
+    padding-right: 25%;
+    padding-top: 100px;
+  }
+  #video-main #video-display #video-date {
+    font-size: 1.3rem;
+  }
+  #video-main #caroussel {
+    padding-top: 180px;
+    width: 100vw;
+  }
+}
 .modal-open {
   overflow-y: hidden;
 }
@@ -1070,4 +1197,4 @@ body h1 {
 }
 .footer_container .footer_link {
   color: #10bcdd;
-}
+}/*# sourceMappingURL=index.css.map */

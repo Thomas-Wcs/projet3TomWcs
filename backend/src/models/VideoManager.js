@@ -6,8 +6,34 @@ class VideoManager extends AbstractManager {
   }
 
   findAll() {
-    return this.database.query(`
-      select ${this.table}.*, categorie.name from videos  inner join categorie on ${this.table}.category_id = categorie.id;`);
+    return this.database.query(
+      `SELECT ${this.table}.*, categorie.name AS categorie_name, video_section.section_id ,section.id as SectionID, section.name, section.section_type
+      FROM videos
+      INNER JOIN categorie ON ${this.table}.category_id = categorie.id
+      LEFT JOIN video_section ON ${this.table}.id = video_section.video_id
+      LEFT JOIN section ON video_section.section_id = section.id;`
+    );
+  }
+
+  findAllFromEverything() {
+    return this.database.query(
+      `SELECT ${this.table}.*, categorie.name AS categorie_name, section.name, section.id AS SectionID
+      FROM ${this.table}
+      INNER JOIN categorie ON ${this.table}.category_id = categorie.id
+      LEFT JOIN video_section ON ${this.table}.id = video_section.video_id
+      LEFT JOIN section ON video_section.section_id = section.id;`
+    );
+  }
+
+  find(id) {
+    return this.database.query(
+      `select ${this.table}.*, section.id as SectionID, video_section.id as video_section_id
+      from ${this.table}
+      left join video_section on ${this.table}.id = video_section.video_id
+      left join section on video_section.section_id = section.id
+      where ${this.table}.id = ?`,
+      [id]
+    );
   }
 
   insert(videos) {
@@ -24,7 +50,9 @@ class VideoManager extends AbstractManager {
           videos.isVideoPaying,
         ]
       )
-      .then(([result]) => result.insertId)
+      .then((res) => {
+        return res;
+      })
       .catch((err) => {
         throw err;
       });
@@ -58,7 +86,13 @@ class VideoManager extends AbstractManager {
   }
 
   delete(id) {
-    return this.database.query(`delete from ${this.table} where id = ?`, [id]);
+    return this.database
+      .query("delete from video_section where video_id= ?", [id])
+      .then(() => {
+        return this.database.query(`delete from ${this.table} where id = ?`, [
+          id,
+        ]);
+      });
   }
 }
 
