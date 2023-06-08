@@ -1,0 +1,144 @@
+import React, { useState, useEffect } from "react";
+import useAPI from "../../api/useAPI";
+import { DataGrid } from "@mui/x-data-grid/node";
+import dataTableStyle from "../adminPannel/DataTableStyle";
+import { Box } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import moment from "moment";
+import PostAddRoundedIcon from "@mui/icons-material/PostAddRounded";
+import { Link } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
+import "../../styles/index.css";
+
+function AdvertManagement() {
+  const api = useAPI();
+  const [advertInfo, setAdvertInfo] = useState();
+
+  useEffect(() => {
+    api.get("adverts").then((res) => setAdvertInfo(res.data));
+  }, []);
+
+  const handleDeleteAdvert = (advert) => {
+    // eslint-disable-next-line no-alert
+    const confirmDelete = window.confirm(
+      `Êtes-vous sûr de vouloir supprimer la publicité${advert} ?`
+    );
+
+    if (confirmDelete) {
+      api
+        .delete(`advert/${advert}`)
+        .then(() => {
+          // eslint-disable-next-line no-alert
+          window.alert(`La publicité ${advert} a été supprimée avec succès`);
+        })
+        .catch((error) => console.error(error));
+      setAdvertChanging(!advertChanging);
+    }
+  };
+
+  const columns = [
+    { field: "id", headerName: "advertID", width: 150 },
+    { field: "pictures", headerName: "Nom de l'image", width: 350 },
+    { field: "picture_link", headerName: "Lien de l'image", width: 350 },
+    {
+      field: "date_publication",
+      headerName: "Date",
+      width: 350,
+      editable: true,
+      renderCell: (params) =>
+        moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
+    },
+    {
+      field: "edit",
+      headerName: "Edit",
+      width: 130,
+      renderCell: (params) => (
+        <div>
+          <Link to="/AdvertManagementWindow">
+            <button
+              type="button"
+              style={{
+                fontFamily: "PT Sans",
+                backgroundColor: "green",
+                height: "90%",
+                margin: "1em",
+                padding: "0.9em",
+                borderRadius: "20%",
+                border: "none",
+              }}
+            >
+              <EditIcon style={{ width: "100%" }} />
+            </button>{" "}
+          </Link>
+        </div>
+      ),
+    },
+    {
+      field: "delete",
+      headerName: "Delete",
+      width: 130,
+      renderCell: (params) => (
+        <button
+          type="button"
+          style={{
+            fontFamily: "PT Sans",
+            backgroundColor: "red",
+            height: "90%",
+            margin: "1em",
+            padding: "0.9em",
+            borderRadius: "20%",
+            border: "none",
+          }}
+          onClick={() => handleDeleteAdvert(params.row.id)}
+        >
+          <DeleteIcon style={{ width: "100%" }} />
+        </button>
+      ),
+    },
+  ];
+
+  const advertRow = advertInfo?.map((advert) => {
+    return {
+      id: advert.id,
+      pictures: advert.pictures,
+      picture_link: advert.picture_link,
+    };
+  });
+  return (
+    <div>
+      <h1>Publicités</h1>
+      <Link to="/newSection">
+        <PostAddRoundedIcon
+          style={{ fontSize: 48, color: "#10bcdd" }}
+          className="addButton"
+        />
+      </Link>
+      <div className="user-management">
+        <Box
+          sx={{
+            height: 800,
+            width: "100%",
+            backgroundColor: "black",
+          }}
+        >
+          {advertInfo && (
+            <DataGrid
+              rows={advertRow}
+              columns={columns}
+              initialState={{
+                pagination: {
+                  paginationModel: { pageSize: 10, page: 0 },
+                },
+              }}
+              pageSizeOptions={[10, 15, 25]}
+              style={dataTableStyle}
+              autoHeight
+            />
+          )}
+        </Box>
+      </div>
+    </div>
+  );
+}
+
+export default AdvertManagement;

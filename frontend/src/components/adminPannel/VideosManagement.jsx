@@ -84,7 +84,7 @@ function VideosManagement() {
     {
       field: "date_publication",
       headerName: "Date",
-      width: 150,
+      width: 250,
       editable: true,
       renderCell: (params) =>
         moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),

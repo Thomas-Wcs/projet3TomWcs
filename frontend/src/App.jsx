@@ -12,6 +12,7 @@ import Footer from "./components/footer/Footer";
 import DataTable from "./components/adminPannel/DataTable";
 import VideosManagement from "./components/adminPannel/VideosManagement";
 import SectionsManagement from "./components/adminPannel/SectionsManagement";
+import AdvertsManagement from "./components/advertising/AdvertManagement";
 import Homepage2 from "./pages/Homepage2";
 import SectionUpdate from "./components/adminPannel/SectionUpdate";
 import SectionAdd from "./components/adminPannel/SectionAdd";
@@ -44,6 +45,7 @@ function App() {
               <Route path="usersTable" element={<DataTable />} />
               <Route path="videosTable" element={<VideosManagement />} />
               <Route path="sectionsTable" element={<SectionsManagement />} />
+              <Route path="AdvertsTable" element={<AdvertsManagement />} />
             </Route>
             <Route path="/sections/:id" element={<SectionUpdate />} />
             <Route path="/newSection" element={<SectionAdd />} />
