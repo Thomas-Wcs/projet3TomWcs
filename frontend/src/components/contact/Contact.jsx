@@ -1,9 +1,18 @@
 import React, { useState } from "react";
+import nodemailer from "nodemailer";
 
 function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "testwcs004@gmail.com",
+      pass: "test004wcs",
+    },
+  });
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -17,7 +26,7 @@ function Contact() {
     setMessage(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = {
@@ -26,12 +35,20 @@ function Contact() {
       message,
     };
 
-    // eslint-disable-next-line no-restricted-syntax
-    console.log(formData);
+    try {
+      await transporter.sendMail({
+        from: "your-email@gmail.com",
+        to: "testwcs004@gmail.com",
+        subject: "Nouveau message de contact",
+        text: `Nom: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`,
+      });
 
-    setName("");
-    setEmail("");
-    setMessage("");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch (error) {
+      console.error("Erreur lors de l'envoi de l'e-mail:", error);
+    }
   };
 
   return (
