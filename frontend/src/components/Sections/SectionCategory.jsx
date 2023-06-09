@@ -18,7 +18,6 @@ function SectionCategory({ sectionInfo }) {
   const [videoNumber, setVideoNumber] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showMore, setShowMore] = useState(true);
-
   const [data, setData] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const { userInfo } = useAuth();
@@ -29,7 +28,9 @@ function SectionCategory({ sectionInfo }) {
   const getVideoData = async () => {
     try {
       if (userInfo.id) {
-        const res = await api.get(`videos/allVideoAndFavorite/${userInfo.id}`);
+        const res = await api.get(
+          `videos/allVideoAndFavorite/${userInfo.id}/${sectionInfo.id}`
+        );
         setData(res.data);
       } else {
         const res = await api.get(`videos/`);
