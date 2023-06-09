@@ -82,7 +82,7 @@ function VideoAdd() {
     <div className="sectionUpdate">
       <h2 className="sectionUpdateTitle">Page de video</h2>
 
-      <div className="sectionUpdateForm" onSubmit={handleSubmit}>
+      <div className="sectionUpdateForm">
         <div className="sectionUpdateName">
           <label htmlFor="title">Titre de la vidéo :</label>
           <input
