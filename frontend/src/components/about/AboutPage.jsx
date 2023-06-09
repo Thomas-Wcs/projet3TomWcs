@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./aboutPage.css";
+import Contact from "../contact/Contact";
 import filmbanderole from "../../assets/filmband.png";
 import useAPI from "../../api/useAPI";
 
@@ -35,7 +36,7 @@ function AboutPage() {
       <div className="texte-about-propos">
         <h1>A propos</h1>
         <p className="about-para-profil-section">
-          Le meilleur des films rien que pour vous
+          Le meilleur des films rien que pour vous !
         </p>
         <p className="about-para-profil-section">
           Ce site est un projet étudiant réalisé dans le cadre de la formation
@@ -46,15 +47,11 @@ function AboutPage() {
           streaming vidéo. Ce projet ambitieux visait à offrir aux utilisateurs
           une expérience de divertissement en ligne exceptionnelle, en mettant à
           leur disposition une vaste bibliothèque de contenus vidéo de haute
-          qualité. <br /> L'équipe d'étudiants a mis en place une architecture
-          solide pour le site de streaming, en utilisant les dernières
-          technologies web et en se conformant aux meilleures pratiques de
-          développement. <br /> Ils ont conçu une interface utilisateur
-          conviviale et attrayante, permettant aux utilisateurs de naviguer
-          facilement à travers les différentes sections de la plateforme. L'une
-          des principales fonctionnalités du site était la possibilité pour les
-          utilisateurs de créer des profils personnalisés. Ces profils leur
-          permettaient de sauvegarder leurs vidéos préférées. <br />
+          qualité.
+          <br />
+          <br /> Les 4 étudiants ont conçu une interface utilisateur conviviale
+          et attrayante, permettant aux utilisateurs de naviguer facilement à
+          travers les différentes sections de la plateforme. <br />
           <br />
           Ce projet a été une expérience enrichissante pour les étudiants, leur
           permettant de mettre en pratique leurs connaissances et de se préparer
@@ -62,11 +59,12 @@ function AboutPage() {
           divertissement numérique.
           <br />
           <br />
-          Merci à Guillaume Cregut et à la WCS de Lyon pour cette formation très
+          Merci à <strong>Guillaume Crégut</strong> et à la
+          <strong> Wild Code School de Lyon </strong> pour cette formation très
           enrichissante !
           <br />
           <br />
-          Voici une brève présentation de l'équipe
+          Voici une brève présentation de l'équipe :
         </p>
       </div>
       {data.slice(0, 4).map((item, index) => (
@@ -86,7 +84,9 @@ function AboutPage() {
           <p className="about-para-profil-section">{item.descriptionProfil}</p>
         </section>
       ))}
-      <div>COUCOU</div>
+      <div>
+        <Contact />
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 import AboutPage from "./components/about/AboutPage";
 import UserFavorite from "./components/dashbord/UserFavorite";
 import EditAbo from "./components/dashbord/EditAbo";
@@ -18,7 +19,6 @@ import SectionUpdate from "./components/adminPannel/SectionUpdate";
 import VideoUpdate from "./components/adminPannel/VideoUpdate";
 import SectionAdd from "./components/adminPannel/SectionAdd";
 import VideoAdd from "./components/adminPannel/VideoAdd";
-import { AuthProvider } from "./context/AuthContext";
 import AdminWall from "./utils/AdminWall";
 import VideoDescription from "./components/VideoDescription/VideoDescription";
 
