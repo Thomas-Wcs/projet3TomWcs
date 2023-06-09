@@ -30,7 +30,7 @@ class SectionManager extends AbstractManager {
         `UPDATE ${this.table} SET name = ?, \`order\` = ?, section_type = ? WHERE id = ?`,
         [section.name, section.order, section.section_type, section.id]
       )
-      .then((err) => console.error(err));
+      .catch((err) => console.error(err));
   }
 
   delete(id) {
