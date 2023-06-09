@@ -9,9 +9,9 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import ContactSupportIcon from "@mui/icons-material/ContactSupport";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import EditIcon from "@mui/icons-material/Edit";
 import VideoSettingsIcon from "@mui/icons-material/VideoSettings";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
@@ -177,15 +177,20 @@ export default function AccountMenu({ userInfo, reset }) {
         </MenuItem>
         <MenuItem sx={dashbordStyles} onClick={handleClose}>
           <ListItemIcon>
-            <Settings fontSize="small" />
+            <SupportAgentIcon fontSize="small" />
           </ListItemIcon>
-          Réglages
+          Contact
         </MenuItem>
-        <MenuItem sx={dashbordStyles} onClick={handleClose}>
+        <MenuItem
+          component={Link}
+          to="/aboutPage"
+          sx={dashbordStyles}
+          onClick={handleClose}
+        >
           <ListItemIcon>
             <ContactSupportIcon fontSize="small" />
           </ListItemIcon>
-          Contact
+          A propos
         </MenuItem>
         <MenuItem sx={dashbordStyles} onClick={(handleClose, handleLogout)}>
           <ListItemIcon>
