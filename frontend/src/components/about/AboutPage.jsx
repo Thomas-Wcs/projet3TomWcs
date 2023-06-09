@@ -81,6 +81,7 @@ function AboutPage() {
             src={`${import.meta.env.VITE_APP_API_URL}${item.avatar}`}
             alt="developpeur"
           />
+          <h2> {item.firstname}</h2>
           <h2> {item.name} </h2>
           <p className="about-para-profil-section">{item.descriptionProfil}</p>
         </section>

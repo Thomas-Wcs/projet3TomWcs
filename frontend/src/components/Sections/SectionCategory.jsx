@@ -47,7 +47,7 @@ function SectionCategory({ sectionInfo }) {
   const uniqueCategories = data.filter((item, index) => {
     return (
       data.findIndex((object) => {
-        return object.name === item.name;
+        return object.categorie_name === item.categorie_name;
       }) === index
     );
   });
@@ -178,9 +178,9 @@ function SectionCategory({ sectionInfo }) {
                 key={uuidv4()}
                 className="category-btn"
                 type="submit"
-                onClick={() => handleCategory(item.name)}
+                onClick={() => handleCategory(item.categorie_name)}
               >
-                {item.name}
+                {item.categorie_name}
               </button>
             ))}
           </div>
