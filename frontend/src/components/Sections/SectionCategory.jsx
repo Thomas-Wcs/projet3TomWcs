@@ -98,7 +98,7 @@ function SectionCategory({ sectionInfo }) {
       listRef.current.style.transform = `translateX(${distanceBack}px)`;
     }
     const filteredData = selectedCategory
-      ? data.filter((item) => item.name === selectedCategory)
+      ? data.filter((item) => item.categorie_name === selectedCategory)
       : data;
 
     const nbVideos = filteredData.length;
@@ -244,7 +244,7 @@ function SectionCategory({ sectionInfo }) {
                   );
                 })
               : data
-                  .filter((item) => item.name === selectedCategory)
+                  .filter((item) => item.categorie_name === selectedCategory)
                   .map((item) => {
                     const favoriteVideo = data.find(
                       (favVideo) =>
