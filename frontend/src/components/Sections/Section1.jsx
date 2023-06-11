@@ -24,6 +24,8 @@ function Section1({ sectionInfo }) {
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
   const nbVideos = data.length;
 
+  console.log(showMore);
+
   const getVideoData = async () => {
     try {
       if (userInfo.id) {
