@@ -131,7 +131,6 @@ function Section1({ sectionInfo }) {
           </button>
         </div>
       </div>
-
       {showMore ? (
         <div className="wrapper">
           <ArrowBackIosOutlined
