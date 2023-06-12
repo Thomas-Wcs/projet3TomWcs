@@ -132,11 +132,7 @@ function SectionDescription() {
             onClick={() => handleClick("left")}
             disabled={position === 0}
           />
-          <div
-            className="container container-section"
-            ref={listRef}
-            key={uuidv4()}
-          >
+          <div className="container container-section" ref={listRef}>
             {data.map((video) => {
               const favoriteVideo = data.find(
                 (favVideo) =>
