@@ -5,7 +5,7 @@ import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 import useAPI from "../../api/useAPI";
 import Video from "../Sections/Video";
-// import SectionDescription from "./SectionDescription";
+import SectionDescription from "./SectionDescription";
 
 export default function VideoDescription() {
   const [videoData, setVideoData] = useState();
@@ -43,9 +43,9 @@ export default function VideoDescription() {
           <p id="video-description"> {videoData.description_text} </p>
         </div>
       )}
-      {/* <div id="caroussel">
+      <div id="caroussel">
         <SectionDescription />
-      </div> */}
+      </div>
     </div>
   );
 }
