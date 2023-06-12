@@ -11,12 +11,17 @@ import Video from "./Video";
 import useAPI from "../../api/useAPI";
 
 function Featured({ sectionInfo }) {
+  const api = useAPI();
   const listRef = useRef();
   const [position, setPosition] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [data, setData] = useState([]);
-  const api = useAPI();
-  const videoDisplayed = data.length;
+
+  const newFilteredData = data.filter(
+    (newVideo) => newVideo.SectionID === sectionInfo.id
+  );
+
+  const videoDisplayed = newFilteredData.length;
 
   const getVideoData = async () => {
     await api
@@ -53,10 +58,6 @@ function Featured({ sectionInfo }) {
       }px)`;
     }
   }
-
-  const newFilteredData = data.filter(
-    (newVideo) => newVideo.SectionID === sectionInfo.id
-  );
 
   return (
     <div className="list">
