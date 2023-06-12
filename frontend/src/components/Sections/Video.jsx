@@ -69,6 +69,7 @@ function Video({
         muted
         preload="metadata"
         style={{ width, height }}
+        controls={controls}
         onMouseOver={
           (isEnabled &&
             (!userInfo || userInfo.isPremium === 0) &&
@@ -85,7 +86,6 @@ function Video({
             ? null
             : handleToggleVideo
         }
-        controls={controls}
       />
       <h3 className="video-title">{title}</h3>
       {displayPlayButton && (

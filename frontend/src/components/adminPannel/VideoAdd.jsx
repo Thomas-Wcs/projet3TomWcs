@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/index.css";
-
 import useAPI from "../../api/useAPI";
 
 function VideoAdd() {
@@ -101,7 +100,6 @@ function VideoAdd() {
         </div>
         <div className="sectionUpdateName">
           <label htmlFor="category_id">Selectionnez une categorie :</label>
-
           <select
             name="category_id"
             value={categorie}

@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+
 const path = require("path");
 const fs = require("fs");
 const models = require("../models");
@@ -32,8 +33,6 @@ const read = (req, res) => {
 };
 
 const add = async (req, res) => {
-  // TODO validations (length, format...)
-
   const {
     title,
     description_text,
@@ -142,8 +141,8 @@ const edit = (req, res) => {
 module.exports = {
   edit,
   browse,
-  add,
   destroy,
   read,
   addSectionOnly,
+  add,
 };

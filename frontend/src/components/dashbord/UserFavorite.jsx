@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import ReactPlayer from "react-player";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Link } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
 import subscribe from "../../assets/Project-1.mp4";
@@ -88,7 +89,15 @@ export default function UserFavorite() {
               />
               <div className="favorite-text-and-button">
                 <h4>{video.title}</h4>
-                <div> {video.description_text} </div>
+                <div>
+                  {`${video.description_text.slice(0, 30)}...`}
+                  <Link
+                    to={`/video_description/${video.id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <p className="voir-plus-fav-video">voir plus</p>
+                  </Link>
+                </div>
                 <button
                   className="favorite-profil-button"
                   type="button"

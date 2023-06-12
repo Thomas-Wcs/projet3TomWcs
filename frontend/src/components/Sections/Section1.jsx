@@ -6,12 +6,13 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import Video from "./Video";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
+import Video from "./Video";
 
-function Section1({ sectionName }) {
+function Section1({ sectionInfo }) {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
@@ -22,16 +23,21 @@ function Section1({ sectionName }) {
   const { userInfo } = useAuth();
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
 
-  const nbVideos = data.length;
+  const newFilteredData = data.filter(
+    (newVideo) => newVideo.SectionID === sectionInfo.id
+  );
+
+  const nbVideos = newFilteredData.length;
 
   const getVideoData = async () => {
     try {
       if (userInfo.id) {
-        const res = await api.get(`videos/allVideoAndFavorite/${userInfo.id}`);
+        const res = await api.get(
+          `videos/allVideoAndFavorite/${userInfo.id}/${sectionInfo.id}`
+        );
         setData(res.data);
       } else {
         const res = await api.get(`videos`);
-
         setData(res.data);
       }
     } catch (error) {
@@ -105,6 +111,7 @@ function Section1({ sectionName }) {
     if (direction === "left" && videoNumber > 0) {
       const newVideoNumber = videoNumber - 1;
       const translateX = -(newVideoNumber * videoWidth);
+
       setVideoNumber(newVideoNumber);
       listRef.current.style.transform = `translateX(${translateX}px)`;
     }
@@ -117,7 +124,7 @@ function Section1({ sectionName }) {
   return (
     <div className="list">
       <div className="wrapper-sectionName-buttons">
-        <h1 className="section-name">{sectionName}</h1>
+        <h1 className="section-name">{sectionInfo.name}</h1>
         <div className="button-wrapper">
           <button type="submit" className="follow-btn">
             À SUIVRE
@@ -127,7 +134,6 @@ function Section1({ sectionName }) {
           </button>
         </div>
       </div>
-
       {showMore ? (
         <div className="wrapper">
           <ArrowBackIosOutlined
@@ -136,7 +142,7 @@ function Section1({ sectionName }) {
             disabled={position === 0}
           />
           <div className="container container-section" ref={listRef}>
-            {data.map((video) => {
+            {newFilteredData.map((video) => {
               const favoriteVideo = data.find(
                 (favVideo) =>
                   favVideo.user_id !== null && favVideo.title === video.title
@@ -193,8 +199,8 @@ function Section1({ sectionName }) {
           />
         </div>
       ) : (
-        <div>
-          {data.map((video) => (
+        <div key={uuidv4()}>
+          {newFilteredData.map((video) => (
             <Link to={`/video_description/${video.id}`}>
               <Video
                 width="650px"
@@ -216,10 +222,11 @@ function Section1({ sectionName }) {
 }
 
 Section1.propTypes = {
-  sectionName: PropTypes.string,
-};
-
-Section1.defaultProps = {
-  sectionName: "",
+  sectionInfo: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    order: PropTypes.number,
+    section_type: PropTypes.string,
+  }).isRequired,
 };
 export default Section1;

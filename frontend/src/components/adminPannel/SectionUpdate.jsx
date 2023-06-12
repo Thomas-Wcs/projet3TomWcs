@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../styles/index.css";
+import { v4 as uuidv4 } from "uuid";
 import useAPI from "../../api/useAPI";
 
 function SectionUpdate() {
@@ -8,6 +9,8 @@ function SectionUpdate() {
   const api = useAPI();
   const navigate = useNavigate();
   const [error, setError] = useState(false);
+  const [succes, setSucces] = useState(false);
+  const [succesMessage, setSuccesMessage] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [sectionData, setSectionData] = useState({
     id: "",
@@ -48,8 +51,12 @@ function SectionUpdate() {
         order: sectionData.order,
         section_type: sectionData.section_type,
       })
-      .then(() => {
-        navigate("/adminPanel/sectionsTable");
+      .then((response) => {
+        if (response.status === 204) {
+          setSuccesMessage("La modification a été effectuée avec succès!");
+          setSucces(true);
+        }
+        setTimeout(() => navigate("/adminPanel/sectionsTable"), 2000);
       })
       .catch((err) => {
         setError(true);
@@ -109,6 +116,7 @@ function SectionUpdate() {
           </div>
 
           {error && <p>{errorMessage}</p>}
+          {succes && <p style={{ color: "green" }}>{succesMessage}</p>}
 
           <div className="sectionUpdateSectionType">
             <label htmlFor="name">Type de la section :</label>
@@ -119,7 +127,7 @@ function SectionUpdate() {
               name="section_type"
             >
               {options.map((option) => (
-                <option value={option} key={option.id}>
+                <option value={option} key={uuidv4()}>
                   {option}
                 </option>
               ))}
