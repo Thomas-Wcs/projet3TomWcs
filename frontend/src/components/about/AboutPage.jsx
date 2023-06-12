@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./aboutPage.css";
-// import Contact from "../contact/Contact";
 import filmbanderole from "../../assets/filmband.png";
 import useAPI from "../../api/useAPI";
 
@@ -84,7 +83,7 @@ function AboutPage() {
           <p className="about-para-profil-section">{item.descriptionProfil}</p>
         </section>
       ))}
-      <div>{/* <Contact /> */}</div>
+      <div> COUCOU </div>
     </div>
   );
 }
