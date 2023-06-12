@@ -22,7 +22,12 @@ function Section1({ sectionInfo }) {
   const api = useAPI();
   const { userInfo } = useAuth();
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
-  const nbVideos = data.length;
+
+  const newFilteredData = data.filter(
+    (newVideo) => newVideo.SectionID === sectionInfo.id
+  );
+
+  const nbVideos = newFilteredData.length;
 
   const getVideoData = async () => {
     try {
@@ -39,9 +44,6 @@ function Section1({ sectionInfo }) {
       console.error(error);
     }
   };
-  const newFilteredData = data.filter(
-    (newVideo) => newVideo.SectionID === sectionInfo.id
-  );
 
   useEffect(() => {
     getVideoData();
@@ -109,6 +111,7 @@ function Section1({ sectionInfo }) {
     if (direction === "left" && videoNumber > 0) {
       const newVideoNumber = videoNumber - 1;
       const translateX = -(newVideoNumber * videoWidth);
+
       setVideoNumber(newVideoNumber);
       listRef.current.style.transform = `translateX(${translateX}px)`;
     }
@@ -138,11 +141,7 @@ function Section1({ sectionInfo }) {
             onClick={() => handleClick("left")}
             disabled={position === 0}
           />
-          <div
-            className="container container-section"
-            ref={listRef}
-            key={uuidv4()}
-          >
+          <div className="container container-section" ref={listRef}>
             {newFilteredData.map((video) => {
               const favoriteVideo = data.find(
                 (favVideo) =>
@@ -201,7 +200,7 @@ function Section1({ sectionInfo }) {
         </div>
       ) : (
         <div key={uuidv4()}>
-          {data.map((video) => (
+          {newFilteredData.map((video) => (
             <Link to={`/video_description/${video.id}`}>
               <Video
                 width="650px"

@@ -185,11 +185,7 @@ function SectionCategory({ sectionInfo }) {
               </button>
             ))}
           </div>
-          <div
-            className="container container-section"
-            ref={listRef}
-            key={uuidv4()}
-          >
+          <div className="container container-section" ref={listRef}>
             {!selectedCategory
               ? data.map((item) => {
                   const favoriteVideo = data.find(
