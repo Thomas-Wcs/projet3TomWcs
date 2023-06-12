@@ -3,15 +3,18 @@ import "../../styles/index.css";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
+import { useAuth } from "../../context/AuthContext";
 import useAPI from "../../api/useAPI";
 import Video from "../Sections/Video";
-import SectionDescription from "./SectionDescription";
+// import SectionDescription from "./SectionDescription";
 
 export default function VideoDescription() {
   const [videoData, setVideoData] = useState();
   const api = useAPI();
   const { id } = useParams();
   const [duration, setDuration] = useState(0);
+  const { userInfo } = useAuth();
+  if (!userInfo?.isPremium) userInfo.isPremium = 0;
 
   useEffect(() => {
     api.get(`videos/${id}`).then((res) => setVideoData(res.data));
@@ -33,9 +36,18 @@ export default function VideoDescription() {
             height="90vh"
             src={`${import.meta.env.VITE_APP_API_URL}${videoData.link}`}
             id="video"
-            controls
+            isVideoPremium={videoData.isVideoPremium}
+            isVideoPaying={videoData.isVideoPaying}
+            controls={
+              ((!userInfo || userInfo.isPremium === 0) &&
+                videoData.isVideoPremium === 1) ||
+              (userInfo.isVideoPlus === 0 && videoData.isVideoPaying === 1)
+                ? null
+                : true
+            }
             duration={duration}
             setDuration={setDuration}
+            isEnabled
           />
           {videoData.isVideoPremium === 1 && (
             <p id="video-warning">Avertissement accès premium</p>
@@ -43,9 +55,9 @@ export default function VideoDescription() {
           <p id="video-description"> {videoData.description_text} </p>
         </div>
       )}
-      <div id="caroussel">
+      {/* <div id="caroussel">
         <SectionDescription />
-      </div>
+      </div> */}
     </div>
   );
 }
