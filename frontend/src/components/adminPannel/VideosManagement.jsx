@@ -148,7 +148,6 @@ function VideosManagement() {
           }}
           pageSizeOptions={[5, 10, 25]}
           style={dataTableStyle}
-          autoHeight
         />
       </Box>
     </div>

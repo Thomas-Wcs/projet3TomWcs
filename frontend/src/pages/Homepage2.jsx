@@ -12,11 +12,11 @@ const sectionType = (data) => {
     case "section avec catégorie":
       return <SectionCategory sectionName={data.name} />;
     case "section sans catégorie":
-      return <Section1 sectionName={data.name} />;
+      return <Section1 sectionInfo={data} />;
     case "section teasers":
       return <SectionTeasers sectionName={data.name} />;
     case "section hero":
-      return <Featured />;
+      return <Featured sectionInfo={data} />;
     case "section grande hauteur":
       return <SectionVideosHautes sectionName={data.name} />;
     default:
