@@ -12,7 +12,6 @@ function Advert() {
       .get("/adverts")
       .then((res) => {
         setAdvert(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
@@ -29,7 +28,6 @@ function Advert() {
         .get("/adverts")
         .then((res) => {
           setAdvert(res.data);
-          console.log(res.data);
         })
         .catch((err) => {
           console.error(err);

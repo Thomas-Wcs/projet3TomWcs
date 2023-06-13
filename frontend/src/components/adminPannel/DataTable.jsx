@@ -18,7 +18,6 @@ export default function DataTable() {
       setData(res.data);
     });
   };
-  console.log(data);
 
   const deleteUser = async (id) => {
     // eslint-disable-next-line no-alert

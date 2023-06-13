@@ -53,7 +53,6 @@ const edit = (req, res) => {
 const add = async (req, res) => {
   const { pictures } = req.body;
   const { file } = req;
-  console.log(req.file);
   if (!file) {
     return res.sendStatus(500);
   }
