@@ -109,17 +109,19 @@ function VideosManagement() {
     },
   ];
 
-  const rows = videos.map((video) => ({
-    id: video.id,
-    title: video.title,
-    description_text: video.description_text,
-    category_id: video.categorie_name,
-    link: video.link,
-    date_publication: video.date_publication,
-    name: video.name,
-    isVideoPremium: video.isVideoPremium,
-    isVideoPaying: video.isVideoPaying,
-  }));
+  const rows = videos.map((video) => {
+    return {
+      id: video.id,
+      title: video.title,
+      description_text: video.description_text,
+      category_id: video.categorie_name,
+      link: video.link,
+      date_publication: video.date_publication,
+      name: video.name,
+      isVideoPremium: video.isVideoPremium,
+      isVideoPaying: video.isVideoPaying,
+    };
+  });
 
   return (
     <div className="user-management">
@@ -138,11 +140,12 @@ function VideosManagement() {
         }}
       >
         <DataGrid
+          getRowId={() => Math.floor(Math.random() * 100000000)}
           rows={rows}
           columns={columns}
           initialState={{
             pagination: {
-              paginationModel: { pageSize: 10, page: 0 },
+              paginationModel: { pageSize: 25, page: 0 },
             },
           }}
           pageSizeOptions={[5, 10, 25]}
