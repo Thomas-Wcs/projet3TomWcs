@@ -1,7 +1,6 @@
 import "../../styles/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { useAuth } from "../../context/AuthContext";
 import useAPI from "../../api/useAPI";
 
@@ -74,14 +73,16 @@ export default function Header() {
               />
               <ul className="all-video">
                 {textSearch &&
-                  filteredVideos?.map((video) => (
+                  filteredVideos?.map((video, index) => (
                     <Link
                       to={`/video_description/${video.id}`}
-                      key={uuidv4()}
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={index}
                       onClick={() => handleVideoLinkClick()}
                     >
                       <li
-                        key={uuidv4()}
+                        // eslint-disable-next-line react/no-array-index-key
+                        key={index}
                         className="video-list"
                         id="video-list-{video.id}"
                       >

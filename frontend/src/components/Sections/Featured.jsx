@@ -5,7 +5,6 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
-import { v4 as uuidv4 } from "uuid";
 import PropTypes from "prop-types";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
@@ -68,8 +67,9 @@ function Featured({ sectionInfo }) {
           disabled={position === 0}
         />
         <div className="container" ref={listRef}>
-          {newFilteredData.map((video) => (
-            <Link to={`/video_description/${video.id}`} key={uuidv4()}>
+          {newFilteredData.map((video, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Link to={`/video_description/${video.id}`} key={index}>
               <Video
                 title={video.titre}
                 width="100vw"

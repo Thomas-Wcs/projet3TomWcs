@@ -5,7 +5,6 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
@@ -133,13 +132,14 @@ function SectionDescription() {
             disabled={position === 0}
           />
           <div className="container container-section" ref={listRef}>
-            {data.map((video) => {
+            {data.map((video, index) => {
               const favoriteVideo = data.find(
                 (favVideo) =>
                   favVideo.user_id !== null && favVideo.title === video.title
               );
               return (
-                <div key={uuidv4()}>
+                // eslint-disable-next-line react/no-array-index-key
+                <div key={index}>
                   <Link to={`/video_description/${video.id}`}>
                     <Video
                       width="650px"
@@ -190,7 +190,8 @@ function SectionDescription() {
           />
         </div>
       ) : (
-        <div key={uuidv4()}>
+        // eslint-disable-next-line no-undef
+        <div key={index}>
           {data.map((video) => (
             <Link to={`/video_description/${video.id}`}>
               <Video
