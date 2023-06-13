@@ -12,11 +12,31 @@ function Advert() {
       .get("/adverts")
       .then((res) => {
         setAdvert(res.data);
-        setCurrentAdvertIndex(Math.floor(Math.random() * res.data.length));
       })
       .catch((err) => {
         console.error(err);
       });
+  }, []);
+
+  useEffect(() => {
+    setCurrentAdvertIndex(Math.floor(Math.random() * advert.length));
+  }, [advert]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      api
+        .get("/adverts")
+        .then((res) => {
+          setAdvert(res.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }, 10000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const currentAdvert = advert[currentAdvertIndex];

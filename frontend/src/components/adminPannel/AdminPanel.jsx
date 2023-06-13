@@ -44,7 +44,7 @@ export default function AdminPanel() {
               <Link to="/adminPanel/sectionsTable">Sections</Link>
             </li>
             <li>
-              <Link to="/adminPanel/videosTable">Pubs</Link>
+              <Link to="/adminPanel/AdvertsTable">Pub</Link>
             </li>
           </ul>
         </div>
