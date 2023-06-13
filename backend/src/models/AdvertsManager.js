@@ -23,13 +23,7 @@ class AdvertsManager extends AbstractManager {
     );
   }
   delete(id) {
-    return this.database
-      .query(`delete from ${this.table} where id= ?`, [id])
-      .then(() => {
-        return this.database.query(`delete from ${this.table} where id = ?`, [
-          id,
-        ]);
-      });
+    return this.database.query(`delete from ${this.table} where id= ?`, [id]);
   }
 }
 
