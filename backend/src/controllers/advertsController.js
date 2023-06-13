@@ -1,4 +1,6 @@
 const models = require("../models");
+const path = require("path");
+const fs = require("fs");
 
 const browse = (req, res) => {
   models.adverts
@@ -48,20 +50,47 @@ const edit = (req, res) => {
     });
 };
 
-const add = (req, res) => {
-  const adverts = req.body;
+const add = async (req, res) => {
+  const { pictures } = req.body;
+  const { file } = req;
+  console.log(req.file);
+  if (!file) {
+    return res.sendStatus(500);
+  }
+
+  const baseFolder = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "assets",
+    "images",
+    "ads"
+  );
+  const originalName = path.join(baseFolder, file.originalname);
+  const filename = path.join(baseFolder, file.filename);
+
+  fs.rename(filename, originalName, (err) => {
+    if (err) res.status(500);
+  });
+  const picture_link = `assets/images/ads/${file.originalname}`;
 
   // TODO validations (length, format...)
-
-  models.adverts
-    .insert(adverts)
-    .then(([result]) => {
-      if (result.status === 201) res.send("Adverts updated");
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
+  try {
+    const result = await models.adverts.insert({
+      pictures,
+      picture_link,
     });
+
+    const newAdvert = {
+      pictures,
+      picture_link,
+      id: result,
+    };
+    return res.status(201).json(newAdvert);
+  } catch (e) {
+    return res.status(500).send(e.message);
+  }
 };
 
 const destroy = (req, res) => {

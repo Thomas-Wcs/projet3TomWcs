@@ -22,6 +22,15 @@ class AdvertsManager extends AbstractManager {
       [adverts.pictures, adverts.picture_link]
     );
   }
+  delete(id) {
+    return this.database
+      .query(`delete from ${this.table} where id= ?`, [id])
+      .then(() => {
+        return this.database.query(`delete from ${this.table} where id = ?`, [
+          id,
+        ]);
+      });
+  }
 }
 
 module.exports = AdvertsManager;

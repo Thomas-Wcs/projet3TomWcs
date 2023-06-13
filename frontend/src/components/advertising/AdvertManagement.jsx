@@ -13,10 +13,11 @@ import "../../styles/index.css";
 function AdvertManagement() {
   const api = useAPI();
   const [advertInfo, setAdvertInfo] = useState();
+  const [advertChanging, setAdvertChanging] = useState(true);
 
   useEffect(() => {
     api.get("adverts").then((res) => setAdvertInfo(res.data));
-  }, []);
+  }, [advertChanging]);
 
   const handleDeleteAdvert = (advert) => {
     // eslint-disable-next-line no-alert
@@ -26,7 +27,7 @@ function AdvertManagement() {
 
     if (confirmDelete) {
       api
-        .delete(`advert/${advert}`)
+        .delete(`adverts/${advert}`)
         .then(() => {
           // eslint-disable-next-line no-alert
           window.alert(`La publicité ${advert} a été supprimée avec succès`);
@@ -54,7 +55,7 @@ function AdvertManagement() {
       width: 130,
       renderCell: (params) => (
         <div>
-          <Link to="/AdvertManagementWindow">
+          <Link to="/advertManagementWindow">
             <button
               type="button"
               style={{
@@ -107,7 +108,7 @@ function AdvertManagement() {
   return (
     <div>
       <h1>Publicités</h1>
-      <Link to="/newSection">
+      <Link to="/advertManagementWindow">
         <PostAddRoundedIcon
           style={{ fontSize: 48, color: "#10bcdd" }}
           className="addButton"

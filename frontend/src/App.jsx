@@ -21,6 +21,7 @@ import VideoAdd from "./components/adminPannel/VideoAdd";
 import { AuthProvider } from "./context/AuthContext";
 import AdminWall from "./utils/AdminWall";
 import VideoDescription from "./components/VideoDescription/VideoDescription";
+import AdvertAdd from "./components/advertising/AdvertAdd";
 
 function App() {
   return (
@@ -69,6 +70,14 @@ function App() {
                   </AdminWall>
                 }
               />
+              <Route
+                path="AdvertsTable"
+                element={
+                  <AdminWall>
+                    <AdvertsManagement />
+                  </AdminWall>
+                }
+              />
             </Route>
             <Route
               path="/sections/:id"
@@ -87,10 +96,10 @@ function App() {
               }
             />
             <Route
-              path="AdvertsTable"
+              path="/advertManagementWindow"
               element={
                 <AdminWall>
-                  <AdvertsManagement />
+                  <AdvertAdd />
                 </AdminWall>
               }
             />
