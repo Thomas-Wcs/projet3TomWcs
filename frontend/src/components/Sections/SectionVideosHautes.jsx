@@ -99,7 +99,7 @@ function SectionVideosHautes({ sectionInfo }) {
                 width="650px"
                 height="750px"
                 displayDescription
-                displayDescriptionTitle={video.titre}
+                displayDescriptionTitle={video.title}
                 displayDescriptionText={video.description_text}
                 src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
                 isVideoPremium={video.isVideoPremium}
