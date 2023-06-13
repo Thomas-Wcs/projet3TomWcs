@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+
 const path = require("path");
 const fs = require("fs");
 const models = require("../models");
@@ -32,8 +33,6 @@ const read = (req, res) => {
 };
 
 const add = async (req, res) => {
-  // TODO validations (length, format...)
-
   const {
     title,
     description_text,
@@ -94,6 +93,18 @@ const add = async (req, res) => {
   return true;
 };
 
+const addSectionOnly = async (req, res) => {
+  const { videoId, sectionId } = req.body;
+
+  await models.videoSection
+    .insert(videoId, sectionId)
+    .then(() => res.sendStatus(204))
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const destroy = async (req, res) => {
   await models.videoSection
     .delete(req.params.id)
@@ -130,7 +141,8 @@ const edit = (req, res) => {
 module.exports = {
   edit,
   browse,
-  add,
   destroy,
   read,
+  addSectionOnly,
+  add,
 };

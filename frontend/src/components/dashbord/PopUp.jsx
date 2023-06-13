@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import contactAbo from "../../assets/service.png";
 import { useAuth } from "../../context/AuthContext";
@@ -8,6 +8,7 @@ export default function PopUp() {
   const api = useAPI();
   const { state } = useLocation();
   const { setUserInfo } = useAuth();
+  const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);
 
@@ -60,8 +61,9 @@ export default function PopUp() {
           isVideoPlus: 0,
         });
         refreshAboStatus();
+        toggleModal();
         setTimeout(() => {
-          toggleModal();
+          navigate("/profile");
         }, 200);
       } catch (error) {
         console.error(error);
