@@ -9,18 +9,10 @@ function AdvertAdd() {
 
   const [pictures, setPictures] = useState("");
 
-  const [advert, setAdvert] = useState("");
-
   const [fileUpload, setFileUpload] = useState(null);
   const [advertChanging, setAdvertChanging] = useState(true);
 
   const api = useAPI();
-
-  useEffect(() => {
-    api.get("adverts").then((res) => {
-      setAdvert(res.data);
-    });
-  }, [advertChanging]);
 
   const handleAddAdvert = (e) => {
     e.preventDefault();

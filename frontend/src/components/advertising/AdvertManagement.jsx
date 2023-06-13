@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import useAPI from "../../api/useAPI";
 import { DataGrid } from "@mui/x-data-grid/node";
-import dataTableStyle from "../adminPannel/DataTableStyle";
+
 import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import moment from "moment";
 import PostAddRoundedIcon from "@mui/icons-material/PostAddRounded";
 import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
+import dataTableStyle from "../adminPannel/DataTableStyle";
+import useAPI from "../../api/useAPI";
 import "../../styles/index.css";
 
 function AdvertManagement() {
@@ -53,7 +54,7 @@ function AdvertManagement() {
       field: "edit",
       headerName: "Edit",
       width: 130,
-      renderCell: (params) => (
+      renderCell: () => (
         <div>
           <Link to="/advertManagementWindow">
             <button
