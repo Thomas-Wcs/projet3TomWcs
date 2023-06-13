@@ -140,6 +140,19 @@ const findAllVideoAndFavorite = (req, res) => {
     });
 };
 
+const findAllVideoAndFavoriteWithoutSecID = (req, res) => {
+  const userId = req.params.id;
+  models.video
+    .findFavoritesWithoutSectionId({ userId })
+    .then(([result]) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
@@ -149,4 +162,5 @@ module.exports = {
   findAllVideoAndFavorite,
   readAll,
   findAllVideoForAdmin,
+  findAllVideoAndFavoriteWithoutSecID,
 };
