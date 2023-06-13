@@ -14,6 +14,7 @@ export default function ConnectionPage() {
   const [registrationMail, setRegistrationMail] = useState("");
   const [account, setAccount] = useState(true);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [adaptedErrorMessage, setAdaptedErrorMessage] = useState("");
   const { success, setSuccess, setIsAdmin, setUserInfo } = useAuth();
 
   const handleSubmit = (e) => {
@@ -34,6 +35,31 @@ export default function ConnectionPage() {
         navigate("/profile");
       })
       .catch((err) => {
+        if (err.response) {
+          const { status } = err.response;
+          switch (status) {
+            case 401:
+              setAdaptedErrorMessage("Mot de passe ou addresse mail invalide");
+              break;
+            case 403:
+              setAdaptedErrorMessage("Addresse mail non reconnue");
+              break;
+            case 404:
+              setAdaptedErrorMessage(
+                "Erreur de réseau. Vérifier votre connexion internet"
+              );
+              break;
+            case 422:
+              setAdaptedErrorMessage("Addresse mail requise");
+              break;
+
+            default:
+              setAdaptedErrorMessage(
+                "Une erreur s'est produite. Veuillez réessayer plus tard."
+              );
+              break;
+          }
+        }
         console.error(err);
         setErrorMessage(true);
       });
@@ -76,7 +102,7 @@ export default function ConnectionPage() {
               }
             }}
           />
-          {errorMessage && <p id="password-error">Mot de passe erronné</p>}
+          {errorMessage && <p id="password-error">{adaptedErrorMessage}</p>}
           <button type="button" className="user-button" onClick={handleSubmit}>
             Connexion
           </button>
