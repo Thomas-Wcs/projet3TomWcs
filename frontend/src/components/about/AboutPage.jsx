@@ -32,7 +32,6 @@ function AboutPage() {
 
   return (
     <div className="about-main-section">
-      <Contact />
       <img className="film-banderole-about" src={filmbanderole} alt="" />
       <div className="texte-about-propos">
         <h1>A propos</h1>
@@ -85,7 +84,9 @@ function AboutPage() {
           <p className="about-para-profil-section">{item.descriptionProfil}</p>
         </section>
       ))}
-      <div> COUCOU </div>
+      <div>
+        <Contact />
+      </div>
     </div>
   );
 }

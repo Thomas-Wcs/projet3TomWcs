@@ -14,13 +14,13 @@ function initialize(req, res) {
 
   const mailOptions = {
     from: "testwcs004@gmail.com",
-    to: email, // adresse e-mail du destinataire
+    to: "testwcs004@gmail.com", // adresse e-mail du destinataire
     envelope: {
-      from: "testwcs004@gmail.com", // utilisé comme adresse MAIL FROM: pour SMTP
-      to: email, // utilisé comme adresse RCPT TO: pour SMTP
+      from: email, // utilisé comme adresse MAIL FROM: pour SMTP
+      to: "testwcs004@gmail.com", // utilisé comme adresse RCPT TO: pour SMTP
     },
     subject: "Contact Client",
-    text: `voici du contenu textuel : Merci ${name} pour ce message : ${message}`,
+    text: `Vous avez reçu un message de : ${name}, avec le message suivant : " ${message} "`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
