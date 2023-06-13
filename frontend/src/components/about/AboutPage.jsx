@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import "./aboutPage.css";
 import filmbanderole from "../../assets/filmband.png";
 import useAPI from "../../api/useAPI";
+import Contact from "./Contact";
 
 function AboutPage() {
   const [data, setData] = useState([]);
@@ -31,6 +32,7 @@ function AboutPage() {
 
   return (
     <div className="about-main-section">
+      <Contact />
       <img className="film-banderole-about" src={filmbanderole} alt="" />
       <div className="texte-about-propos">
         <h1>A propos</h1>

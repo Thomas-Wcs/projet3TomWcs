@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import useAPI from "../../api/useAPI";
 
 function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const api = useAPI();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -20,11 +22,20 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const formData = {
-    //   name,
-    //   email,
-    //   message,
-    // };
+    const formData = {
+      name,
+      email,
+      message,
+    };
+    api
+      .post("nodeMailer", formData)
+      .then((response) => {
+        if (response.status === 200) {
+          // eslint-disable-next-line no-restricted-syntax
+          console.log("toto");
+        }
+      })
+      .catch((err) => console.error(err));
   };
 
   return (

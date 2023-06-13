@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
-// require("dotenv").config({ path: "../../../.env" });
 
-function initialize() {
+function initialize(req, res) {
+  const { name, email, message } = req.body;
   const transporter = nodemailer.createTransport({
     host: process.env.MAIL_SERVER,
     port: process.env.MAIL_PORT,
@@ -11,27 +11,22 @@ function initialize() {
       pass: process.env.MAIL_MDP,
     },
   });
-  // console.log(transporter);
 
   const mailOptions = {
     from: "testwcs004@gmail.com",
-    to: "thomas.g.wcs@gmail.com", // adresse e-mail du destinataire
+    to: email, // adresse e-mail du destinataire
     envelope: {
       from: "testwcs004@gmail.com", // utilisé comme adresse MAIL FROM: pour SMTP
-      to: "thomas.g.wcs@gmail.com", // utilisé comme adresse RCPT TO: pour SMTP
+      to: email, // utilisé comme adresse RCPT TO: pour SMTP
     },
-    subject: "Test d'envoi d'e-mail",
-    text: "Ceci est un test d'envoi d'e-mail avec Nodemailer.",
+    subject: "Contact Client",
+    text: `voici du contenu textuel : Merci ${name} pour ce message : ${message}`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      // eslint-disable-next-line no-restricted-syntax
-      console.log(error);
-    } else {
-      // eslint-disable-next-line no-restricted-syntax
-      console.log(`E-mail envoyé : ${info.response}`);
-    }
+      console.error(error);
+    } else if (info !== null) res.sendStatus(200);
   });
 }
 
