@@ -17,7 +17,7 @@ function VideosManagement() {
 
   useEffect(() => {
     api
-      .get("/videos")
+      .get("/videos/adminFindAllVideos")
       .then((data) => {
         setVideos(data.data);
       })
@@ -43,8 +43,8 @@ function VideosManagement() {
   };
 
   const columns = [
-    { field: "id", headerName: "Id", width: 150 },
-    { field: "title", headerName: "Title", width: 350, editable: true },
+    { field: "id", headerName: "Id", width: 80 },
+    { field: "title", headerName: "Title", width: 150, editable: true },
     {
       field: "description_text",
       headerName: "Description",
@@ -80,14 +80,6 @@ function VideosManagement() {
       editable: true,
     },
     {
-      field: "date_publication",
-      headerName: "Date",
-      width: 150,
-      editable: true,
-      renderCell: (params) =>
-        moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
-    },
-    {
       field: "action",
       headerName: "Action",
       width: 250,
@@ -107,6 +99,14 @@ function VideosManagement() {
           </>
         );
       },
+    },
+    {
+      field: "date_publication",
+      headerName: "Date",
+      width: 250,
+      editable: true,
+      renderCell: (params) =>
+        moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
     },
   ];
 
@@ -143,12 +143,11 @@ function VideosManagement() {
           columns={columns}
           initialState={{
             pagination: {
-              paginationModel: { pageSize: 5, page: 0 },
+              paginationModel: { pageSize: 10, page: 0 },
             },
           }}
           pageSizeOptions={[5, 10, 25]}
           style={dataTableStyle}
-          autoHeight
         />
       </Box>
     </div>

@@ -11,13 +11,12 @@ import Video from "./Video";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
 
-function SectionCategory({ sectionName }) {
+function SectionCategory({ sectionInfo }) {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showMore, setShowMore] = useState(true);
-
   const [data, setData] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const { userInfo } = useAuth();
@@ -28,7 +27,9 @@ function SectionCategory({ sectionName }) {
   const getVideoData = async () => {
     try {
       if (userInfo.id) {
-        const res = await api.get(`videos/allVideoAndFavorite/${userInfo.id}`);
+        const res = await api.get(
+          `videos/allVideoAndFavorite/${userInfo.id}/${sectionInfo.id}`
+        );
         setData(res.data);
       } else {
         const res = await api.get(`videos/`);
@@ -46,7 +47,7 @@ function SectionCategory({ sectionName }) {
   const uniqueCategories = data.filter((item, index) => {
     return (
       data.findIndex((object) => {
-        return object.name === item.name;
+        return object.categorie_name === item.categorie_name;
       }) === index
     );
   });
@@ -96,7 +97,7 @@ function SectionCategory({ sectionName }) {
       listRef.current.style.transform = `translateX(${distanceBack}px)`;
     }
     const filteredData = selectedCategory
-      ? data.filter((item) => item.name === selectedCategory)
+      ? data.filter((item) => item.categorie_name === selectedCategory)
       : data;
 
     const nbVideos = filteredData.length;
@@ -140,7 +141,7 @@ function SectionCategory({ sectionName }) {
   return (
     <div className="list">
       <div className="wrapper-sectionName-buttons">
-        <h1 className="section-name">{sectionName}</h1>
+        <h1 className="section-name">{sectionInfo.name}</h1>
         <div className="button-wrapper">
           <button type="submit" className="follow-btn">
             À SUIVRE
@@ -172,29 +173,30 @@ function SectionCategory({ sectionName }) {
             disabled={position === 0}
           />
           <div className="category-container">
-            {uniqueCategories.map((item) => (
+            {uniqueCategories.map((item, index) => (
               <button
-                key={item.id}
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
                 className="category-btn"
                 type="submit"
-                onClick={() => handleCategory(item.name)}
+                onClick={() => handleCategory(item.categorie_name)}
               >
-                {item.name}
+                {item.categorie_name}
               </button>
             ))}
           </div>
           <div className="container container-section" ref={listRef}>
             {!selectedCategory
-              ? data.map((item) => {
+              ? data.map((item, index) => {
                   const favoriteVideo = data.find(
                     (favVideo) =>
                       favVideo.user_id !== null && favVideo.title === item.title
                   );
                   return (
-                    <div key={item.id}>
+                    // eslint-disable-next-line react/no-array-index-key
+                    <div key={index}>
                       <Link to={`/video_description/${item.id}`}>
                         <Video
-                          key={item.id}
                           src={`${import.meta.env.VITE_APP_API_URL}${
                             item.link
                           }`}
@@ -239,17 +241,17 @@ function SectionCategory({ sectionName }) {
                   );
                 })
               : data
-                  .filter((item) => item.name === selectedCategory)
-                  .map((item) => {
+                  .filter((item) => item.categorie_name === selectedCategory)
+                  .map((item, index) => {
                     const favoriteVideo = data.find(
                       (favVideo) =>
                         favVideo.user_id !== null &&
                         favVideo.title === item.title
                     );
                     return (
-                      <div key={item.id}>
+                      // eslint-disable-next-line react/no-array-index-key
+                      <div key={index}>
                         <Video
-                          key={item.id}
                           src={`${import.meta.env.VITE_APP_API_URL}${
                             item.link
                           }`}
@@ -263,7 +265,8 @@ function SectionCategory({ sectionName }) {
                           isEnabled
                         />
                         {userInfo.email ? (
-                          <div className="favorite-text-and-button">
+                          // eslint-disable-next-line react/no-array-index-key
+                          <div className="favorite-text-and-button" key={index}>
                             {favoriteVideo ? (
                               <button
                                 className="favorite-profil-button"
@@ -302,8 +305,9 @@ function SectionCategory({ sectionName }) {
         </div>
       ) : (
         <div id="display-all">
-          {data.map((video) => (
-            <Link to={`/video_description/${video.id}`}>
+          {data.map((video, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Link to={`/video_description/${video.id}`} key={index}>
               <Video
                 width="650px"
                 height="450px"
@@ -323,6 +327,11 @@ function SectionCategory({ sectionName }) {
   );
 }
 SectionCategory.propTypes = {
-  sectionName: PropTypes.string.isRequired,
+  sectionInfo: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    order: PropTypes.number,
+    section_type: PropTypes.string,
+  }).isRequired,
 };
 export default SectionCategory;

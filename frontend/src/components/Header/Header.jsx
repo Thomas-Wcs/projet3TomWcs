@@ -73,14 +73,16 @@ export default function Header() {
               />
               <ul className="all-video">
                 {textSearch &&
-                  filteredVideos?.map((video) => (
+                  filteredVideos?.map((video, index) => (
                     <Link
                       to={`/video_description/${video.id}`}
-                      key={video.id}
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={index}
                       onClick={() => handleVideoLinkClick()}
                     >
                       <li
-                        key={video.id}
+                        // eslint-disable-next-line react/no-array-index-key
+                        key={index}
                         className="video-list"
                         id="video-list-{video.id}"
                       >
@@ -116,7 +118,11 @@ export default function Header() {
                   </Link>
                 </li>
               )}
-
+              <li>
+                <Link to="/aboutPage" onClick={() => handleLinkClick()}>
+                  A Propos
+                </Link>
+              </li>
               {isAdmin && (
                 <li>
                   <Link to="/adminPanel/" onClick={() => handleLinkClick()}>

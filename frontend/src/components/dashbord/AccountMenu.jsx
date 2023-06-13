@@ -9,14 +9,15 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import ContactSupportIcon from "@mui/icons-material/ContactSupport";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import EditIcon from "@mui/icons-material/Edit";
 import VideoSettingsIcon from "@mui/icons-material/VideoSettings";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import HomeIcon from "@mui/icons-material/Home";
 import dashbordStyles from "./dashbord";
+import profilImageFirst from "../../assets/profilDefault3.svg.png";
 
 export default function AccountMenu({ userInfo, reset }) {
   const logout = () => {
@@ -62,7 +63,11 @@ export default function AccountMenu({ userInfo, reset }) {
           >
             <Avatar
               alt="Image de l'utilisateur"
-              src={`${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`}
+              src={
+                userInfo.avatar
+                  ? `${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`
+                  : profilImageFirst
+              }
               sx={{ width: 100, height: 100 }}
             />
           </IconButton>
@@ -119,7 +124,11 @@ export default function AccountMenu({ userInfo, reset }) {
         >
           <Avatar
             alt="Image de l'utilisateur"
-            src={`${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`}
+            src={
+              userInfo.avatar
+                ? `${import.meta.env.VITE_APP_API_URL}${userInfo.avatar}`
+                : profilImageFirst
+            }
           />
           Informations
         </MenuItem>
@@ -168,15 +177,20 @@ export default function AccountMenu({ userInfo, reset }) {
         </MenuItem>
         <MenuItem sx={dashbordStyles} onClick={handleClose}>
           <ListItemIcon>
-            <Settings fontSize="small" />
+            <SupportAgentIcon fontSize="small" />
           </ListItemIcon>
-          Réglages
+          Contact
         </MenuItem>
-        <MenuItem sx={dashbordStyles} onClick={handleClose}>
+        <MenuItem
+          component={Link}
+          to="/aboutPage"
+          sx={dashbordStyles}
+          onClick={handleClose}
+        >
           <ListItemIcon>
             <ContactSupportIcon fontSize="small" />
           </ListItemIcon>
-          Contact
+          A propos
         </MenuItem>
         <MenuItem sx={dashbordStyles} onClick={(handleClose, handleLogout)}>
           <ListItemIcon>

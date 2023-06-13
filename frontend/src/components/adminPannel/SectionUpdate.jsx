@@ -8,6 +8,8 @@ function SectionUpdate() {
   const api = useAPI();
   const navigate = useNavigate();
   const [error, setError] = useState(false);
+  const [succes, setSucces] = useState(false);
+  const [succesMessage, setSuccesMessage] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [sectionData, setSectionData] = useState({
     id: "",
@@ -48,8 +50,12 @@ function SectionUpdate() {
         order: sectionData.order,
         section_type: sectionData.section_type,
       })
-      .then(() => {
-        navigate("/adminPanel/sectionsTable");
+      .then((response) => {
+        if (response.status === 204) {
+          setSuccesMessage("La modification a été effectuée avec succès!");
+          setSucces(true);
+        }
+        setTimeout(() => navigate("/adminPanel/sectionsTable"), 2000);
       })
       .catch((err) => {
         setError(true);
@@ -109,6 +115,7 @@ function SectionUpdate() {
           </div>
 
           {error && <p>{errorMessage}</p>}
+          {succes && <p style={{ color: "green" }}>{succesMessage}</p>}
 
           <div className="sectionUpdateSectionType">
             <label htmlFor="name">Type de la section :</label>
@@ -118,8 +125,9 @@ function SectionUpdate() {
               onChange={handleChange}
               name="section_type"
             >
-              {options.map((option) => (
-                <option value={option} key={option.id}>
+              {options.map((option, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <option value={option} key={index}>
                   {option}
                 </option>
               ))}

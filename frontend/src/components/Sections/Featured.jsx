@@ -5,16 +5,22 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+import PropTypes from "prop-types";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 
-function Featured() {
+function Featured({ sectionInfo }) {
+  const api = useAPI();
   const listRef = useRef();
   const [position, setPosition] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [data, setData] = useState([]);
-  const api = useAPI();
-  const videoDisplayed = data.length;
+
+  const newFilteredData = data.filter(
+    (newVideo) => newVideo.SectionID === sectionInfo.id
+  );
+
+  const videoDisplayed = newFilteredData.length;
 
   const getVideoData = async () => {
     await api
@@ -61,14 +67,17 @@ function Featured() {
           disabled={position === 0}
         />
         <div className="container" ref={listRef}>
-          {data.map((video) => (
-            <Link to={`/video_description/${video.id}`} key={video.id}>
+          {newFilteredData.map((video, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Link to={`/video_description/${video.id}`} key={index}>
               <Video
-                key={video.id}
                 title={video.titre}
                 width="100vw"
                 height="100vh"
                 src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+                isVideoPremium={video.isVideoPremium}
+                isVideoPaying={video.isVideoPaying}
+                isEnabled
               />
             </Link>
           ))}
@@ -81,5 +90,14 @@ function Featured() {
     </div>
   );
 }
+
+Featured.propTypes = {
+  sectionInfo: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    order: PropTypes.number,
+    section_type: PropTypes.string,
+  }).isRequired,
+};
 
 export default Featured;
