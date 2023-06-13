@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import "./aboutPage.css";
 import filmbanderole from "../../assets/filmband.png";
 import useAPI from "../../api/useAPI";
@@ -69,7 +68,8 @@ function AboutPage() {
       {data.slice(0, 4).map((item, index) => (
         <section
           className="hidden"
-          key={uuidv4()}
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
           // eslint-disable-next-line no-return-assign
           ref={(ref) => (hiddenElementsRef.current[index] = ref)}
         >

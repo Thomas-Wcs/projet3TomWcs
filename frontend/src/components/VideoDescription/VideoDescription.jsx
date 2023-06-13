@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "../../styles/index.css";
 import { useParams } from "react-router-dom";
 import moment from "moment";
-import { v4 as uuidv4 } from "uuid";
 import { useAuth } from "../../context/AuthContext";
 import useAPI from "../../api/useAPI";
 import Video from "../Sections/Video";
@@ -30,7 +29,7 @@ export default function VideoDescription() {
             )} || ${duration.toFixed(2)} sec`}
           </p>
           <Video
-            key={uuidv4()}
+            key={videoData.title}
             title={videoData.title}
             width="100%"
             height="90vh"

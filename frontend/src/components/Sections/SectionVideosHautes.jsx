@@ -6,7 +6,6 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 
@@ -93,8 +92,9 @@ function SectionVideosHautes({ sectionInfo }) {
           disabled={position === 0}
         />
         <div className="container container-section" ref={listRef}>
-          {data.map((video) => (
-            <Link to={`/video_description/${video.id}`} key={uuidv4()}>
+          {data.map((video, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Link to={`/video_description/${video.id}`} key={index}>
               <Video
                 width="650px"
                 height="750px"

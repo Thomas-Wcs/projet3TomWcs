@@ -6,7 +6,6 @@ import {
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
@@ -199,7 +198,7 @@ function Section1({ sectionInfo }) {
           />
         </div>
       ) : (
-        <div key={uuidv4()}>
+        <div>
           {newFilteredData.map((video) => (
             <Link to={`/video_description/${video.id}`}>
               <Video

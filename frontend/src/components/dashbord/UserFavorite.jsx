@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import ReactPlayer from "react-player";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -71,8 +70,9 @@ export default function UserFavorite() {
         </div>
       </div>
       <div className="video-grid">
-        {filteredData.map((video) => (
-          <div key={uuidv4()} className="video-wrapper">
+        {filteredData.map((video, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <div key={index} className="video-wrapper">
             <div className="video-content">
               <ReactPlayer
                 width="100%"
