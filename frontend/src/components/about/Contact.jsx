@@ -39,38 +39,59 @@ function Contact() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="main-form-contact-about">
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="name">Nom:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={handleNameChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={handleEmailChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="message">Contenu du message:</label>
+          <textarea
+            id="message"
+            value={message}
+            onChange={handleMessageChange}
+            required
+          />
+        </div>
+        <button type="submit">Envoyer</button>
+      </form>
       <div>
-        <label htmlFor="name">Nom:</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={handleNameChange}
-          required
-        />
+        <p>
+          Cher utilisateur, votre satisfaction est notre priorité absolue, c'est
+          pourquoi nous mettons un point d'honneur à vous offrir un service
+          client exceptionnel. <br />
+          Nous sommes à votre disposition pour vous offrir une expérience fluide
+          et agréable, et nous nous engageons à vous fournir des réponses
+          rapides, précises et personnalisées. <br />
+          Votre feedback est également très important pour nous. Nous apprécions
+          vos commentaires, suggestions et préoccupations, car ils nous aident à
+          améliorer continuellement notre service. Nous vous promettons une
+          réponse dans les plus brefs délais.
+          <br />
+          <br /> Merci encore d'avoir choisi notre service. Nous sommes
+          impatients de vous assister et de vous offrir une expérience client
+          exceptionnelle. <br />
+          <br /> Cordialement, L'équipe du service client
+        </p>
       </div>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={handleEmailChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="message">Contenu du message:</label>
-        <textarea
-          id="message"
-          value={message}
-          onChange={handleMessageChange}
-          required
-        />
-      </div>
-      <button type="submit">Envoyer</button>
-    </form>
+    </div>
   );
 }
 

@@ -29,7 +29,6 @@ section {
   place-items: center;
   align-content: center;
   background-color: rgba(0, 0, 0, 0.2);
-  /* background-image: url(../../assets/projector.jpg); */
   background-size: cover;
 }
 .profil-about-image {
@@ -49,6 +48,10 @@ section {
 .img {
   width: 100px;
 }
+/* .main-form-contact-about {
+  background-image: url(../../assets/contact.jpg);
+  height: 800px;
+} */
 
 @media screen and (max-width: 700px) {
   .about-main-section {
