@@ -7,7 +7,6 @@ import {
 } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
@@ -174,9 +173,10 @@ function SectionCategory({ sectionInfo }) {
             disabled={position === 0}
           />
           <div className="category-container">
-            {uniqueCategories.map((item) => (
+            {uniqueCategories.map((item, index) => (
               <button
-                key={uuidv4()}
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
                 className="category-btn"
                 type="submit"
                 onClick={() => handleCategory(item.categorie_name)}
@@ -187,13 +187,14 @@ function SectionCategory({ sectionInfo }) {
           </div>
           <div className="container container-section" ref={listRef}>
             {!selectedCategory
-              ? data.map((item) => {
+              ? data.map((item, index) => {
                   const favoriteVideo = data.find(
                     (favVideo) =>
                       favVideo.user_id !== null && favVideo.title === item.title
                   );
                   return (
-                    <div key={uuidv4()}>
+                    // eslint-disable-next-line react/no-array-index-key
+                    <div key={index}>
                       <Link to={`/video_description/${item.id}`}>
                         <Video
                           src={`${import.meta.env.VITE_APP_API_URL}${
@@ -241,14 +242,15 @@ function SectionCategory({ sectionInfo }) {
                 })
               : data
                   .filter((item) => item.categorie_name === selectedCategory)
-                  .map((item) => {
+                  .map((item, index) => {
                     const favoriteVideo = data.find(
                       (favVideo) =>
                         favVideo.user_id !== null &&
                         favVideo.title === item.title
                     );
                     return (
-                      <div key={uuidv4()}>
+                      // eslint-disable-next-line react/no-array-index-key
+                      <div key={index}>
                         <Video
                           src={`${import.meta.env.VITE_APP_API_URL}${
                             item.link
@@ -263,10 +265,8 @@ function SectionCategory({ sectionInfo }) {
                           isEnabled
                         />
                         {userInfo.email ? (
-                          <div
-                            className="favorite-text-and-button"
-                            key={uuidv4()}
-                          >
+                          // eslint-disable-next-line react/no-array-index-key
+                          <div className="favorite-text-and-button" key={index}>
                             {favoriteVideo ? (
                               <button
                                 className="favorite-profil-button"
@@ -305,8 +305,9 @@ function SectionCategory({ sectionInfo }) {
         </div>
       ) : (
         <div id="display-all">
-          {data.map((video) => (
-            <Link to={`/video_description/${video.id}`} key={uuidv4()}>
+          {data.map((video, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Link to={`/video_description/${video.id}`} key={index}>
               <Video
                 width="650px"
                 height="450px"

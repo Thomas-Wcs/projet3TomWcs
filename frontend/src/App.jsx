@@ -14,6 +14,7 @@ import Footer from "./components/footer/Footer";
 import DataTable from "./components/adminPannel/DataTable";
 import VideosManagement from "./components/adminPannel/VideosManagement";
 import SectionsManagement from "./components/adminPannel/SectionsManagement";
+import AdvertsManagement from "./components/advertising/AdvertManagement";
 import Homepage2 from "./pages/Homepage2";
 import SectionUpdate from "./components/adminPannel/SectionUpdate";
 import VideoUpdate from "./components/adminPannel/VideoUpdate";
@@ -21,6 +22,7 @@ import SectionAdd from "./components/adminPannel/SectionAdd";
 import VideoAdd from "./components/adminPannel/VideoAdd";
 import AdminWall from "./utils/AdminWall";
 import VideoDescription from "./components/VideoDescription/VideoDescription";
+import AdvertAdd from "./components/advertising/AdvertAdd";
 
 function App() {
   return (
@@ -70,6 +72,14 @@ function App() {
                   </AdminWall>
                 }
               />
+              <Route
+                path="AdvertsTable"
+                element={
+                  <AdminWall>
+                    <AdvertsManagement />
+                  </AdminWall>
+                }
+              />
             </Route>
             <Route
               path="/sections/:id"
@@ -87,6 +97,15 @@ function App() {
                 </AdminWall>
               }
             />
+            <Route
+              path="/advertManagementWindow"
+              element={
+                <AdminWall>
+                  <AdvertAdd />
+                </AdminWall>
+              }
+            />
+
             <Route
               path="video_description/:id"
               element={<VideoDescription />}

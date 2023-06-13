@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../styles/index.css";
-import { v4 as uuidv4 } from "uuid";
 import useAPI from "../../api/useAPI";
 
 function VideoUpdate() {
@@ -197,8 +196,9 @@ function VideoUpdate() {
               onChange={handleChange}
               className="selecter"
             >
-              {allCategory.map((cat) => (
-                <option value={cat.id} key={uuidv4()}>
+              {allCategory.map((cat, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <option value={cat.id} key={index}>
                   {cat.name}
                 </option>
               ))}
@@ -220,8 +220,9 @@ function VideoUpdate() {
               className="selecter"
             >
               <option value="">Veuillez sélectionner une section</option>
-              {allSection.map((sec) => (
-                <option value={sec.id} key={uuidv4()}>
+              {allSection.map((sec, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <option value={sec.id} key={index}>
                   {sec.name}
                 </option>
               ))}

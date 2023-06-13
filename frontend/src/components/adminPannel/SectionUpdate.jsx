@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../styles/index.css";
-import { v4 as uuidv4 } from "uuid";
 import useAPI from "../../api/useAPI";
 
 function SectionUpdate() {
@@ -126,8 +125,9 @@ function SectionUpdate() {
               onChange={handleChange}
               name="section_type"
             >
-              {options.map((option) => (
-                <option value={option} key={uuidv4()}>
+              {options.map((option, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <option value={option} key={index}>
                   {option}
                 </option>
               ))}
