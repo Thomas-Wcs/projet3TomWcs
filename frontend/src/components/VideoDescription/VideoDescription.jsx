@@ -31,7 +31,7 @@ export default function VideoDescription() {
           </p>
           <Video
             key={uuidv4()}
-            title={videoData.titre}
+            title={videoData.title}
             width="100%"
             height="90vh"
             src={`${import.meta.env.VITE_APP_API_URL}${videoData.link}`}

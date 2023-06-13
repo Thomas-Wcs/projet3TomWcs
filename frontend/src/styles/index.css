@@ -117,13 +117,6 @@ body h1 {
   -o-object-fit: cover;
      object-fit: cover;
 }
-.wrapper-video .video-title {
-  position: absolute;
-  top: 43%;
-  left: 10%;
-  font-size: 25px;
-  color: #10bcdd;
-}
 .wrapper-video button {
   position: absolute;
   top: 50%;

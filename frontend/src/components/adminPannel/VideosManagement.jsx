@@ -18,8 +18,8 @@ function VideosManagement() {
   useEffect(() => {
     api
       .get("/videos/adminFindAllVideos")
-      .then((data) => {
-        setVideos(data.data);
+      .then((res) => {
+        setVideos(res.data);
       })
       .catch((error) => console.error(error));
   }, [videosChanging]);
@@ -110,7 +110,9 @@ function VideosManagement() {
     },
   ];
 
-  const rows = videos.map((video) => ({
+  const rows = videos.map((video, index) => ({
+    key: index + 1,
+
     id: video.id,
     title: video.title,
     description_text: video.description_text,
@@ -139,6 +141,7 @@ function VideosManagement() {
         }}
       >
         <DataGrid
+          key={rows.key}
           rows={rows}
           columns={columns}
           initialState={{
