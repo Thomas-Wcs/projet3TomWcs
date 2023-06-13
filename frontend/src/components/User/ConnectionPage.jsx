@@ -41,18 +41,12 @@ export default function ConnectionPage() {
             case 401:
               setAdaptedErrorMessage("Mot de passe ou addresse mail invalide");
               break;
-            case 403:
-              setAdaptedErrorMessage("Addresse mail non reconnue");
-              break;
+
             case 404:
               setAdaptedErrorMessage(
                 "Erreur de réseau. Vérifier votre connexion internet"
               );
               break;
-            case 422:
-              setAdaptedErrorMessage("Addresse mail requise");
-              break;
-
             default:
               setAdaptedErrorMessage(
                 "Une erreur s'est produite. Veuillez réessayer plus tard."
