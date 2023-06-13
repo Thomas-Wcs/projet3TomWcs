@@ -79,17 +79,6 @@ function VideosManagement() {
       editable: true,
     },
     {
-<<<<<<< HEAD
-      field: "date_publication",
-      headerName: "Date",
-      width: 250,
-      editable: true,
-      renderCell: (params) =>
-        moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
-    },
-    {
-=======
->>>>>>> b87536964d0b192de819b746615245761d3e4fd9
       field: "action",
       headerName: "Action",
       width: 250,
