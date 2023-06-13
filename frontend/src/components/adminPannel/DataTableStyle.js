@@ -8,6 +8,6 @@ const dataTableStyle = {
   fontFamily: "PT Sans",
   border: "3px solid rgb(16, 188, 221)",
   color: "black",
-  width: "auto",
+  width: "100%",
 };
 export default dataTableStyle;
