@@ -29,7 +29,6 @@ section {
   place-items: center;
   align-content: center;
   background-color: rgba(0, 0, 0, 0.2);
-  /* background-image: url(../../assets/projector.jpg); */
   background-size: cover;
 }
 .profil-about-image {

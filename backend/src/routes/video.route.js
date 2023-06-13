@@ -16,6 +16,10 @@ videoRoute.get(
   "/allVideoAndFavorite/:id/:sectionId",
   VideoController.findAllVideoAndFavorite
 );
+videoRoute.get(
+  "/allVideoAndFavorite/:id",
+  VideoController.findAllVideoAndFavoriteWithoutSecID
+);
 videoRoute.get("/allData", VideoController.readAll);
 videoRoute.get("/:id", VideoController.read);
 videoRoute.use(auth.verifyAdmin);

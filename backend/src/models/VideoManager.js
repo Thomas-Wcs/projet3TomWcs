@@ -85,6 +85,19 @@ class VideoManager extends AbstractManager {
       });
   }
 
+  findFavoritesWithoutSectionId({ userId }) {
+    return this.database
+      .query(
+        `SELECT DISTINCT ${this.table}.*, videos_user.user_id, videos_user.videos_id
+        FROM ${this.table}
+        LEFT JOIN videos_user ON videos.id = videos_user.videos_id AND videos_user.user_id = ?;`,
+        [userId]
+      )
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   update(id, videos) {
     return this.database
       .query(`update ${this.table} set  ? where id = ?`, [videos, id])
