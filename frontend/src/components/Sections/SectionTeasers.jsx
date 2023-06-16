@@ -5,10 +5,11 @@ import {
   ArrowBackIosOutlined,
   ArrowForwardIosOutlined,
 } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import Video from "./Video";
 
-function SectionTeasers({ sectionName }) {
+function SectionTeasers({ sectionInfo }) {
   const listRef = useRef();
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
@@ -66,7 +67,7 @@ function SectionTeasers({ sectionName }) {
 
   return (
     <div className="list">
-      <h1 className="section-name">{sectionName}</h1>
+      <h1 className="section-name">{sectionInfo.name}</h1>
       <div className="wrapper">
         <ArrowBackIosOutlined
           className="sliderArrow left"
@@ -75,15 +76,20 @@ function SectionTeasers({ sectionName }) {
         />
         <div className="container container-section" ref={listRef}>
           {data.map((video) => (
-            <Video
-              key={video.id}
-              width="650px"
-              height="450px"
-              src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
-              isVideoPremium={video.isVideoPremium}
-              isVideoPaying={video.isVideoPaying}
-              isEnabled
-            />
+            <Link to={`/video_description/${video.id}`} key={video.id}>
+              <Video
+                key={video.id}
+                width="650px"
+                height="450px"
+                displayDescription
+                displayDescriptionTitle={video.title}
+                displayDescriptionText={video.description_text}
+                src={`${import.meta.env.VITE_APP_API_URL}/${video.link}`}
+                isVideoPremium={video.isVideoPremium}
+                isVideoPaying={video.isVideoPaying}
+                isEnabled
+              />
+            </Link>
           ))}
         </div>
         <ArrowForwardIosOutlined
@@ -96,7 +102,12 @@ function SectionTeasers({ sectionName }) {
 }
 
 SectionTeasers.propTypes = {
-  sectionName: PropTypes.string.isRequired,
+  sectionInfo: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    order: PropTypes.number,
+    section_type: PropTypes.string,
+  }).isRequired,
 };
 
 export default SectionTeasers;

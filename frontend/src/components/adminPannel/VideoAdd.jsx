@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/index.css";
-
 import useAPI from "../../api/useAPI";
 
 function VideoAdd() {
@@ -10,13 +9,13 @@ function VideoAdd() {
   const [videoTitle, setTitle] = useState("");
   const [categorie, setCategorie] = useState(1);
   const [description, setDescription] = useState("");
-  const [section, setSection] = useState([]);
 
   const [fileUpload, setFileUpload] = useState(null);
   const [videosChanging, setVideosChanging] = useState(true);
-  const [newCategorie, setNewCategorie] = useState({ name: "" });
+  const [newCategorie, setNewCategorie] = useState({ name: "", id: "" });
   const [allCategories, setAllCategories] = useState([]);
-  const [allSections, setAllSections] = useState([]);
+  const [videoPaying, setVideoPaying] = useState(0);
+  const [videoPremium, setVideoPremium] = useState(0);
 
   const api = useAPI();
 
@@ -34,10 +33,11 @@ function VideoAdd() {
     formData.append("category_id", categorie);
     formData.append("link", fileUpload);
     formData.append("date_publication", Date());
-    formData.append("section_id", section);
+    formData.append("isVideoPaying", videoPaying);
+    formData.append("isVideoPremium", videoPremium);
 
     api
-      .post("/video_section", formData)
+      .post("/videos", formData)
 
       .then(() => {
         setVideosChanging(!videosChanging);
@@ -57,7 +57,8 @@ function VideoAdd() {
   function addCategorie() {
     api
       .post("category", newCategorie)
-      .then(() => {
+      .then((res) => {
+        setCategorie(res.data.id);
         setVideosChanging(!videosChanging);
       })
       .catch((error) => {
@@ -70,15 +71,11 @@ function VideoAdd() {
     addCategorie();
   }
 
-  useEffect(() => {
-    api.get("sections").then((res) => setAllSections(res.data));
-  }, []);
-
   return (
     <div className="sectionUpdate">
       <h2 className="sectionUpdateTitle">Page de video</h2>
 
-      <form className="sectionUpdateForm" onSubmit={handleSubmit}>
+      <div className="sectionUpdateForm">
         <div className="sectionUpdateName">
           <label htmlFor="title">Titre de la vidéo :</label>
           <input
@@ -103,9 +100,9 @@ function VideoAdd() {
         </div>
         <div className="sectionUpdateName">
           <label htmlFor="category_id">Selectionnez une categorie :</label>
-
           <select
             name="category_id"
+            value={categorie}
             onChange={(e) => setCategorie(e.target.value)}
           >
             {allCategories.map((cat) => (
@@ -114,9 +111,9 @@ function VideoAdd() {
               </option>
             ))}
           </select>
-          <form className="" onSubmit={handleSubmit}>
+          <form className="" onSubmit={handleSubmit} id="section-form">
             <div className="sectionUpdateName">
-              <label htmlFor="name"> Ou insérer une nouvelle categorie :</label>
+              <label htmlFor="name"> Ou insérez une nouvelle categorie :</label>
               <input
                 type="text"
                 value={newCategorie.name}
@@ -128,33 +125,26 @@ function VideoAdd() {
               {" "}
               Ajouter
             </button>
-            <label htmlFor="category_id">Ajouter à :</label>
 
-            <div className="section-checkboxes">
-              {allSections.map((sect) => (
-                <div key={sect.id}>
-                  <input
-                    type="checkbox"
-                    id={`section-${sect.id}`}
-                    value={sect.id}
-                    checked={section.includes(sect.id)}
-                    onChange={(e) => {
-                      const sectionId = sect.id;
-                      if (e.target.checked) {
-                        setSection((prevSections) => [
-                          ...prevSections,
-                          sectionId,
-                        ]);
-                      } else {
-                        setSection((prevSections) =>
-                          prevSections.filter((id) => id !== sectionId)
-                        );
-                      }
-                    }}
-                  />
-                  <label htmlFor={`section-${sect.id}`}>{sect.name}</label>
-                </div>
-              ))}
+            <div id="video-paying">
+              <label htmlFor="videoPaying">Video Payante?</label>
+              <input
+                name="videoPaying"
+                type="checkbox"
+                checked={videoPaying === 1}
+                onChange={() =>
+                  videoPaying === 0 ? setVideoPaying(1) : setVideoPaying(0)
+                }
+              />
+              <label htmlFor="videoPremium">Video Premium?</label>
+              <input
+                name="videoPremium"
+                type="checkbox"
+                checked={videoPremium === 1}
+                onChange={() =>
+                  videoPremium === 0 ? setVideoPremium(1) : setVideoPremium(0)
+                }
+              />
             </div>
           </form>
         </div>
@@ -173,7 +163,7 @@ function VideoAdd() {
         >
           Ajouter
         </button>
-      </form>
+      </div>
     </div>
   );
 }

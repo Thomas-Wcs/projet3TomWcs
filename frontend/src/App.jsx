@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import AboutPage from "./components/about/AboutPage";
 import UserFavorite from "./components/dashbord/UserFavorite";
 import EditAbo from "./components/dashbord/EditAbo";
 import EditProfile from "./components/dashbord/EditProfile";
@@ -12,14 +14,15 @@ import Footer from "./components/footer/Footer";
 import DataTable from "./components/adminPannel/DataTable";
 import VideosManagement from "./components/adminPannel/VideosManagement";
 import SectionsManagement from "./components/adminPannel/SectionsManagement";
+import AdvertsManagement from "./components/advertising/AdvertManagement";
 import Homepage2 from "./pages/Homepage2";
 import SectionUpdate from "./components/adminPannel/SectionUpdate";
 import VideoUpdate from "./components/adminPannel/VideoUpdate";
 import SectionAdd from "./components/adminPannel/SectionAdd";
 import VideoAdd from "./components/adminPannel/VideoAdd";
-import { AuthProvider } from "./context/AuthContext";
 import AdminWall from "./utils/AdminWall";
 import VideoDescription from "./components/VideoDescription/VideoDescription";
+import AdvertAdd from "./components/advertising/AdvertAdd";
 
 function App() {
   return (
@@ -30,6 +33,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage2 />} />
             <Route path="/connexion" element={<ConnectionPage />} />
+            <Route path="/aboutPage" element={<AboutPage />} />
             <Route path="/profile" element={<Profile />}>
               <Route path="/profile/userid" element={<UserProfile />} />
               <Route path="/profile/useredit" element={<EditProfile />} />
@@ -68,6 +72,14 @@ function App() {
                   </AdminWall>
                 }
               />
+              <Route
+                path="AdvertsTable"
+                element={
+                  <AdminWall>
+                    <AdvertsManagement />
+                  </AdminWall>
+                }
+              />
             </Route>
             <Route
               path="/sections/:id"
@@ -85,6 +97,15 @@ function App() {
                 </AdminWall>
               }
             />
+            <Route
+              path="/advertManagementWindow"
+              element={
+                <AdminWall>
+                  <AdvertAdd />
+                </AdminWall>
+              }
+            />
+
             <Route
               path="video_description/:id"
               element={<VideoDescription />}

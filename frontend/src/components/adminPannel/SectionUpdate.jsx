@@ -202,8 +202,9 @@ function SectionUpdate() {
               onChange={handleChange}
               name="section_type"
             >
-              {options.map((option) => (
-                <option value={option} key={option.id}>
+              {options.map((option, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <option value={option} key={index}>
                   {option}
                 </option>
               ))}

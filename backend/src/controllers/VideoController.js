@@ -15,6 +15,18 @@ const browse = (req, res) => {
     });
 };
 
+const findAllVideoForAdmin = (req, res) => {
+  models.video
+    .findReallyAll()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.video
     .find(req.params.id)
@@ -28,6 +40,15 @@ const read = (req, res) => {
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);
+    });
+};
+
+const readAll = (req, res) => {
+  models.video
+    .findAllFromEverything()
+    .then(([rows]) => res.send(rows))
+    .catch((err) => {
+      console.error(err);
     });
 };
 
@@ -77,7 +98,6 @@ const add = async (req, res) => {
 
     const newVideo = {
       title,
-
       description_text,
       category_id,
       link,
@@ -108,8 +128,22 @@ const destroy = async (req, res) => {
 
 const findAllVideoAndFavorite = (req, res) => {
   const userId = req.params.id;
+  const sectionID = req.params.sectionId;
   models.video
-    .findFavorites(userId)
+    .findFavorites({ userId, sectionID })
+    .then(([result]) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const findAllVideoAndFavoriteWithoutSecID = (req, res) => {
+  const userId = req.params.id;
+  models.video
+    .findFavoritesWithoutSectionId({ userId })
     .then(([result]) => {
       res.json(result);
     })
@@ -126,4 +160,7 @@ module.exports = {
   add,
   destroy,
   findAllVideoAndFavorite,
+  readAll,
+  findAllVideoForAdmin,
+  findAllVideoAndFavoriteWithoutSecID,
 };
