@@ -10,16 +10,24 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
+import useResponsiveWidth from "./useResponsiveWidth";
 
 function Section1({ sectionName }) {
   const listRef = useRef();
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchEndX, setTouchEndX] = useState(null);
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [data, setData] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [showMore, setShowMore] = useState(true);
   const api = useAPI();
+  const { responsiveWidth } = useResponsiveWidth();
+  const leftarrowRef = useRef();
+  const rightarrowRef = useRef();
+  const wrapperRef = useRef();
   const { userInfo } = useAuth();
+
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
 
   const nbVideos = data.length;
@@ -74,21 +82,64 @@ function Section1({ sectionName }) {
     insertFavoriteVideo(newValue);
   };
 
+  useEffect(() => {
+    const leftArrowElement = leftarrowRef.current;
+    const rightArrowElement = rightarrowRef.current;
+    wrapperRef.current.addEventListener("mouseleave", () => {
+      leftArrowElement.style.visibility = "hidden";
+      rightArrowElement.style.visibility = "hidden";
+    });
+    wrapperRef.current.addEventListener("mouseenter", () => {
+      leftArrowElement.style.visibility = "visible";
+      rightArrowElement.style.visibility = "visible";
+    });
+  }, []);
+
   function handleClick(direction) {
     const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
+    // console.log("taille container", widthContainer);
     const windowWidth = window.innerWidth; // largeur de l'écran
-    const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
+    // const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
 
-    let videoWidth = 670; // Largeur d'une video
+    let videoWidth;
+    if (windowWidth < 670) {
+      videoWidth = windowWidth;
+    } else {
+      videoWidth = 670;
+    }
+    // let nbVideosDisplayedPerClick;//TODO: remove until line 104
+    // console.log(windowWidth);
+    // let videoWidth = 670; // Largeur d'une video
+
+    // let videoWidth;
+    // if (windowWidth < 670) {
+    //   videoWidth = responsiveWidth;
+    //   console.log("petite video");
+    //   nbVideosDisplayedPerClick = Math.round(windowWidth / responsiveWidth);
+    // } else {
+    //   console.log("je passe par là");
+    //   videoWidth = 670;
+    //   nbVideosDisplayedPerClick = Math.round(windowWidth / 650);
+    // }
+
+    const nbVideosDisplayedPerClick = Math.floor(windowWidth / videoWidth);
+
     const totalWidthVideos = videoWidth * nbVideos;
+    // console.log("total", totalWidthVideos);
     const totalEmptySpace = widthContainer - totalWidthVideos; // indique le nombre total d'espace vide sur le container
     const whatToAddToVideoWidth = Math.ceil(totalEmptySpace / nbVideos);
+    // const whatToAddToVideoWidth =
+    //   windowWidth > 400 ? Math.ceil(totalEmptySpace / nbVideos) : 0;
+    // console.log("ajout", whatToAddToVideoWidth);
     videoWidth += whatToAddToVideoWidth;
+    // console.log("la taille de la video", videoWidth);
 
     const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
     const totalRestVideosTotalWidth = videoWidth * restVideo;
 
-    if (
+    if (direction === "right" && restVideo === 0) {
+      rightarrowRef.current.style.visibility = "hidden";
+    } else if (
       direction === "right" &&
       restVideo > 0 &&
       restVideo <= nbVideos &&
@@ -98,7 +149,6 @@ function Section1({ sectionName }) {
       const newVideoNumber = videoNumber + 1;
       const translateX = -(newVideoNumber * videoWidth);
       setVideoNumber(newVideoNumber);
-
       listRef.current.style.transform = `translateX(${translateX}px)`;
     }
 
@@ -109,6 +159,27 @@ function Section1({ sectionName }) {
       listRef.current.style.transform = `translateX(${translateX}px)`;
     }
   }
+
+  const handleTouchStart = (event) => {
+    setTouchStartX(event.touches[0].clientX);
+  };
+
+  const handleTouchMove = (event) => {
+    setTouchEndX(event.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX && touchEndX) {
+      if (touchEndX < touchStartX) {
+        handleClick("right");
+      } else if (touchEndX > touchStartX) {
+        handleClick("left");
+      }
+
+      setTouchStartX(null);
+      setTouchEndX(null);
+    }
+  };
 
   function seeMore() {
     setShowMore(!showMore);
@@ -129,13 +200,21 @@ function Section1({ sectionName }) {
       </div>
 
       {showMore ? (
-        <div className="wrapper">
+        <div className="wrapper" ref={wrapperRef}>
           <ArrowBackIosOutlined
             className="sliderArrow left"
             onClick={() => handleClick("left")}
             disabled={position === 0}
+            ref={leftarrowRef}
+            id="sliderArrow_section"
           />
-          <div className="container container-section" ref={listRef}>
+          <div
+            className="container container-section"
+            ref={listRef}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             {data.map((video) => {
               const favoriteVideo = data.find(
                 (favVideo) =>
@@ -145,8 +224,18 @@ function Section1({ sectionName }) {
                 <div key={video.id}>
                   <Link to={`/video_description/${video.id}`}>
                     <Video
-                      width="650px"
-                      height="450px"
+                      // width="650px"
+                      // height="290px"
+                      height={responsiveWidth <= 420 ? "390px" : "300px"}
+                      // width={
+                      //   responsiveWidth <= 420
+                      //     ? `${responsiveWidth}px`
+                      //     : "650px"
+                      // }
+                      width={
+                        responsiveWidth < 650 ? `${responsiveWidth}px` : "650px"
+                      }
+                      // height="300px"
                       displayDescription
                       displayDescriptionTitle={video.title}
                       displayDescriptionText={video.description_text}
@@ -190,6 +279,8 @@ function Section1({ sectionName }) {
           <ArrowForwardIosOutlined
             className="sliderArrow right"
             onClick={() => handleClick("right")}
+            ref={rightarrowRef}
+            id="sliderArrow_section"
           />
         </div>
       ) : (
@@ -197,7 +288,8 @@ function Section1({ sectionName }) {
           {data.map((video) => (
             <Link to={`/video_description/${video.id}`}>
               <Video
-                width="650px"
+                // width="650px"
+                width={`${responsiveWidth}px`}
                 height="450px"
                 displayDescription
                 displayDescriptionTitle={video.title}
