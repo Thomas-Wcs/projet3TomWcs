@@ -7,7 +7,7 @@ import useAPI from "../../api/useAPI";
 export default function Header() {
   const api = useAPI();
   const navigate = useNavigate();
-  const { success, isAdmin, setSuccess, setIsAdmin } = useAuth();
+  const { success, isAdmin, reset } = useAuth();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
   const [textSearch, setTextSearch] = useState("");
   const [allVideos, setAllVideos] = useState();
@@ -38,11 +38,16 @@ export default function Header() {
     setIsSearchClosed(!isSearchClosed);
   }
 
-  const handleLogOut = () => {
-    delete api.defaults.headers.authorization;
-    setSuccess(!success);
+  // const handleLogOut = () => {
+  //   delete api.defaults.headers.authorization;
+  //   setSuccess(!success);
+  //   setIsAdmin(false);
+  //   handleLinkClick();
+  //   navigate("/connexion");
+  // };
+  const logout = () => {
+    reset();
     handleLinkClick();
-    setIsAdmin(false);
     navigate("/connexion");
   };
 
@@ -131,11 +136,7 @@ export default function Header() {
                 </li>
               )}
               {!success && (
-                <button
-                  className="user-button"
-                  type="button"
-                  onClick={handleLogOut}
-                >
+                <button className="user-button" type="button" onClick={logout}>
                   Déconnexion
                 </button>
               )}
