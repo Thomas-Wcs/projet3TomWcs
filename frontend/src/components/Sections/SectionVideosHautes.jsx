@@ -82,23 +82,10 @@ function SectionVideosHautes({ sectionInfo }) {
           <button type="submit" className="follow-btn">
             À SUIVRE
           </button>
-          {showMore ? (
-            <button
-              type="submit"
-              className="next-btn"
-              onClick={() => seeMore()}
-            >
-              VOIR PLUS{" "}
-            </button>
-          ) : (
-            <button
-              type="submit"
-              className="next-btn"
-              onClick={() => seeMore()}
-            >
-              VOIR MOINS{" "}
-            </button>
-          )}
+
+          <button type="submit" className="next-btn" onClick={() => seeMore()}>
+            {showMore ? "VOIR PLUS" : "VOIR MOINS"}
+          </button>
         </div>
       </div>
       {showMore ? (
