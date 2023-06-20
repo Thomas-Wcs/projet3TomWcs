@@ -124,27 +124,6 @@ function SectionUpdate() {
     }
   }
 
-  // Première version
-  // function updateSectionData() {
-  //   api
-  //     .put(`sections/${sectionData.id}`, {
-  //       name: sectionData.name,
-  //       order: sectionData.order,
-  //       section_type: sectionData.section_type,
-  //     })
-  //     .then(() => {
-  //       navigate("/adminPanel/sectionsTable");
-  //     })
-  //     .catch((err) => {
-  //       setError(true);
-  //       if (err.response.status === 409) {
-  //         setErrorMessage("Cette entrée existe déjà");
-  //       } else {
-  //         setErrorMessage("Une erreur est survenue");
-  //       }
-  //     });
-  // }
-
   function handleSubmit(e) {
     e.preventDefault();
     setError(false);

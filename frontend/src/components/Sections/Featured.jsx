@@ -42,7 +42,7 @@ function Featured({ sectionInfo }) {
   function handleClick(direction) {
     const distance = listRef.current.getBoundingClientRect();
     const containerWidth = distance.width;
-    const videoWidth = containerWidth / videoDisplayed; // Nombre de videos visibles en une fois à l'écran
+    const videoWidth = containerWidth / videoDisplayed;
 
     if (direction === "left" && videoNumber > 0) {
       setVideoNumber(videoNumber - 1);

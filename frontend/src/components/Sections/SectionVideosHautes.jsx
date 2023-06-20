@@ -58,9 +58,9 @@ function SectionVideosHautes({ sectionInfo }) {
   }, []);
 
   function handleClick(direction) {
-    const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
+    const widthContainer = listRef.current.clientWidth;
 
-    const windowWidth = window.innerWidth; // largeur de l'écran
+    const windowWidth = window.innerWidth;
 
     let videoWidth;
     if (windowWidth < 670) {
@@ -75,12 +75,12 @@ function SectionVideosHautes({ sectionInfo }) {
 
     const totalWidthVideos = videoWidth * nbVideos;
 
-    const totalEmptySpace = widthContainer - totalWidthVideos; // indique le nombre total d'espace vide sur le container
+    const totalEmptySpace = widthContainer - totalWidthVideos;
     const whatToAddToVideoWidth = Math.ceil(totalEmptySpace / nbVideos);
 
     videoWidth += whatToAddToVideoWidth;
 
-    const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
+    const restVideo = nbVideos - videoNumber;
     const totalRestVideosTotalWidth = videoWidth * restVideo;
 
     if (direction === "right" && restVideo === 0) {
