@@ -5,10 +5,13 @@
 
   #video-display {
     padding-top: 13vh;
+    margin-bottom: 50px;
+ 
     #video-date {
       text-align: end;
       font-size: 1rem;
       padding-bottom: 1%;
+      padding: 15px;
     }
   }
   #video {
@@ -16,6 +19,7 @@
   }
   #video-description {
     font-size: 1.3rem;
+ 
   }
   #video-warning {
     font-size: 1.2rem;
@@ -24,7 +28,7 @@
   }
 }
 
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 1200px) {
   #video-main {
     font-family: "PT Sans";
     width: 100vh;
@@ -33,11 +37,12 @@
       width: 100vw;
       height: 100vh;
       color: white;
-      padding-left: 25%;
-      padding-right: 25%;
+      margin-bottom: 120px;
+  
       padding-top: 100px;
       #video-date {
         font-size: 1.3rem;
+     
       }
     }
     #caroussel {

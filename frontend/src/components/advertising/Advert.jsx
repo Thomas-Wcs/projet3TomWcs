@@ -32,7 +32,7 @@ function Advert() {
         .catch((err) => {
           console.error(err);
         });
-    }, 10000);
+    }, 3000);
 
     return () => {
       clearInterval(interval);

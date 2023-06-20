@@ -8,14 +8,27 @@ import {
 import { Link } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import Video from "./Video";
+import useResponsiveWidth from "./useResponsiveWidth";
 
 function SectionTeasers({ sectionInfo }) {
   const listRef = useRef();
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchEndX, setTouchEndX] = useState(null);
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [data, setData] = useState([]);
   const api = useAPI();
-  const nbVideos = data.length;
+  const leftarrowRef = useRef();
+  const rightarrowRef = useRef();
+  const wrapperRef = useRef();
+
+  const { responsiveWidth } = useResponsiveWidth();
+
+  const newFilteredData = data.filter(
+    (newVideo) => newVideo.SectionID === sectionInfo.id
+  );
+
+  const nbVideos = newFilteredData.length;
 
   const getVideoData = async () => {
     await api
@@ -31,56 +44,111 @@ function SectionTeasers({ sectionInfo }) {
     getVideoData();
   }, []);
 
-  function handleClick(direction) {
-    const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
-    const windowWidth = window.innerWidth; // largeur de l'écran
-    const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
+  useEffect(() => {
+    const leftArrowElement = leftarrowRef.current;
+    const rightArrowElement = rightarrowRef.current;
+    wrapperRef.current.addEventListener("mouseleave", () => {
+      leftArrowElement.style.visibility = "hidden";
+      rightArrowElement.style.visibility = "hidden";
+    });
+    wrapperRef.current.addEventListener("mouseenter", () => {
+      leftArrowElement.style.visibility = "visible";
+      rightArrowElement.style.visibility = "visible";
+    });
+  }, []);
 
-    let videoWidth = 670; // Largeur d'une video
+  function handleClick(direction) {
+    const widthContainer = listRef.current.clientWidth;
+
+    const windowWidth = window.innerWidth;
+
+    let videoWidth;
+    if (windowWidth < 670) {
+      videoWidth = windowWidth;
+    } else {
+      videoWidth = 670;
+    }
+
+    const nbVideosDisplayedPerClick = Math.floor(windowWidth / videoWidth);
+
     const totalWidthVideos = videoWidth * nbVideos;
-    const totalEmptySpace = widthContainer - totalWidthVideos; // indique le nombre total d'espace vide sur le container
+
+    const totalEmptySpace = widthContainer - totalWidthVideos;
     const whatToAddToVideoWidth = Math.ceil(totalEmptySpace / nbVideos);
+
     videoWidth += whatToAddToVideoWidth;
 
-    const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
+    const restVideo = nbVideos - videoNumber;
+    const totalRestVideosTotalWidth = videoWidth * restVideo;
 
-    if (
+    if (direction === "right" && restVideo === 0) {
+      rightarrowRef.current.style.visibility = "hidden";
+    } else if (
       direction === "right" &&
       restVideo > 0 &&
       restVideo <= nbVideos &&
-      nbVideos >= nbVideosDisplayedPerClick
+      nbVideos >= nbVideosDisplayedPerClick &&
+      totalRestVideosTotalWidth > windowWidth
     ) {
       const newVideoNumber = videoNumber + 1;
       const translateX = -(newVideoNumber * videoWidth);
       setVideoNumber(newVideoNumber);
-
       listRef.current.style.transform = `translateX(${translateX}px)`;
     }
 
     if (direction === "left" && videoNumber > 0) {
       const newVideoNumber = videoNumber - 1;
       const translateX = -(newVideoNumber * videoWidth);
+
       setVideoNumber(newVideoNumber);
       listRef.current.style.transform = `translateX(${translateX}px)`;
     }
   }
 
+  const handleTouchStart = (event) => {
+    setTouchStartX(event.touches[0].clientX);
+  };
+
+  const handleTouchMove = (event) => {
+    setTouchEndX(event.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX && touchEndX) {
+      if (touchEndX < touchStartX) {
+        handleClick("right");
+      } else if (touchEndX > touchStartX) {
+        handleClick("left");
+      }
+
+      setTouchStartX(null);
+      setTouchEndX(null);
+    }
+  };
+
   return (
     <div className="list">
       <h1 className="section-name">{sectionInfo.name}</h1>
-      <div className="wrapper">
+      <div className="wrapper" ref={wrapperRef}>
         <ArrowBackIosOutlined
           className="sliderArrow left"
           onClick={() => handleClick("left")}
           disabled={position === 0}
+          ref={leftarrowRef}
         />
-        <div className="container container-section" ref={listRef}>
-          {data.map((video) => (
+        <div
+          className="container container-section"
+          ref={listRef}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {newFilteredData.map((video) => (
             <Link to={`/video_description/${video.id}`} key={video.id}>
               <Video
                 key={video.id}
-                width="650px"
-                height="450px"
+                height={responsiveWidth <= 420 ? "390px" : "300px"}
+                width={responsiveWidth < 650 ? `${responsiveWidth}px` : "650px"}
                 displayDescription
                 displayDescriptionTitle={video.title}
                 displayDescriptionText={video.description_text}
@@ -95,6 +163,7 @@ function SectionTeasers({ sectionInfo }) {
         <ArrowForwardIosOutlined
           className="sliderArrow right"
           onClick={() => handleClick("right")}
+          ref={rightarrowRef}
         />
       </div>
     </div>
