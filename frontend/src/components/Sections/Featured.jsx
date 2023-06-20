@@ -18,7 +18,6 @@ function Featured({ sectionInfo }) {
   const [data, setData] = useState([]);
 
   const { responsiveWidth } = useResponsiveWidth();
-  // const [responsiveWidth, setResponsiveWidth] = useState("");//TODO REMOVE
 
   const newFilteredData = data.filter(
     (newVideo) => newVideo.SectionID === sectionInfo.id
@@ -31,7 +30,6 @@ function Featured({ sectionInfo }) {
       .get("videos")
       .then((res) => {
         setData(res.data);
-        // setVideoCount(res.data.length);//TODO:remove
       })
       .catch((error) => {
         console.error(error);
@@ -63,22 +61,6 @@ function Featured({ sectionInfo }) {
     }
   }
 
-  // TODO: Remove all the lines below until 74
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     const width = window.innerWidth;
-  //     setResponsiveWidth(`${width}px`);
-  //   };
-
-  //   handleResize();
-  //   window.addEventListener("resize", handleResize);
-
-  //   // Pour clean
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
   return (
     <div className="list">
       <div className="wrapper">
@@ -98,8 +80,6 @@ function Featured({ sectionInfo }) {
           </>
         ) : (
           <div className="container-dots">
-            {/* {[...Array(videoCount)].map((_, index) => {
-              const key = `${index}-${Math.random().toString(36).substr(2, 9)}`; */}
             {newFilteredData.map((_, index) => {
               return (
                 <div
@@ -135,9 +115,6 @@ function Featured({ sectionInfo }) {
                 width={`${responsiveWidth}px`}
                 height={responsiveWidth <= 750 ? "390px" : "860px"}
                 src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
-                // style={{//TODO:REMOVE UNTIL LINE 131
-                //   transform: `translateX(${index * 100 - videoNumber * 100}%)`,
-                // }}
                 isVideoPremium={video.isVideoPremium}
                 isVideoPaying={video.isVideoPaying}
                 isEnabled

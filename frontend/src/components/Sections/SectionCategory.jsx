@@ -97,51 +97,6 @@ function SectionCategory({ sectionInfo }) {
     insertFavoriteVideo(newValue);
   };
 
-  // function handleClick(direction) {//TODO:remove lines until 137 if everything is working properly
-
-  //   let videoWidth = 670; // Largeur d'une video
-  //   if (videoNumber > 0) {
-  //     const distanceBack = -(videoWidth * videoNumber);
-  //     listRef.current.style.transform = `translateX(${distanceBack}px)`;
-  //   }
-  //   const filteredData = selectedCategory
-  //     ? data.filter((item) => item.name === selectedCategory)
-  //     : data;
-
-  //   const nbVideos = filteredData.length;
-  //   const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
-  //   const windowWidth = window.innerWidth; // largeur de l'écran
-  //   const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
-
-  //   const totalWidthVideos = videoWidth * nbVideos;
-  //   const totalEmptySpace = widthContainer - totalWidthVideos; // indique le nombre total d'espace vide sur le container
-  //   const whatToAddToVideoWidth = Math.ceil(totalEmptySpace / nbVideos);
-  //   videoWidth += whatToAddToVideoWidth;
-
-  //   const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
-  //   const totalRestVideosTotalWidth = videoWidth * restVideo;
-
-  //   if (
-  //     direction === "right" &&
-  //     restVideo > 0 &&
-  //     restVideo <= nbVideos &&
-  //     nbVideos >= nbVideosDisplayedPerClick &&
-  //     totalRestVideosTotalWidth > windowWidth
-  //   ) {
-  //     const newVideoNumber = videoNumber + 1;
-  //     const translateX = -(newVideoNumber * videoWidth);
-  //     setVideoNumber(newVideoNumber);
-  //     console.log(restVideo)
-  //     listRef.current.style.transform = `translateX(${translateX}px)`;
-  //   }
-
-  //   if (direction === "left" && videoNumber > 0) {
-  //     const newVideoNumber = videoNumber - 1;
-  //     const translateX = -(newVideoNumber * videoWidth);
-  //     setVideoNumber(newVideoNumber);
-  //     listRef.current.style.transform = `translateX(${translateX}px)`;
-  //   }
-  // }
   useEffect(() => {
     const leftArrowElement = leftarrowRef.current;
     const rightArrowElement = rightarrowRef.current;
@@ -157,9 +112,8 @@ function SectionCategory({ sectionInfo }) {
 
   function handleClick(direction) {
     const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
-    // console.log("taille container", widthContainer);
+
     const windowWidth = window.innerWidth; // largeur de l'écran
-    // const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
 
     let videoWidth;
     if (windowWidth < 670) {
@@ -173,32 +127,15 @@ function SectionCategory({ sectionInfo }) {
       : data;
 
     const nbVideos = filteredData.length;
-    // let nbVideosDisplayedPerClick;//TODO: remove until line 104
-    // console.log(windowWidth);
-    // let videoWidth = 670; // Largeur d'une video
-
-    // let videoWidth;
-    // if (windowWidth < 670) {
-    //   videoWidth = responsiveWidth;
-    //   console.log("petite video");
-    //   nbVideosDisplayedPerClick = Math.round(windowWidth / responsiveWidth);
-    // } else {
-    //   console.log("je passe par là");
-    //   videoWidth = 670;
-    //   nbVideosDisplayedPerClick = Math.round(windowWidth / 650);
-    // }
 
     const nbVideosDisplayedPerClick = Math.floor(windowWidth / videoWidth);
 
     const totalWidthVideos = videoWidth * nbVideos;
-    // console.log("total", totalWidthVideos);
+
     const totalEmptySpace = widthContainer - totalWidthVideos; // indique le nombre total d'espace vide sur le container
     const whatToAddToVideoWidth = Math.ceil(totalEmptySpace / nbVideos);
-    // const whatToAddToVideoWidth =
-    //   windowWidth > 400 ? Math.ceil(totalEmptySpace / nbVideos) : 0;
-    // console.log("ajout", whatToAddToVideoWidth);
+
     videoWidth += whatToAddToVideoWidth;
-    // console.log("la taille de la video", videoWidth);
 
     const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
     const totalRestVideosTotalWidth = videoWidth * restVideo;

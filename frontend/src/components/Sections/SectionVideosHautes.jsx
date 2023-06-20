@@ -26,7 +26,6 @@ function SectionVideosHautes({ sectionInfo }) {
   const newFilteredData = data.filter(
     (newVideo) => newVideo.SectionID === sectionInfo.id
   );
-  // const nbVideos = newFilteredData.length;
 
   const getVideoData = async () => {
     await api
@@ -54,47 +53,11 @@ function SectionVideosHautes({ sectionInfo }) {
       rightArrowElement.style.visibility = "visible";
     });
   }, []);
-  // function handleClick(direction) {
-  //   const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
-  //   const windowWidth = window.innerWidth; // largeur de l'écran
-  //   const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
-
-  //   let videoWidth = 670; // Largeur d'une video
-  //   const totalWidthVideos = videoWidth * nbVideos;
-  //   const totalEmptySpace = widthContainer - totalWidthVideos; // indique le nombre total d'espace vide sur le container
-  //   const whatToAddToVideoWidth = Math.ceil(totalEmptySpace / nbVideos);
-  //   videoWidth += whatToAddToVideoWidth;
-
-  //   const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
-  //   const totalRestVideosTotalWidth = videoWidth * restVideo;
-
-  //   if (
-  //     direction === "right" &&
-  //     restVideo > 0 &&
-  //     restVideo <= nbVideos &&
-  //     nbVideos >= nbVideosDisplayedPerClick &&
-  //     totalRestVideosTotalWidth > windowWidth
-  //   ) {
-  //     const newVideoNumber = videoNumber + 1;
-  //     const translateX = -(newVideoNumber * videoWidth);
-  //     setVideoNumber(newVideoNumber);
-
-  //     listRef.current.style.transform = `translateX(${translateX}px)`;
-  //   }
-
-  //   if (direction === "left" && videoNumber > 0) {
-  //     const newVideoNumber = videoNumber - 1;
-  //     const translateX = -(newVideoNumber * videoWidth);
-  //     setVideoNumber(newVideoNumber);
-  //     listRef.current.style.transform = `translateX(${translateX}px)`;
-  //   }
-  // }
 
   function handleClick(direction) {
     const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
-    // console.log("taille container", widthContainer);
+
     const windowWidth = window.innerWidth; // largeur de l'écran
-    // const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
 
     let videoWidth;
     if (windowWidth < 670) {
@@ -104,32 +67,15 @@ function SectionVideosHautes({ sectionInfo }) {
     }
 
     const nbVideos = newFilteredData.length;
-    // let nbVideosDisplayedPerClick;//TODO: remove until line 104
-    // console.log(windowWidth);
-    // let videoWidth = 670; // Largeur d'une video
-
-    // let videoWidth;
-    // if (windowWidth < 670) {
-    //   videoWidth = responsiveWidth;
-    //   console.log("petite video");
-    //   nbVideosDisplayedPerClick = Math.round(windowWidth / responsiveWidth);
-    // } else {
-    //   console.log("je passe par là");
-    //   videoWidth = 670;
-    //   nbVideosDisplayedPerClick = Math.round(windowWidth / 650);
-    // }
 
     const nbVideosDisplayedPerClick = Math.floor(windowWidth / videoWidth);
 
     const totalWidthVideos = videoWidth * nbVideos;
-    // console.log("total", totalWidthVideos);
+
     const totalEmptySpace = widthContainer - totalWidthVideos; // indique le nombre total d'espace vide sur le container
     const whatToAddToVideoWidth = Math.ceil(totalEmptySpace / nbVideos);
-    // const whatToAddToVideoWidth =
-    //   windowWidth > 400 ? Math.ceil(totalEmptySpace / nbVideos) : 0;
-    // console.log("ajout", whatToAddToVideoWidth);
+
     videoWidth += whatToAddToVideoWidth;
-    // console.log("la taille de la video", videoWidth);
 
     const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
     const totalRestVideosTotalWidth = videoWidth * restVideo;
@@ -215,7 +161,6 @@ function SectionVideosHautes({ sectionInfo }) {
             <Link to={`/video_description/${video.id}`} key={index}>
               <Video
                 width={responsiveWidth < 650 ? `${responsiveWidth}px` : "650px"}
-                // height="750px"
                 height={responsiveWidth <= 750 ? "390px" : "750px"}
                 displayDescription
                 displayDescriptionTitle={video.titre}

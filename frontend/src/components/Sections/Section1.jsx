@@ -102,9 +102,8 @@ function Section1({ sectionInfo }) {
 
   function handleClick(direction) {
     const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
-    // console.log("taille container", widthContainer);
+
     const windowWidth = window.innerWidth; // largeur de l'écran
-    // const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
 
     let videoWidth;
     if (windowWidth < 670) {
@@ -112,32 +111,15 @@ function Section1({ sectionInfo }) {
     } else {
       videoWidth = 670;
     }
-    // let nbVideosDisplayedPerClick;//TODO: remove until line 104
-    // console.log(windowWidth);
-    // let videoWidth = 670; // Largeur d'une video
-
-    // let videoWidth;
-    // if (windowWidth < 670) {
-    //   videoWidth = responsiveWidth;
-    //   console.log("petite video");
-    //   nbVideosDisplayedPerClick = Math.round(windowWidth / responsiveWidth);
-    // } else {
-    //   console.log("je passe par là");
-    //   videoWidth = 670;
-    //   nbVideosDisplayedPerClick = Math.round(windowWidth / 650);
-    // }
 
     const nbVideosDisplayedPerClick = Math.floor(windowWidth / videoWidth);
 
     const totalWidthVideos = videoWidth * nbVideos;
-    // console.log("total", totalWidthVideos);
+
     const totalEmptySpace = widthContainer - totalWidthVideos; // indique le nombre total d'espace vide sur le container
     const whatToAddToVideoWidth = Math.ceil(totalEmptySpace / nbVideos);
-    // const whatToAddToVideoWidth =
-    //   windowWidth > 400 ? Math.ceil(totalEmptySpace / nbVideos) : 0;
-    // console.log("ajout", whatToAddToVideoWidth);
+
     videoWidth += whatToAddToVideoWidth;
-    // console.log("la taille de la video", videoWidth);
 
     const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
     const totalRestVideosTotalWidth = videoWidth * restVideo;
@@ -229,18 +211,10 @@ function Section1({ sectionInfo }) {
                 <div key={video.id}>
                   <Link to={`/video_description/${video.id}`}>
                     <Video
-                      // width="650px"
-                      // height="290px"
                       height={responsiveWidth <= 420 ? "390px" : "300px"}
-                      // width={
-                      //   responsiveWidth <= 420
-                      //     ? `${responsiveWidth}px`
-                      //     : "650px"
-                      // }
                       width={
                         responsiveWidth < 650 ? `${responsiveWidth}px` : "650px"
                       }
-                      // height="300px"
                       displayDescription
                       displayDescriptionTitle={video.title}
                       displayDescriptionText={video.description_text}
