@@ -15,7 +15,6 @@ function Featured({ sectionInfo }) {
   const listRef = useRef();
   const [position, setPosition] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
-  // const [videoCount, setVideoCount] = useState(0);//TODO:remove
   const [data, setData] = useState([]);
 
   const { responsiveWidth } = useResponsiveWidth();

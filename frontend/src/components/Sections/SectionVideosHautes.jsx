@@ -8,14 +8,25 @@ import {
 import { Link } from "react-router-dom";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
+import useResponsiveWidth from "./useResponsiveWidth";
 
 function SectionVideosHautes({ sectionInfo }) {
   const listRef = useRef();
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchEndX, setTouchEndX] = useState(null);
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [data, setData] = useState([]);
   const api = useAPI();
-  const nbVideos = data.length;
+  const leftarrowRef = useRef();
+  const rightarrowRef = useRef();
+  const wrapperRef = useRef();
+  const { responsiveWidth } = useResponsiveWidth();
+
+  const newFilteredData = data.filter(
+    (newVideo) => newVideo.SectionID === sectionInfo.id
+  );
+  // const nbVideos = newFilteredData.length;
 
   const getVideoData = async () => {
     await api
@@ -31,21 +42,101 @@ function SectionVideosHautes({ sectionInfo }) {
     getVideoData();
   }, []);
 
+  useEffect(() => {
+    const leftArrowElement = leftarrowRef.current;
+    const rightArrowElement = rightarrowRef.current;
+    wrapperRef.current.addEventListener("mouseleave", () => {
+      leftArrowElement.style.visibility = "hidden";
+      rightArrowElement.style.visibility = "hidden";
+    });
+    wrapperRef.current.addEventListener("mouseenter", () => {
+      leftArrowElement.style.visibility = "visible";
+      rightArrowElement.style.visibility = "visible";
+    });
+  }, []);
+  // function handleClick(direction) {
+  //   const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
+  //   const windowWidth = window.innerWidth; // largeur de l'écran
+  //   const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
+
+  //   let videoWidth = 670; // Largeur d'une video
+  //   const totalWidthVideos = videoWidth * nbVideos;
+  //   const totalEmptySpace = widthContainer - totalWidthVideos; // indique le nombre total d'espace vide sur le container
+  //   const whatToAddToVideoWidth = Math.ceil(totalEmptySpace / nbVideos);
+  //   videoWidth += whatToAddToVideoWidth;
+
+  //   const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
+  //   const totalRestVideosTotalWidth = videoWidth * restVideo;
+
+  //   if (
+  //     direction === "right" &&
+  //     restVideo > 0 &&
+  //     restVideo <= nbVideos &&
+  //     nbVideos >= nbVideosDisplayedPerClick &&
+  //     totalRestVideosTotalWidth > windowWidth
+  //   ) {
+  //     const newVideoNumber = videoNumber + 1;
+  //     const translateX = -(newVideoNumber * videoWidth);
+  //     setVideoNumber(newVideoNumber);
+
+  //     listRef.current.style.transform = `translateX(${translateX}px)`;
+  //   }
+
+  //   if (direction === "left" && videoNumber > 0) {
+  //     const newVideoNumber = videoNumber - 1;
+  //     const translateX = -(newVideoNumber * videoWidth);
+  //     setVideoNumber(newVideoNumber);
+  //     listRef.current.style.transform = `translateX(${translateX}px)`;
+  //   }
+  // }
+
   function handleClick(direction) {
     const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
+    // console.log("taille container", widthContainer);
     const windowWidth = window.innerWidth; // largeur de l'écran
-    const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
+    // const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
 
-    let videoWidth = 670; // Largeur d'une video
+    let videoWidth;
+    if (windowWidth < 670) {
+      videoWidth = windowWidth;
+    } else {
+      videoWidth = 670;
+    }
+
+    const nbVideos = newFilteredData.length;
+    // let nbVideosDisplayedPerClick;//TODO: remove until line 104
+    // console.log(windowWidth);
+    // let videoWidth = 670; // Largeur d'une video
+
+    // let videoWidth;
+    // if (windowWidth < 670) {
+    //   videoWidth = responsiveWidth;
+    //   console.log("petite video");
+    //   nbVideosDisplayedPerClick = Math.round(windowWidth / responsiveWidth);
+    // } else {
+    //   console.log("je passe par là");
+    //   videoWidth = 670;
+    //   nbVideosDisplayedPerClick = Math.round(windowWidth / 650);
+    // }
+
+    const nbVideosDisplayedPerClick = Math.floor(windowWidth / videoWidth);
+
     const totalWidthVideos = videoWidth * nbVideos;
+    // console.log("total", totalWidthVideos);
     const totalEmptySpace = widthContainer - totalWidthVideos; // indique le nombre total d'espace vide sur le container
     const whatToAddToVideoWidth = Math.ceil(totalEmptySpace / nbVideos);
+    // const whatToAddToVideoWidth =
+    //   windowWidth > 400 ? Math.ceil(totalEmptySpace / nbVideos) : 0;
+    // console.log("ajout", whatToAddToVideoWidth);
     videoWidth += whatToAddToVideoWidth;
+    // console.log("la taille de la video", videoWidth);
 
     const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
     const totalRestVideosTotalWidth = videoWidth * restVideo;
 
-    if (
+    if (direction === "right" && restVideo === 0) {
+      rightarrowRef.current.style.visibility = "hidden";
+    } else if (
       direction === "right" &&
       restVideo > 0 &&
       restVideo <= nbVideos &&
@@ -55,7 +146,6 @@ function SectionVideosHautes({ sectionInfo }) {
       const newVideoNumber = videoNumber + 1;
       const translateX = -(newVideoNumber * videoWidth);
       setVideoNumber(newVideoNumber);
-
       listRef.current.style.transform = `translateX(${translateX}px)`;
     }
 
@@ -66,6 +156,27 @@ function SectionVideosHautes({ sectionInfo }) {
       listRef.current.style.transform = `translateX(${translateX}px)`;
     }
   }
+
+  const handleTouchStart = (event) => {
+    setTouchStartX(event.touches[0].clientX);
+  };
+
+  const handleTouchMove = (event) => {
+    setTouchEndX(event.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX && touchEndX) {
+      if (touchEndX < touchStartX) {
+        handleClick("right");
+      } else if (touchEndX > touchStartX) {
+        handleClick("left");
+      }
+
+      setTouchStartX(null);
+      setTouchEndX(null);
+    }
+  };
 
   return (
     <div className="list">
@@ -85,19 +196,27 @@ function SectionVideosHautes({ sectionInfo }) {
         </div>
       </div>
 
-      <div className="wrapper">
+      <div className="wrapper" ref={wrapperRef}>
         <ArrowBackIosOutlined
           className="sliderArrow left"
           onClick={() => handleClick("left")}
           disabled={position === 0}
+          ref={leftarrowRef}
         />
-        <div className="container container-section" ref={listRef}>
-          {data.map((video, index) => (
+        <div
+          className="container container-section"
+          ref={listRef}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {newFilteredData.map((video, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <Link to={`/video_description/${video.id}`} key={index}>
               <Video
-                width="650px"
-                height="750px"
+                width={responsiveWidth < 650 ? `${responsiveWidth}px` : "650px"}
+                // height="750px"
+                height={responsiveWidth <= 750 ? "390px" : "750px"}
                 displayDescription
                 displayDescriptionTitle={video.titre}
                 displayDescriptionText={video.description_text}
@@ -112,6 +231,7 @@ function SectionVideosHautes({ sectionInfo }) {
         <ArrowForwardIosOutlined
           className="sliderArrow right"
           onClick={() => handleClick("right")}
+          ref={rightarrowRef}
         />
       </div>
     </div>
