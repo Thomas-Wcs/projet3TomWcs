@@ -193,6 +193,7 @@ body h1 {
 * {
   margin: 0;
   padding: 0;
+  text-decoration: none;
   box-sizing: border-box;
 }
 
@@ -367,6 +368,7 @@ body h1 {
   background: rgba(0, 0, 0, 0.5882352941);
 }
 #nav-body .navbar #content .all-video .video-list {
+  text-decoration: none;
   padding: 5px;
   border: 1px solid black;
   color: white;
@@ -512,6 +514,7 @@ body h1 {
   opacity: 1;
   z-index: 10;
   padding-top: 10%;
+  text-align: center;
 }
 #connection h2 .button-text {
   background: none;
@@ -608,35 +611,6 @@ body h1 {
   color: #10bcdd;
   margin: 3%;
   text-align: center;
-}
-
-#title {
-  border: 2px solid #10bcdd;
-  border-radius: 3px;
-  height: 80px;
-  width: 85%;
-  align-self: center;
-  margin: auto;
-  background: #808080;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  min-height: 100%;
-}
-#title input {
-  height: 30px;
-  border-radius: 3px;
-}
-#title #add-button {
-  width: 150px;
-  margin: 1em 0 1em 0;
-  padding: 0.5em;
-  color: #10bcdd;
-  background-color: black;
-  border-color: #10bcdd;
-}
-#title #add-button:hover {
-  cursor: pointer;
 }
 
 .admin-pannel {
@@ -780,6 +754,12 @@ body h1 {
   cursor: pointer;
 }
 
+@media screen and (max-width: 700px) {
+  .css-i16b5t {
+    max-width: 76%;
+    display: flex;
+  }
+}
 .sectionUpdate {
   display: flex;
   justify-content: center;
@@ -1268,4 +1248,8 @@ body h1 {
 }
 .footer_container .footer_link {
   color: #10bcdd;
+}
+
+#caroussel .list {
+  margin-top: 5%;
 }/*# sourceMappingURL=index.css.map */

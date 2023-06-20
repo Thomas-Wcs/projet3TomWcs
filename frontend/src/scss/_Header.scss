@@ -4,6 +4,7 @@
 * {
   margin: 0;
   padding: 0;
+  text-decoration: none;
   box-sizing: border-box;
 }
 
@@ -186,6 +187,7 @@ background: linear-gradient(0deg, rgba(2,1,28,1) 16%, rgba(0,212,255,1) 86%, rgb
         margin-left: -286px;
         background: #00000096;
         .video-list {
+          text-decoration: none;
           padding: 5px;
           border: 1px solid black;
           color: white;

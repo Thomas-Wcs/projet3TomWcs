@@ -137,3 +137,12 @@ Featured.propTypes = {
 };
 
 export default Featured;
+
+Featured.propTypes = {
+  sectionInfo: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    order: PropTypes.number,
+    section_type: PropTypes.string,
+  }).isRequired,
+};

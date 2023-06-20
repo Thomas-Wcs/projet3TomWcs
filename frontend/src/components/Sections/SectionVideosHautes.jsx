@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "../../styles/index.css";
@@ -17,6 +18,8 @@ function SectionVideosHautes({ sectionInfo }) {
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [data, setData] = useState([]);
+  const [showMore, setShowMore] = useState(true);
+
   const api = useAPI();
   const leftarrowRef = useRef();
   const rightarrowRef = useRef();
@@ -123,6 +126,9 @@ function SectionVideosHautes({ sectionInfo }) {
       setTouchEndX(null);
     }
   };
+  function seeMore() {
+    setShowMore(!showMore);
+  }
 
   return (
     <div className="list">
@@ -132,38 +138,61 @@ function SectionVideosHautes({ sectionInfo }) {
           <button type="submit" className="follow-btn">
             À SUIVRE
           </button>
-          <button
-            type="submit"
-            className="next-btn"
-            onClick={() => handleClick("right")}
-          >
-            VOIR PLUS{" "}
+
+          <button type="submit" className="next-btn" onClick={() => seeMore()}>
+            {showMore ? "VOIR PLUS" : "VOIR MOINS"}
           </button>
         </div>
       </div>
-
-      <div className="wrapper" ref={wrapperRef}>
-        <ArrowBackIosOutlined
-          className="sliderArrow left"
-          onClick={() => handleClick("left")}
-          disabled={position === 0}
-          ref={leftarrowRef}
-        />
-        <div
-          className="container container-section"
-          ref={listRef}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
+      {showMore ? (
+        <div className="wrapper" ref={wrapperRef}>
+          <ArrowBackIosOutlined
+            className="sliderArrow left"
+            onClick={() => handleClick("left")}
+            disabled={position === 0}
+            ref={leftarrowRef}
+          />
+          <div
+            className="container container-section"
+            ref={listRef}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            {newFilteredData.map((video, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <Link to={`/video_description/${video.id}`} key={index}>
+                <Video
+                  width={
+                    responsiveWidth < 650 ? `${responsiveWidth}px` : "650px"
+                  }
+                  height={responsiveWidth <= 750 ? "390px" : "750px"}
+                  displayDescription
+                  displayDescriptionTitle={video.title}
+                  displayDescriptionText={video.description_text}
+                  src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+                  isVideoPremium={video.isVideoPremium}
+                  isVideoPaying={video.isVideoPaying}
+                  isEnabled
+                />
+              </Link>
+            ))}
+          </div>
+          <ArrowForwardIosOutlined
+            className="sliderArrow right"
+            onClick={() => handleClick("right")}
+            ref={rightarrowRef}
+          />
+        </div>
+      ) : (
+        <div id="display-all">
           {newFilteredData.map((video, index) => (
-            // eslint-disable-next-line react/no-array-index-key
             <Link to={`/video_description/${video.id}`} key={index}>
               <Video
-                width={responsiveWidth < 650 ? `${responsiveWidth}px` : "650px"}
+                width={`responsiveWidth < 650 ? ${responsiveWidth}px : "650px"`}
                 height={responsiveWidth <= 750 ? "390px" : "750px"}
                 displayDescription
-                displayDescriptionTitle={video.titre}
+                displayDescriptionTitle={video.title}
                 displayDescriptionText={video.description_text}
                 src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
                 isVideoPremium={video.isVideoPremium}
@@ -173,12 +202,8 @@ function SectionVideosHautes({ sectionInfo }) {
             </Link>
           ))}
         </div>
-        <ArrowForwardIosOutlined
-          className="sliderArrow right"
-          onClick={() => handleClick("right")}
-          ref={rightarrowRef}
-        />
-      </div>
+      )}
+      )
     </div>
   );
 }

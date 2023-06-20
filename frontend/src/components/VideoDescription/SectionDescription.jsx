@@ -32,7 +32,7 @@ function SectionDescription() {
   const getVideoData = async () => {
     try {
       if (userInfo.id) {
-        const res = await api.get(`videos/allVideoAndFavorite/${userInfo.id}`);
+        const res = await api.get(`videos/allVideoAndFavorite/${userInfo.id}/`);
         setData(res.data);
       } else {
         const res = await api.get(`videos`);

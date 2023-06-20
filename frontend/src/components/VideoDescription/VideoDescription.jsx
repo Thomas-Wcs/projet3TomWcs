@@ -21,13 +21,15 @@ export default function VideoDescription() {
     api.get(`videos/${id}`).then((res) => setVideoData(res.data));
   }, [id]);
 
+  const outputFormatMoment = "YYYY-MM-DD";
+
   return (
     <div id="video-main">
       {videoData?.date_publication && (
         <div id="video-display">
           <p id="video-date">
             {`${moment(videoData.date_publication).format(
-              "DD-MM-YYYY"
+              outputFormatMoment
             )} || ${duration.toFixed(2)} sec`}
           </p>
           <Video
@@ -52,10 +54,10 @@ export default function VideoDescription() {
             setDuration={setDuration}
             isEnabled
           />
+          <p id="video-description"> {videoData.description_text} </p>
           {videoData.isVideoPremium === 1 && (
             <p id="video-warning">Avertissement accès premium</p>
           )}
-          <p id="video-description"> {videoData.description_text} </p>
         </div>
       )}
       <div id="caroussel">
