@@ -97,11 +97,11 @@ function SectionCategory({ sectionInfo }) {
       const distanceBack = -(videoWidth * videoNumber);
       listRef.current.style.transform = `translateX(${distanceBack}px)`;
     }
-    const filteredData = selectedCategory
-      ? data.filter((item) => item.categorie_name === selectedCategory)
-      : data;
+    // const filteredData = selectedCategory
+    //   ? data.filter((item) => item.categorie_name === selectedCategory)
+    //   : data;
 
-    const nbVideos = filteredData.length;
+    const nbVideos = newFilteredData.length;
     const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
     const windowWidth = window.innerWidth; // largeur de l'écran
     const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic

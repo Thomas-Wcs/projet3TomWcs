@@ -64,8 +64,8 @@ function Video({
         ref={videoRef}
         onLoadedMetadata={handleLoadedMetadata}
         src={src}
-        poster={posterImage}
         muted
+        poster={posterImage}
         preload="metadata"
         style={{ width, height }}
         controls={controls}
@@ -85,7 +85,10 @@ function Video({
             ? null
             : handleToggleVideo
         }
-      />
+      >
+        {" "}
+        <track kind="captions" src="path/to/captions.vtt" label="Captions" />
+      </video>
       <h3 className="video-title">{title}</h3>
       {displayPlayButton && (
         <PlayButton handleToggleVideo={handleToggleVideo} />
