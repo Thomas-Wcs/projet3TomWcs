@@ -135,6 +135,7 @@ body h1 {
 * {
   margin: 0;
   padding: 0;
+  text-decoration: none;
   box-sizing: border-box;
 }
 
@@ -308,6 +309,7 @@ body h1 {
   background: rgba(0, 0, 0, 0.5882352941);
 }
 #nav-body .navbar #content .all-video .video-list {
+  text-decoration: none;
   padding: 5px;
   border: 1px solid black;
   color: white;
