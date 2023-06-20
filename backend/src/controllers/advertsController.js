@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const models = require("../models");
 
-const browse = (res) => {
+const browse = (req, res) => {
   models.adverts
     .findAll()
     .then(([rows]) => {

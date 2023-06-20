@@ -4,6 +4,7 @@
 * {
   margin: 0;
   padding: 0;
+  text-decoration: none;
   box-sizing: border-box;
 }
 
@@ -184,6 +185,7 @@
         margin-left: -286px;
         background: #00000096;
         .video-list {
+          text-decoration: none;
           padding: 5px;
           border: 1px solid black;
           color: white;
