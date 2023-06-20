@@ -96,7 +96,6 @@ const destroy = (req, res) => {
   models.adverts
     .delete(req.params.id)
     .then(([result]) => {
-      console.log(result);
       if (result.affectedRows === 0) {
         res.sendStatus(404);
       } else {

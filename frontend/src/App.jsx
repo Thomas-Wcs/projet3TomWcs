@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserFavorite from "./components/dashbord/UserFavorite";
 import EditAbo from "./components/dashbord/EditAbo";
@@ -22,6 +23,7 @@ import { AuthProvider } from "./context/AuthContext";
 import AdminWall from "./utils/AdminWall";
 import VideoDescription from "./components/VideoDescription/VideoDescription";
 import AdvertAdd from "./components/advertising/AdvertAdd";
+import LegalConditions from "./components/Legal/LegalConditions";
 
 function App() {
   return (
@@ -125,10 +127,11 @@ function App() {
                 </AdminWall>
               }
             />
+            <Route path="/legal-conditions" element={<LegalConditions />} />
           </Routes>
+          <Footer />
         </Router>
         <Advert />
-        <Footer />
       </AuthProvider>
     </div>
   );
