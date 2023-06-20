@@ -16,7 +16,6 @@
 }
 .list .wrapper .sliderArrow {
   width: 50px;
-  height: 100vh;
   color: white;
   position: absolute;
   z-index: 99;
@@ -175,13 +174,6 @@ body h1 {
 }
 .wrapper-video video {
   object-fit: cover;
-}
-.wrapper-video .video-title {
-  position: absolute;
-  top: 43%;
-  left: 10%;
-  font-size: 25px;
-  color: #10bcdd;
 }
 .wrapper-video button {
   position: absolute;

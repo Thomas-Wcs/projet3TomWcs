@@ -15,7 +15,7 @@ function Featured({ sectionInfo }) {
   const listRef = useRef();
   const [position, setPosition] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
-  const [videoCount, setVideoCount] = useState(0);
+  // const [videoCount, setVideoCount] = useState(0);//TODO:remove
   const [data, setData] = useState([]);
 
   const { responsiveWidth } = useResponsiveWidth();
@@ -32,7 +32,7 @@ function Featured({ sectionInfo }) {
       .get("videos")
       .then((res) => {
         setData(res.data);
-        setVideoCount(res.data.length);
+        // setVideoCount(res.data.length);//TODO:remove
       })
       .catch((error) => {
         console.error(error);
@@ -63,6 +63,7 @@ function Featured({ sectionInfo }) {
       }px)`;
     }
   }
+
   // TODO: Remove all the lines below until 74
   // useEffect(() => {
   //   const handleResize = () => {
@@ -98,11 +99,13 @@ function Featured({ sectionInfo }) {
           </>
         ) : (
           <div className="container-dots">
-            {[...Array(videoCount)].map((_, index) => {
-              const key = `${index}-${Math.random().toString(36).substr(2, 9)}`;
+            {/* {[...Array(videoCount)].map((_, index) => {
+              const key = `${index}-${Math.random().toString(36).substr(2, 9)}`; */}
+            {newFilteredData.map((_, index) => {
               return (
                 <div
-                  key={key}
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
                   className="dot"
                   onClick={() => {
                     const direction = index > videoNumber ? "right" : "left";
@@ -131,7 +134,7 @@ function Featured({ sectionInfo }) {
               <Video
                 title={video.titre}
                 width={`${responsiveWidth}px`}
-                height={responsiveWidth <= 750 ? "390px" : "760px"}
+                height={responsiveWidth <= 750 ? "390px" : "860px"}
                 src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
                 // style={{//TODO:REMOVE UNTIL LINE 131
                 //   transform: `translateX(${index * 100 - videoNumber * 100}%)`,
