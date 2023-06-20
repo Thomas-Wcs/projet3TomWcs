@@ -17,8 +17,8 @@ function VideosManagement() {
   useEffect(() => {
     api
       .get("/videos/adminFindAllVideos")
-      .then((data) => {
-        setVideos(data.data);
+      .then((res) => {
+        setVideos(res.data);
       })
       .catch((error) => console.error(error));
   }, [videosChanging]);

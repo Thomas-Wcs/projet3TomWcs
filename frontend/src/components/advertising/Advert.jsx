@@ -40,7 +40,6 @@ function Advert() {
   }, []);
 
   const currentAdvert = advert[currentAdvertIndex];
-
   return (
     <div className="advert_image">
       {currentAdvert && (

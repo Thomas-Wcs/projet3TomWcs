@@ -128,8 +128,8 @@ function Section1({ sectionInfo }) {
           <button type="submit" className="follow-btn">
             À SUIVRE
           </button>
-          <button type="submit" className="next-btn" onClick={() => seeMore}>
-            VOIR PLUS
+          <button type="submit" className="next-btn" onClick={() => seeMore()}>
+            {showMore ? "VOIR PLUS" : "VOIR MOINS"}
           </button>
         </div>
       </div>
@@ -198,7 +198,7 @@ function Section1({ sectionInfo }) {
           />
         </div>
       ) : (
-        <div>
+        <div id="display-all">
           {newFilteredData.map((video) => (
             <Link to={`/video_description/${video.id}`}>
               <Video

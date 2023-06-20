@@ -24,10 +24,6 @@ export default function AccountMenu({ userInfo, reset }) {
     reset();
   };
 
-  const handleLogout = () => {
-    logout();
-  };
-
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const open = Boolean(anchorEl);
@@ -192,7 +188,7 @@ export default function AccountMenu({ userInfo, reset }) {
           </ListItemIcon>
           A propos
         </MenuItem>
-        <MenuItem sx={dashbordStyles} onClick={(handleClose, handleLogout)}>
+        <MenuItem sx={dashbordStyles} onClick={(handleClose, logout)}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "../../styles/index.css";
@@ -14,6 +15,8 @@ function SectionVideosHautes({ sectionInfo }) {
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [data, setData] = useState([]);
+  const [showMore, setShowMore] = useState(true);
+
   const api = useAPI();
   const nbVideos = data.length;
 
@@ -67,6 +70,10 @@ function SectionVideosHautes({ sectionInfo }) {
     }
   }
 
+  function seeMore() {
+    setShowMore(!showMore);
+  }
+
   return (
     <div className="list">
       <div className="wrapper-sectionName-buttons">
@@ -75,31 +82,51 @@ function SectionVideosHautes({ sectionInfo }) {
           <button type="submit" className="follow-btn">
             À SUIVRE
           </button>
-          <button
-            type="submit"
-            className="next-btn"
-            onClick={() => handleClick("right")}
-          >
-            VOIR PLUS{" "}
+
+          <button type="submit" className="next-btn" onClick={() => seeMore()}>
+            {showMore ? "VOIR PLUS" : "VOIR MOINS"}
           </button>
         </div>
       </div>
-
-      <div className="wrapper">
-        <ArrowBackIosOutlined
-          className="sliderArrow left"
-          onClick={() => handleClick("left")}
-          disabled={position === 0}
-        />
-        <div className="container container-section" ref={listRef}>
+      {showMore ? (
+        <div className="wrapper">
+          <ArrowBackIosOutlined
+            className="sliderArrow left"
+            onClick={() => handleClick("left")}
+            disabled={position === 0}
+          />
+          <div className="container container-section" ref={listRef}>
+            {data.map((video, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <Link to={`/video_description/${video.id}`} key={index}>
+                <Video
+                  width="650px"
+                  height="750px"
+                  displayDescription
+                  displayDescriptionTitle={video.title}
+                  displayDescriptionText={video.description_text}
+                  src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
+                  isVideoPremium={video.isVideoPremium}
+                  isVideoPaying={video.isVideoPaying}
+                  isEnabled
+                />
+              </Link>
+            ))}
+          </div>
+          <ArrowForwardIosOutlined
+            className="sliderArrow right"
+            onClick={() => handleClick("right")}
+          />
+        </div>
+      ) : (
+        <div id="display-all">
           {data.map((video, index) => (
-            // eslint-disable-next-line react/no-array-index-key
             <Link to={`/video_description/${video.id}`} key={index}>
               <Video
                 width="650px"
-                height="750px"
+                height="450px"
                 displayDescription
-                displayDescriptionTitle={video.titre}
+                displayDescriptionTitle={video.title}
                 displayDescriptionText={video.description_text}
                 src={`${import.meta.env.VITE_APP_API_URL}${video.link}`}
                 isVideoPremium={video.isVideoPremium}
@@ -109,11 +136,8 @@ function SectionVideosHautes({ sectionInfo }) {
             </Link>
           ))}
         </div>
-        <ArrowForwardIosOutlined
-          className="sliderArrow right"
-          onClick={() => handleClick("right")}
-        />
-      </div>
+      )}
+      )
     </div>
   );
 }
