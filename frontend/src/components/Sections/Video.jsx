@@ -64,11 +64,11 @@ function Video({
         ref={videoRef}
         onLoadedMetadata={handleLoadedMetadata}
         src={src}
-        muted
+        controls={controls}
         poster={posterImage}
+        muted
         preload="metadata"
         style={{ width, height }}
-        controls={controls}
         onMouseOver={
           (isEnabled &&
             (!userInfo || userInfo.isPremium === 0) &&

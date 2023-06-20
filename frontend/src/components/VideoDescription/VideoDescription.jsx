@@ -6,12 +6,14 @@ import { useAuth } from "../../context/AuthContext";
 import useAPI from "../../api/useAPI";
 import Video from "../Sections/Video";
 import SectionDescription from "./SectionDescription";
+import useResponsiveWidth from "../Sections/useResponsiveWidth";
 
 export default function VideoDescription() {
   const [videoData, setVideoData] = useState();
   const api = useAPI();
   const { id } = useParams();
   const [duration, setDuration] = useState(0);
+  const { responsiveWidth } = useResponsiveWidth();
   const { userInfo } = useAuth();
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
 
@@ -33,8 +35,10 @@ export default function VideoDescription() {
           <Video
             key={videoData.title}
             title={videoData.title}
-            width="100%"
-            height="90vh"
+            width={`${responsiveWidth}px`}
+            // width="100%"
+            // height="90vh"
+            height={responsiveWidth <= 750 ? "390px" : "860px"}
             src={`${import.meta.env.VITE_APP_API_URL}${videoData.link}`}
             id="video"
             isVideoPremium={videoData.isVideoPremium}

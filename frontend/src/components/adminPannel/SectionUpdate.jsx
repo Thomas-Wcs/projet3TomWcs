@@ -8,9 +8,10 @@ function SectionUpdate() {
   const api = useAPI();
   const navigate = useNavigate();
   const [error, setError] = useState(false);
-  const [succes, setSucces] = useState(false);
-  const [succesMessage, setSuccesMessage] = useState(true);
+  const [getSections, setGetSections] = useState([]);
+  const [orderInput, setOrderInput] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
+  const [sectionOrder, setSectionOrder] = useState([]);
   const [sectionData, setSectionData] = useState({
     id: "",
     name: "",
@@ -35,36 +36,92 @@ function SectionUpdate() {
     getSectionsData();
   }, [id]);
 
+  useEffect(() => {
+    const getSectionsOrder = async () => {
+      await api.get(`sections`).then((res) => {
+        setGetSections(res.data);
+        const orders = [];
+        for (let i = 0; i < res.data.length; i += 1) {
+          orders.push(res.data[i].order);
+        }
+        setSectionOrder(orders);
+        console.info("UseEffect order", sectionOrder);
+        console.info("Sections", getSections);
+      });
+    };
+    getSectionsOrder();
+  }, []);
+
   function handleChange(e) {
     const { name, value } = e.target;
+    if (name === "order") {
+      // Pour récupérer l'order qui est sélectionné par l'utilisateur dans le select
+      const newOrder = Number(value);
+      setOrderInput(newOrder);
+    }
+
     setSectionData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   }
 
-  function updateSectionData() {
-    api
-      .put(`sections/${sectionData.id}`, {
-        name: sectionData.name,
-        order: sectionData.order,
-        section_type: sectionData.section_type,
-      })
-      .then((response) => {
-        if (response.status === 204) {
-          setSuccesMessage("La modification a été effectuée avec succès!");
-          setSucces(true);
-        }
-        setTimeout(() => navigate("/adminPanel/sectionsTable"), 2000);
-      })
-      .catch((err) => {
+  async function updateSectionData() {
+    console.info("valeur entrante update", orderInput);
+    if (sectionOrder.includes(orderInput)) {
+      const duplicateSection = getSections.filter(
+        (section) => section.order === orderInput
+      );
+      console.info("la section dupliquée est : ", duplicateSection);
+      console.info(
+        "l'ordre de la section dupliquée est : ",
+        duplicateSection[0].order
+      );
+      if (orderInput === duplicateSection[0].order)
+        console.info("condition validée");
+      try {
+        api.put(`sections/${duplicateSection[0].id}`, {
+          name: duplicateSection[0].name,
+          order:
+            duplicateSection[0].order +
+            (duplicateSection[0].order - orderInput),
+          section_type: duplicateSection[0].section_type,
+        });
+
+        await api.put(`sections/${sectionData.id}`, {
+          name: sectionData.name,
+          order: orderInput,
+          section_type: sectionData.section_type,
+        });
+
+        navigate("/adminPanel/sectionsTable");
+      } catch (err) {
         setError(true);
         if (err.response.status === 409) {
           setErrorMessage("Cette entrée existe déjà");
         } else {
           setErrorMessage("Une erreur est survenue");
         }
-      });
+      }
+    } else {
+      api
+        .put(`sections/${sectionData.id}`, {
+          name: sectionData.name,
+          order: sectionData.order,
+          section_type: sectionData.section_type,
+        })
+        .then(() => {
+          navigate("/adminPanel/sectionsTable");
+        })
+        .catch((err) => {
+          setError(true);
+          if (err.response.status === 409) {
+            setErrorMessage("Cette entrée existe déjà");
+          } else {
+            setErrorMessage("Une erreur est survenue");
+          }
+        });
+    }
   }
 
   function handleSubmit(e) {
@@ -115,7 +172,6 @@ function SectionUpdate() {
           </div>
 
           {error && <p>{errorMessage}</p>}
-          {succes && <p style={{ color: "green" }}>{succesMessage}</p>}
 
           <div className="sectionUpdateSectionType">
             <label htmlFor="name">Type de la section :</label>
