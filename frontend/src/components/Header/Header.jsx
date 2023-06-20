@@ -38,13 +38,6 @@ export default function Header() {
     setIsSearchClosed(!isSearchClosed);
   }
 
-  // const handleLogOut = () => {
-  //   delete api.defaults.headers.authorization;
-  //   setSuccess(!success);
-  //   setIsAdmin(false);
-  //   handleLinkClick();
-  //   navigate("/connexion");
-  // };
   const logout = () => {
     reset();
     handleLinkClick();

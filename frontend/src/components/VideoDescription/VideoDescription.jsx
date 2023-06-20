@@ -19,7 +19,7 @@ export default function VideoDescription() {
     api.get(`videos/${id}`).then((res) => setVideoData(res.data));
   }, [id]);
 
-  const outputFormatMoment = "DD-MM-YYYY";
+  const outputFormatMoment = "YYYY-MM-DD";
 
   return (
     <div id="video-main">

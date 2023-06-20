@@ -27,9 +27,7 @@ function SectionCategory({ sectionInfo }) {
   const getVideoData = async () => {
     try {
       if (userInfo.id) {
-        const res = await api.get(
-          `videos/allVideoAndFavorite/${userInfo.id}/${sectionInfo.id}`
-        );
+        const res = await api.get(`videos/allVideoAndFavorite/${userInfo.id}`);
         setData(res.data);
       } else {
         const res = await api.get(`videos/`);
@@ -39,6 +37,10 @@ function SectionCategory({ sectionInfo }) {
       console.error(error);
     }
   };
+
+  const newFilteredData = data.filter(
+    (newVideo) => newVideo.SectionID === sectionInfo.id
+  );
 
   useEffect(() => {
     getVideoData();
@@ -173,7 +175,7 @@ function SectionCategory({ sectionInfo }) {
           </div>
           <div className="container container-section" ref={listRef}>
             {!selectedCategory
-              ? data.map((item, index) => {
+              ? newFilteredData.map((item, index) => {
                   const favoriteVideo = data.find(
                     (favVideo) =>
                       favVideo.user_id !== null && favVideo.title === item.title
@@ -226,7 +228,7 @@ function SectionCategory({ sectionInfo }) {
                     </div>
                   );
                 })
-              : data
+              : newFilteredData
                   .filter((item) => item.categorie_name === selectedCategory)
                   .map((item, index) => {
                     const favoriteVideo = data.find(
@@ -291,7 +293,7 @@ function SectionCategory({ sectionInfo }) {
         </div>
       ) : (
         <div id="display-all">
-          {data.map((video, index) => (
+          {newFilteredData.map((video, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <Link to={`/video_description/${video.id}`} key={index}>
               <Video
