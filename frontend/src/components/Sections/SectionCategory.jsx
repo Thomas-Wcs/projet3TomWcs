@@ -46,14 +46,13 @@ function SectionCategory({ sectionInfo }) {
     getVideoData();
   }, [refresh]);
 
-  const uniqueCategories = data.filter((item, index) => {
+  const uniqueCategories = newFilteredData.filter((item, index) => {
     return (
-      data.findIndex((object) => {
+      newFilteredData.findIndex((object) => {
         return object.categorie_name === item.categorie_name;
       }) === index
     );
   });
-
   function handleCategory(category) {
     setVideoNumber(0);
     setSelectedCategory(category);
