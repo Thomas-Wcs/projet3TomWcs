@@ -73,7 +73,8 @@ function VideoUpdate() {
           link: videoData.link,
           category_id: videoData.category_id,
           isVideoPaying: videoData.isVideoPaying,
-          isVideoPremium: videoData.isVideoPremium,
+          isVideoPremium:
+            videoData.isVideoPaying === 1 ? 1 : videoData.isVideoPremium,
         })
         .then(() => {
           navigate("/adminPanel/videosTable");
@@ -104,7 +105,8 @@ function VideoUpdate() {
           link: videoData.link,
           category_id: videoData.category_id,
           isVideoPaying: videoData.isVideoPaying,
-          isVideoPremium: videoData.isVideoPremium,
+          isVideoPremium:
+            videoData.isVideoPaying === 1 ? 1 : videoData.isVideoPremium,
         })
         .then(() => {
           navigate("/adminPanel/videosTable");
@@ -123,7 +125,8 @@ function VideoUpdate() {
           link: videoData.link,
           category_id: videoData.category_id,
           isVideoPaying: videoData.isVideoPaying,
-          isVideoPremium: videoData.isVideoPremium,
+          isVideoPremium:
+            videoData.isVideoPaying === 1 ? 1 : videoData.isVideoPremium,
         })
         .then(() => {
           navigate("/adminPanel/videosTable");

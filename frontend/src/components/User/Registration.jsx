@@ -129,8 +129,11 @@ Registration.propTypes = {
   mdp: PropTypes.string.isRequired,
   setMdp: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  refPass: PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-    .isRequired,
-  refMail: PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-    .isRequired,
+  refPass: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  refMail: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+};
+
+Registration.defaultProps = {
+  refPass: null,
+  refMail: null,
 };

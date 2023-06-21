@@ -124,7 +124,9 @@ function SectionCategory({ sectionInfo }) {
     }
 
     const filteredData = selectedCategory
-      ? data.filter((item) => item.categorie_name === selectedCategory)
+      ? newFilteredData.filter(
+          (item) => item.categorie_name === selectedCategory
+        )
       : data;
 
     const nbVideos = filteredData.length;
@@ -240,21 +242,25 @@ function SectionCategory({ sectionInfo }) {
                   return (
                     // eslint-disable-next-line react/no-array-index-key
                     <div key={index}>
-                      <Video
-                        src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
-                        width={
-                          responsiveWidth < 650
-                            ? `${responsiveWidth}px`
-                            : "650px"
-                        }
-                        height={responsiveWidth <= 420 ? "390px" : "300px"}
-                        displayDescription
-                        displayDescriptionTitle={item.title}
-                        displayDescriptionText={item.description_text}
-                        isVideoPremium={item.isVideoPremium}
-                        isVideoPaying={item.isVideoPaying}
-                        isEnabled
-                      />
+                      <Link to={`/video_description/${item.id}`}>
+                        <Video
+                          src={`${import.meta.env.VITE_APP_API_URL}${
+                            item.link
+                          }`}
+                          width={
+                            responsiveWidth < 650
+                              ? `${responsiveWidth}px`
+                              : "650px"
+                          }
+                          height={responsiveWidth <= 420 ? "390px" : "300px"}
+                          displayDescription
+                          displayDescriptionTitle={item.title}
+                          displayDescriptionText={item.description_text}
+                          isVideoPremium={item.isVideoPremium}
+                          isVideoPaying={item.isVideoPaying}
+                          isEnabled
+                        />
+                      </Link>
                       {userInfo.email ? (
                         <div className="favorite-text-and-button">
                           {favoriteVideo ? (
@@ -296,23 +302,25 @@ function SectionCategory({ sectionInfo }) {
                     return (
                       // eslint-disable-next-line react/no-array-index-key
                       <div key={index}>
-                        <Video
-                          src={`${import.meta.env.VITE_APP_API_URL}${
-                            item.link
-                          }`}
-                          width={
-                            responsiveWidth < 650
-                              ? `${responsiveWidth}px`
-                              : "650px"
-                          }
-                          height={responsiveWidth <= 420 ? "390px" : "300px"}
-                          displayDescription
-                          displayDescriptionTitle={item.title}
-                          displayDescriptionText={item.description_text}
-                          isVideoPremium={item.isVideoPremium}
-                          isVideoPaying={item.isVideoPaying}
-                          isEnabled
-                        />
+                        <Link to={`/video_description/${item.id}`}>
+                          <Video
+                            src={`${import.meta.env.VITE_APP_API_URL}${
+                              item.link
+                            }`}
+                            width={
+                              responsiveWidth < 650
+                                ? `${responsiveWidth}px`
+                                : "650px"
+                            }
+                            height={responsiveWidth <= 420 ? "390px" : "300px"}
+                            displayDescription
+                            displayDescriptionTitle={item.title}
+                            displayDescriptionText={item.description_text}
+                            isVideoPremium={item.isVideoPremium}
+                            isVideoPaying={item.isVideoPaying}
+                            isEnabled
+                          />
+                        </Link>
                         {userInfo.email ? (
                           // eslint-disable-next-line react/no-array-index-key
                           <div className="favorite-text-and-button" key={index}>
