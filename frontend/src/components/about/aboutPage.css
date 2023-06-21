@@ -48,10 +48,11 @@ section {
 .img {
   width: 100px;
 }
-/* .main-form-contact-about {
-  background-image: url(../../assets/contact.jpg);
-  height: 800px;
-} */
+.banderole-conatact-costard {
+  width: 100%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
 
 @media screen and (max-width: 700px) {
   .about-main-section {
