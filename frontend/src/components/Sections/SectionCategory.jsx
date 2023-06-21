@@ -127,7 +127,7 @@ function SectionCategory({ sectionInfo }) {
       ? newFilteredData.filter(
           (item) => item.categorie_name === selectedCategory
         )
-      : data;
+      : newFilteredData;
 
     const nbVideos = filteredData.length;
 
