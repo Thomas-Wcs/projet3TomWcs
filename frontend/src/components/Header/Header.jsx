@@ -7,7 +7,7 @@ import useAPI from "../../api/useAPI";
 export default function Header() {
   const api = useAPI();
   const navigate = useNavigate();
-  const { success, isAdmin, setSuccess, setIsAdmin } = useAuth();
+  const { success, isAdmin, reset } = useAuth();
   const [isSearchClosed, setIsSearchClosed] = useState(false);
   const [textSearch, setTextSearch] = useState("");
   const [allVideos, setAllVideos] = useState();
@@ -38,11 +38,9 @@ export default function Header() {
     setIsSearchClosed(!isSearchClosed);
   }
 
-  const handleLogOut = () => {
-    delete api.defaults.headers.authorization;
-    setSuccess(!success);
+  const logout = () => {
+    reset();
     handleLinkClick();
-    setIsAdmin(false);
     navigate("/connexion");
   };
 
@@ -73,14 +71,16 @@ export default function Header() {
               />
               <ul className="all-video">
                 {textSearch &&
-                  filteredVideos?.map((video) => (
+                  filteredVideos?.map((video, index) => (
                     <Link
                       to={`/video_description/${video.id}`}
-                      key={video.id}
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={index}
                       onClick={() => handleVideoLinkClick()}
                     >
                       <li
-                        key={video.id}
+                        // eslint-disable-next-line react/no-array-index-key
+                        key={index}
                         className="video-list"
                         id="video-list-{video.id}"
                       >
@@ -116,7 +116,11 @@ export default function Header() {
                   </Link>
                 </li>
               )}
-
+              <li>
+                <Link to="/aboutPage" onClick={() => handleLinkClick()}>
+                  A Propos
+                </Link>
+              </li>
               {isAdmin && (
                 <li>
                   <Link to="/adminPanel/" onClick={() => handleLinkClick()}>
@@ -125,11 +129,7 @@ export default function Header() {
                 </li>
               )}
               {!success && (
-                <button
-                  className="user-button"
-                  type="button"
-                  onClick={handleLogOut}
-                >
+                <button className="user-button" type="button" onClick={logout}>
                   Déconnexion
                 </button>
               )}

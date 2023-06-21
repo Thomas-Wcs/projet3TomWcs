@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAPI from "../../api/useAPI";
 import bravo from "../../assets/bravo.svg.png";
 import bank from "../../assets/bank.jpg";
@@ -7,6 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 
 export default function PopUp() {
   const api = useAPI();
+  const navigate = useNavigate();
   const { state } = useLocation();
   const { setUserInfo } = useAuth();
 
@@ -94,6 +95,9 @@ export default function PopUp() {
         toggleModal();
       }, 500);
       toggleBravoModal();
+      setTimeout(() => {
+        navigate("/profile");
+      }, 2000);
     })();
   };
 

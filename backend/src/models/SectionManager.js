@@ -25,10 +25,12 @@ class SectionManager extends AbstractManager {
   }
 
   update(section) {
-    return this.database.query(
-      `UPDATE ${this.table} SET name = ?, \`order\` = ?, section_type = ? WHERE id = ?`,
-      [section.name, section.order, section.section_type, section.id]
-    );
+    return this.database
+      .query(
+        `UPDATE ${this.table} SET name = ?, \`order\` = ?, section_type = ? WHERE id = ?`,
+        [section.name, section.order, section.section_type, section.id]
+      )
+      .catch((err) => console.error(err));
   }
 
   delete(id) {

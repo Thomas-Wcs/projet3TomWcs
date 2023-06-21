@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { DeleteOutline } from "@mui/icons-material";
 import PostAddRoundedIcon from "@mui/icons-material/PostAddRounded";
 import { Box } from "@mui/material";
-
 import moment from "moment";
 import { DataGrid } from "@mui/x-data-grid/node";
 import useAPI from "../../api/useAPI";
@@ -17,9 +16,9 @@ function VideosManagement() {
 
   useEffect(() => {
     api
-      .get("/videos")
-      .then((data) => {
-        setVideos(data.data);
+      .get("/videos/adminFindAllVideos")
+      .then((res) => {
+        setVideos(res.data);
       })
       .catch((error) => console.error(error));
   }, [videosChanging]);
@@ -43,8 +42,8 @@ function VideosManagement() {
   };
 
   const columns = [
-    { field: "id", headerName: "Id", width: 150 },
-    { field: "title", headerName: "Title", width: 350, editable: true },
+    { field: "id", headerName: "Id", width: 80 },
+    { field: "title", headerName: "Title", width: 150, editable: true },
     {
       field: "description_text",
       headerName: "Description",
@@ -80,14 +79,6 @@ function VideosManagement() {
       editable: true,
     },
     {
-      field: "date_publication",
-      headerName: "Date",
-      width: 250,
-      editable: true,
-      renderCell: (params) =>
-        moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
-    },
-    {
       field: "action",
       headerName: "Action",
       width: 250,
@@ -108,19 +99,29 @@ function VideosManagement() {
         );
       },
     },
+    {
+      field: "date_publication",
+      headerName: "Date",
+      width: 250,
+      editable: true,
+      renderCell: (params) =>
+        moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
+    },
   ];
 
-  const rows = videos.map((video) => ({
-    id: video.id,
-    title: video.title,
-    description_text: video.description_text,
-    category_id: video.categorie_name,
-    link: video.link,
-    date_publication: video.date_publication,
-    name: video.name,
-    isVideoPremium: video.isVideoPremium,
-    isVideoPaying: video.isVideoPaying,
-  }));
+  const rows = videos.map((video) => {
+    return {
+      id: video.id,
+      title: video.title,
+      description_text: video.description_text,
+      category_id: video.categorie_name,
+      link: video.link,
+      date_publication: video.date_publication,
+      name: video.name,
+      isVideoPremium: video.isVideoPremium,
+      isVideoPaying: video.isVideoPaying,
+    };
+  });
 
   return (
     <div className="user-management">
@@ -139,16 +140,16 @@ function VideosManagement() {
         }}
       >
         <DataGrid
+          getRowId={() => Math.floor(Math.random() * 100000000)}
           rows={rows}
           columns={columns}
           initialState={{
             pagination: {
-              paginationModel: { pageSize: 5, page: 0 },
+              paginationModel: { pageSize: 25, page: 0 },
             },
           }}
           pageSizeOptions={[5, 10, 25]}
           style={dataTableStyle}
-          autoHeight
         />
       </Box>
     </div>

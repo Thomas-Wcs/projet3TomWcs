@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import useAPI from "../../api/useAPI";
 import { DataGrid } from "@mui/x-data-grid/node";
-import dataTableStyle from "../adminPannel/DataTableStyle";
+
 import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import moment from "moment";
 import PostAddRoundedIcon from "@mui/icons-material/PostAddRounded";
 import { Link } from "react-router-dom";
-import EditIcon from "@mui/icons-material/Edit";
+import dataTableStyle from "../adminPannel/DataTableStyle";
+import useAPI from "../../api/useAPI";
 import "../../styles/index.css";
 
 function AdvertManagement() {
@@ -37,6 +37,8 @@ function AdvertManagement() {
     }
   };
 
+  const outputFormatMoment = "DD-MM-YYYY HH:MM:SS";
+
   const columns = [
     { field: "id", headerName: "advertID", width: 150 },
     { field: "pictures", headerName: "Nom de l'image", width: 350 },
@@ -47,32 +49,7 @@ function AdvertManagement() {
       width: 350,
       editable: true,
       renderCell: (params) =>
-        moment(params.row.date).format("DD-MM-YYYY HH:MM:SS"),
-    },
-    {
-      field: "edit",
-      headerName: "Edit",
-      width: 130,
-      renderCell: (params) => (
-        <div>
-          <Link to="/advertManagementWindow">
-            <button
-              type="button"
-              style={{
-                fontFamily: "PT Sans",
-                backgroundColor: "green",
-                height: "90%",
-                margin: "1em",
-                padding: "0.9em",
-                borderRadius: "20%",
-                border: "none",
-              }}
-            >
-              <EditIcon style={{ width: "100%" }} />
-            </button>{" "}
-          </Link>
-        </div>
-      ),
+        moment(params.row.date).format(outputFormatMoment),
     },
     {
       field: "delete",

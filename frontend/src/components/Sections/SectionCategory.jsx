@@ -10,16 +10,22 @@ import { Link } from "react-router-dom";
 import Video from "./Video";
 import useAPI from "../../api/useAPI";
 import { useAuth } from "../../context/AuthContext";
+import useResponsiveWidth from "./useResponsiveWidth";
 
-function SectionCategory({ sectionName }) {
+function SectionCategory({ sectionInfo }) {
   const listRef = useRef();
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchEndX, setTouchEndX] = useState(null);
   const [position] = useState(0);
   const [videoNumber, setVideoNumber] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showMore, setShowMore] = useState(true);
-
+  const { responsiveWidth } = useResponsiveWidth();
   const [data, setData] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const leftarrowRef = useRef();
+  const rightarrowRef = useRef();
+  const wrapperRef = useRef();
   const { userInfo } = useAuth();
   if (!userInfo?.isPremium) userInfo.isPremium = 0;
 
@@ -39,18 +45,21 @@ function SectionCategory({ sectionName }) {
     }
   };
 
+  const newFilteredData = data.filter(
+    (newVideo) => newVideo.SectionID === sectionInfo.id
+  );
+
   useEffect(() => {
     getVideoData();
   }, [refresh]);
 
-  const uniqueCategories = data.filter((item, index) => {
+  const uniqueCategories = newFilteredData.filter((item, index) => {
     return (
-      data.findIndex((object) => {
-        return object.name === item.name;
+      newFilteredData.findIndex((object) => {
+        return object.categorie_name === item.categorie_name;
       }) === index
     );
   });
-
   function handleCategory(category) {
     setVideoNumber(0);
     setSelectedCategory(category);
@@ -89,30 +98,52 @@ function SectionCategory({ sectionName }) {
     insertFavoriteVideo(newValue);
   };
 
+  useEffect(() => {
+    const leftArrowElement = leftarrowRef.current;
+    const rightArrowElement = rightarrowRef.current;
+    wrapperRef.current.addEventListener("mouseleave", () => {
+      leftArrowElement.style.visibility = "hidden";
+      rightArrowElement.style.visibility = "hidden";
+    });
+    wrapperRef.current.addEventListener("mouseenter", () => {
+      leftArrowElement.style.visibility = "visible";
+      rightArrowElement.style.visibility = "visible";
+    });
+  }, []);
+
   function handleClick(direction) {
-    let videoWidth = 670; // Largeur d'une video
-    if (videoNumber > 0) {
-      const distanceBack = -(videoWidth * videoNumber);
-      listRef.current.style.transform = `translateX(${distanceBack}px)`;
+    const widthContainer = listRef.current.clientWidth;
+
+    const windowWidth = window.innerWidth;
+
+    let videoWidth;
+    if (windowWidth < 670) {
+      videoWidth = windowWidth;
+    } else {
+      videoWidth = 670;
     }
+
     const filteredData = selectedCategory
-      ? data.filter((item) => item.name === selectedCategory)
+      ? data.filter((item) => item.categorie_name === selectedCategory)
       : data;
 
     const nbVideos = filteredData.length;
-    const widthContainer = listRef.current.clientWidth; // indique la longueur totale du container qui contient toutes les videos
-    const windowWidth = window.innerWidth; // largeur de l'écran
-    const nbVideosDisplayedPerClick = Math.round(windowWidth / 650); // Le nbre de videos affichées à l'écran par clic
+
+    const nbVideosDisplayedPerClick = Math.floor(windowWidth / videoWidth);
 
     const totalWidthVideos = videoWidth * nbVideos;
-    const totalEmptySpace = widthContainer - totalWidthVideos; // indique le nombre total d'espace vide sur le container
+
+    const totalEmptySpace = widthContainer - totalWidthVideos;
     const whatToAddToVideoWidth = Math.ceil(totalEmptySpace / nbVideos);
+
     videoWidth += whatToAddToVideoWidth;
 
-    const restVideo = nbVideos - videoNumber; // Nombre de videos restantes avant d'arriver à la fin de la liste
+    const restVideo = nbVideos - videoNumber;
     const totalRestVideosTotalWidth = videoWidth * restVideo;
 
-    if (
+    if (direction === "right" && restVideo === 0) {
+      rightarrowRef.current.style.visibility = "hidden";
+    } else if (
       direction === "right" &&
       restVideo > 0 &&
       restVideo <= nbVideos &&
@@ -133,6 +164,27 @@ function SectionCategory({ sectionName }) {
     }
   }
 
+  const handleTouchStart = (event) => {
+    setTouchStartX(event.touches[0].clientX);
+  };
+
+  const handleTouchMove = (event) => {
+    setTouchEndX(event.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX && touchEndX) {
+      if (touchEndX < touchStartX) {
+        handleClick("right");
+      } else if (touchEndX > touchStartX) {
+        handleClick("left");
+      }
+
+      setTouchStartX(null);
+      setTouchEndX(null);
+    }
+  };
+
   function seeMore() {
     setShowMore(!showMore);
   }
@@ -140,74 +192,69 @@ function SectionCategory({ sectionName }) {
   return (
     <div className="list">
       <div className="wrapper-sectionName-buttons">
-        <h1 className="section-name">{sectionName}</h1>
+        <h1 className="section-name">{sectionInfo.name}</h1>
         <div className="button-wrapper">
           <button type="submit" className="follow-btn">
             À SUIVRE
           </button>
-          {showMore ? (
-            <button
-              type="submit"
-              className="next-btn"
-              onClick={() => seeMore()}
-            >
-              VOIR PLUS{" "}
-            </button>
-          ) : (
-            <button
-              type="submit"
-              className="next-btn"
-              onClick={() => seeMore()}
-            >
-              VOIR MOINS{" "}
-            </button>
-          )}
+          <button type="submit" className="next-btn" onClick={() => seeMore()}>
+            {showMore ? "VOIR PLUS" : "VOIR MOINS"}
+          </button>
         </div>
       </div>
       {showMore ? (
-        <div className="wrapper">
+        <div className="wrapper" ref={wrapperRef}>
           <ArrowBackIosOutlined
             className="sliderArrow left"
             onClick={() => handleClick("left")}
             disabled={position === 0}
+            ref={leftarrowRef}
+            id="sliderArrow_sectionCategory"
           />
           <div className="category-container">
-            {uniqueCategories.map((item) => (
+            {uniqueCategories.map((item, index) => (
               <button
-                key={item.id}
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
                 className="category-btn"
                 type="submit"
-                onClick={() => handleCategory(item.name)}
+                onClick={() => handleCategory(item.categorie_name)}
               >
-                {item.name}
+                {item.categorie_name}
               </button>
             ))}
           </div>
-          <div className="container container-section" ref={listRef}>
+          <div
+            className="container container-section"
+            ref={listRef}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             {!selectedCategory
-              ? data.map((item) => {
+              ? newFilteredData.map((item, index) => {
                   const favoriteVideo = data.find(
                     (favVideo) =>
                       favVideo.user_id !== null && favVideo.title === item.title
                   );
                   return (
-                    <div key={item.id}>
-                      <Link to={`/video_description/${item.id}`}>
-                        <Video
-                          key={item.id}
-                          src={`${import.meta.env.VITE_APP_API_URL}${
-                            item.link
-                          }`}
-                          width="650px"
-                          height="450px"
-                          displayDescription
-                          displayDescriptionTitle={item.title}
-                          displayDescriptionText={item.description_text}
-                          isVideoPremium={item.isVideoPremium}
-                          isVideoPaying={item.isVideoPaying}
-                          isEnabled
-                        />
-                      </Link>
+                    // eslint-disable-next-line react/no-array-index-key
+                    <div key={index}>
+                      <Video
+                        src={`${import.meta.env.VITE_APP_API_URL}${item.link}`}
+                        width={
+                          responsiveWidth < 650
+                            ? `${responsiveWidth}px`
+                            : "650px"
+                        }
+                        height={responsiveWidth <= 420 ? "390px" : "300px"}
+                        displayDescription
+                        displayDescriptionTitle={item.title}
+                        displayDescriptionText={item.description_text}
+                        isVideoPremium={item.isVideoPremium}
+                        isVideoPaying={item.isVideoPaying}
+                        isEnabled
+                      />
                       {userInfo.email ? (
                         <div className="favorite-text-and-button">
                           {favoriteVideo ? (
@@ -238,23 +285,27 @@ function SectionCategory({ sectionName }) {
                     </div>
                   );
                 })
-              : data
-                  .filter((item) => item.name === selectedCategory)
-                  .map((item) => {
+              : newFilteredData
+                  .filter((item) => item.categorie_name === selectedCategory)
+                  .map((item, index) => {
                     const favoriteVideo = data.find(
                       (favVideo) =>
                         favVideo.user_id !== null &&
                         favVideo.title === item.title
                     );
                     return (
-                      <div key={item.id}>
+                      // eslint-disable-next-line react/no-array-index-key
+                      <div key={index}>
                         <Video
-                          key={item.id}
                           src={`${import.meta.env.VITE_APP_API_URL}${
                             item.link
                           }`}
-                          width="650px"
-                          height="450px"
+                          width={
+                            responsiveWidth < 650
+                              ? `${responsiveWidth}px`
+                              : "650px"
+                          }
+                          height={responsiveWidth <= 420 ? "390px" : "300px"}
                           displayDescription
                           displayDescriptionTitle={item.title}
                           displayDescriptionText={item.description_text}
@@ -263,7 +314,8 @@ function SectionCategory({ sectionName }) {
                           isEnabled
                         />
                         {userInfo.email ? (
-                          <div className="favorite-text-and-button">
+                          // eslint-disable-next-line react/no-array-index-key
+                          <div className="favorite-text-and-button" key={index}>
                             {favoriteVideo ? (
                               <button
                                 className="favorite-profil-button"
@@ -298,15 +350,18 @@ function SectionCategory({ sectionName }) {
           <ArrowForwardIosOutlined
             className="sliderArrow right"
             onClick={() => handleClick("right")}
+            ref={rightarrowRef}
+            id="sliderArrow_sectionCategory"
           />
         </div>
       ) : (
         <div id="display-all">
-          {data.map((video) => (
-            <Link to={`/video_description/${video.id}`}>
+          {newFilteredData.map((video, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Link to={`/video_description/${video.id}`} key={index}>
               <Video
-                width="650px"
-                height="450px"
+                width={responsiveWidth < 650 ? `${responsiveWidth}px` : "650px"}
+                height={responsiveWidth <= 420 ? "390px" : "300px"}
                 displayDescription
                 displayDescriptionTitle={video.title}
                 displayDescriptionText={video.description_text}
@@ -323,6 +378,11 @@ function SectionCategory({ sectionName }) {
   );
 }
 SectionCategory.propTypes = {
-  sectionName: PropTypes.string.isRequired,
+  sectionInfo: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    order: PropTypes.number,
+    section_type: PropTypes.string,
+  }).isRequired,
 };
 export default SectionCategory;

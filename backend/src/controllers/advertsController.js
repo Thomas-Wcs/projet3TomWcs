@@ -1,6 +1,7 @@
-const models = require("../models");
+/* eslint-disable camelcase */
 const path = require("path");
 const fs = require("fs");
+const models = require("../models");
 
 const browse = (req, res) => {
   models.adverts

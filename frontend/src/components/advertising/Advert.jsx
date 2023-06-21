@@ -32,7 +32,7 @@ function Advert() {
         .catch((err) => {
           console.error(err);
         });
-    }, 10000);
+    }, 3000);
 
     return () => {
       clearInterval(interval);
@@ -40,7 +40,6 @@ function Advert() {
   }, []);
 
   const currentAdvert = advert[currentAdvertIndex];
-
   return (
     <div className="advert_image">
       {currentAdvert && (

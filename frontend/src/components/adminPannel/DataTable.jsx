@@ -128,7 +128,7 @@ export default function DataTable() {
     },
     {
       field: "isVideoPlus",
-      headerName: "Video Plus",
+      headerName: "Abonnement",
       type: "boolean",
       width: 150,
       editable: true,

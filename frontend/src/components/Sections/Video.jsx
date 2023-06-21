@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "../../styles/index.css";
-
 import { useAuth } from "../../context/AuthContext";
 import PlayButton from "./PlayButton";
 import videoLock from "../../assets/connect.png";
@@ -65,6 +64,7 @@ function Video({
         ref={videoRef}
         onLoadedMetadata={handleLoadedMetadata}
         src={src}
+        controls={controls}
         poster={posterImage}
         muted
         preload="metadata"
@@ -85,7 +85,6 @@ function Video({
             ? null
             : handleToggleVideo
         }
-        controls={controls}
       />
       <h3 className="video-title">{title}</h3>
       {displayPlayButton && (
