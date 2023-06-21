@@ -111,19 +111,47 @@ const add = async (req, res) => {
 };
 
 const destroy = async (req, res) => {
-  await models.video
-    .delete(req.params.id)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+  const baseFolder = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "assets",
+    "videos"
+  );
+  const videoId = req.params.id;
+
+  try {
+    const video = await models.video.find(videoId);
+    if (!video) {
+      return res.sendStatus(404);
+    }
+    const videoLink = video[0][0].link;
+
+    const videoFileName = videoLink.split("/").pop();
+    const videoFilePath = path.join(baseFolder, videoFileName);
+
+    fs.unlinkSync(videoFilePath);
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .send("Une erreur s'est produite lors de la suppression de la vidéo.");
+  }
+
+  try {
+    const result = await models.video.delete(videoId);
+
+    if (result.affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+  return res;
 };
 
 const findAllVideoAndFavorite = (req, res) => {

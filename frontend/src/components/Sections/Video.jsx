@@ -85,7 +85,10 @@ function Video({
             ? null
             : handleToggleVideo
         }
-      />
+      >
+        {" "}
+        <track kind="captions" src="path/to/captions.vtt" label="Captions" />
+      </video>
       <h3 className="video-title">{title}</h3>
       {displayPlayButton && (
         <PlayButton handleToggleVideo={handleToggleVideo} />
