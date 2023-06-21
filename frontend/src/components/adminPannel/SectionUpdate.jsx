@@ -45,8 +45,6 @@ function SectionUpdate() {
           orders.push(res.data[i].order);
         }
         setSectionOrder(orders);
-        console.info("UseEffect order", sectionOrder);
-        console.info("Sections", getSections);
       });
     };
     getSectionsOrder();
