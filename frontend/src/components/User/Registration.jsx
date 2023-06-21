@@ -34,12 +34,7 @@ export default function Registration({
         if (result.status === 201) {
           api
             .post("nodeMailer/sendWelcome", newUser)
-            .then((response) => {
-              if (response.status === 200) {
-                // eslint-disable-next-line no-restricted-syntax
-                console.log("toto");
-              }
-            })
+            .then(() => {})
             .catch((err) => console.error(err));
         }
         setSuccess(!success);
