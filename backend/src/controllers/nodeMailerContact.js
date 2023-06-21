@@ -56,6 +56,7 @@ function welcomeMessage(req, res) {
     <a href="http://localhost:5173/profile/useredit">Cliquez sur ce
    lien</a><br><br>
    Vous pouvez également le faire depuis votre profil utilisateur. Explorez toutes les vidéos à votre disposition et abonnez-vous pour profiter d'un contenu exceptionnel ! 
+   <br><br>
 
     Cordialement, l'équipe de Origins Digital<br><br>
    
