@@ -93,7 +93,36 @@ const add = async (req, res) => {
   }
 };
 
-const destroy = (req, res) => {
+const destroy = async (req, res) => {
+  const baseFolder = path.join(
+    __dirname,
+    "..",
+    "..",
+    "public",
+    "assets",
+    "images",
+    "ads"
+  );
+  const adId = req.params.id;
+  try {
+    const ad = await models.adverts.find(adId);
+    if (!ad) {
+      return res.sendStatus(404);
+    }
+
+    const adLink = ad[0][0].picture_link;
+    const adFileName = adLink.split("/").pop();
+    const adFilePath = path.join(baseFolder, adFileName);
+    fs.unlinkSync(adFilePath);
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .send(
+        "Une erreur s'est produite lors de la suppression de la publicité."
+      );
+  }
+
   models.adverts
     .delete(req.params.id)
     .then(([result]) => {
@@ -107,6 +136,7 @@ const destroy = (req, res) => {
       console.error(err);
       res.sendStatus(500);
     });
+  return res;
 };
 
 module.exports = {
