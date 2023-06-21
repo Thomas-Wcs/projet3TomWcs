@@ -95,8 +95,8 @@ function Video({
       )}
       {displayDescription && (
         <div className="description-video-wrapper">
-          <h4>{displayDescriptionTitle}</h4>
-          <p>{displayDescriptionText}</p>
+          <h4 className="description-title">{displayDescriptionTitle}</h4>
+          <p className="description-text">{displayDescriptionText}</p>
         </div>
       )}
     </div>
