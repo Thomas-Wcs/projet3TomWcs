@@ -803,8 +803,8 @@ body h1 {
 .sectionUpdate .sectionUpdateForm .error {
   font-family: "PT Sans";
   font-weight: 500;
-  font-size: 1.2rem;
-  color: red;
+  font-size: 1.5rem;
+  color: rgb(255, 0, 0);
 }
 .sectionUpdate label {
   display: block;

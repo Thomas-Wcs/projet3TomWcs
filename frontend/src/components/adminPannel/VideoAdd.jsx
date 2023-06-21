@@ -17,6 +17,7 @@ function VideoAdd() {
   const [videoPaying, setVideoPaying] = useState(0);
   const [videoPremium, setVideoPremium] = useState(0);
   const [wrongType, setWrongtype] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const api = useAPI();
 
@@ -44,8 +45,23 @@ function VideoAdd() {
         setVideosChanging(!videosChanging);
         navigate("/adminPanel/videosTable");
       })
-      .catch(() => {
-        setWrongtype(true);
+      .catch((error) => {
+        const { status } = error.response;
+        switch (status) {
+          case 400:
+            setErrorMessage("Format non valide");
+            setWrongtype(true);
+            break;
+          case 500:
+            setErrorMessage("Problème dans l'ajout de la vidéo");
+            setWrongtype(true);
+            break;
+          default:
+            setErrorMessage(
+              "Une erreur s'est produite. Veuillez réessayer plus tard."
+            );
+            break;
+        }
       });
   };
 
@@ -159,7 +175,7 @@ function VideoAdd() {
             id="file-selection-button"
           />
         </label>
-        {wrongType && <p className="error">Format non valide</p>}
+        {wrongType && <p className="error">{errorMessage}</p>}
 
         <button
           type="submit"
