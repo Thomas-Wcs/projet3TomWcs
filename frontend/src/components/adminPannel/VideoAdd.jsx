@@ -16,6 +16,7 @@ function VideoAdd() {
   const [allCategories, setAllCategories] = useState([]);
   const [videoPaying, setVideoPaying] = useState(0);
   const [videoPremium, setVideoPremium] = useState(0);
+  const [wrongType, setWrongtype] = useState(false);
 
   const api = useAPI();
 
@@ -41,9 +42,11 @@ function VideoAdd() {
 
       .then(() => {
         setVideosChanging(!videosChanging);
+        navigate("/adminPanel/videosTable");
       })
-      .catch((err) => console.error(err));
-    navigate("/adminPanel/videosTable");
+      .catch(() => {
+        setWrongtype(true);
+      });
   };
 
   function handleChange(e) {
@@ -156,6 +159,8 @@ function VideoAdd() {
             id="file-selection-button"
           />
         </label>
+        {wrongType && <p className="error">Format non valide</p>}
+
         <button
           type="submit"
           className="sectionUpdateButton"

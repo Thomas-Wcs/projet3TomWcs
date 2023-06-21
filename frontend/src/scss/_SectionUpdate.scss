@@ -51,6 +51,12 @@
       margin-top: 15px;
       justify-content: space-around;
     }
+    .error {
+      font-family: "PT Sans";
+      font-weight: 500;
+      font-size: 1.2rem;
+      color: red;
+    }
   }
 
   label {
@@ -116,5 +122,4 @@
       background-color: green;
     }
   }
- 
 }

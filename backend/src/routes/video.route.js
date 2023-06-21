@@ -5,7 +5,22 @@ const auth = require("../utils/Auth");
 
 const uploadFolder = path.join(__dirname, "../../public/assets/videos");
 
-const upload = multer({ dest: uploadFolder });
+const upload = multer({
+  dest: uploadFolder,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype === "video/mp4" ||
+      file.mimetype === "video/mpeg" ||
+      file.mimetype === "video/quicktime"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("Only .mp4, .mpeg and .quicktime format allowed!"));
+    }
+    return req;
+  },
+});
 const videoRoute = express.Router();
 
 const VideoController = require("../controllers/VideoController");
