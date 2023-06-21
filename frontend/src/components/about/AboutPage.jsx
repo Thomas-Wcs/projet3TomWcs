@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./aboutPage.css";
 import filmbanderole from "../../assets/filmband.png";
-import contactBandrole from "../../assets/contactBand2.jpg";
 import useAPI from "../../api/useAPI";
 import Contact from "./Contact";
 
@@ -85,12 +84,7 @@ function AboutPage() {
           <p className="about-para-profil-section">{item.descriptionProfil}</p>
         </section>
       ))}
-      <div>
-        <img
-          className="banderole-conatact-costard"
-          src={contactBandrole}
-          alt="banderole contact"
-        />
+      <div id="pageDeContactEtFormulaire">
         <Contact />
       </div>
     </div>

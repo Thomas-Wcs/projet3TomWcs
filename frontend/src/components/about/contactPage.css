@@ -5,6 +5,7 @@
   align-items: center;
   flex-wrap: nowrap;
   flex-direction: column;
+  color: #10bcdd;
 }
 form.contact-mail-client div {
   margin: 10px;

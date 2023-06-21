@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useAPI from "../../api/useAPI";
 import "./contactPage.css";
+import contactBandrole from "../../assets/contactBand2.jpg";
 
 function Contact() {
   const [name, setName] = useState("");
@@ -44,6 +45,11 @@ function Contact() {
 
   return (
     <div className="main-form-contact-about">
+      <img
+        className="banderole-conatact-costard"
+        src={contactBandrole}
+        alt="banderole contact"
+      />
       <div className="texte-explication-contact">
         <p>
           Cher utilisateur, votre satisfaction est notre priorité absolue, c'est
@@ -65,7 +71,6 @@ function Contact() {
           <br />
         </p>
       </div>
-
       <form className="contact-mail-client" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Nom:</label>
