@@ -124,8 +124,10 @@ function SectionCategory({ sectionInfo }) {
     }
 
     const filteredData = selectedCategory
-      ? data.filter((item) => item.categorie_name === selectedCategory)
-      : data;
+      ? newFilteredData.filter(
+          (item) => item.categorie_name === selectedCategory
+        )
+      : newFilteredData;
 
     const nbVideos = filteredData.length;
 
