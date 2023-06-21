@@ -187,7 +187,13 @@ body h1 {
 }
 .wrapper-video .description-video-wrapper {
   color: white;
-  padding-top: 10px;
+}
+.wrapper-video .description-video-wrapper .description-title, .wrapper-video .description-video-wrapper .description-text {
+  width: 80%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-left: 5%;
 }
 
 * {
