@@ -23,6 +23,7 @@ import VideoAdd from "./components/adminPannel/VideoAdd";
 import AdminWall from "./utils/AdminWall";
 import VideoDescription from "./components/VideoDescription/VideoDescription";
 import AdvertAdd from "./components/advertising/AdvertAdd";
+import Contact from "./components/about/Contact";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/" element={<Homepage2 />} />
             <Route path="/connexion" element={<ConnectionPage />} />
             <Route path="/aboutPage" element={<AboutPage />} />
+            <Route path="/Contact" element={<Contact />} />
             <Route path="/profile" element={<Profile />}>
               <Route path="/profile/userid" element={<UserProfile />} />
               <Route path="/profile/useredit" element={<EditProfile />} />

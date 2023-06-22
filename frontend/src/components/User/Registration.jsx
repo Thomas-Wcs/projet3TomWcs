@@ -31,6 +31,12 @@ export default function Registration({
     api
       .post("users/", newUser)
       .then((result) => {
+        if (result.status === 201) {
+          api
+            .post("nodeMailer/sendWelcome", newUser)
+            .then(() => {})
+            .catch((err) => console.error(err));
+        }
         setSuccess(!success);
         return result;
       })
