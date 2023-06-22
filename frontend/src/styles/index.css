@@ -1024,6 +1024,14 @@ body h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 80vh;
+}
+#img-admin-wall .access-denied {
+  font-family: "PT Sans", sans-serif;
+  color: white;
+  height: 20vh;
+  align-self: center;
+  text-align: center;
 }
 
 #video-main {
