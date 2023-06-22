@@ -1251,15 +1251,61 @@ body h1 {
   justify-content: flex-start;
   align-items: flex-end;
   color: #10bcdd;
+  text-decoration: none;
 }
 .footer_container .footer_brand_text .footer_list {
   display: flex;
   list-style-type: none;
+  font-family: "PT Sans";
 }
-.footer_container .footer_brand_text .footer_list .footer_list li {
-  margin-left: 4px;
+.footer_container .footer_brand_text .footer_list li {
+  margin-left: 8px;
 }
 .footer_container .footer_link {
+  color: #10bcdd;
+  text-decoration: none;
+}
+
+.legal_terms {
+  padding-top: 60px;
+  color: #ffffff;
+  font-family: "PT Sans";
+  margin-left: 15px;
+}
+.legal_terms h1 {
+  text-align: center;
+  color: #10bcdd;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+.legal_terms h2 {
+  color: #10bcdd;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+.legal_terms p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 3rem;
+}
+.legal_terms strong {
+  font-weight: bold;
+}
+.legal_terms .contact_address {
+  text-align: center;
+  border: 1px solid #ffffff;
+  padding: 10px;
+  margin: 0 auto;
+  display: inline-block;
+  margin: 0 auto;
+  display: table;
+}
+.legal_terms .edition_date {
+  text-align: center;
+  font-style: italic;
+}
+.legal_terms a {
+  text-decoration: none;
   color: #10bcdd;
 }
 

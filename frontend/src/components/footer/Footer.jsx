@@ -1,10 +1,10 @@
-import React from "react";
+import { Link } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import "../../styles/index.css";
 import logo from "../../assets/favicon.png";
+import "../../styles/index.css";
 
 function Footer() {
   return (
@@ -15,24 +15,30 @@ function Footer() {
         </div>
         <div className="footer_brand_text">
           <ul className="footer_list">
-            <li>Mentions légales |</li>
-            <li>Cookies |</li>
-            <li>CGU |</li>
-            <li>Politique de confidentialité</li>
+            <li>
+              <Link
+                component="a"
+                href="/legal-conditions"
+                underline="none"
+                color="inherit"
+              >
+                Mentions légales | CGU | Politique de confidentialité
+              </Link>
+            </li>
           </ul>
         </div>
 
         <div className="footer_socials">
-          <a href="www.facebook.com" className="footer_link">
+          <a href="https://www.facebook.com" className="footer_link">
             <FacebookIcon />
           </a>
-          <a href="www.instagram.com" className="footer_link">
+          <a href="https://www.instagram.com" className="footer_link">
             <InstagramIcon />
           </a>
-          <a href="www.twitter.com" className="footer_link">
+          <a href="https://www.twitter.com" className="footer_link">
             <TwitterIcon />
           </a>
-          <a href="www.youtube.com" className="footer_link">
+          <a href="https://www.youtube.com" className="footer_link">
             <YouTubeIcon />
           </a>
         </div>
