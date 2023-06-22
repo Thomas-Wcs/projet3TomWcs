@@ -1,6 +1,6 @@
 import "../../styles/index.css";
 
-const LegalConditions = () => {
+function LegalConditions() {
   return (
     <div className="legal_terms">
       <h1>Conditions d'utilisation du site internet Origins Digital</h1>
@@ -215,6 +215,6 @@ const LegalConditions = () => {
       </p>
     </div>
   );
-};
+}
 
 export default LegalConditions;
