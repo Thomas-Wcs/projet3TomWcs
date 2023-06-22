@@ -121,6 +121,11 @@ export default function Header() {
                   A Propos
                 </Link>
               </li>
+              <li>
+                <Link to="/Contact" onClick={() => handleLinkClick()}>
+                  Contact
+                </Link>
+              </li>
               {isAdmin && (
                 <li>
                   <Link to="/adminPanel/" onClick={() => handleLinkClick()}>

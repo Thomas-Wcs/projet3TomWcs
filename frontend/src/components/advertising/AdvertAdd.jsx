@@ -52,7 +52,6 @@ function AdvertAdd() {
   return (
     <div className="sectionUpdate">
       <h2 className="sectionUpdateTitle">Page de publicités</h2>
-
       <div className="sectionUpdateForm">
         <div className="sectionUpdateName">
           <label htmlFor="pictures">Titre de la publicité :</label>

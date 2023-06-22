@@ -188,13 +188,7 @@ body h1 {
 }
 .wrapper-video .description-video-wrapper {
   color: white;
-}
-.wrapper-video .description-video-wrapper .description-title, .wrapper-video .description-video-wrapper .description-text {
-  width: 80%;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  padding-left: 5%;
+  padding-top: 10px;
 }
 
 * {
@@ -817,12 +811,6 @@ body h1 {
   align-items: center;
   margin-top: 15px;
   justify-content: space-around;
-}
-.sectionUpdate .sectionUpdateForm .error {
-  font-family: "PT Sans";
-  font-weight: 500;
-  font-size: 1.5rem;
-  color: rgb(255, 0, 0);
 }
 .sectionUpdate label {
   display: block;

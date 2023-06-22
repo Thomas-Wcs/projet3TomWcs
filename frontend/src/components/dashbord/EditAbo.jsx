@@ -13,7 +13,7 @@ export default function EditAbo() {
       <div className="user-adresse-information">
         <div>
           <h3>Gestion de l'Abonnement</h3>
-          <h4>Prénom</h4>
+          <h4>Nom </h4>
           <div />
           <p>
             <input
@@ -35,7 +35,7 @@ export default function EditAbo() {
               }
             />
           </p>
-          <h4>Noms</h4>
+          <h4>Prénom</h4>
           <p>
             <input
               type="text"
