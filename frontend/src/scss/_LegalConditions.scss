@@ -39,6 +39,11 @@
     display: table;
   }
 
+  .edition_date {
+    text-align: center;
+    font-style:italic;
+  }
+
   a{
     text-decoration: none;
     color: $main-blue;

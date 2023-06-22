@@ -4,7 +4,7 @@ const LegalConditions = () => {
   return (
     <div className="legal_terms">
       <h1>Conditions d'utilisation du site internet Origins Digital</h1>
-      <p>En vigueur au 13 juin 2023</p>
+      <p className="edition_date">En vigueur au 13 juin 2023</p>
       <p>
         Origins Digital est une plateforme d'hébergement de vidéos en ligne. Les
         présentes conditions d'utilisation (dites "Conditions") régissent votre

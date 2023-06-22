@@ -1287,6 +1287,10 @@ body h1 {
   margin: 0 auto;
   display: table;
 }
+.legal_terms .edition_date {
+  text-align: center;
+  font-style: italic;
+}
 .legal_terms a {
   text-decoration: none;
   color: #10bcdd;
