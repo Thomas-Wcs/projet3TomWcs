@@ -171,7 +171,12 @@ export default function AccountMenu({ userInfo, reset }) {
           </ListItemIcon>
           Abonnement
         </MenuItem>
-        <MenuItem sx={dashbordStyles} to="/Contact" onClick={handleClose}>
+        <MenuItem
+          sx={dashbordStyles}
+          component={Link}
+          to="/Contact"
+          onClick={handleClose}
+        >
           <ListItemIcon>
             <SupportAgentIcon fontSize="small" />
           </ListItemIcon>
