@@ -31,6 +31,12 @@ export default function Registration({
     api
       .post("users/", newUser)
       .then((result) => {
+        if (result.status === 201) {
+          api
+            .post("nodeMailer/sendWelcome", newUser)
+            .then(() => {})
+            .catch((err) => console.error(err));
+        }
         setSuccess(!success);
         return result;
       })
@@ -118,8 +124,11 @@ Registration.propTypes = {
   mdp: PropTypes.string.isRequired,
   setMdp: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  refPass: PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-    .isRequired,
-  refMail: PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-    .isRequired,
+  refPass: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  refMail: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+};
+
+Registration.defaultProps = {
+  refPass: null,
+  refMail: null,
 };

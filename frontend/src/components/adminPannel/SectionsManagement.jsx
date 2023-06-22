@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
-
 import { DataGrid } from "@mui/x-data-grid/node";
 import { Box } from "@mui/material";
 import "../../styles/index.css";
-
 import { DeleteOutline } from "@mui/icons-material";
 import PostAddRoundedIcon from "@mui/icons-material/PostAddRounded";
-
 import { Link } from "react-router-dom";
 import dataTableStyle from "./DataTableStyle";
 import useAPI from "../../api/useAPI";
