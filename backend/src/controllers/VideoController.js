@@ -64,7 +64,14 @@ const edit = async (req, res) => {
 
 const add = async (req, res) => {
   // eslint-disable-next-line camelcase
-  const { title, description_text, category_id, date_publication } = req.body;
+  const {
+    title,
+    description_text,
+    category_id,
+    date_publication,
+    isVideoPremium,
+    isVideoPaying,
+  } = req.body;
   const { file } = req;
   if (!file) {
     return res.sendStatus(500);
@@ -94,6 +101,8 @@ const add = async (req, res) => {
       category_id,
       description_text,
       date_publication,
+      isVideoPremium,
+      isVideoPaying,
     });
 
     const newVideo = {
@@ -102,6 +111,8 @@ const add = async (req, res) => {
       category_id,
       link,
       date_publication,
+      isVideoPremium,
+      isVideoPaying,
       id: result,
     };
     return res.status(201).json(newVideo);
