@@ -141,7 +141,6 @@ function VideoAdd() {
               />
             </div>
             <button type="button" onClick={addCategorie}>
-              {" "}
               Ajouter
             </button>
 
